@@ -17,6 +17,13 @@ app.get('/home', function(req, res) {
     res.render('home');
 });
 
+app.get('/myprofile', function(req, res) {
+    res.render('myprofile');
+});
+
+app.get('/chat', function(req, res) {
+    res.render('chat');
+});
 
 // Gjør mappen public synlig, så app-en kan ta bruk av:
 app.use(express.static(path.resolve(__dirname, 'public')));
