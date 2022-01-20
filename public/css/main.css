@@ -1,0 +1,163 @@
+body {
+    /* background-image: url('../img/background.jpg'); */
+    background-color: #040926;
+    color: white;
+    font-family: "Source Code Pro", monospace;
+    margin: 0;
+}
+.header {
+    padding: 60px;
+    background-color: #251351;
+    background-image: linear-gradient(to bottom right, #251351, #7D2E68);
+    color: white;
+    font-size: 25px;
+    letter-spacing: 2px;
+
+    box-shadow: 0 0 7px #fff,
+    0 0 5px #fff,
+    0 0 10.5px #fff,
+    0 0 21px #0FA,
+    0 0 41px #0FA,
+    0 0 46px #0FA,
+    0 0 51px #0FA,
+    0 0 75.5px #0FA;
+
+    /* Også mulig border */
+    /*box-shadow: 0 0 7px #fff,
+    0 0 5px #fff,
+    0 0 10.5px #fff,
+    0 0 21px #bc13fe,
+    0 0 41px #bc13fe,
+    0 0 46px #bc13fe,
+    0 0 51px #bc13fe,
+    0 0 75.5px #bc13fe; */
+}
+
+.div-left {
+    float: left;
+    width: 250px;
+}
+.div-right {
+    float: right;
+    width: 250px;
+    padding: 10px;
+    transition: 0.5s;
+}
+.div-right:hover {
+    border-radius: 1rem;
+    background-color: #251351;
+    /* opacity: 0.5; */
+    transition: 0.5s;
+
+}
+.div-middle {
+    margin: 0 auto;
+    width: 550px;
+    height: 50px;
+    text-align: center;
+}
+.div-middle a {
+    /* margin: 13px; */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+}
+.div-middle a:hover {
+    background-color: #251351;
+    border-radius: 1rem;
+    transition: 0.5s;
+
+}
+.active {
+    color: lightgray;
+    background-color: #251351;   
+    border-radius: 1rem;
+    opacity: 0.5;
+}
+
+.logo {
+    width: 250px;
+}
+
+
+.posts {
+    width: 52%;
+    height: auto;
+    transform: skew(-10deg);
+    background-color: #040926;
+    margin: 0 auto;
+    border: 0.2rem solid #fff;
+    border-radius: 1rem;
+    letter-spacing: 2px;
+
+    box-shadow: 0 0 .2rem #fff,
+    0 0 .2rem #fff,
+    0 0 2rem #bc13fe,
+    0 0 0.8rem #bc13fe,
+    0 0 2.8rem #bc13fe,
+    inset 0 0 1.3rem #bc13fe; 
+}
+.post_head {
+    color: white;
+    margin: 15px;
+    font-size: 1.5vw;
+}
+.post_txt {
+    font-size: 0.9vw;
+    line-height: 40px;
+    margin: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.post_img {
+    background-color: #251351;
+    width: 50%;
+    max-width: 50%;
+    margin: 0 auto;
+    transform: skew(10deg);
+    border-radius: 1rem;
+    border: 1px solid #bc13fe;
+    margin-bottom: 20px;
+}
+.post_img img {
+    display: block;
+    margin: auto;
+}
+
+.post_respons {
+    border-top: 1px solid #bc13fe;
+    width: 90%;
+    height: 20px;
+    margin: 0 auto;
+}
+.peace {
+    font-size: 1.9vw;
+    margin-left: 100px;
+    margin-top: 10px;
+    color: #50C878;
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 10px #fff,
+      0 0 4px #50C878,
+      0 0 8px #50C878,
+      0 0 9px #50C878,
+      0 0 1px #50C878,
+      0 0 1px #50C878;
+}
+.finger {
+    font-size: 1.9vw;
+    /* margin-left: 100px; */
+    /* margin-top: 10px; */
+    color: red;
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 10px #fff,
+      0 0 4px red,
+      0 0 8px red,
+      0 0 9px red,
+      0 0 1px red,
+      0 0 1px red;
+}
