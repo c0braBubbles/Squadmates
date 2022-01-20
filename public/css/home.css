@@ -1,8 +1,3 @@
-
-
-
-
-
 button {
     position: relative;    
     border: none;
@@ -56,4 +51,10 @@ button:hover:active:before {
     100% {
         background-position: 0 0
     }
+}
+
+
+.neon-border {
+    border-bottom: 0.1px solid #bc13fe;
+    box-shadow: 0 0 .2rem #fff, 0 24px 22px -12px #bc13fe;
 }
