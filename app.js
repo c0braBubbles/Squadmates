@@ -13,6 +13,10 @@ app.get('/', function(req, res) {
     res.render('index');
 });
 
+app.get('/home', function(req, res) {
+    res.render('home');
+});
+
 
 // Gjør mappen public synlig, så app-en kan ta bruk av:
 app.use(express.static(path.resolve(__dirname, 'public')));
