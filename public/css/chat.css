@@ -1,0 +1,91 @@
+.chat-room {
+    background-color: rgb(224, 224, 224);
+    margin:10px;
+    margin-top:0px;
+    width:97%;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.chat-info {
+    margin:10px;
+    margin-bottom:0px;
+    width:97%;
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: white;
+    text-align: center;
+}
+
+.msg-board {
+    height: 73vh;
+    overflow-y: scroll;
+}
+
+.chat-input-box {
+    background-color: rgb(255, 255, 255);
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(2, 2, 2);
+    margin-right:0px;
+    margin-left:0px;
+}
+
+.msg-input {
+    width: calc(100% - 3em);
+    height:2.2em;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.send-msg-btn {
+    background-color: lightskyblue;
+    width: 2em;
+}
+
+.send-bubble {
+    width: fit-content;
+    background-color: rgb(0, 128, 133);
+    float: inline-end;
+    clear: both;
+    margin:10px;
+    padding:5px;
+    padding-top:0px;
+    border-radius: 10px;
+    border-top-right-radius: 3px;
+    -webkit-box-shadow: 5px 5px 15px -8px #000000; 
+    box-shadow: 5px 5px 15px -8px #000000;
+    color: white;
+    max-width: 80%;
+}
+
+.rec-bubble {
+    width: fit-content;
+    background-color: rgb(218, 105, 0);
+    float: inline-start;
+    clear: both;
+    margin: 10px;
+    padding:5px;
+    padding-top:0px;
+    border-radius: 10px;
+    border-top-left-radius: 3px;
+    -webkit-box-shadow: -5px 5px 15px -8px #000000; 
+    box-shadow: -5px 5px 15px -8px #000000;
+    color: white;
+    max-width: 80%;
+}
+
+.display-person {
+    background-color: green;
+    height: fit-content;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.display-pic {
+    height: 4em;
+    width: 4em;
+}

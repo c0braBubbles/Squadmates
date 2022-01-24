@@ -1,79 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meldinger</title>
-    <link rel = "stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
-    <link rel = "stylesheet" href="css/home.css">
-    <body style="overflow-x: hidden;"></body>
-    <style>
-        body {
-          background-image: url('img/Lawrencium.jpg');
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meldinger</title>
+  <link rel="stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/chat.css">
+
+<body style="overflow-x: hidden;  overflow-y: hidden;"></body>
+<style>
+  body {
+    background-image: url('img/Lawrencium.jpg');
+    background-size: cover;
+  }
+</style>
 </head>
+
 <body>
-       <!--Navbar-->
-       <nav class="navbar navbar-dark bg-dark navbar-expand-lg d-flex">
-        <div class="container-fluid">
-            <a class="navbar-brand w-25" href="#">
-                <img src="img/Squadmates tech.png" width="300" alt="Squadmates">
-              </a>
+  <!--Navbar-->
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg d-flex"
+    style="position: sticky !important; z-index: 1; top:0;">
+    <div class="container-fluid">
+      <a class="navbar-brand w-25" href="#">
+        <img src="img/Squadmates tech.png" width="300" alt="Squadmates">
+      </a>
 
-              <div class="nav navbar-nav w-50 d-flex mx-auto p-0">
-                <a class="nav-item nav-link mx-auto" href="#">Hjem <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                    <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                  </svg><span class="sr-only"></span></a>
-                <a class="nav-item nav-link mx-auto" href="#">Grupper <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
-                    <path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"/>
-                  </svg></a>
-                <a class="nav-item nav-link mx-auto" href="#">Spill <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dpad-fill" viewBox="0 0 16 16">
-                    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v3a.5.5 0 0 1-.5.5h-3A1.5 1.5 0 0 0 0 6.5v3A1.5 1.5 0 0 0 1.5 11h3a.5.5 0 0 1 .5.5v3A1.5 1.5 0 0 0 6.5 16h3a1.5 1.5 0 0 0 1.5-1.5v-3a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 0 16 9.5v-3A1.5 1.5 0 0 0 14.5 5h-3a.5.5 0 0 1-.5-.5v-3A1.5 1.5 0 0 0 9.5 0h-3Zm1.288 2.34a.25.25 0 0 1 .424 0l.799 1.278A.25.25 0 0 1 8.799 4H7.201a.25.25 0 0 1-.212-.382l.799-1.279Zm0 11.32-.799-1.277A.25.25 0 0 1 7.201 12H8.8a.25.25 0 0 1 .212.383l-.799 1.278a.25.25 0 0 1-.424 0Zm-4.17-4.65-1.279-.798a.25.25 0 0 1 0-.424l1.279-.799A.25.25 0 0 1 4 7.201V8.8a.25.25 0 0 1-.382.212Zm10.043-.798-1.278.799A.25.25 0 0 1 12 8.799V7.2a.25.25 0 0 1 .383-.212l1.278.799a.25.25 0 0 1 0 .424Z"/>
-                  </svg></a>
-                <a class="nav-item nav-link mx-auto" href="#">Venner <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                    <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
-                    <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-                  </svg></a>
-                <a class="nav-item nav-link active mx-auto" href="#">Meldinger <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
-                    <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
-                  </svg><span class="translate-middle badge rounded-pill bg-danger">
-                    3</a>
-              </div>
+      <div class="nav navbar-nav w-50 d-flex mx-auto p-0">
+        <a class="nav-item nav-link mx-auto" href="#">Hjem <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+            <path fill-rule="evenodd"
+              d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+          </svg><span class="sr-only"></span></a>
+        <a class="nav-item nav-link mx-auto" href="#">Grupper <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+            <path
+              d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z" />
+          </svg></a>
+        <a class="nav-item nav-link mx-auto" href="#">Spill <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-dpad-fill" viewBox="0 0 16 16">
+            <path
+              d="M6.5 0A1.5 1.5 0 0 0 5 1.5v3a.5.5 0 0 1-.5.5h-3A1.5 1.5 0 0 0 0 6.5v3A1.5 1.5 0 0 0 1.5 11h3a.5.5 0 0 1 .5.5v3A1.5 1.5 0 0 0 6.5 16h3a1.5 1.5 0 0 0 1.5-1.5v-3a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 0 16 9.5v-3A1.5 1.5 0 0 0 14.5 5h-3a.5.5 0 0 1-.5-.5v-3A1.5 1.5 0 0 0 9.5 0h-3Zm1.288 2.34a.25.25 0 0 1 .424 0l.799 1.278A.25.25 0 0 1 8.799 4H7.201a.25.25 0 0 1-.212-.382l.799-1.279Zm0 11.32-.799-1.277A.25.25 0 0 1 7.201 12H8.8a.25.25 0 0 1 .212.383l-.799 1.278a.25.25 0 0 1-.424 0Zm-4.17-4.65-1.279-.798a.25.25 0 0 1 0-.424l1.279-.799A.25.25 0 0 1 4 7.201V8.8a.25.25 0 0 1-.382.212Zm10.043-.798-1.278.799A.25.25 0 0 1 12 8.799V7.2a.25.25 0 0 1 .383-.212l1.278.799a.25.25 0 0 1 0 .424Z" />
+          </svg></a>
+        <a class="nav-item nav-link mx-auto" href="#">Venner <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            <path fill-rule="evenodd"
+              d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+            <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+          </svg></a>
+        <a class="nav-item nav-link active mx-auto" href="#">Meldinger <svg xmlns="http://www.w3.org/2000/svg"
+            width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+            <path
+              d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+          </svg><span class="translate-middle badge rounded-pill bg-danger">
+            3</a>
+      </div>
 
-        <!--Profil dropdown-->
-        </div class = "navbar-nav">
-        <ul class="navbar-nav mx-3 w-25 d-flex">
-            <li class="nav-item dropdown dropdown-menu-right ms-auto">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                RoyOboy716
-                <img src="img/moa.jpg"
-                    class="rounded-circle"
-                    height="30"
-                    alt="Profilbilde"
-                    loading="lazy"
-                />
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Min profil</a></li>
-                <li><a class="dropdown-item" href="#">Innstillinger</a></li>
-                <li><a class="dropdown-item" href="#">Logg ut</a></li>
-              </ul>
-            </li>
+      <!--Profil dropdown-->
+    </div class="navbar-nav">
+    <ul class="navbar-nav mx-3 w-25 d-flex">
+      <li class="nav-item dropdown dropdown-menu-right ms-auto">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          RoyOboy716
+          <img src="img/moa.jpg" class="rounded-circle" height="30" alt="Profilbilde" loading="lazy" />
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+          <li><a class="dropdown-item" href="#">Min profil</a></li>
+          <li><a class="dropdown-item" href="#">Innstillinger</a></li>
+          <li><a class="dropdown-item" href="#">Logg ut</a></li>
         </ul>
+      </li>
+    </ul>
+    </div>
+  </nav>
+  <!--Navbar slutt-->
+
+  <!--Content-->
+  <div class="container-fluid" style="background-color: green; height:90vh; border-top-left-radius: 5px; margin-top:10px; margin-left:10px;">
+
+    <div class="row">
+      <div class="col-4">
+        <!--TOP VENSTRE 44, 49 bg-dark-->
+        <div class="row border-bottom border-dark border-2" style="background-color: rgb(44,44,44); border-top-left-radius: 5px; height:8vh;">
+          <div class="form-outline">
+            <input type="search" id="form1" class="form-control bg-dark border-dark" placeholder="Finn en samtale" aria-label="Search" 
+            style="margin-top:10px; margin-bottom:10px; color:rgb(211, 211, 211)">
+          </div>
         </div>
-    </nav> 
-     <!--Navbar slutt-->
+        <!--BUNN VENSTRE  <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">  -->
+        <div class="row" style="background-color: rgb(44, 44, 44); height:82vh; overflow-x: scroll;">
+          <ul class="list-group" style="margin:10px; width: calc(100% - 10px)">
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark" style="color: white;">
+              <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+              <h3>JonKanon352</h3>
+              <span class="badge bg-primary rounded-pill">13</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark" style="color: white;">
+              <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+              <h3>Lefsegnafser27</h3>
+              <span class="badge bg-primary rounded-pill">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark" style="color: white;">
+              <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+              <h3>Gaal69</h3>
+              <span class="badge bg-primary rounded-pill">991</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark" style="color: white;">
+              <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+              <h3>xX_B0P3_Xx</h3>
+              <span class="badge bg-primary rounded-pill">5</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark" style="color: white;">
+              <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+              <h3>Vigdis420</h3>
+              <span class="badge bg-primary rounded-pill">71</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark" style="color: white;">
+              <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+              <h3>Cub</h3>
+              <span class="badge bg-primary rounded-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark" style="color: white;">
+              <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+              <h3>Fr0ssenK4tt</h3>
+              <span class="badge bg-primary rounded-pill">3</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark" style="color: white;">
+              <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+              <h3>BendelWorg</h3>
+              <span class="badge bg-primary rounded-pill">723</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-8">
+        <!--TOP HØYRE-->
+        <div class="row border-bottom border-dark border-2" style="background-color: rgb(49,49,49); height:8vh;">
+          <div class="chat-info bg-dark">
+            <h1 class="display-6"> JonKanon352</h1>
+          </div>
+        </div>
+        <!--BUNN HØYRE-->
+        <div class="row" style="background-color:rgb(49, 49, 49); height:81vh;">
+          <div class="chat-room">
+            <!-- her havner selve meldingene, pr nå er det bare masse hardkoda meldinger -->
+            <div class="msg-board">
+              <div class="send-bubble">Heisan, Jon her!</div>
+              <div class="rec-bubble">Jon.. Jon som i JonKanon352</div>
+              <div class="send-bubble">Jaha, det stemmer det.. det er nok meg</div>
+              <div class="rec-bubble">Jon.. Jon som i Jon The Cannon??</div>
+              <div class="send-bubble">Stemmer det, de kaller meg for det i ville vesten, men de dagene er forbi. Men hvem er så du?</div>
+              <div class="rec-bubble">Jeg? Nei, jeg er bare Roy, men jeg går etter kallenavnet RoyOboy716</div>
+              <div class="send-bubble">ER DET ROYOBOY?! Gamle ørn *thhs, duush, diish* walluh wadduh *dssh dssh*</div>
+              <div class="rec-bubble">Hva gjør du her på denne nettsiden da?</div>
+              <div class="send-bubble">Nei nå tenkte jeg å pwne noen n00bs i warzone, få dem til å spise grus rett og slett</div>
+              <div class="rec-bubble">Jaha, ja stemmer, det er jo derfor jeg kontakta deg, så innlegget ditt istad. Personlig har en 7.6 k/d, så jeg er klar for å slaye noobs for å si det mildt</div>
+              <div class="send-bubble">Adder deg på xbox nå, ser at gamertagget ditt er xX_R0y0B0y_Xx</div>
+              <div class="rec-bubble">Stemmer, så at noen adda meg nå. Er det du som er "Jon_KruttOgKanon_352_69420" ?</div>
+              <div class="send-bubble">Hehe.. ja det er meg, gammelt gamertag ser du.. Skulle gjerne ha bytta til JonKanon, men det koster jo 70 spenn</div>
+              <div class="rec-bubble">Ser den, det er jo liksom et mer clean gamertag</div>
+              <div class="send-bubble">Vi skal ikke starte en gruppe her på Sqadmates da? Vi kan hete n00bDestroyers</div>
+              <div class="rec-bubble">Jo, også kan vi ha en pakke med Oboy som forside-bilde!</div>
+              <div class="send-bubble">Personlig liker jeg mere kanon-relaterte bilder, men vi kan jo kombinere. En kanon som skyter utt Oboy</div>
+              <div class="rec-bubble">Der har vi den, møtes online ;))</div>
+            </div>
+
+            <form>
+              <div class="chat-input-box">
+                <input class="msg-input" type="text" class="msg-input" type="text" placeholder="Aa">
+                <button class="send-msg-btn" type="submit"><img src="img/send-fill.svg" alt="..."></button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
 
 
 
-     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
-     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+  <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
+  <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 </body>
+
 </html>
