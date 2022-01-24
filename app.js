@@ -25,6 +25,14 @@ app.get('/chat', function(req, res) {
     res.render('chat');
 });
 
+app.get('/editprofile', function(req, res) {
+    res.render('editprofile');
+});
+
+app.get('/othersprofile', function(req, res) {
+    res.render('othersprofile');
+});
+
 // Gjør mappen public synlig, så app-en kan ta bruk av:
 app.use(express.static(path.resolve(__dirname, 'public')));
 //Avgjør hvilken port programmet skal "lytte" på:
