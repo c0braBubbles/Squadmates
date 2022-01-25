@@ -90,3 +90,13 @@ button:hover:active:before {
 .chroma:activ {
     background: none
 }
+
+@media (max-width: 1068px) {
+    #navdesktop { display: none !important; }
+    .card {width: 100% !important;}
+    
+}
+@media (min-width: 1068px) {
+    #navmobile { display: none !important; }
+    
+}
