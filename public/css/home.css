@@ -90,3 +90,20 @@ button:hover:active:before {
 .chroma:activ {
     background: none
 }
+
+@media (max-width: 1200px) {
+    #navdesktop { display: none !important; }
+    .card {width: 75% !important;}
+    .container {width: 75% !important;}
+}
+
+@media (max-width: 768px) {
+    #navdesktop { display: none !important; }
+    .card {width: 100% !important;}
+    .container {width: 100% !important;}
+    #profilbrukernavn { margin-left: 50px !important;}
+}
+
+@media (min-width: 1200px) {
+    #navmobile { display: none !important; }
+}
