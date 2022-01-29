@@ -23,7 +23,7 @@
 
 <body>
     <!--Navbar-->
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg d-flex chroma" id ="navdesktop">
+    <nav class="navbar navbar-dark navbar-expand-lg d-flex chroma" id ="navdesktop" style="background: #202124;">
         <div class="container-fluid">
             <a class="navbar-brand w-25" href="#">
                 <img src="img/Squadmates tech.png" width="300" alt="Squadmates">
@@ -150,12 +150,11 @@
     <!--Navbar mobil slutt-->
 
     <!---Nytt Innlegg-->
-    <div class="card gedf-card w-50 mx-auto bg-dark bg-gradient mt-1 mb-4">
-        <style background-color="$gray-800"></style>
+    <div class="card gedf-card w-50 mx-auto mt-1 mb-4" style="background: #202124;">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link bg-dark text-white border-dark" id="posts-tab" role="tab" aria-controls="posts"
+                    <a class="nav-link text-white border-dark bg-dark" id="posts-tab" role="tab" aria-controls="posts"
                         aria-selected="false">Publiser et innlegg</a>
                 </li>
             </ul>
@@ -165,13 +164,13 @@
                 <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                     <div class="form-group">
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="floatingInput" placeholder="Beskrivelse">
-                            <label for="floatingInput">Tittel</label>
+                            <input class="form-control border-dark" id="floatingInput" placeholder="Beskrivelse" style= "background-color:rgb(60, 64, 67, 0.90)">
+                            <label for="floatingInput" style="color: white;">Tittel</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="floatingInput" placeholder="Beskrivelse"
-                                style="height: 100px">
-                            <label for="floatingInput">Beskrivelse</label>
+                            <input class="form-control border-dark" id="floatingInput" placeholder="Beskrivelse"
+                                style="height: 100px; background-color:rgb(60, 64, 67, 0.90)" >
+                            <label for="floatingInput"style="color: white;">Beskrivelse</label>
                         </div>
 
                         <input type="file" class="form-control-file text-light mb-3" id="velgbilde">
@@ -181,7 +180,7 @@
             </div>
             <div class="btn-toolbar justify-content-between">
                 <div class="btn-group">
-                    <button type="submit" class="btn btn-primary mt-0">Del innlegg</button>
+                    <button type="submit" class="btn btn-dark mt-0">Del innlegg</button>
                 </div>
             </div>
         </div>
