@@ -41,6 +41,10 @@ app.get('/group', function(req, res) {
     res.render('group');
 });
 
+app.get('/new-group', function(req, res) {
+    res.render('new-group');
+});
+
 // Gjør mappen public synlig, så app-en kan ta bruk av:
 app.use(express.static(path.resolve(__dirname, 'public')));
 //Avgjør hvilken port programmet skal "lytte" på:
