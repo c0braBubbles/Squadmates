@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spill</title>
 </head>
-
 <body>
     <h1>Bruker API for å hente spill</h1>
 
@@ -19,14 +17,13 @@
             // console.log(data), myArray = data;
             console.log(data);
             for(let i = 0; i < data.results.length; i++) {
-                console.log(data.results[i].name);
-                // document.write(data.results[i].name + "<br>");
-                document.write(data);
+                console.log(data.results[i]);
+                document.write(data.results[i].name + "<br>");
+                // document.write(data);
             }
         }).catch(err => {
             console.error(err);
         });
     </script>
 </body>
-
 </html>
