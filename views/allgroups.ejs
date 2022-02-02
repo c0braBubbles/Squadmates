@@ -1,247 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grupper</title>
-    <link rel = "stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
-    <link rel = "stylesheet" href="css/home.css">
-    <body style="overflow-x: hidden;"></body>
-    <style>
-        body {
-          background-image: url('img/Lawrencium.jpg');
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupper</title>
+  <link rel="stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/home.css">
+
+<body style="overflow-x: hidden;"></body>
+<style>
+  body {
+    background-image: url('img/Lawrencium.jpg');
+  }
+</style>
 </head>
+
 <body>
-         <!--Navbar-->
-    <nav class="navbar navbar-dark navbar-expand-lg d-flex chroma" id ="navdesktop" style="background: #202124;">
-      <div class="container-fluid">
-          <a class="navbar-brand w-25" href="#">
-              <img src="img/Squadmates tech.png" width="300" alt="Squadmates">
-          </a>
+  <!--Navbar-->
+  <nav class="navbar navbar-dark navbar-expand-lg d-flex chroma" id="navdesktop" style="background: #202124;">
+    <div class="container-fluid">
+      <a class="navbar-brand w-25" href="#">
+        <img src="img/Squadmates tech.png" width="300" alt="Squadmates">
+      </a>
 
-          <div class="nav navbar-nav w-50 d-flex mx-auto p-0">
-              <a class="nav-item nav-link mx-auto" href="#">Hjem <svg xmlns="http://www.w3.org/2000/svg"
-                      width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd"
-                          d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                      <path fill-rule="evenodd"
-                          d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
-                  </svg><span class="sr-only"></span></a>
-              <a class="nav-item nav-link active mx-auto" href="#">Grupper <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                      height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
-                      <path
-                          d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z" />
-                  </svg></a>
-              <a class="nav-item nav-link mx-auto" href="#">Spill <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                      height="16" fill="currentColor" class="bi bi-dpad-fill" viewBox="0 0 16 16">
-                      <path
-                          d="M6.5 0A1.5 1.5 0 0 0 5 1.5v3a.5.5 0 0 1-.5.5h-3A1.5 1.5 0 0 0 0 6.5v3A1.5 1.5 0 0 0 1.5 11h3a.5.5 0 0 1 .5.5v3A1.5 1.5 0 0 0 6.5 16h3a1.5 1.5 0 0 0 1.5-1.5v-3a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 0 16 9.5v-3A1.5 1.5 0 0 0 14.5 5h-3a.5.5 0 0 1-.5-.5v-3A1.5 1.5 0 0 0 9.5 0h-3Zm1.288 2.34a.25.25 0 0 1 .424 0l.799 1.278A.25.25 0 0 1 8.799 4H7.201a.25.25 0 0 1-.212-.382l.799-1.279Zm0 11.32-.799-1.277A.25.25 0 0 1 7.201 12H8.8a.25.25 0 0 1 .212.383l-.799 1.278a.25.25 0 0 1-.424 0Zm-4.17-4.65-1.279-.798a.25.25 0 0 1 0-.424l1.279-.799A.25.25 0 0 1 4 7.201V8.8a.25.25 0 0 1-.382.212Zm10.043-.798-1.278.799A.25.25 0 0 1 12 8.799V7.2a.25.25 0 0 1 .383-.212l1.278.799a.25.25 0 0 1 0 .424Z" />
-                  </svg></a>
-              <a class="nav-item nav-link mx-auto" href="#">Venner <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                      height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                      <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                      <path fill-rule="evenodd"
-                          d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
-                      <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
-                  </svg></a>
-              <a class="nav-item nav-link mx-auto" href="#">Meldinger <svg xmlns="http://www.w3.org/2000/svg"
-                      width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
-                      <path
-                          d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
-                  </svg><span class="translate-middle badge rounded-pill bg-danger">
-                      3</a>
-          </div>
+      <div class="nav navbar-nav w-50 d-flex mx-auto p-0">
+        <a class="nav-item nav-link mx-auto" href="#">Hjem <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+            <path fill-rule="evenodd"
+              d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+          </svg><span class="sr-only"></span></a>
+        <a class="nav-item nav-link active mx-auto" href="#">Grupper <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+            <path
+              d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z" />
+          </svg></a>
+        <a class="nav-item nav-link mx-auto" href="#">Spill <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-dpad-fill" viewBox="0 0 16 16">
+            <path
+              d="M6.5 0A1.5 1.5 0 0 0 5 1.5v3a.5.5 0 0 1-.5.5h-3A1.5 1.5 0 0 0 0 6.5v3A1.5 1.5 0 0 0 1.5 11h3a.5.5 0 0 1 .5.5v3A1.5 1.5 0 0 0 6.5 16h3a1.5 1.5 0 0 0 1.5-1.5v-3a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 0 16 9.5v-3A1.5 1.5 0 0 0 14.5 5h-3a.5.5 0 0 1-.5-.5v-3A1.5 1.5 0 0 0 9.5 0h-3Zm1.288 2.34a.25.25 0 0 1 .424 0l.799 1.278A.25.25 0 0 1 8.799 4H7.201a.25.25 0 0 1-.212-.382l.799-1.279Zm0 11.32-.799-1.277A.25.25 0 0 1 7.201 12H8.8a.25.25 0 0 1 .212.383l-.799 1.278a.25.25 0 0 1-.424 0Zm-4.17-4.65-1.279-.798a.25.25 0 0 1 0-.424l1.279-.799A.25.25 0 0 1 4 7.201V8.8a.25.25 0 0 1-.382.212Zm10.043-.798-1.278.799A.25.25 0 0 1 12 8.799V7.2a.25.25 0 0 1 .383-.212l1.278.799a.25.25 0 0 1 0 .424Z" />
+          </svg></a>
+        <a class="nav-item nav-link mx-auto" href="#">Venner <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            <path fill-rule="evenodd"
+              d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+            <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+          </svg></a>
+        <a class="nav-item nav-link mx-auto" href="#">Meldinger <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+            <path
+              d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+          </svg><span class="translate-middle badge rounded-pill bg-danger">
+            3</a>
       </div>
+    </div>
 
-      <!--Profil dropdown-->
-      <ul class="navbar-nav w-25 d-flex">
-          <li class="nav-item dropdown dropdown-menu-right ms-auto">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  RoyOboy716
-                  <img src="img/moa.jpg" class="rounded-circle" height="30" alt="Profilbilde" loading="lazy" />
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Min profil</a></li>
-                  <li><a class="dropdown-item" href="#">Innstillinger</a></li>
-                  <li><a class="dropdown-item" href="#">Logg ut</a></li>
-              </ul>
-          </li>
-      </ul>
+    <!--Profil dropdown-->
+    <ul class="navbar-nav w-25 d-flex">
+      <li class="nav-item dropdown dropdown-menu-right ms-auto">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          RoyOboy716
+          <img src="img/moa.jpg" class="rounded-circle" height="30" alt="Profilbilde" loading="lazy" />
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+          <li><a class="dropdown-item" href="#">Min profil</a></li>
+          <li><a class="dropdown-item" href="#">Innstillinger</a></li>
+          <li><a class="dropdown-item" href="#">Logg ut</a></li>
+        </ul>
+      </li>
+    </ul>
   </nav>
   <!--Navbar slutt-->
 
   <!--Navbar mobil-->
   <div class="collapse m-0" id="navmobile">
-      <div class="bg-dark navbar-dark p-4">
-          <div class="nav navbar-nav p-0">
-              <a class="navbar-brand" href="#">
-                  <img src="img/Squadmates tech.png" width="200" alt="Squadmates">
-              </a>
-              <a class="nav-item nav-link" href="#">Hjem <svg xmlns="http://www.w3.org/2000/svg"
-                      width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd"
-                          d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                      <path fill-rule="evenodd"
-                          d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
-                  </svg><span class="sr-only"></span></a>
-              <a class="nav-item nav-link active" href="#">Grupper <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                      height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
-                      <path
-                          d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z" />
-                  </svg></a>
-              <a class="nav-item nav-link" href="#">Spill <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                      height="16" fill="currentColor" class="bi bi-dpad-fill" viewBox="0 0 16 16">
-                      <path
-                          d="M6.5 0A1.5 1.5 0 0 0 5 1.5v3a.5.5 0 0 1-.5.5h-3A1.5 1.5 0 0 0 0 6.5v3A1.5 1.5 0 0 0 1.5 11h3a.5.5 0 0 1 .5.5v3A1.5 1.5 0 0 0 6.5 16h3a1.5 1.5 0 0 0 1.5-1.5v-3a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 0 16 9.5v-3A1.5 1.5 0 0 0 14.5 5h-3a.5.5 0 0 1-.5-.5v-3A1.5 1.5 0 0 0 9.5 0h-3Zm1.288 2.34a.25.25 0 0 1 .424 0l.799 1.278A.25.25 0 0 1 8.799 4H7.201a.25.25 0 0 1-.212-.382l.799-1.279Zm0 11.32-.799-1.277A.25.25 0 0 1 7.201 12H8.8a.25.25 0 0 1 .212.383l-.799 1.278a.25.25 0 0 1-.424 0Zm-4.17-4.65-1.279-.798a.25.25 0 0 1 0-.424l1.279-.799A.25.25 0 0 1 4 7.201V8.8a.25.25 0 0 1-.382.212Zm10.043-.798-1.278.799A.25.25 0 0 1 12 8.799V7.2a.25.25 0 0 1 .383-.212l1.278.799a.25.25 0 0 1 0 .424Z" />
-                  </svg></a>
-              <a class="nav-item nav-link" href="#">Venner <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                      height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                      <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                      <path fill-rule="evenodd"
-                          d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
-                      <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
-                  </svg></a>
-              <a class="nav-item nav-link" href="#">Meldinger <svg xmlns="http://www.w3.org/2000/svg"
-                      width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
-                      <path
-                          d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
-                  </svg><span class="translate-middle badge rounded-pill bg-danger">
-                      3</a>
-          </div>
+    <div class="bg-dark navbar-dark p-4">
+      <div class="nav navbar-nav p-0">
+        <a class="navbar-brand" href="#">
+          <img src="img/Squadmates tech.png" width="200" alt="Squadmates">
+        </a>
+        <a class="nav-item nav-link" href="#">Hjem <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+            <path fill-rule="evenodd"
+              d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+          </svg><span class="sr-only"></span></a>
+        <a class="nav-item nav-link active" href="#">Grupper <svg xmlns="http://www.w3.org/2000/svg" width="16"
+            height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+            <path
+              d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z" />
+          </svg></a>
+        <a class="nav-item nav-link" href="#">Spill <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            fill="currentColor" class="bi bi-dpad-fill" viewBox="0 0 16 16">
+            <path
+              d="M6.5 0A1.5 1.5 0 0 0 5 1.5v3a.5.5 0 0 1-.5.5h-3A1.5 1.5 0 0 0 0 6.5v3A1.5 1.5 0 0 0 1.5 11h3a.5.5 0 0 1 .5.5v3A1.5 1.5 0 0 0 6.5 16h3a1.5 1.5 0 0 0 1.5-1.5v-3a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 0 16 9.5v-3A1.5 1.5 0 0 0 14.5 5h-3a.5.5 0 0 1-.5-.5v-3A1.5 1.5 0 0 0 9.5 0h-3Zm1.288 2.34a.25.25 0 0 1 .424 0l.799 1.278A.25.25 0 0 1 8.799 4H7.201a.25.25 0 0 1-.212-.382l.799-1.279Zm0 11.32-.799-1.277A.25.25 0 0 1 7.201 12H8.8a.25.25 0 0 1 .212.383l-.799 1.278a.25.25 0 0 1-.424 0Zm-4.17-4.65-1.279-.798a.25.25 0 0 1 0-.424l1.279-.799A.25.25 0 0 1 4 7.201V8.8a.25.25 0 0 1-.382.212Zm10.043-.798-1.278.799A.25.25 0 0 1 12 8.799V7.2a.25.25 0 0 1 .383-.212l1.278.799a.25.25 0 0 1 0 .424Z" />
+          </svg></a>
+        <a class="nav-item nav-link" href="#">Venner <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            <path fill-rule="evenodd"
+              d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+            <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+          </svg></a>
+        <a class="nav-item nav-link" href="#">Meldinger <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+            <path
+              d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+          </svg><span class="translate-middle badge rounded-pill bg-danger">
+            3</a>
       </div>
     </div>
+  </div>
 
-    <nav class="navbar navbar-dark bg-dark chroma" id = "navmobile">
-      <div class="container-fluid d-flex">
+  <nav class="navbar navbar-dark bg-dark chroma" id="navmobile">
+    <div class="container-fluid d-flex">
 
-          <button class="navbar-toggler me-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navmobile" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+      <button class="navbar-toggler me-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navmobile"
+        aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            <!--Profil dropdown-->
+      <!--Profil dropdown-->
       <ul class="navbar-nav w-25 d-flex mx-3">
-          <li class="nav-item dropdown dropdown-menu-right ms-auto">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  RoyOboy716
-                  <img src="img/moa.jpg" class="rounded-circle" height="30" alt="Profilbilde" loading="lazy" />
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Min profil</a></li>
-                  <li><a class="dropdown-item" href="#">Innstillinger</a></li>
-                  <li><a class="dropdown-item" href="#">Logg ut</a></li>
-              </ul>
-          </li>
+        <li class="nav-item dropdown dropdown-menu-right ms-auto">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            RoyOboy716
+            <img src="img/moa.jpg" class="rounded-circle" height="30" alt="Profilbilde" loading="lazy" />
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Min profil</a></li>
+            <li><a class="dropdown-item" href="#">Innstillinger</a></li>
+            <li><a class="dropdown-item" href="#">Logg ut</a></li>
+          </ul>
+        </li>
       </ul>
-      </div>
-    </nav>
+    </div>
+  </nav>
   <!--Navbar mobil slutt-->
 
-    <div class = "container w-75 mt-5 p-3 d-flex rounded-3 bg-dark">
-        <div class="input-group w-100">
-            <input type="search" class="form-control rounded border-dark text-light" placeholder="Søk etter grupper" aria-label="Search" aria-describedby="search-addon" style="background-color: rgb(60, 64, 67, 0.90);" />
-            <button type="button" class="btn btn-dark">Søk <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-              </svg></button>
-            <div class="input-group w-25">
-            <button type="button" class="btn btn-dark ms-auto">Opprett ny gruppe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-              </svg></button>
-          </div>
-          </div>
+  <div class="container w-75 mt-5 p-3 d-flex rounded-3 bg-dark">
+    <div class="input-group w-100">
+      <input type="search" class="form-control rounded border-dark text-light" placeholder="Søk etter grupper"
+        aria-label="Search" aria-describedby="search-addon" style="background-color: rgb(60, 64, 67, 0.90);" />
+      <button type="button" class="btn btn-dark">Søk <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+        </svg></button>
+      <div class="input-group w-25">
+        <button type="button" class="btn btn-dark ms-auto">Opprett ny gruppe <svg xmlns="http://www.w3.org/2000/svg"
+            width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+          </svg></button>
+      </div>
     </div>
-   <!--Kort for grupper-->
-    <!-- 
+  </div>
+  <!--Kort for grupper-->
+  <!-- 
         OM VI TRENGER FIXED HØYDE: 
         style = "height:18rem"
     -->
   <div class="card-group w-75 mx-auto mx-3 mt-3">
-      <div class = "row">
-          <div class="col-sm-4">
-    <div class="card rounded-3 chromahover" >
-      <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Call of Duty Warzone</h5>
-        <p class="card-text">Vet ikke hva vi skal skrive her</p>
-        <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-      </div>
-    </div>
-</div>
-<div class="col-sm-4">
-    <div class="card rounded-3 chromahover">
-      <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Call of Duty Warzone</h5>
-        <p class="card-text">Vet ikke hva vi skal skrive her</p>
-        <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-      </div>
-    </div>
-    </div>
-    <div class="col-sm-4">
-    <div class="card rounded-3 chromahover">
-      <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Call of Duty Warzone </h5>
-        <p class="card-text">Vet ikke hva vi skal skrive her</p>
-        <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-      </div>
-    </div>
-    </div>
-    <div class="col-sm-4">
-    <div class="card rounded-3 chromahover my-2">
-        <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Call of Duty Warzone </h5>
-          <p class="card-text">Vet ikke hva vi skal skrive her</p>
-          <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="card rounded-3 chromahover">
+          <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Call of Duty Warzone</h5>
+            <p class="card-text">Vet ikke hva vi skal skrive her</p>
+            <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
+          </div>
         </div>
       </div>
+      <div class="col-sm-4">
+        <div class="card rounded-3 chromahover">
+          <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Call of Duty Warzone</h5>
+            <p class="card-text">Vet ikke hva vi skal skrive her</p>
+            <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card rounded-3 chromahover">
+          <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Call of Duty Warzone </h5>
+            <p class="card-text">Vet ikke hva vi skal skrive her</p>
+            <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
+          </div>
+        </div>
       </div>
       <div class="col-sm-4">
         <div class="card rounded-3 chromahover my-2">
-            <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Call of Duty Warzone </h5>
-              <p class="card-text">Vet ikke hva vi skal skrive her</p>
-              <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-            </div>
+          <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Call of Duty Warzone </h5>
+            <p class="card-text">Vet ikke hva vi skal skrive her</p>
+            <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
           </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card rounded-3 chromahover my-2">
+          <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Call of Duty Warzone </h5>
+            <p class="card-text">Vet ikke hva vi skal skrive her</p>
+            <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
           </div>
-          <div class="col-sm-4">
-            <div class="card rounded-3 chromahover my-2">
-                <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">Call of Duty Warzone </h5>
-                  <p class="card-text">Vet ikke hva vi skal skrive her</p>
-                  <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-                </div>
-              </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="card rounded-3 chromahover my-2">
-                    <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Call of Duty Warzone </h5>
-                      <p class="card-text">Vet ikke hva vi skal skrive her</p>
-                      <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-                    </div>
-                  </div>
-                  </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card rounded-3 chromahover my-2">
+          <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Call of Duty Warzone </h5>
+            <p class="card-text">Vet ikke hva vi skal skrive her</p>
+            <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card rounded-3 chromahover my-2">
+          <img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Call of Duty Warzone </h5>
+            <p class="card-text">Vet ikke hva vi skal skrive her</p>
+            <p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
 
 
 
-     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
-     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+  <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
+  <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </body>
+
 </html>
