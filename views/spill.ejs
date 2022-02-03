@@ -11,19 +11,21 @@
 
     <script>
         var myArray = [];
-        fetch("https://api.rawg.io/api/games?key=8d8b50415fd74e3baf7e69ac2f959516", {
-            "method": "GET",
-        }).then(response => response.json()).then(data => {
-            // console.log(data), myArray = data;
-            console.log(data);
-            for(let i = 0; i < data.results.length; i++) {
-                console.log(data.results[i]);
-                document.write(data.results[i].name + "<br>");
-                // document.write(data);
-            }
-        }).catch(err => {
-            console.error(err);
-        });
+
+        for(let j = 2; j < 30000; j++) {
+            fetch("https://api.rawg.io/api/games?key=8d8b50415fd74e3baf7e69ac2f959516" + "&page=" + j, {
+                "method": "GET",
+            }).then(response => response.json()).then(data => {
+                console.log(data);
+                for(let i = 0; i < data.results.length; i++) {
+                    console.log(data.results[i]);
+                    document.write(data.results[i].name + "<br>");
+                    // document.write(data);
+                }
+            }).catch(err => {
+                console.error(err);
+            });
+        }
     </script>
 </body>
 </html>
