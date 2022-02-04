@@ -65,7 +65,9 @@ button:hover:active:before {
     outline: none;
     border-radius: 5px;
 }
-
+/*Litt finere chroma 30sek animation: #ff0202, #ff9900, #fffb00,#15ff00,#02ff89,#00ccff,#0004ff,#8400ff,#e100ff,#ff009d,#ff0000*/
+/*Litt roligere, mer gjennomsiktig animation 20sek: rgba(255, 255, 255, 0.445), #79fbff73, #00eeff75,#ff26ed67, #00eeff73,#79fbff70,rgba(255, 255, 255, 0.445)*/
+/*Favoritt så langt:                         45deg, rgba(255, 255, 255, 0.445), #79fbff73, #00eeffa6,#ff26ed, #00eeffa4,#79fbff70,rgba(255, 255, 255, 0.445)*/
 .chroma:before {
     position: absolute;
     content: '';
@@ -77,7 +79,7 @@ button:hover:active:before {
     z-index: -1;
     opacity: 0;
     filter: blur(5px);
-    background: linear-gradient(45deg, #7D2E68, #bc13fe, #7D2E68);
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.829), #79fbffa4, #00eeffa6,#ff26ed, #00eeffa4,#79fbffa9,rgba(255, 255, 255, 0.829));
     background-size: 400%;
     transition: opacity .3s ease-in-out;
     animation: animate 20s linear infinite

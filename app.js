@@ -33,6 +33,10 @@ app.get('/othersprofile', function(req, res) {
     res.render('othersprofile');
 });
 
+app.get('/friends', function(req, res) {
+    res.render('friends');
+});
+
 // Gjør mappen public synlig, så app-en kan ta bruk av:
 app.use(express.static(path.resolve(__dirname, 'public')));
 //Avgjør hvilken port programmet skal "lytte" på:
