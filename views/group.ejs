@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gruppe</title>
+    <link rel="stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/home.css">
+
+<body style="overflow-x: hidden;"></body>
+<style>
+    body {
+        background-image: url('img/Lawrencium.jpg');
+    }
+</style>
+</head>
+
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-dark navbar-expand-lg d-flex chroma" id="navdesktop" style="background: #202124;">
+        <div class="container-fluid">
+            <a class="navbar-brand w-25" href="#">
+                <img src="img/Squadmates tech.png" width="300" alt="Squadmates">
+            </a>
+
+            <div class="nav navbar-nav w-50 d-flex mx-auto p-0">
+                <a class="nav-item nav-link mx-auto" href="#">Hjem <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                        <path fill-rule="evenodd"
+                            d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                    </svg><span class="sr-only"></span></a>
+                <a class="nav-item nav-link active mx-auto" href="#">Grupper <svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z" />
+                    </svg></a>
+                <a class="nav-item nav-link mx-auto" href="#">Spill <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-dpad-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M6.5 0A1.5 1.5 0 0 0 5 1.5v3a.5.5 0 0 1-.5.5h-3A1.5 1.5 0 0 0 0 6.5v3A1.5 1.5 0 0 0 1.5 11h3a.5.5 0 0 1 .5.5v3A1.5 1.5 0 0 0 6.5 16h3a1.5 1.5 0 0 0 1.5-1.5v-3a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 0 16 9.5v-3A1.5 1.5 0 0 0 14.5 5h-3a.5.5 0 0 1-.5-.5v-3A1.5 1.5 0 0 0 9.5 0h-3Zm1.288 2.34a.25.25 0 0 1 .424 0l.799 1.278A.25.25 0 0 1 8.799 4H7.201a.25.25 0 0 1-.212-.382l.799-1.279Zm0 11.32-.799-1.277A.25.25 0 0 1 7.201 12H8.8a.25.25 0 0 1 .212.383l-.799 1.278a.25.25 0 0 1-.424 0Zm-4.17-4.65-1.279-.798a.25.25 0 0 1 0-.424l1.279-.799A.25.25 0 0 1 4 7.201V8.8a.25.25 0 0 1-.382.212Zm10.043-.798-1.278.799A.25.25 0 0 1 12 8.799V7.2a.25.25 0 0 1 .383-.212l1.278.799a.25.25 0 0 1 0 .424Z" />
+                    </svg></a>
+                <a class="nav-item nav-link mx-auto" href="#">Venner <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        <path fill-rule="evenodd"
+                            d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                    </svg></a>
+                <a class="nav-item nav-link mx-auto" href="#">Meldinger <svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+                    </svg><span class="translate-middle badge rounded-pill bg-danger">
+                        3</a>
+            </div>
+        </div>
+
+        <!--Profil dropdown-->
+        <ul class="navbar-nav w-25 d-flex">
+            <li class="nav-item dropdown dropdown-menu-right ms-auto">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    RoyOboy716
+                    <img src="img/moa.jpg" class="rounded-circle" height="30" alt="Profilbilde" loading="lazy" />
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Min profil</a></li>
+                    <li><a class="dropdown-item" href="#">Innstillinger</a></li>
+                    <li><a class="dropdown-item" href="#">Logg ut</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!--Navbar slutt-->
+
+    <!--Navbar mobil-->
+    <div class="collapse m-0" id="navmobile">
+        <div class="bg-dark navbar-dark p-4">
+            <div class="nav navbar-nav p-0">
+                <a class="navbar-brand" href="#">
+                    <img src="img/Squadmates tech.png" width="200" alt="Squadmates">
+                </a>
+                <a class="nav-item nav-link" href="#">Hjem <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                        <path fill-rule="evenodd"
+                            d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                    </svg><span class="sr-only"></span></a>
+                <a class="nav-item nav-link active" href="#">Grupper <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z" />
+                    </svg></a>
+                <a class="nav-item nav-link" href="#">Spill <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-dpad-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M6.5 0A1.5 1.5 0 0 0 5 1.5v3a.5.5 0 0 1-.5.5h-3A1.5 1.5 0 0 0 0 6.5v3A1.5 1.5 0 0 0 1.5 11h3a.5.5 0 0 1 .5.5v3A1.5 1.5 0 0 0 6.5 16h3a1.5 1.5 0 0 0 1.5-1.5v-3a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 0 16 9.5v-3A1.5 1.5 0 0 0 14.5 5h-3a.5.5 0 0 1-.5-.5v-3A1.5 1.5 0 0 0 9.5 0h-3Zm1.288 2.34a.25.25 0 0 1 .424 0l.799 1.278A.25.25 0 0 1 8.799 4H7.201a.25.25 0 0 1-.212-.382l.799-1.279Zm0 11.32-.799-1.277A.25.25 0 0 1 7.201 12H8.8a.25.25 0 0 1 .212.383l-.799 1.278a.25.25 0 0 1-.424 0Zm-4.17-4.65-1.279-.798a.25.25 0 0 1 0-.424l1.279-.799A.25.25 0 0 1 4 7.201V8.8a.25.25 0 0 1-.382.212Zm10.043-.798-1.278.799A.25.25 0 0 1 12 8.799V7.2a.25.25 0 0 1 .383-.212l1.278.799a.25.25 0 0 1 0 .424Z" />
+                    </svg></a>
+                <a class="nav-item nav-link" href="#">Venner <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        <path fill-rule="evenodd"
+                            d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                    </svg></a>
+                <a class="nav-item nav-link" href="#">Meldinger <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+                    </svg><span class="translate-middle badge rounded-pill bg-danger">
+                        3</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-dark bg-dark chroma" id="navmobile">
+        <div class="container-fluid d-flex">
+
+            <button class="navbar-toggler me-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navmobile"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!--Profil dropdown-->
+            <ul class="navbar-nav w-25 d-flex mx-3">
+                <li class="nav-item dropdown dropdown-menu-right ms-auto">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        RoyOboy716
+                        <img src="img/moa.jpg" class="rounded-circle" height="30" alt="Profilbilde" loading="lazy" />
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Min profil</a></li>
+                        <li><a class="dropdown-item" href="#">Innstillinger</a></li>
+                        <li><a class="dropdown-item" href="#">Logg ut</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--Navbar mobil slutt-->
+
+    <div class="container rounded-3 w-75 m-0 p-0 mx-auto mt-5 mb-0 text-light" style="background: #202124;"
+        id="infoGruppe">
+        <img src="img/CallOfDuty_Warzone_Graphic.jpeg" class="img-fluid d-flex mx-auto" alt="Forsidebilde"
+            style="max-height: 38rem;">
+        <h1 class="d-flex m-3">Call of Duty Warzone</h1>
+        <h6 class="d-flex m-3">Skriv en bio her ellernoesånt, hva enn du vil egentlig ;)</h6>
+
+        <div class="card border-0 mx-auto mt-0 mb-0" style="background:transparent">
+            <div class="card-header mt-0 m-0" style="background: #202124;" id="headerGruppe">
+                <ul class="nav nav-pills card-header-tabs d-flex" id="bologna-list" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link text-light active" href="#innlegg" role="tab" aria-controls="innlegg"
+                            aria-selected="true">Innlegg</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#om" role="tab" aria-controls="om"
+                            aria-selected="false">Om</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#medlemmer" role="tab" aria-controls="medlemmer"
+                            aria-selected="false">Medlemmer</a>
+                    </li>
+                    <li class="ms-auto">
+                        <a class="btn btn-primary mx-auto text-light" role="tab" aria-controls="medlemmer"
+                            aria-selected="false">Bli medlem +</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body mx-auto p-0 m-0 bg-dark w-100">
+                <div class="tab-content mt-3">
+                    <div class="tab-pane active" id="innlegg" role="tabpanel">
+                        <div class="row d-flex p-0 m-0">
+                            <div class="col-lg-5">
+                                <!---Nytt Innlegg-->
+                                <div class="card gedf-card mx-auto mt-1 mb-4 sticky-top" style="background: #202124;">
+                                    <div class="card-header">
+                                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-white border-0" style="background: #111;"
+                                                    id="posts-tab" role="tab" aria-controls="posts"
+                                                    aria-selected="false">Publiser et innlegg</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body" style="background: #111;">
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="posts" role="tabpanel"
+                                                aria-labelledby="posts-tab">
+                                                <div class="form-group">
+                                                    <div class="form-floating mb-3">
+                                                        <input class="form-control border-dark" id="floatingInput"
+                                                            placeholder="Beskrivelse"
+                                                            style="background-color:rgb(60, 64, 67, 0.90)">
+                                                        <label for="floatingInput" style="color: white;">Tittel</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input class="form-control border-dark" id="floatingInput"
+                                                            placeholder="Beskrivelse"
+                                                            style="height: 100px; background-color:rgb(60, 64, 67, 0.90)">
+                                                        <label for="floatingInput"
+                                                            style="color: white;">Beskrivelse</label>
+                                                    </div>
+
+                                                    <input type="file" class="form-control-file text-light mb-3"
+                                                        id="velgbilde">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btn-toolbar justify-content-between">
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn btn-dark mt-0">Del innlegg</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slutt på Nytt innlegg-->
+
+                            <div class="col-lg-7">
+                                <!--Innlegg-->
+                                <div class="card gedf-card mx-auto mb-5" style="background: #111;">
+                                    <!--Innlegg header-->
+                                    <div class="card-header" style="background: #111;">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="mr-2">
+                                                    <img class="rounded-circle m-3" width="45" src="img/cubr.jpg"
+                                                        alt="">
+                                                </div>
+                                                <div class="ml-2">
+                                                    <div class="h5 m-0 text-light">CheekyCub</div>
+                                                    <div class="h7 text-light">Jacob Kristensen</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Innlegg body-->
+                                    <div class="card-body text-light" style="background: #111;">
+                                        <div class="text-light h7 mb-2"> <i class="fa fa-clock-o"></i> <svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                                <path
+                                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                            </svg> 17:11
+                                        </div>
+                                        <h5 class="card-title text-light">Trenger spillere, helst over 1 i K/D </h5>
+
+                                        <p class="card-text">
+                                            Joiner noen Warzone? Trenger en til Quads, Activision ID: CubR_the_Ch33ky
+                                        </p>
+                                        <img class="card-img m-0" src="img/CallOfDuty_Warzone_Graphic.jpeg"
+                                            alt="Card image">
+
+                                        <!--Innlegg footer-->
+                                        <div class="card-footer d-flex" style="background: #111;">
+                                            <button type="button" class="btn-dark w-50 mx-auto"
+                                                style="background: #111;">Kommenter
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-chat-square-text-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
+                                                </svg>
+                                            </button>
+                                            <button type="button" class="btn-dark w-50 mx-auto"
+                                                style="background: #111;">Send
+                                                melding
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Innlegg-->
+                                <div class="card gedf-card mx-auto mb-5" style="background: #111;">
+                                    <!--Innlegg header-->
+                                    <div class="card-header" style="background: #111;">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="mr-2">
+                                                    <img class="rounded-circle m-3" width="45" src="img/cubr.jpg"
+                                                        alt="">
+                                                </div>
+                                                <div class="ml-2">
+                                                    <div class="h5 m-0 text-light">CheekyCub</div>
+                                                    <div class="h7 text-light">Jacob Kristensen</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Innlegg body-->
+                                    <div class="card-body text-light" style="background: #111;">
+                                        <div class="text-light h7 mb-2"> <i class="fa fa-clock-o"></i> <svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                                <path
+                                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                            </svg> 17:11
+                                        </div>
+                                        <h5 class="card-title text-light">Trenger spillere, helst over 1 i K/D </h5>
+
+                                        <p class="card-text">
+                                            Joiner noen Warzone? Trenger en til Quads, Activision ID: CubR_the_Ch33ky
+                                        </p>
+                                        <img class="card-img m-0" src="img/CallOfDuty_Warzone_Graphic.jpeg"
+                                            alt="Card image">
+
+                                        <!--Innlegg footer-->
+                                        <div class="card-footer d-flex" style="background: #111;">
+                                            <button type="button" class="btn-dark w-50 mx-auto"
+                                                style="background: #111;">Kommenter
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-chat-square-text-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
+                                                </svg>
+                                            </button>
+                                            <button type="button" class="btn-dark w-50 mx-auto"
+                                                style="background: #111;">Send
+                                                melding
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Innlegg-->
+                                <div class="card gedf-card mx-auto mb-5" style="background: #111;">
+                                    <!--Innlegg header-->
+                                    <div class="card-header" style="background: #111;">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="mr-2">
+                                                    <img class="rounded-circle m-3" width="45" src="img/cubr.jpg"
+                                                        alt="">
+                                                </div>
+                                                <div class="ml-2">
+                                                    <div class="h5 m-0 text-light">CheekyCub</div>
+                                                    <div class="h7 text-light">Jacob Kristensen</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Innlegg body-->
+                                    <div class="card-body text-light" style="background: #111;">
+                                        <div class="text-light h7 mb-2"> <i class="fa fa-clock-o"></i> <svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                                <path
+                                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                            </svg> 17:11
+                                        </div>
+                                        <h5 class="card-title text-light">Trenger spillere, helst over 1 i K/D </h5>
+
+                                        <p class="card-text">
+                                            Joiner noen Warzone? Trenger en til Quads, Activision ID: CubR_the_Ch33ky
+                                        </p>
+                                        <img class="card-img m-0" src="img/CallOfDuty_Warzone_Graphic.jpeg"
+                                            alt="Card image">
+
+                                        <!--Innlegg footer-->
+                                        <div class="card-footer d-flex" style="background: #111;">
+                                            <button type="button" class="btn-dark w-50 mx-auto"
+                                                style="background: #111;">Kommenter
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-chat-square-text-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
+                                                </svg>
+                                            </button>
+                                            <button type="button" class="btn-dark w-50 mx-auto"
+                                                style="background: #111;">Send
+                                                melding
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Om tab -->
+                    <div class="tab-pane" id="om" role="tabpanel" aria-labelledby="about-tab">
+                        <div class="row mt-4 m-1">
+                            <div class="col-lg-4">
+                                <div class="list-group me-auto border-dark">
+                                    <a href="#" class="list-group-item list-group-item-action active"
+                                        aria-current="true">
+                                        Platformer
+                                    </a>
+                                    <a class="list-group-item text-light border-dark" style="background: #111;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                            fill="currentColor" class="bi bi-xbox m-3" viewBox="0 0 16 16">
+                                            <path
+                                                d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
+                                        </svg> Xbox
+                                    </a>
+                                    <a class="list-group-item text-light border-dark" style="background: #111;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                            fill="currentColor" class="bi bi-playstation m-3" viewBox="0 0 16 16">
+                                            <path
+                                                d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
+                                        </svg> Playstation
+                                    </a>
+                                    <a class="list-group-item text-light border-dark" style="background: #111;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                            fill="currentColor" class="bi bi-pc-display m-3" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V1Zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0Zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0ZM9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5ZM1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2H1.5Z" />
+                                        </svg> PC
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="list-group mx-auto border-dark">
+                                    <a class="list-group-item list-group-item-action active" aria-current="true">
+                                        Spill
+                                    </a>
+                                    <a class="list-group-item text-light border-dark" style="background: #111;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                            fill="currentColor" class="bi bi-xbox m-3" viewBox="0 0 16 16">
+                                            <path
+                                                d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
+                                        </svg> Call og Duty Modern Warfare: Warzone
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="list-group mx-auto border-dark m-0">
+                                    <a class="list-group-item list-group-item-action active text-light"
+                                        aria-current="true">
+                                        Gruppens eier
+                                    </a>
+                                    <a href="#" class="list-group-item text-light border-dark"
+                                        style="background: #111;">
+                                        <img class="rounded-circle" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                        CheekyCub
+                                    </a>
+                                </div>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-gradient text-light mt-3"
+                                    style="background-color:#5865F2;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                        class="bi bi-discord" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z" />
+                                    </svg> Discord Server
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                                        <path fill-rule="evenodd"
+                                            d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="medlemmer" role="tabpanel" aria-labelledby="deals-tab">
+
+                        <div class="list-group w-50 mx-auto border-dark">
+                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                Medlemmer: Antall
+                            </a>
+                            <a href="#" class="list-group-item text-light border-dark" style="background: #111;">
+                                <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                CheekyCub
+                            </a>
+                            <a href="#" class="list-group-item text-light border-dark" style="background: #111;">
+                                <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                CheekyCub
+                            </a>
+                            <a href="#" class="list-group-item text-light border-dark" style="background: #111;">
+                                <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                CheekyCub
+                            </a>
+                            <a href="#" class="list-group-item text-light border-dark" style="background: #111;">
+                                <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                CheekyCub
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
+        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script>
+            $('#bologna-list a').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+        </script>
+</body>
+
+</html>
