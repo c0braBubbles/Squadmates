@@ -35,6 +35,7 @@ app.get('/othersprofile', function(req, res) {
 
 app.get('/friends', function(req, res) {
     res.render('friends');
+});
     
 app.get('/allgroups', function(req, res) {
     res.render('allgroups');
@@ -46,7 +47,7 @@ app.get('/group', function(req, res) {
 
 app.get('/spill', function(req, res) {
     res.render('spill');
-})
+});
 
 app.get('/new-group', function(req, res) {
     res.render('new-group');
