@@ -25,16 +25,13 @@ app.get('/chat', function(req, res) {
     res.render('chat');
 });
 
-app.get('/editprofile', function(req, res) {
-    res.render('editprofile');
-});
-
 app.get('/othersprofile', function(req, res) {
     res.render('othersprofile');
 });
 
 app.get('/friends', function(req, res) {
     res.render('friends');
+});
     
 app.get('/allgroups', function(req, res) {
     res.render('allgroups');
@@ -46,10 +43,10 @@ app.get('/group', function(req, res) {
 
 app.get('/spill', function(req, res) {
     res.render('spill');
-})
+});
 
-app.get('/new-group', function(req, res) {
-    res.render('new-group');
+app.get('/settings', function(req, res) {
+    res.render('settings');
 });
 
 // Gjør mappen public synlig, så app-en kan ta bruk av:
