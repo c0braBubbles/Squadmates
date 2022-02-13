@@ -1,14 +1,3 @@
-/*Slett om jeg den nye jeg lager*/
-#friends-tab {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    margin:10px;
-    margin-top: 15px !important;
-    margin-bottom:0;
-    text-align: center;
-    padding: 5px 25px 5px 25px;
-}
-
 #friend-tab {
     background-color: orange;
     border-top-left-radius:5px;
@@ -32,9 +21,3 @@
     border-top-right-radius: 5px;
     width: max-content;
 }
-
-/*TODO:
- 1. Lage selve listen med vennene
- 2. Endre farger, slik at det ser fint ut
- 3. Sjekke skalerbarhet, ser det pent ut på tlf/ipad?
-*/
