@@ -123,7 +123,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
     transform: scale(0.95);
 }
   
-input[type=text] {
+input[type=text], input[type=number], input[type=password] {
     background-color: #261226;
     border: none;
     color: #6cacc5;
@@ -145,12 +145,12 @@ input[type=text] {
     border-bottom: 1px solid #5fbae9;
 }
   
-input[type=text]:focus {
+input[type=text]:focus, input[type=number]:focus, input[type=password]:focus {
     background-color: #201e40;
     border-bottom: 2px solid #5fbae9;
 }
   
-input[type=text]:placeholder {
+input[type=text]:placeholder, input[type=number]:placeholder, input[type=password]:placeholder {
     color: #6cacc5;
 }
 ::placeholder {

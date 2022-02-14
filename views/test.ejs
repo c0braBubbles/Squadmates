@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <h1>Dette er en test side for å teste Firebase</h1>
+
+
+    <form id="innleggForm">
+        <textarea id="txtOmrade" class="txtArea" rows="20" cols="100"></textarea>
+
+        <br>
+
+        <button type="submit" class="submBtn">Submit!</button>
+    </form>
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFCI3CT5AaJBpO02lO555bjHV-CIpKUS8",
+            authDomain: "squadmates-5279d.firebaseapp.com",
+            databaseURL: "https://squadmates-5279d-default-rtdb.firebaseio.com",
+            projectId: "squadmates-5279d",
+            storageBucket: "squadmates-5279d.appspot.com",
+            messagingSenderId: "367286413852",
+            appId: "1:367286413852:web:5d13213e32a33b65474dd9",
+            measurementId: "G-SX3GD5KNCC"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        firebase.initializeApp(firebaseConfig);
+
+
+        
+        var message = firebase.database().ref().child('Bloginnlegg'); 
+        var postForm = document.getElementById("innleggForm"); 
+        var txtArea = document.getElementById("txtOmrade"); 
+        
+        var date = new Date();
+        var dateToday = date.getUTCDate() + ":" + (date.getUTCMonth() + 1) + ":" + date.getUTCFullYear();
+        console.log(dateToday);
+
+        postForm.onsubmit = function(evt) {
+            if(txtArea.value == "") {
+                alert("Fyll inn tekst");
+                return;
+            }
+            else {
+                evt.preventDefault(); 
+                message.push({
+                    "Dato": dateToday,
+                    "Tekst": txtArea.value
+                });
+                window.location = "/";
+            }
+        }
+    </script>
+</body>
+</html>
