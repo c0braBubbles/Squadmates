@@ -48,7 +48,8 @@
                         <br>
                         <input type="text" id="login" class="fadeIn second" name="login" placeholder="e-post"><br>
                         <input type="text" id="password" class="fadeIn third" name="login" placeholder="passord"><br>
-                        <input type="submit" class="fadeIn fourth" value="Logg Inn!">
+                        <input type="button" id="loginBtn" class="fadeIn fourth" onclick="login()" value="Logg Inn!">
+                        <!-- <button class="fadeIn fourth">Logg Inn!</button> -->
                     </form>
 
                     <div id="formFooter">
@@ -70,6 +71,8 @@
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
 
 
     <script>
