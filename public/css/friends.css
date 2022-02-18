@@ -1,23 +1,82 @@
-#friend-tab {
-    background-color: orange;
-    border-top-left-radius:5px;
-    border-top-right-radius:5px;
-    margin-top:10px;
-    margin-bottom:0px;
-    padding:2px 30px 5px 30px;
-}
-
-#friend-search {
-    margin-top:10px;
-}
-
-#my-friends-tab {
-    background-color: #111;
-    margin-top:20px;
-    margin-bottom:0px;
-    margin-left:10px;
-    padding:2px 25px 5px 25px;
+/* Boksen som inneholder alt - Setter størrelse og litt margin på top og venstre slik at vi ser litt av bakgrunnen til siden */
+#first-layer {
+    background-color: green;
+    width:100%;
+    height:90vh;
+    margin: 10px 0px 0px 10px;
     border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    width: max-content;
+}
+
+
+/* Neste fire er for hver av de fire boksene siden er stykket opp i */
+/*tl = top left, har en satt høyde som skal være lik for tl og tr*/
+#tl-col {
+    background-color: rgb(44,44,44);
+    border-top-left-radius: 5px;
+    height:8vh;
+}
+/*bl = bottom left*/
+#bl-col {
+    background-color: rgb(44,44,44);
+    height: 77vh;
+    overflow-y: scroll;
+    overflow-x:hidden;
+}
+/*tr = top rightm har en satt hlyde som skal være lik for tl og tr*/
+#tr-col {
+    background-color: rgb(49,49,49);
+    height:8vh;
+}
+/*br = bottom right*/
+#br-col {
+    background-color: rgb(49,49,49);
+}
+
+
+.src-res {
+    /*background-color: rgb(175, 17, 109);*/
+    margin:10px;
+    margin-top:    0px;
+    margin-bottom: 0px;
+    width: 97%;
+    padding-left:  0px;
+    padding-right: 0px;
+}
+
+/*Dette er for søkefelt som tilhører å søke etter en person du ikke følger*/
+.src-after-person {
+    border:none;
+    background-color: rgb(49,49,49, 0.900);
+    border-bottom: 2px solid rgba(80, 80, 80, 0.800);
+    padding:10px 10px 3px 10px;
+    margin-left:  15px;
+    margin-right: 15px;
+    font-size: large;
+    width: calc(100% - 30px);
+    border-radius: 3px;
+}
+.src-after-person:hover {
+    border-color: rgba(90, 90, 90, 0.800);
+    background-color: rgb(55,55,55,0.950);
+}
+
+.src-after-person:focus {
+    outline:none;
+    border-color: rgb(200, 200, 200);
+}
+
+/*Dette er klasse(r) for å justere på lister/list-items. Listene har også klasser fra bootstrap*/
+.person-list {
+    border-radius: 0px;
+}
+
+.person-list-item {
+    background-color: transparent;
+    border:none;
+    border-bottom: 1px solid rgba(80, 80, 80, 0.800);/*note2self: denne må ha samme farge som søkebar borderen som er over*/
+    display: inline;
+}
+.person-list-item:hover {
+    border:none;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.800);
 }
