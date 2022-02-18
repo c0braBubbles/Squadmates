@@ -42,3 +42,8 @@ userForm.onsubmit = function(evt) {
         alert("Passordfeltene samsvarer ikke");
     }
 }
+
+
+document.getElementById("loginBtn").onclick = function() {
+    alert("det funker");
+}
