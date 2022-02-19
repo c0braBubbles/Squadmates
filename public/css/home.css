@@ -108,6 +108,7 @@ button:hover:active:before {
     #søkebargrupper {width: 100% !important; margin:0% !important;}
     #søkefeltgrupper {width: 75% !important; margin:0% !important;}
     #opprettgruppebar {width: 100% !important; margin-top: 5px;}
+    #medlemsliste {width: 100% !important;}
 }
 
 @media (min-width: 1200px) {
