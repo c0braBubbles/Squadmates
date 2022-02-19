@@ -97,13 +97,17 @@ button:hover:active:before {
     #navdesktop { display: none !important; }
     .card {width: 75% !important;}
     .container {width: 75% !important;}
+    
 }
 
 @media (max-width: 768px) {
-    #navdesktop { display: none !important; }
+    #navdesktop { display: none !important;}
     .card {width: 100% !important;}
     .container {width: 100% !important;}
     #profilbrukernavn { margin-left: 50px !important;}
+    #søkebargrupper {width: 100% !important; margin:0% !important;}
+    #søkefeltgrupper {width: 75% !important; margin:0% !important;}
+    #opprettgruppebar {width: 100% !important; margin-top: 5px;}
 }
 
 @media (min-width: 1200px) {
