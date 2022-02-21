@@ -21,8 +21,7 @@ firebase.auth().onAuthStateChanged((user) => {
 		//document.getElementById("usernameHeaderMobil").innerHTML = displayusername;
 	} else {
 		// User is signed out
-		// ...
-
+		window.location = "/";
 	}
 
 });

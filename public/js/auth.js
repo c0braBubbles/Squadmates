@@ -1,5 +1,6 @@
 var userID;
 var msg; 
+const auth = firebase.auth();
 var userForm = document.getElementById("bForm"); 
 
 var inpEpost = document.getElementById("inp_epost"); 
@@ -10,7 +11,7 @@ var inpPassword = document.getElementById("inp_passord");
 var inpPassword2 = document.getElementById("inp_passord2"); 
 
 
-firebase.auth().onAuthStateChanged(function(user) {
+/*firebase.auth().onAuthStateChanged(function(user) {
     if(user) {
         // Bruker logget inn
         window.location = "/home";
@@ -27,20 +28,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         // Ingen bruker logget inn
         // window.location = "/";
     }
-});
+});*/
 
-
-/*userForm.onsubmit = function(evt) {
-    evt.preventDefault(); 
-    msg.push({
-        "Epost": inpEpost.value, 
-        "Brukernavn": inpBnavn.value, 
-        "Navn": inpNavn.value, 
-        "Alder": inpAge.value
-    });
-}*/
-
-const auth = firebase.auth();
 
 document.getElementById("regBtn").onclick = function() {
     if(inpPassword.value.length < 6) {
@@ -55,11 +44,13 @@ document.getElementById("regBtn").onclick = function() {
             console.log(userID);
             msg = firebase.database().ref('Bruker').child(userID); 
             msg.set({
-                "Epost": inpEpost.value, 
                 "Brukernavn": inpBnavn.value, 
-                "Navn": inpNavn.value, 
                 "Alder": inpAge.value
             });
+            // window.location = "/home";
+            setTimeout(function () {
+                window.location = "/home";
+            }, 5000);
         });
     }
 }
