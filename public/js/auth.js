@@ -13,7 +13,7 @@ var inpPassword2 = document.getElementById("inp_passord2");
 firebase.auth().onAuthStateChanged(function(user) {
     if(user) {
         // Bruker logget inn
-        // window.location = "/home";
+        window.location = "/home";
         var user = firebase.auth().currentUser; 
 
         if(user != null) {
@@ -53,8 +53,8 @@ document.getElementById("regBtn").onclick = function() {
         auth.createUserWithEmailAndPassword(inpEpost.value, inpPassword.value).then(cred => {
             var userID = firebase.auth().currentUser.uid; 
             console.log(userID);
-            msg = firebase.database().ref('bruker').child(userID); 
-            msg.push({
+            msg = firebase.database().ref('Bruker').child(userID); 
+            msg.set({
                 "Epost": inpEpost.value, 
                 "Brukernavn": inpBnavn.value, 
                 "Navn": inpNavn.value, 

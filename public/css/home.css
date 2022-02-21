@@ -154,3 +154,50 @@ button:hover:active:before {
 .chromahover:hover:active:before {
     filter: blur(2px)
 }
+
+/* XBOX Chroma */
+.chromaxbox {
+    position: relative;    
+    border: none;
+    outline: none;
+    color: white;
+    background: #111;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif
+}
+
+.chromaxbox:before {
+    position: absolute;
+    content: '';
+    top: -2px;
+    left: -2px;
+    height: calc(100% + 4px);
+    width: calc(100% + 4px);
+    border-radius: 5px;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(5px);
+    background: linear-gradient(45deg, #ffffff, #77bb44, #2ca243, #107c10, #2ca243, #77bb44);
+    background-size: 400%;
+    transition: opacity .3s ease-in-out;
+    animation: animate 20s linear infinite
+}
+
+.chromaxbox:hover:before {
+    opacity: 1
+}
+
+.chromaxbox:hover:active {
+    background: none
+}
+
+.chromaxbox:hover:active:before {
+    filter: blur(2px)
+}
+
+.testClass:hover {
+    background:none;
+    background-color:transparent !important;
+}
