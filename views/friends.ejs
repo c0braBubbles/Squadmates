@@ -28,7 +28,7 @@
 
             <div class="row">
 
-                <div class="col-4">
+                <div class="col-4 leftCol">
 
                     <!-- Denne boksen skal bare inneholde en statisk tekst "Følger" -->
                     <div class="row border-bottom border-dark border-2" id="tl-col">
@@ -93,12 +93,43 @@
                     </div>
 
                 </div>
-                <div class="col-8">
+                <div class="col-8 skallering">
 
                     <!-- Denne boksen skal inneholde et søkefelt, form? -->
                     <div class="row border-bottom border-dark border-2" id="tr-col">
                         <div class="chat-info bg-dark">
                             <h2 style="font-weight: 300;">Søk etter profiler</h2>
+                        </div>
+                        <div class="dropdown followingDropdown" style="width: fit-content; height: fit-content; padding:0px;">
+                            <button class="btn btn-secondary dropdown-toggle followingDropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownMenuButtonFriends">
+                                Følger
+                            </button>
+                            <ul class="dropdown-menu person-dropdown  bg-dark" aria-labelledby="dropdownMenuButtonFriends">
+                                <li class="person-list-item-border">
+                                    <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal4</a>
+                                    <a href="#">
+                                        <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
+                                    </a>
+                                </li>
+                                <li class="person-list-item-border">
+                                    <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal4</a>
+                                    <a href="#">
+                                        <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
+                                    </a>
+                                </li>
+                                <li class="person-list-item-border">
+                                    <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal4</a>
+                                    <a href="#">
+                                        <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
+                                    </a>
+                                </li>
+                                <li class="person-list-item-border">
+                                    <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal4</a>
+                                    <a href="#">
+                                        <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <!-- Denne boksen skal inneholde de vennene du kan søke etter -->
@@ -107,7 +138,7 @@
                         <div class="src-res" style="height:77vh; overflow-y: scroll;">
 
                             <input class="src-after-person sticky-top text-light" type="search"
-                                placeholder="Finn en person">
+                                placeholder="Finn en person" style="z-index:1 !important;">
                             <!-- NoteToSelf: legg til class "sticky-top" og sett på background -->
 
                             <ul class="list-group mt-1 person-list">
@@ -345,13 +376,15 @@
 
         </div>
 
-
+        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+        <!--<script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
         <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
-        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>-->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-
+        
         <script src="jquery-3.5.1.min.js"></script>
+        
 
 
 </body>
