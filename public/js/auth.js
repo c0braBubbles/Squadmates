@@ -1,5 +1,5 @@
 var userID;
-var msg; 
+var msg;
 const auth = firebase.auth();
 var userForm = document.getElementById("bForm"); 
 
