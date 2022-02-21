@@ -1,3 +1,12 @@
+/* Beskrivelse av css-filen:
+
+Siden har ansvar for styling hovedsakling for "chat" partialen/siden.
+Den inneholder også klasse(r) som blir brukt i "friends", ettersom at disse to sidene er nokså
+like utseende-messig. Klasse(ne) som blir brukt i "friends" er klasse(r) som har med topptekst for
+høyre del av siden å gjøre. 
+
+*/
+
 .chat-room {
     background-color: rgb(224, 224, 224);
     margin:10px;
@@ -79,7 +88,6 @@
 }
 
 .display-person {
-    background-color: green;
     height: fit-content;
     padding: 0px !important;
     margin: 0px !important;
@@ -93,7 +101,7 @@
 @media (max-width:1000px) {
     
     /* Bytt navn på disse senere, legg til litt styling */
-    #leftCol { /*dette er til venstre kolonne, den skal forsvinne*/
+    .leftCol { /*dette er til venstre kolonne, den skal forsvinne*/
         display: none;
     }
 
@@ -110,5 +118,18 @@
         height: 100vh !important;
     }
 
+    .chat-info {
+        width: 85%;
+        margin-left:0px;
+        margin-right:0px;
+        border-top-right-radius: 0px;
+    }
     
+}
+
+@media (max-width:600px) {
+    .chat-info {
+        width: 80%;
+        padding-top:5px;
+    }
 }
