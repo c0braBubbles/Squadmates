@@ -6,16 +6,13 @@ var inpBnavn = document.getElementById("inp_bnavn");
 var inpNavn = document.getElementById("inp_navn"); 
 var inpAge = document.getElementById("inp_alder"); 
 var inpPassword = document.getElementById("inp_passord"); 
-var inpPassword2 = document.getAnimations("inp_passord2"); 
+var inpPassword2 = document.getElementById("inp_passord2"); 
 
 
 firebase.auth().onAuthStateChanged(function(user) {
     if(user) {
         // Bruker logget inn
-        // document.getElementById("main-side").style.display = "block";
-        // document.getElementById("login-side").style.display = "none";
         window.location = "/home";
-
         var user = firebase.auth().currentUser; 
 
         if(user != null) {
@@ -28,8 +25,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     else {
         // Ingen bruker logget inn
         // window.location = "/";
-        // document.getElementById("main-side").style.display = "none"; 
-        // document.getElementById("login-side").style.display = "block";
     }
 });
 
@@ -47,21 +42,17 @@ userForm.onsubmit = function(evt) {
 const auth = firebase.auth();
 
 document.getElementById("regBtn").onclick = function() {
-    /*if ( inpPassword2.value !== inpPassword ) {
-        window.alert("Gjenta passord stemmer ikke med passordet du har skrevet inn!")
-    } else if ( inpPassword.length < 6 ) {
-        window.alert("Passordet er for kort!")
-    } else if (document.getElementById('inputFirstname').value.length == 0 || document.getElementById('inputLastname').value.length == 0 ||
-               email.length == 0 || brukernavn.length == 0) {
-        window.alert("Vennligst fyll inn alle feltene")
-    } else {*/
+    if(inpPassword.value.length < 6) {
+        alert("Passordet er for kort. Minimum 6 tegn"); 
+    } else if(inpPassword.value != inpPassword2.value) {
+        alert("Passordfeltene samsvarer ikke"); 
+    } else if(inpBnavn.value.length > 10) {
+        alert("Brukernavnet er for langt");
+    } else {
         auth.createUserWithEmailAndPassword(inpEpost.value, inpPassword.value).then(cred => {
-            // userID = firebase.auth().currentUser.uid; 
-            
-                
-                window.location = "/home";                                 
+            window.location = "/home";
         });
-    // }
+    }
 }
 
 
