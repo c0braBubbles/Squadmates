@@ -66,5 +66,24 @@ document.getElementById("loginBtn").onclick = function() {
         var errorMessage = error.message;
         window.alert("Error : " + errorMessage);
     });
-    analytics.logEvent('bruker_login', { epost: emailInp })
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user) {
+            // Bruker logget inn
+            window.location = "/home";
+            var user = firebase.auth().currentUser; 
+    
+            if(user != null) {
+                // email_id = user.email; 
+    
+                // setUsername(email_id);
+            }
+        }
+    
+        else {
+            // Ingen bruker logget inn
+            // window.location = "/";
+        }
+    });
+    // analytics.logEvent('bruker_login', { epost: emailInp })
 }
