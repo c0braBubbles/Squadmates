@@ -59,12 +59,13 @@
         <li class="nav-item dropdown dropdown-menu-right ms-auto">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                RoyOboy716
+                <text id="usernameHeader"> Brukernavn </text>
                 <img src="img/moa.jpg" class="rounded-circle" height="30" width="30" alt="Profilbilde" loading="lazy" />
             </a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="/myprofile">Min profil</a></li>
-                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#settingsModal">Kontoinnstillinger</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal"
+                        data-bs-target="#settingsModal">Kontoinnstillinger</a></li>
                 <li><a class="dropdown-item" href="#">Logg ut</a></li>
             </ul>
         </li>
@@ -138,16 +139,17 @@
         </button>
 
         <!--Profil dropdown-->
-        <ul class="navbar-nav w-25 d-flex mx-5">
+        <ul class="navbar-nav w-25 d-flex" style="margin: auto;">
             <li class="nav-item dropdown dropdown-menu-right ms-auto">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    RoyOboy716
+                    <text id="usernameHeaderMobil"> Brukernavn </text>
                     <img src="img/moa.jpg" class="rounded-circle" height="30" alt="Profilbilde" loading="lazy" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     <li><a class="dropdown-item" href="/myprofile">Min profil</a></li>
-                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#settingsModal">Kontoinnstillinger</a></li>
+                    <li><a class="dropdown-item" data-bs-toggle="modal"
+                            data-bs-target="#settingsModal">Kontoinnstillinger</a></li>
                     <li><a class="dropdown-item" href="#" onclick="logout()">Logg ut</a></li>
                 </ul>
             </li>
@@ -156,4 +158,7 @@
 </nav>
 <br>
 <!--Navbar mobil slutt-->
-                     
+
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script src="js/firebase_config.js" type="module"></script>
+<script src="js/header.js" type="module"></script>
