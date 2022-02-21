@@ -22,9 +22,11 @@
 	<%- include('partials/headerp'); %>
 
 		<div id="superDiv">
-			<div class="container w-75 mt-2 p-3 d-flex rounded-3 bg-dark">
+
+			<!---Søke bar-->
+			<container class="w-75 mt-2 mx-auto d-flex rounded-3 bg-transparent m-0" id="søkebargrupper">
 				<div class="input-group w-100">
-					<input type="search" class="form-control rounded border-dark text-light"
+					<input type="search" class="form-control rounded border-dark text-light" id="søkefeltgrupper"
 						placeholder="Søk etter grupper basert på spill eller gruppenavn" aria-label="Search"
 						aria-describedby="search-addon" style="background-color: rgb(60, 64, 67, 0.90);" />
 					<button type="button" class="btn btn-dark">Søk
@@ -34,7 +36,7 @@
 								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
 						</svg>
 					</button>
-					<div class="input-group w-25">
+					<div class="input-group w-25" id="opprettgruppebar">
 						<button id="newGroup_btn" type="button" class="btn btn-dark ms-auto">Opprett ny gruppe
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 								class="bi bi-plus" viewBox="0 0 16 16">
@@ -44,19 +46,16 @@
 						</button>
 					</div>
 				</div>
-			</div>
-			<!-- 
-			OM VI TRENGER FIXED HØYDE: 
-			style = "height:18rem"
-		-->
+			</container>
+			<!---Søke bar slutt-->
+
 			<!--Kort for platformer-->
-			<div class="container w-75">
-				<h1 class="mx-auto text-light pt-5"> Mine platformer</h1>
-			</div>
-			<div class="card-group w-75 mx-auto mt-3">
-				<div class="row w-100 mx-3">
+			<div class="card-group w-75 mx-auto mt-3" id="platformgroup">
+				<div class="row w-100">
+
+					<h1 class="text-light pt-5"> Mine platformer</h1>
 					<!--Xbox-->
-					<div class="col-sm-3 pt-2">
+					<div class="col-xl-3 pt-2" style="padding-right: 0px;">
 						<div class="card rounded-3 chromahover">
 							<div class="card-header bg-success bg-gradient d-flex"
 								style="height: 9rem; object-fit: cover">
@@ -73,7 +72,7 @@
 						</div>
 					</div>
 					<!--Playstation-->
-					<div class="col-sm-3 pt-2">
+					<div class="col-xl-3 pt-2" style="padding-right: 0px;">
 						<div class="card rounded-3 chromahover">
 							<div class="card-header bg-primary bg-gradient d-flex"
 								style="height: 9rem; object-fit: cover">
@@ -90,7 +89,7 @@
 						</div>
 					</div>
 					<!--Nintendo-->
-					<div class="col-sm-3 pt-2">
+					<div class="col-xl-3 pt-2" style="padding-right: 0px;">
 						<div class="card rounded-3 chromahover">
 							<div class="card-header bg-danger d-flex" style="height: 9rem; object-fit: cover">
 								<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor"
@@ -108,7 +107,7 @@
 						</div>
 					</div>
 					<!--Steam-->
-					<div class="col-sm-3 pt-2">
+					<div class="col-xl-3 pt-2" style="padding-right: 0px;">
 						<div class="card rounded-3 chromahover">
 							<div class="card-header bg-gradient d-flex"
 								style="height: 9rem; object-fit: cover; background-color:#1b2838;">
@@ -131,13 +130,10 @@
 			</div>
 
 			<!--Kort for grupper-->
-			<div class="container w-75">
-				<h1 class="mx-auto text-light pt-5"> Mine grupper</h1>
-			</div>
-
 			<div class="card-group w-75 mx-auto mx-3 mt-3">
 				<div class="row">
-					<div class="col-sm-4" onclick="window.location = '/group'">
+					<h1 class="mx-auto text-light pt-5"> Mine grupper</h1>
+					<div class="col-lg-4" onclick="window.location = '/group'">
 						<div class="card rounded-3 chromahover">
 							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
 								style="height: 12rem; object-fit: cover">
@@ -148,10 +144,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-lg-4">
 						<div class="card rounded-3 chromahover">
 							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-							style="height: 12rem; object-fit: cover">
+								style="height: 12rem; object-fit: cover">
 							<div class="card-body">
 								<h5 class="card-title">Call of Duty Warzone</h5>
 								<p class="card-text">Vet ikke hva vi skal skrive her</p>
@@ -159,10 +155,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-lg-4">
 						<div class="card rounded-3 chromahover">
 							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-							style="height: 12rem; object-fit: cover">
+								style="height: 12rem; object-fit: cover">
 							<div class="card-body">
 								<h5 class="card-title">Call of Duty Warzone </h5>
 								<p class="card-text">Vet ikke hva vi skal skrive her</p>
@@ -170,10 +166,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-lg-4">
 						<div class="card rounded-3 chromahover my-2">
 							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-							style="height: 12rem; object-fit: cover">
+								style="height: 12rem; object-fit: cover">
 							<div class="card-body">
 								<h5 class="card-title">Call of Duty Warzone </h5>
 								<p class="card-text">Vet ikke hva vi skal skrive her</p>
@@ -181,10 +177,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-lg-4">
 						<div class="card rounded-3 chromahover my-2">
 							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-							style="height: 12rem; object-fit: cover">
+								style="height: 12rem; object-fit: cover">
 							<div class="card-body">
 								<h5 class="card-title">Call of Duty Warzone </h5>
 								<p class="card-text">Vet ikke hva vi skal skrive her</p>
@@ -192,10 +188,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-lg-4">
 						<div class="card rounded-3 chromahover my-2">
 							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-							style="height: 12rem; object-fit: cover">
+								style="height: 12rem; object-fit: cover">
 							<div class="card-body">
 								<h5 class="card-title">Call of Duty Warzone </h5>
 								<p class="card-text">Vet ikke hva vi skal skrive her</p>
@@ -203,10 +199,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-lg-4">
 						<div class="card rounded-3 chromahover my-2">
 							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-							style="height: 12rem; object-fit: cover">
+								style="height: 12rem; object-fit: cover">
 							<div class="card-body">
 								<h5 class="card-title">Call of Duty Warzone </h5>
 								<p class="card-text">Vet ikke hva vi skal skrive her</p>

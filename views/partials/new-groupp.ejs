@@ -1,15 +1,20 @@
 <div class="container rounded-3 w-75 m-0 p-0 mx-auto mt-5 mb-0 text-light" style="background: #202124;">
-    <img src="img/Squadmates tech.png" id="preview" class="img-fluid d-flex mx-auto" style="max-height: 38rem;">
+    <img src="img/Amin.jpg" id="preview" class="img-fluid d-flex mx-auto w-100"
+        style="height: 25rem; object-fit: cover">
 
 
     <form method="post" id="image-form">
-        <div class="mb-3">
-            <h5 class="mx-3 w-75 mx-auto">Velg et forsidebilde for gruppen</h5>
+        <div class="mb-3 mt-3">
             <input class="form-control w-75 d-flex mx-auto" type="file" id="formFile">
+            <div class="mx-3 w-75 mx-auto">
+            <span class="form-text small text-muted mx-3 w-75 mx-auto">
+                Velg et forsidebilde for gruppen din
+            </span>
+            </div>
         </div>
     </form>
 
-    <h5 class="mx-3 w-75 mx-auto">Gruppens navn og biografi</h5>
+    <h5 class="mx-3 w-75 mx-auto">Navn og om gruppen</h5>
     <div class="form-floating mb-3 mx-3 w-75 d-flex mx-auto">
         <input class="form-control border-dark text-light" id="floatingInput" placeholder="Beskrivelse"
             style="background-color:rgb(60, 64, 67, 0.90)">
@@ -23,8 +28,7 @@
 
 
     <!-- Discord -->
-    <h5 class="mx-3 w-75 mx-auto">Har gruppen din en egen discord server?</h5>
-    <div class="input-group mb-3 mx-3 w-75 d-flex mx-auto">
+    <div class="input-group mx-3 w-75 d-flex mx-auto">
         <div class="input-group-text bg-dark border-dark">
             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="@Gamertag">
         </div>
@@ -37,12 +41,15 @@
         <input type="text" class="form-control bg-dark border-dark text-light" aria-label="@Gamertag"
             placeholder="Link til discord server" id="discordform">
     </div>
-
-    <div class="container mx-3 mx-auto w-75 m-0 p-0">
-        <h5>Platformer</h5>
-        <div class="row">
-
-            <div class="col col-sm-auto">
+    <div class="mx-3 mb-3 w-75 mx-auto">
+        <span class="form-text small text-muted mx-3 w-75 mx-auto">
+            Hvis gruppen din har en egen discord server kan du legge linken her
+        </span>
+        </div>
+    <div class="container m-0 p-0">
+        <h5 class="w-75 mx-auto">Platformer</h5>
+        <div class="row w-75 mx-auto pr-0 mr-0">
+            <div class="col col-sm-auto" style="padding-left: 0px;">
                 <!-- PC -->
                 <div class="input-group mb-3">
                     <div class="input-group-text bg-dark border-dark">
