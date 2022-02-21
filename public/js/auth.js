@@ -13,7 +13,7 @@ var inpPassword2 = document.getElementById("inp_passord2");
 firebase.auth().onAuthStateChanged(function(user) {
     if(user) {
         // Bruker logget inn
-        // window.location = "/home";
+        window.location = "/home";
         var user = firebase.auth().currentUser; 
 
         if(user != null) {

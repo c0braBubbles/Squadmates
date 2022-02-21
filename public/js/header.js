@@ -1,7 +1,7 @@
 const auth = firebase.auth();
 
 var uid;
-var username;
+var username = "";
 var displayusername;
 
 firebase.auth().onAuthStateChanged((user) => {
@@ -10,9 +10,13 @@ firebase.auth().onAuthStateChanged((user) => {
 		// https://firebase.google.com/docs/reference/js/firebase.User
 		uid = user.uid;
 		// ...
-		console.log(uid);
-		displayusername = getUsername(uid);
-		console.log(displayusername);
+		// displayusername = getUsername(uid);
+		
+		if(user != null) {
+            // email_id = user.email; 
+			getUsername(uid);
+            // setUsername(email_id);
+        }
 		//document.getElementById("usernameHeader").innerHTML = displayusername;
 		//document.getElementById("usernameHeaderMobil").innerHTML = displayusername;
 	} else {
@@ -29,7 +33,7 @@ function getUsername(uid) {
 		var message = snapshot.val();
 		//if (uid === message.Brukernavn) {
 		username = message.Brukernavn;
-		//console.log(username);
-		return username;
+		// console.log(username);
+		// return username;
 	});
 }
