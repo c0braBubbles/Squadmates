@@ -171,7 +171,19 @@
                 document.getElementById("superDiv").innerHTML = `<%- include('partials/editprofilep'); %>`
                 var biografi = localStorage.getItem("Biografi");
                 document.getElementById("bioTextfield").innerHTML = biografi;
+            }
 
+            var uid
+
+            function lagreBrukerEndringer() {
+                uid = firebase.auth().currentUser.uid;
+                var inpBio = document.getElementById("bioTextfield");
+                const con = firebase.database().ref('Bruker').child(uid);
+                con.update({
+                    "Biografi":inpBio.value
+                }).then(() => {
+                    location.reload();
+                });
             }
         </script>
 </body>
