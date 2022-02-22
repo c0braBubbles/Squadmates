@@ -44,8 +44,9 @@ document.getElementById("regBtn").onclick = function() {
             console.log(userID);
             msg = firebase.database().ref('Bruker').child(userID); 
             msg.set({
-                "Brukernavn": inpBnavn.value, 
-                "Alder": inpAge.value
+                "Brukernavn":   inpBnavn.value, 
+                "Alder":        inpAge.value, 
+                "Navn":         inpNavn.value
             });
             // window.location = "/home";
             setTimeout(function () {
@@ -78,11 +79,6 @@ document.getElementById("loginBtn").onclick = function() {
     
                 // setUsername(email_id);
             }
-        }
-    
-        else {
-            // Ingen bruker logget inn
-            // window.location = "/";
         }
     });
     // analytics.logEvent('bruker_login', { epost: emailInp })
