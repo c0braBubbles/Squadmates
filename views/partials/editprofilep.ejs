@@ -6,8 +6,8 @@
         </div>
         <div class="col my-auto">
             <div class="flex-column my-auto" id="profilbrukernavn" style="margin-left: 10px !important;">
-                <h2 style="font-size: 5vh;">Brukernavn</h2>
-                <h5 class="text-muted" style="font-size:2vh;">Navn navnesen</h5>
+                <h2 style="font-size: 5vh;" id="editUserName">Brukernavn</h2>
+                <h5 class="text-muted" style="font-size:2vh;" id="editRealName">Navn navnesen</h5>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
 
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Om meg</label>
-        <textarea class="form-control" id="bio_textfield" rows="3"> </textarea>
+        <textarea class="form-control" id="bioTextfield" rows="3"> </textarea>
     </div>
 
     <hr>
@@ -99,7 +99,7 @@
     </div>
 
     <div class="container d-flex">
-        <button class="btn-danger me-auto mt-3 p-2" id="save_profile_changes_btn" onclick="lagreBrukerEndringer(); location.reload()">Lagre endringer
+        <button class="btn-danger me-auto mt-3 p-2" id="save_profile_changes_btn" onclick="lagreBrukerEndringer()">Lagre endringer
         </button>
     </div>
 </div>
