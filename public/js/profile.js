@@ -52,13 +52,26 @@ document.getElementById("editp_btn").onclick = function () {
 	document.getElementById("bioTextfield").innerHTML = biografi;
 }
 
+var fil = {};
+
+document.getElementById("uploadProfilePic").onchange = function(e) {
+	fil = e.target.files[0];
+}
+
 document.getElementById("save_profile_changes_btn").onclick = function () {
 	var uid = firebase.auth().currentUser.uid;
 	var inpBio = document.getElementById("bioTextfield");
+
 	const con = firebase.database().ref('Bruker').child(uid);
 	con.update({
 		"Biografi": inpBio.value
 	}).then(() => {
-		location.reload();
+		if (fil instanceof File) {
+			firebase.storage().ref("user/"+uid+"/profile.jpg").put(fil).then(() => {
+				location.reload();
+			});
+		} else { location.reload(); }
+
 	});
+
 }
