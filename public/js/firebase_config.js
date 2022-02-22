@@ -1,6 +1,9 @@
 /*
     HUSK Å LINKE TIL SDK-EN I HTML FILA I TILLEGG TIL DENNE DU BRUKER DENNE
     
+    DETTE ER TIL ANALYTICS DELEN. HVIS DU SER I G&G DE DELENE VI LOGGER TROR JEG
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>  
+
     SDK-SKRIPTET:
     <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 */
