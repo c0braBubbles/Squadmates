@@ -1,4 +1,4 @@
-var uid
+var uid;
 /*
 function lagreBrukerEndringer() {
 	uid = firebase.auth().currentUser.uid;
@@ -14,6 +14,8 @@ function lagreBrukerEndringer() {
 var b_bio = document.getElementById("userBio");
 var biografi;
 
+
+
 firebase.auth().onAuthStateChanged((user) => {
 	if (user != null) {
 		uid = user.uid;
@@ -22,7 +24,11 @@ firebase.auth().onAuthStateChanged((user) => {
 		var userId = firebase.auth().currentUser.uid;
 		return firebase.database().ref('/Bruker/' + uid).once('value').then((snapshot) => {
 			biografi = snapshot.child("Biografi").val();
+			var username = snapshot.child("Brukernavn").val();
+			var name = snapshot.child("Navn").val();
 			document.getElementById("userBio").innerHTML = biografi;
+			document.getElementById("userName").innerHTML = username; //Brukernavn min profil
+			document.getElementById("userRealName").innerHTML = name; //Ekte navn min profil
 		}).then(() => { localStorage.setItem("Biografi", biografi); }); //Legger biografien inn i localstorage
 
 
@@ -34,19 +40,4 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 
-/* KODE FOR HENTING AV BRUKERNAVN PÅ PROFILSIDE */
-var uid;
-firebase.auth().onAuthStateChanged((user) => {
-	if (user != null) {
-		uid = user.uid;
-		return firebase.database().ref('/Bruker/' + uid).once('value').then((snapshot) => {
-			var username = snapshot.child("Brukernavn").val();
-			var name = snapshot.child("Navn").val();
-			document.getElementById("userName").innerHTML = username; //Brukernavn min profil
-			document.getElementById("userRealName").innerHTML = name; //Ekte navn min profil
-			//document.getElementById("editUserName").innerHTML = username; //Brukernavn rediger profil
-			//document.getElementById("editRealName").innerHTML = name; //Ekte navn rediger profil  
-		});
-	}
-});
-/* KODE FOR HENTING AV BRUKERNAVN PÅ PROFILSIDE SLUTT */
+
