@@ -1,5 +1,5 @@
 var uid
-
+/*
 function lagreBrukerEndringer() {
     uid = firebase.auth().currentUser.uid;
     var inpBio = document.getElementById("bioTextfield");
@@ -9,7 +9,7 @@ function lagreBrukerEndringer() {
     }).then(() => {
         location.reload();
     });
-}
+}*/
 
 var b_bio = document.getElementById("userBio");
 var biografi;
