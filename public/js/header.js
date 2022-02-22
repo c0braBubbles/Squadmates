@@ -1,32 +1,21 @@
-const auth = firebase.auth();
-
 var uid;
-var username = "";
-var displayusername;
-
 firebase.auth().onAuthStateChanged((user) => {
-	if (user) {
-		// logget inn
+	if (user != null) {
 		uid = user.uid;
-		
-		if(user != null) {
-			getUsername(uid).then(() => {
-				console.log(username);
-			});
-        }
+		//console.log(uid);
+
+		var userId = firebase.auth().currentUser.uid;
+		return firebase.database().ref('/Bruker/' + uid).once('value').then((snapshot) => {
+			var username = snapshot.child("Brukernavn").val();
+			var name = snapshot.child("Navn").val();
+			document.getElementById("usernameHeader").innerHTML = username; //Brukernavn i header
+			document.getElementById("usernameHeaderMobil").innerHTML = username; //Brukernavn i mobil header
+			console.log(uid + ": " + username + " er innlogget")
+		});
+
 	} else {
 		// User is signed out
+		console.log("ingen bruker er innlogget")
 		window.location = "/";
 	}
-});
-
-function getUsername(uid) {
-	var ref_users = firebase.database().ref().child('Bruker'); // Referanse og funksjon for når brukere blir lagt til
-	ref_users.on("child_added", function (snapshot) {
-		var message = snapshot.val();
-		if(uid == snapshot.key) {
-			console.log(snapshot.key);
-			username = message.Brukernavn;
-		} 
-	});
-}
+}); 
