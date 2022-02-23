@@ -32,26 +32,37 @@ firebase.auth().onAuthStateChanged((user) => {
 			if (snapshot.child("Discord").val() != null) {
 				document.getElementById('discordType').value = snapshot.child('Discord').val();
 				document.getElementById('discordCheck').checked = true;
+				document.getElementById('discordText').innerHTML = snapshot.child('Discord').val();
+				document.getElementById('discordBox').style.display = "block";
+
 			}
 			/* Steam */
 			if (snapshot.child('Steam').val() != null) {
 				document.getElementById('steamType').value = snapshot.child('Steam').val();
 				document.getElementById('steamCheck').checked = true;
+				document.getElementById('steamText').innerHTML = snapshot.child('Steam').val();
+				document.getElementById('steamBox').style.display = "block";
 			}
 			/* Xbox */
 			if (snapshot.child('Xbox').val() != null) {
 				document.getElementById('xboxType').value = snapshot.child('Xbox').val();
 				document.getElementById('xboxCheck').checked = true;
+				document.getElementById('xboxText').innerHTML = snapshot.child('Steam').val();
+				document.getElementById('xboxBox').style.display = "block";
 			}
 			/* Playstation */
 			if (snapshot.child('Playstation').val() != null) {
 				document.getElementById('psType').value = snapshot.child('Playstation').val();
 				document.getElementById('psCheck').checked = true;
+				document.getElementById('psText').innerHTML = snapshot.child('Playstation').val();
+				document.getElementById('psBox').style.display = "block";
 			}
 			/* Switch */
 			if (snapshot.child('Switch').val() != null) {
 				document.getElementById('switchType').value = snapshot.child('Switch').val();
 				document.getElementById('switchCheck').checked = true;
+				document.getElementById('switchText').innerHTML = snapshot.child('Switch').val();
+				document.getElementById('switchBox').style.display = "block";
 			}
 
 			document.getElementById("editUserName").innerHTML = username; //Brukernavn rediger profil
