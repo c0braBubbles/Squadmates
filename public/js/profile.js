@@ -47,7 +47,7 @@ firebase.auth().onAuthStateChanged((user) => {
 			if (snapshot.child('Xbox').val() != null) {
 				document.getElementById('xboxType').value = snapshot.child('Xbox').val();
 				document.getElementById('xboxCheck').checked = true;
-				document.getElementById('xboxText').innerHTML = snapshot.child('Steam').val();
+				document.getElementById('xboxText').innerHTML = snapshot.child('Xbox').val();
 				document.getElementById('xboxBox').style.display = "block";
 			}
 			/* Playstation */
