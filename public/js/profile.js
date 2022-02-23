@@ -128,19 +128,19 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 	}
 	//Steam -- Steam -- Steam -- Steam -- Steam -- Steam -- Steam --
 	if (document.getElementById("steamCheck").checked) {
-		if (document.getElementById("steamType").value != "") { bruker.Steam = document.getElementById("steamType").value; }
+		if (document.getElementById("steamType").value != "") { bruker.Steam = document.getElementById("steamType").value; steamMedlem(uid); }
 	} else { bruker.Steam = null }
 	//Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -
 	if (document.getElementById("xboxCheck").checked) {
-		if (document.getElementById("xboxType").value != "") { bruker.Xbox = document.getElementById("xboxType").value; }
+		if (document.getElementById("xboxType").value != "") { bruker.Xbox = document.getElementById("xboxType").value; xboxMedlem(uid); }
 	} else { bruker.Xbox = null }
 	//-- Playstation -- Playstation -- Playstation -- Playstation --
 	if (document.getElementById("psCheck").checked) {
-		if (document.getElementById("psType").value != "") { bruker.Playstation = document.getElementById("psType").value; }
-	} else { bruker.Playstation = null }
+		if (document.getElementById("psType").value != "") { bruker.Playstation = document.getElementById("psType").value; psMedlem(uid); }
+	} else { bruker.Playstation = null; }
 	//-- Switch -- Switch -- Switch -- Switch -- Switch -- Switch --
 	if (document.getElementById("switchCheck").checked) {
-		if (document.getElementById("switchType").value != "") { bruker.Switch = document.getElementById("switchType").value; }
+		if (document.getElementById("switchType").value != "") { bruker.Switch = document.getElementById("switchType").value; switchMedlem(uid); }
 	} else { bruker.Switch = null }
 
 	const con = firebase.database().ref('Bruker').child(uid);
@@ -154,3 +154,27 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 	});
 
 }
+
+function psMedlem(uid) {
+	firebase.database().ref('/Playstation gruppe/Medlemmer').child(uid).set({
+		BrukerID: uid
+	});
+}
+
+function xboxMedlem(uid) {
+	firebase.database().ref('/Xbox gruppe/Medlemmer').child(uid).set({
+		BrukerID: uid
+	});
+}
+
+function steamMedlem(uid) {
+	firebase.database().ref('/Steam gruppe/Medlemmer').child(uid).set({
+		BrukerID: uid
+	});
+}
+
+function switchMedlem(uid) {
+	firebase.database().ref('/Switch gruppe/Medlemmer').child(uid).set({
+		BrukerID: uid
+	});
+} 

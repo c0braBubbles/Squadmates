@@ -2,13 +2,8 @@ var uid;
 firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
         uid = user.uid;
-        //console.log(uid);
 
-        var userId = firebase.auth().currentUser.uid;
         return firebase.database().ref('/Bruker/' + uid).once('value').then((snapshot) => {
-           // biografi = snapshot.child("Biografi").val();
-           // var username = snapshot.child("Brukernavn").val();
-           // var name = snapshot.child("Navn").val();
 
             //Plattformer
             /* Steam */
@@ -28,9 +23,6 @@ firebase.auth().onAuthStateChanged((user) => {
             if (snapshot.child('Switch').val() != null) {
                 document.getElementById('switchGroup').style.display = "block";
             }
-
         })
-
-
     }
 });
