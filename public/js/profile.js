@@ -155,6 +155,7 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 
 }
 
+//Funksjoner for å legge brukere som medlemmer i platform grupper
 function psMedlem(uid) {
 	firebase.database().ref('/Playstation gruppe/Medlemmer').child(uid).set({
 		BrukerID: uid
