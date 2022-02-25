@@ -41,17 +41,14 @@ document.getElementById("regBtn").onclick = function() {
     } else {
         auth.createUserWithEmailAndPassword(inpEpost.value, inpPassword.value).then(cred => {
             var userID = firebase.auth().currentUser.uid; 
-            console.log(userID);
             msg = firebase.database().ref('Bruker').child(userID); 
             msg.set({
                 "Brukernavn":   inpBnavn.value, 
                 "Alder":        inpAge.value, 
                 "Navn":         inpNavn.value
-            });
-            // window.location = "/home";
-            setTimeout(function () {
+            }).then(() => {
                 window.location = "/home";
-            }, 5000);
+            });
         });
     }
 }
@@ -68,7 +65,7 @@ document.getElementById("loginBtn").onclick = function() {
         window.alert("Error : " + errorMessage);
     });
 
-    firebase.auth().onAuthStateChanged(function(user) {
+    /*firebase.auth().onAuthStateChanged(function(user) {
         if(user) {
             // Bruker logget inn
             window.location = "/home";
@@ -79,6 +76,25 @@ document.getElementById("loginBtn").onclick = function() {
     
                 // setUsername(email_id);
             }
+        }
+    });*/
+    firebase.auth().onAuthStateChanged((user) => {
+        if(user != null) {
+            var uid = user.uid; 
+            console.log(uid);
+    
+            var userId = firebase.auth().currentUser.uid;
+            return firebase.database().ref('/Bruker/' + uid).once('value').then((snapshot) => {
+                var whiz = snapshot.val();
+                $.post("/", {
+                    bruker: whiz
+                }, function (data, status) {
+                    console.log(data);
+                });
+                window.location = "/home";
+            });
+        } else {
+            // window.location = "/";
         }
     });
     // analytics.logEvent('bruker_login', { epost: emailInp })

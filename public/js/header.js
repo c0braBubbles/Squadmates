@@ -1,3 +1,5 @@
+// Vi trenger egt ikke denne lenger
+
 var uid;
 firebase.auth().onAuthStateChanged((user) => {
 	if (user != null) {
