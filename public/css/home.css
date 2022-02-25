@@ -197,7 +197,128 @@ button:hover:active:before {
     filter: blur(2px)
 }
 
-.testClass:hover {
-    background:none;
-    background-color:transparent !important;
+/* Playstation Chroma */
+.chromaps {
+    position: relative;    
+    border: none;
+    outline: none;
+    color: white;
+    background: #111;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif
+}
+
+.chromaps:before {
+    position: absolute;
+    content: '';
+    top: -2px;
+    left: -2px;
+    height: calc(100% + 4px);
+    width: calc(100% + 4px);
+    border-radius: 5px;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(5px);
+    background: linear-gradient(45deg, #1e5ddb, #5cc9fb, #182580, #526879, #aebfd4, #2e393d);
+    background-size: 400%;
+    transition: opacity .3s ease-in-out;
+    animation: animate 20s linear infinite
+}
+
+.chromaps:hover:before {
+    opacity: 1
+}
+
+.chromaps:hover:active {
+    background: none
+}
+
+.chromaps:hover:active:before {
+    filter: blur(2px)
+}
+
+/* Nintendo Switch Chroma */
+.chromaswitch {
+    position: relative;    
+    border: none;
+    outline: none;
+    color: white;
+    background: #111;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif
+}
+
+.chromaswitch:before {
+    position: absolute;
+    content: '';
+    top: -2px;
+    left: -2px;
+    height: calc(100% + 4px);
+    width: calc(100% + 4px);
+    border-radius: 5px;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(5px);
+    background: linear-gradient(45deg,#00c3e3, #ff4554, #989898, #414548, #e60012);
+    background-size: 400%;
+    transition: opacity .3s ease-in-out;
+    animation: animate 20s linear infinite
+}
+
+.chromaswitch:hover:before {
+    opacity: 1
+}
+
+.chromaswitch:hover:active {
+    background: none
+}
+
+.chromaswitch:hover:active:before {
+    filter: blur(2px)
+}
+
+/* Steam Chroma */
+.chromasteam {
+    position: relative;    
+    border: none;
+    outline: none;
+    color: white;
+    background: #111;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif
+}
+
+.chromasteam:before {
+    position: absolute;
+    content: '';
+    top: -2px;
+    left: -2px;
+    height: calc(100% + 4px);
+    width: calc(100% + 4px);
+    border-radius: 5px;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(5px);
+    background: linear-gradient(45deg,	#171a21,#66c0f4,#1b2838, #2a475e,#c7d5e0);
+    background-size: 400%;
+    transition: opacity .3s ease-in-out;
+    animation: animate 20s linear infinite
+}
+
+.chromasteam:hover:before {
+    opacity: 1
+}
+
+.chromasteam:hover:active {
+    background: none
+}
+
+.chromasteam:hover:active:before {
+    filter: blur(2px)
 }
