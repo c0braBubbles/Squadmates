@@ -6,6 +6,7 @@ var express = require('express');
 var app = express();
 app.set('view engine', 'ejs'); 
 app.set('views', path.resolve(__dirname, 'views')); 
+app.use(express.urlencoded({ extended: true }));
 
 
 /* Henting av sidene når brukeren forespør en av de tre hovedsidene */
@@ -13,13 +14,18 @@ app.get('/', function(req, res) {
     res.render('index');
 });
 
-app.get('/home', function(req, res) {
-    res.render('home');
+var bruker;
+app.post('/', function(req, res) {
+    bruker = req.body.bruker; 
 });
 
-app.get('/myprofile', function(req, res) {
-    res.render('myprofile');
+app.get('/home', function(req, res) {
+    res.render('home', {bruker: JSON.stringify(bruker)});
 });
+
+// app.get('/myprofile', function(req, res) {
+//     res.render('myprofile');
+// });
 
 app.get('/chat', function(req, res) {
     res.render('chat');
@@ -51,6 +57,18 @@ app.get('/settings', function(req, res) {
 
 app.get('/test', function(req, res) {
     res.render('test');
+});
+
+app.post('/openUid', function(req, res) {
+    var uid = req.body.uid; 
+    // console.log(uid);
+    app.get('/' + uid, function(req, res) {
+        res.render('myprofile');
+    });
+});
+
+app.get('/xbox', function(req, res) {
+    res.render('xbox');
 })
 
 // Gjør mappen public synlig, så app-en kan ta bruk av:
