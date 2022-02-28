@@ -5,7 +5,8 @@ firebase.auth().onAuthStateChanged((user) => {
         var uid = user.uid;
 
         firebase.database().ref('/Bruker/' + uid).once('value').then((snapshot) => {
-            const whuz = snapshot.val();
+            var whuz = snapshot.val(); //skal egt være const
+            whuz.Uid = uid;
             sessionStorage.setItem("bruker", JSON.stringify(whuz));
 
             document.getElementById("usernameHeader").innerHTML = whuz.Brukernavn; //Brukernavn i header

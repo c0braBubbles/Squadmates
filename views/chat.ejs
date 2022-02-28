@@ -46,7 +46,7 @@
                 <!--BUNN VENSTRE  <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">  -->
                 <div class="row"
                     style="background-color: rgb(44, 44, 44); height:81vh; overflow-y: scroll; overflow-x: hidden;">
-                    <ul class="list-group" style="margin:10px; width: calc(100% - 10px)">
+                    <ul class="list-group" style="margin:10px; width: calc(100% - 10px)" id="chat-list-left">
                         <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
                             style="color: white;">
                             <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
@@ -100,6 +100,7 @@
             </div>
             <div class="col-8" id="rightCol">
                 <!--TOP HØYRE-->
+                <button id="sendMsgBtn">barmen</button>
                 <div class="row border-bottom border-dark border-2"
                     style="background-color: rgb(49,49,49); height:8vh;">
                     <div class="chat-info bg-dark">
@@ -188,14 +189,17 @@
 
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script src="js/firebase_config.js" type="module"></script>
+    <script src = "js/usercontroll.js" type="module"></script>
+    <script src="js/chat.js" type="module"></script>
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
     <!--<script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        
-    <script src="jquery-3.5.1.min.js"></script>
+    <!--<script src="jquery-3.5.1.min.js"></script>-->
 
 
 </body>
