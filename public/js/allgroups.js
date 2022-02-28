@@ -1,15 +1,14 @@
-var uid;
-firebase.auth().onAuthStateChanged((user) => {
-    if (user != null) {
-        uid = user.uid;
+const whiz = JSON.parse(sessionStorage.getItem("bruker"));
+var user = whiz.Uid;
+console.log(user);
 
-        return firebase.database().ref('/Bruker/' + uid).once('value').then((snapshot) => {
+
+        firebase.database().ref('/Bruker/' + user).once('value').then((snapshot) => {
 
             //Plattformer
             /* Steam */
             if (snapshot.child('Steam').val() != null) {
                 document.getElementById('steamGroup').style.display = "block";
-                console.log("Steam");
             }
             /* Xbox */
             if (snapshot.child('Xbox').val() != null) {
@@ -24,5 +23,3 @@ firebase.auth().onAuthStateChanged((user) => {
                 document.getElementById('switchGroup').style.display = "block";
             }
         })
-    }
-});
