@@ -112,10 +112,10 @@
                         </button>
                         <ul class="dropdown-menu person-dropdown bg-dark" aria-labelledby="dropdownMenuButtonFriends" id="chat-list-top">
                             <li class="person-list-item-border">
-                                <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal4</a>
-                                <a href="#">
-                                    <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
-                                </a>
+                                <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal6969</a>
+                                
+                                <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
+                                
                             </li>
                             <li class="person-list-item-border">
                                 <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal4</a>
@@ -142,7 +142,7 @@
                 <div class="row" style="background-color:rgb(49, 49, 49); height:80vh;">
                     <div class="chat-room">
                         <!-- her havner selve meldingene, pr nå er det bare masse hardkoda meldinger -->
-                        <div class="msg-board">
+                        <div class="msg-board" id="msg_board">
                             <div class="send-bubble">Heisan, Jon her!</div>
                             <div class="rec-bubble">Jon.. Jon som i JonKanon352</div>
                             <div class="send-bubble">Jaha, det stemmer det.. det er nok meg</div>
@@ -174,9 +174,9 @@
                             <div class="rec-bubble">Der har vi den, møtes online ;))</div>
                         </div>
 
-                        <form>
+                        <form id="send_melding">
                             <div class="chat-input-box">
-                                <input class="msg-input" type="text" class="msg-input" type="text" placeholder="Aa">
+                                <input class="msg-input" type="text" placeholder="Aa" id="melding_input">
                                 <button class="send-msg-btn" type="submit"><img src="img/send-fill.svg"
                                         alt="..."></button>
                             </div>
@@ -188,6 +188,61 @@
         </div>
 
     </div>
+
+    <script>
+        const whiz = JSON.parse(sessionStorage.getItem("bruker"));
+        var meldinger = document.getElementById('msg_board');
+
+        var aktivSamtale;
+        function openChat(samtaleUID) {
+            meldinger.innerHTML = ``; //Fjerner alle meldinger, før de riktige meldingene blir lagt til
+            aktivSamtale = samtaleUID;
+            console.log("Gått i samtale, med ID: " + samtaleUID);
+            //Henter tidligere meldinger, legger dem inn chat-vinduet
+            firebase.database().ref("Melding/").once('value', (snapshot) => {
+                var data = snapshot.val();
+                for (let i in data) {
+                    if (data[i].SamtaleID == aktivSamtale) {
+                        //Du sendte meldingen
+                        if (data[i].Bruker == whiz.Uid) {
+                            meldinger.innerHTML += `<div class="send-bubble">${data[i].Melding}</div>`;
+                        } else {
+                            meldinger.innerHTML += `<div class="rec-bubble">${data[i].Melding}</div>`;
+                        }
+                    }
+                }
+            });
+        }
+
+
+        var skrivMelding = document.getElementById('send_melding');
+        var meldingInput = document.getElementById('melding_input');
+        skrivMelding.onsubmit = function(evt) {
+            evt.preventDefault(); //Siden skal ikke reloade når man submitter/sender en melding
+            if (aktivSamtale != null) {
+                firebase.database().ref('Melding').push({
+                    "SamtaleID":aktivSamtale,
+                    "Melding":meldingInput.value,
+                    "Bruker":whiz.Uid
+                }).then(() => {
+                    meldingInput.value = '';
+                });
+            }
+        }
+        /*
+        var fb = firebase.database().ref("Melding/");
+        fb.on('child_added', function (snapshot) {
+            var data = snapshot.val();
+            if (data.SamtaleID == aktivSamtale) {
+                if (data.Bruker == whiz.Uid) {
+                    meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
+                } else {
+                    meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+                }
+            }
+        });*/
+
+    </script>
 
     <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
     <script src="js/firebase_config.js" type="module"></script>
