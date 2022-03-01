@@ -13,7 +13,7 @@ document.getElementById("msg-name-display").innerHTML = whiz.Uid; //test
 /* Metoden oppretter en "Samtale" i firebase
  * Den skal senere ta mottakerUID som innparameter, i tilegg til å lede brukeren til chat-siden
 */
-var mottakerUID = "JbU5BaGNtgXnz2FdyxolQwyJNDT2"; //"2lsL6nGeqKeF4u506e9KvY7M9iG3"
+var mottakerUID = "oypGTweUYFVKsIQL0ncKtG9GNhx1"; //c: "2lsL6nGeqKeF4u506e9KvY7M9iG3" m: "JbU5BaGNtgXnz2FdyxolQwyJNDT2"
 document.getElementById("sendMsgBtn").onclick = function () {
     var finnesSamtale = false;
     if (whiz.Uid == mottakerUID) return; //Stopp metoden dersom bruker prøver å starte samtale med seg selv
@@ -39,28 +39,68 @@ document.getElementById("sendMsgBtn").onclick = function () {
 }
 
 var chatListLeft = document.getElementById('chat-list-left');
+var chatListTop = document.getElementById('chat-list-top');
 firebase.database().ref('Samtale').on('child_added', function(snapshot) {
     var message = snapshot.val();
     //Dersom du er bruker som startet samtalen
     if (message.Bruker1ID == whiz.Uid) {
         firebase.database().ref("Bruker/"+message.Bruker2ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
-            chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                    style="color:white;">` + 
-                                    `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
-                                    `<h3>` + guest.Brukernavn + `</h3>` +
-                                    `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
+            firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
+                                        style="color:white;">` + 
+                                        `<img src="`+ pictureURL +`" alt="..." class="rounded-circle display-pic">` +
+                                        `<h3>` + guest.Brukernavn + `</h3>` +
+                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
+                                    `</li>`;    
+            }).catch((error) => {
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
+                                        style="color:white;">` + 
+                                        `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
+                                        `<h3>` + guest.Brukernavn + `</h3>` +
+                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
+                                    `</li>`;
+                console.log(error + " - Kunne ikke finne profilbilde");
+            });
+            /*chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
+                                        style="color:white;">` + 
+                                        `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
+                                        `<h3>` + guest.Brukernavn + `</h3>` +
+                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
+                                    `</li>`;*/
+            chatListTop.innerHTML +=`<li class="person-list-item-border">` +
+                                        `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` + 
+                                        `<a href="#">` +
+                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;">` +
+                                        `</a>` +
                                     `</li>`;
         });
       //Dersom du er bruker n2, altså en annen startet samtale med deg  
     } else if (message.Bruker2ID == whiz.Uid) {
         firebase.database().ref("Bruker/"+message.Bruker1ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
-            chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
+            firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
+
+            }).catch((error) => {
+                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
+                                    style="color:white;">` +
+                                    `<img src="` + pictureURL + `" alt="..." class="rounded-circle display-pic">` +
+                                    `<h3>` + guest.Brukernavn + `</h3>` +
+                                    `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +
+                                    `</li>`;
+                console.log(error + " - Kunne ikke finne profilbilde");
+            });
+            /*chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
                                     style="color:white;">` +
                                     `<img src="img/vigdis.jpg" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
                                     `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +
+                                    `</li>`;*/
+            chatListTop.innerHTML +=`<li class="person-list-item-border">` + 
+                                        `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` +
+                                        `<a href="#">` +
+                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;>"` +
+                                        `</a>` +
                                     `</li>`;
         });
     }
