@@ -95,7 +95,7 @@ button:hover:active:before {
 
 @media (max-width: 1200px) {
     #navdesktop { display: none !important; }
-    .card {width: 75% !important;}
+    /* .card {width: 75% !important;}  Denne skapte problemer på Xbox siden*/ 
     .container {width: 75% !important;}
     
 }
