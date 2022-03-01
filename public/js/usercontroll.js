@@ -26,7 +26,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 .catch((error) => {
                     document.getElementById("pictureHeader").src = "img/blank-profile-circle.png"; //Default profilbilde dersom ikke bilde er funnet
                     document.getElementById("pictureMobileHeader").src = "img/blank-profile-circle.png"; //Default profilbilde mobil dersom ikke bilde er funnet
-                    //console.log("brukeren har ingen profilbilde")
+                    //console.log("brukeren har ingen profilbilde");
                 });
 
             // templating for når man åpner min profil: 
