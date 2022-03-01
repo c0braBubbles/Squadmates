@@ -17,10 +17,10 @@
         background-size: cover;
     }
 </style>
-    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-    <script type="module" src="js/firebase_config.js"></script>
-    <script type="module" src="js/usercontroll.js"></script>
-    <script type="module" src="js/xbox.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script type="module" src="js/firebase_config.js"></script>
+<script type="module" src="js/usercontroll.js"></script>
+<script type="module" src="js/xbox.js"></script>
 </head>
 
 <body>
@@ -80,17 +80,17 @@
                                                     aria-labelledby="posts-tab">
                                                     <div class="form-group">
                                                         <div class="form-floating mb-3">
-                                                            <input class="form-control border-dark" id="tittelXbox"
-                                                                placeholder="Tittel"
+                                                            <input class="form-control border-dark text-light"
+                                                                id="tittelXbox" placeholder="Tittel"
                                                                 style="background-color:rgb(60, 64, 67, 0.90)">
                                                             <label for="floatingInput"
                                                                 style="color: white;">Tittel</label>
                                                         </div>
                                                         <div class="form-floating mb-3">
-                                                            <input class="form-control border-dark" id="beskrivelseXbox"
-                                                                placeholder="Beskrivelse"
+                                                            <input class="form-control border-dark text-light"
+                                                                id="beskrivelseXbox" placeholder="Beskrivelse"
                                                                 style="height: 100px; background-color:rgb(60, 64, 67, 0.90)">
-                                                            <label for="floatingInput"
+                                                            <label for="beskrivelseXbox"
                                                                 style="color: white;">Beskrivelse</label>
                                                         </div>
 
@@ -102,7 +102,8 @@
                                             </div>
                                             <div class="btn-toolbar justify-content-between">
                                                 <div class="btn-group">
-                                                    <button type="submit" class="btn btn-dark mt-0">Del innlegg</button>
+                                                    <button type="submit" class="btn btn-dark mt-0" id="upload">Del
+                                                        innlegg</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,9 +112,9 @@
                                 <!-- Slutt på Nytt innlegg-->
 
 
-                                <div class="col-lg-7">
+                                <div class="col-lg-7" id="postCol">
                                     <!--Innlegg-->
-                                    <div class="card gedf-card mx-auto mb-5" style="background: #111;">
+                                    <div class="card gedf-card mx-auto mb-5" style="background: #111; display: none;">
                                         <!--Innlegg header-->
                                         <div class="card-header" style="background: #111;">
                                             <div class="d-flex justify-content-between align-items-center">
@@ -170,8 +171,8 @@
                                                 Joiner noen Warzone? Trenger en til Quads, Activision ID:
                                                 CubR_the_Ch33ky
                                             </p>
-                                            <img class="card-img m-0" src="img/CallOfDuty_Warzone_Graphic.jpeg"
-                                                alt="Card image">
+                                            <img class="card-img m-0" style="height: 350px; object-fit: cover;"
+                                                src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image">
                                             <div class="container d-flex">
                                                 <a class="link-secondary ms-auto" data-bs-toggle="modal"
                                                     data-bs-target="#kommentarermodal">2 Kommentarer</a>
@@ -188,159 +189,7 @@
                                                             d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
                                                     </svg>
                                                 </button>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="kommentarermodal" data-bs-backdrop="static"
-                                                    data-bs-keyboard="false" tabindex="-1"
-                                                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-scrollable">
-                                                        <div class="modal-content border-dark"
-                                                            style="background: #111;">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="staticBackdropLabel">
-                                                                    Kommentarer</h5>
-                                                                <button type="button" class="btn-close bg-light"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body p-0">
-                                                                <div class="list-group w-100 mx-auto border-dark">
-                                                                    <a href="#"
-                                                                        class="list-group-item text-light border-dark mb-0"
-                                                                        style="background: #111;">
-                                                                        <img class="rounded-circle m-3" width="40"
-                                                                            src="img/cubr.jpg" alt="Profilbilde">
-                                                                        CheekyCub
-                                                                        <br>
-                                                                        <p class=" px-3 mt-0">dette, er min kommentar
-                                                                        </p>
-                                                                    </a>
-                                                                    <a href="#"
-                                                                        class="list-group-item text-light border-dark mb-0"
-                                                                        style="background: #111;">
-                                                                        <img class="rounded-circle m-3" width="40"
-                                                                            src="img/cubr.jpg" alt="Profilbilde">
-                                                                        CheekyCub
-                                                                        <br>
-                                                                        <p class=" px-3 mt-0">dette, er min kommentar
-                                                                        </p>
-                                                                    </a>
-                                                                    <a href="#"
-                                                                        class="list-group-item text-light border-dark mb-0"
-                                                                        style="background: #111;">
-                                                                        <img class="rounded-circle m-3" width="40"
-                                                                            src="img/cubr.jpg" alt="Profilbilde">
-                                                                        CheekyCub
-                                                                        <br>
-                                                                        <p class=" px-3 mt-0">dette, er min kommentar
-                                                                        </p>
-                                                                    </a>
-                                                                    <a href="#"
-                                                                        class="list-group-item text-light border-dark mb-0"
-                                                                        style="background: #111;">
-                                                                        <img class="rounded-circle m-3" width="40"
-                                                                            src="img/cubr.jpg" alt="Profilbilde">
-                                                                        CheekyCub
-                                                                        <br>
-                                                                        <p class=" px-3 mt-0">dette, er min kommentar
-                                                                        </p>
-                                                                    </a>
-                                                                    <a href="#"
-                                                                        class="list-group-item text-light border-dark mb-0"
-                                                                        style="background: #111;">
-                                                                        <img class="rounded-circle m-3" width="40"
-                                                                            src="img/cubr.jpg" alt="Profilbilde">
-                                                                        CheekyCub
-                                                                        <br>
-                                                                        <p class=" px-3 mt-0">dette, er min kommentar
-                                                                        </p>
-                                                                    </a>
-                                                                    <a href="#"
-                                                                        class="list-group-item text-light border-dark mb-0"
-                                                                        style="background: #111;">
-                                                                        <img class="rounded-circle m-3" width="40"
-                                                                            src="img/cubr.jpg" alt="Profilbilde">
-                                                                        CheekyCub
-                                                                        <br>
-                                                                        <p class=" px-3 mt-0">dette, er min kommentar
-                                                                        </p>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <div class="input-group mb-3">
-                                                                    <input type="text"
-                                                                        class="form-control border-dark text-light"
-                                                                        placeholder="Skriv en kommentar..."
-                                                                        aria-label="Recipient's username"
-                                                                        aria-describedby="button-addon2"
-                                                                        style="background-color:rgb(60, 64, 67, 0.90)">
-                                                                    <button class="btn btn-primary" type="button"
-                                                                        id="button-addon2">Publiser</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="btn-dark w-50 mx-auto"
-                                                    style="background: #111;">Send
-                                                    melding
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--Innlegg-->
-                                    <div class="card gedf-card mx-auto mb-5" style="background: #111;">
-                                        <!--Innlegg header-->
-                                        <div class="card-header" style="background: #111;">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="mr-2">
-                                                        <img class="rounded-circle m-3" width="45" src="img/cubr.jpg"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="ml-2">
-                                                        <div class="h5 m-0 text-light">CheekyCub</div>
-                                                        <div class="h7 text-light">Jacob Kristensen</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <!--Innlegg body-->
-                                        <div class="card-body text-light" style="background: #111;">
-                                            <div class="text-light h7 mb-2"> <i class="fa fa-clock-o"></i> <svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
-                                                    <path
-                                                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
-                                                </svg> 17:11
-                                            </div>
-                                            <h5 class="card-title text-light">Trenger spillere, helst over 1 i K/D </h5>
-
-                                            <p class="card-text">
-                                                Joiner noen Warzone? Trenger en til Quads, Activision ID:
-                                                CubR_the_Ch33ky
-                                            </p>
-                                            <img class="card-img m-0" src="img/CallOfDuty_Warzone_Graphic.jpeg"
-                                                alt="Card image">
-
-                                            <!--Innlegg footer-->
-                                            <div class="card-footer d-flex" style="background: #111;">
-                                                <button type="button" class="btn-dark w-50 mx-auto"
-                                                    style="background: #111;">Kommenter
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-chat-square-text-fill"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
-                                                    </svg>
-                                                </button>
                                                 <button type="button" class="btn-dark w-50 mx-auto"
                                                     style="background: #111;">Send
                                                     melding
@@ -363,11 +212,84 @@
                             <!-- Appender medlemmer til denne listen ved hjelp av JQuery -->
                             <div class="list-group w-50 mx-auto border-dark" id="medlemslisteXbox">
                                 <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                   <text>Antall medlemmer: </text> <text id="membercountXbox">0</text>
+                                    <text>Antall medlemmer: </text> <text id="membercountXbox">0</text>
                                 </a>
-                               
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Modal Kommentarer -->
+            <div class="modal fade" id="kommentarermodal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content border-dark" style="background: #111;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">
+                                Kommentarer</h5>
+                            <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-0">
+                            <div class="list-group w-100 mx-auto border-dark">
+                                <a href="#" class="list-group-item text-light border-dark mb-0"
+                                    style="background: #111;">
+                                    <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                    CheekyCub
+                                    <br>
+                                    <p class=" px-3 mt-0">dette, er min kommentar
+                                    </p>
+                                </a>
+                                <a href="#" class="list-group-item text-light border-dark mb-0"
+                                    style="background: #111;">
+                                    <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                    CheekyCub
+                                    <br>
+                                    <p class=" px-3 mt-0">dette, er min kommentar
+                                    </p>
+                                </a>
+                                <a href="#" class="list-group-item text-light border-dark mb-0"
+                                    style="background: #111;">
+                                    <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                    CheekyCub
+                                    <br>
+                                    <p class=" px-3 mt-0">dette, er min kommentar
+                                    </p>
+                                </a>
+                                <a href="#" class="list-group-item text-light border-dark mb-0"
+                                    style="background: #111;">
+                                    <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                    CheekyCub
+                                    <br>
+                                    <p class=" px-3 mt-0">dette, er min kommentar
+                                    </p>
+                                </a>
+                                <a href="#" class="list-group-item text-light border-dark mb-0"
+                                    style="background: #111;">
+                                    <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                    CheekyCub
+                                    <br>
+                                    <p class=" px-3 mt-0">dette, er min kommentar
+                                    </p>
+                                </a>
+                                <a href="#" class="list-group-item text-light border-dark mb-0"
+                                    style="background: #111;">
+                                    <img class="rounded-circle m-3" width="40" src="img/cubr.jpg" alt="Profilbilde">
+                                    CheekyCub
+                                    <br>
+                                    <p class=" px-3 mt-0">dette, er min kommentar
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control border-dark text-light"
+                                    placeholder="Skriv en kommentar..." aria-label="Recipient's username"
+                                    aria-describedby="button-addon2" style="background-color:rgb(60, 64, 67, 0.90)">
+                                <button class="btn btn-primary" type="button" id="button-addon2">Publiser</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -470,20 +392,20 @@
                 </div>
             </div>
         </div>
-            <!-- slutt på Modal slett konto -->
+        <!-- slutt på Modal slett konto -->
 
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-            <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-            <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
-            <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
+        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-            <script>
-                $('#bologna-list a').on('click', function (e) {
-                    e.preventDefault()
-                    $(this).tab('show')
-                })
-            </script>
+        <script>
+            $('#bologna-list a').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+        </script>
 </body>
 
 </html>
