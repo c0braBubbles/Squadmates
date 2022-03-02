@@ -66,6 +66,11 @@ document.getElementById("upload").onclick = function () {
     var reportid = "report" + Date.now(); //Unik ID for rapportering
     var deleteid = "delete" + Date.now(); //Unik ID for sletting
     var commentid = "comment" + Date.now(); //Unik ID for Kommentarer
+    var commentfieldid = "commentfield" + Date.now(); //Unik ID for Kommentarfelt
+    var commentpostid = "commentpost" + Date.now(); //Unik ID for Publiser Kommentar
+    var commentboxid = "commentbox" + Date.now(); //Unik ID for Kommentarfeltet og publiser appenden
+    var commentviewbtnid = "commentviewbtn" + Date.now(); //Unik ID for se kommentarer knapp
+    var commentsectionid = "commentsection" + Date.now(); //Unik ID for se kommentarer knapp
 
     //Sjekker tidspunkt på opplasting av annonsen 
     var datetime = new Date().toLocaleDateString("en-GB", {
@@ -87,7 +92,12 @@ document.getElementById("upload").onclick = function () {
             BildeID: bildeid,
             ReportID: reportid,
             DeleteID: deleteid,
-            CommentID: commentid
+            CommentID: commentid,
+            CommentFieldID: commentfieldid,
+            CommentPostID: commentpostid,
+            CommentBoxID: commentboxid,
+            CommentViewBtnID: commentviewbtnid,
+            CommentSectionID: commentsectionid
         }).then(() => { //Opplasting av bilde
             if (fil instanceof File) {
                 firebase.storage().ref("innlegg/" + (user + bildeid) + "/innlegg.jpg").put(fil).then(() => {
@@ -110,14 +120,17 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
     var picid = snapshot.child("BildeID").val();
     var deleteid = snapshot.child("DeleteID").val();
     var reportid = snapshot.child("ReportID").val();
-    var commentid = snapshot.child("KommentarerID").val();
+    var commentid = snapshot.child("CommentID").val();
+    var commentfieldid = snapshot.child("CommentFieldID").val();
+    var commentpostid = snapshot.child("CommentPostID").val();
+    var commentboxid = snapshot.child("CommentBoxID").val();
+    var commentviewbtnid = snapshot.child("CommentViewBtnID").val();
+    var commentsectionid = snapshot.child("CommentSectionID").val();
     var postKey = snapshot.key;
 
     firebase.database().ref('/Bruker/' + owner).once('value').then((snapshot) => {
         var username = snapshot.child("Brukernavn").val();
         var realname = snapshot.child("Navn").val();
-
-
 
         //Henting av profilbilde, bruker uid fra keyen til hver enkeltbruker profil
         var storage = firebase.storage();
@@ -164,14 +177,13 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     //Innleggsbilde
                     '<img class="card-img m-0" style="height: 350px; object-fit: cover;" src="" alt="ingen bilde" id="' + picid + owner + '">' +
                     '<div class="container d-flex">' +
-                    '<a class="link-secondary ms-auto" data-bs-toggle="modal"' +
-                    'data-bs-target="#kommentarermodal">2 Kommentarer</a>' +
+                    /*----- Se kommentarer -----*/
+                    '<a class="link-secondary ms-auto" id="' + commentviewbtnid + owner + '">2 Kommentarer</a>' +
                     '</div>' +
                     //Innlegg footer
                     '<div class="card-footer d-flex" style="background: #111;">' +
                     '<button type="button" class="btn-dark w-50 mx-auto"' +
-                    'data-bs-toggle="modal" data-bs-target="#kommentarermodal"' +
-                    'style="background: #111;">Kommenter ' +
+                    'style="background: #111;" id="' + commentid + owner + '">Kommenter ' +
                     '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"' +
                     'fill="currentColor" class="bi bi-chat-square-text-fill"' +
                     'viewBox="0 0 16 16">' +
@@ -186,8 +198,11 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     '</svg>' +
                     '</button>' +
                     '</div>' +
+                    /*----- Kommentarfelt -----*/
+                    '<hr> <div class="input-group mb-3" id = "' + commentboxid + owner + '"> </div>' +
+                    '<div class="list-group w-100 mx-auto border-dark" id="' + commentsectionid + owner + '"> </div>' +
                     '</div>' +
-                    '</div >'
+                    '</div>'
                 );
             })
             .catch((error) => { //Dersom brukeren ikke har profilbilde
@@ -229,14 +244,12 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     //Innleggsbilde
                     '<img class="card-img m-0" style="height: 350px; object-fit: cover;" src="" alt="ingen bilde" id="' + picid + owner + '">' +
                     '<div class="container d-flex">' +
-                    '<a class="link-secondary ms-auto" data-bs-toggle="modal"' +
-                    'data-bs-target="#kommentarermodal">2 Kommentarer</a>' +
+                    /*----- Se kommentarer -----*/
+                    '<a class="link-secondary ms-auto" id="' + commentviewbtnid + owner + '">2 Kommentarer</a>' +
                     '</div>' +
                     //Innlegg footer
                     '<div class="card-footer d-flex" style="background: #111;">' +
-                    '<button type="button" class="btn-dark w-50 mx-auto"' +
-                    'data-bs-toggle="modal" data-bs-target="#kommentarermodal"' +
-                    'style="background: #111;">Kommenter ' +
+                    '<button type="button" class="btn-dark w-50 mx-auto" style="background: #111;" id="' + commentid + owner + '">Kommenter ' +
                     '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"' +
                     'fill="currentColor" class="bi bi-chat-square-text-fill"' +
                     'viewBox="0 0 16 16">' +
@@ -251,13 +264,16 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     '</svg>' +
                     '</button>' +
                     '</div>' +
+                    /*----- Kommentarfelt -----*/
+                    '<hr> <div class="input-group mb-3" "' + commentboxid + owner + '"> </div>' +
+                    '<div class="list-group w-100 mx-auto border-dark" id="' + commentsectionid + owner + '"> </div>' +
                     '</div>' +
-                    '</div >'
+                    '</div>'
                 );
             }).then(() => {
-                //Viser slett innlegg knapp om det er ditt innlegg, ellers så vises rapporter, og omvendt
+                //Viser slett innlegg knapp om det er ditt innlegg, ellers så vises rapporter
                 if (owner == user) {
-                    document.getElementById(reportid + owner).style.display = "none"; 
+                    document.getElementById(reportid + owner).style.display = "none";
                 } else {
                     document.getElementById(deleteid + owner).style.display = "none";
                 }
@@ -277,6 +293,27 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey).remove();
                     alert("Innlegget ditt er nå slettet");
                     location.reload();
+                }
+
+                //Kommenter innlegg
+                document.getElementById(commentid + owner).onclick = function () {
+                    this.disabled = true;
+                    var cmntBox = document.getElementById(commentboxid + owner);
+                    $(cmntBox).append(
+                        '<input type="text" class="form-control border-dark text-light" placeholder="Skriv en kommentar... "' +
+                        'aria-label="Recipients username" aria-describedby="button-addon2" style="background-color:rgb(60, 64, 67, 0.90)" ' +
+                        'id="' + commentfieldid + owner + '"> <button class="btn btn-primary" type="button" id=" ' + commentpostid + owner + ' ">Publiser</button>'
+                    )
+                }
+
+                //Se kommentarfelt
+                document.getElementById(commentviewbtnid + owner).onclick = function () {
+                    this.disabled = true;
+                    var cmntSection = document.getElementById(commentsectionid + owner);
+                    $(cmntSection).append(
+                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <img class="rounded-circle m-3" width="50" height="50"' +
+                        'src="img/cubr.jpg" alt="Profilbilde"> CheekyCub <br> <p class=" px-3 mt-0">dette, er min kommentar </p></a>'
+                    )
                 }
 
                 //Henting av Innleggsbilde, skjer etter at et innlegg er appendet til siden
