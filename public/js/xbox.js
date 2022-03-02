@@ -3,6 +3,14 @@ var list;
 var count = 0;
 var countMembers;
 
+//random id funksjon - fra Give and Get
+function randomID() {
+    var S4 = function () {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}
+
 //Henter UID til innlogget bruker
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
@@ -42,22 +50,24 @@ firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (sn
             });
     })
 });
+var fil = {};
+document.getElementById("choosePlatformPic").onchange = function (e) {
+    fil = e.target.files[0];
+    console.log(fil);
+    //var tmppath = URL.createObjectURL(e.target.files[0]); //Midlertidig bilde
+    //document.getElementById("pictureEditProfile").src = tmppath; //Setter midlertidig bilde før man evt. laster opp til DB
+}
 
 //Opplasting av innlegg
 document.getElementById("upload").onclick = function () {
     var titleInp = document.getElementById("tittelXbox").value;
     var descInp = document.getElementById("beskrivelseXbox").value;
-    console.log(titleInp);
+    var bildeid = "picture" + Date.now(); //Unik ID for bilde
+    var reportid = "report" + Date.now(); //Unik ID for rapportering
+    var deleteid = "delete" + Date.now(); //Unik ID for sletting
+    var commentid = "comment" + Date.now(); //Unik ID for Kommentarer
 
     //Sjekker tidspunkt på opplasting av annonsen 
-    /*
-    var currentdate = new Date().toLocaleDateString("en-GB"); 
-    var datetime = currentdate.getDate() + "."
-    + (currentdate.getMonth()+1) + "." 
-    + currentdate.getFullYear() + " kl."  
-    + currentdate.getHours() + ":"  
-    + currentdate.getMinutes();
-*/
     var datetime = new Date().toLocaleDateString("en-GB", {
         year: "numeric",
         month: "2-digit",
@@ -65,15 +75,27 @@ document.getElementById("upload").onclick = function () {
         hour: "2-digit",
         minute: "2-digit",
     });
+    datetime = datetime.split('/').join('.');
 
+    //Tittel må være fyllt ut for å laste opp innlegget
     if (titleInp != "") {
         firebase.database().ref('/Xbox gruppe/Innlegg').push({
             Eier: user,
             Tittel: titleInp,
             Beskrivelse: descInp,
             Tidspunkt: datetime,
+            BildeID: bildeid,
+            ReportID: reportid,
+            DeleteID: deleteid,
+            CommentID: commentid
+        }).then(() => { //Opplasting av bilde
+            if (fil instanceof File) {
+                firebase.storage().ref("innlegg/" + (user + bildeid) + "/innlegg.jpg").put(fil).then(() => {
+                    location.reload();
+                });
+            } else { location.reload(); }
         });
-        location.reload(); //Refresher siden 
+        //location.reload(); //Refresher siden 
     } else {
         alert("Innlegget må ha en tittel");
     }
@@ -85,11 +107,17 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
     var title = snapshot.child("Tittel").val();
     var description = snapshot.child("Beskrivelse").val();
     var time = snapshot.child("Tidspunkt").val();
+    var picid = snapshot.child("BildeID").val();
+    var deleteid = snapshot.child("DeleteID").val();
+    var reportid = snapshot.child("ReportID").val();
+    var commentid = snapshot.child("KommentarerID").val();
+    var postKey = snapshot.key;
 
     firebase.database().ref('/Bruker/' + owner).once('value').then((snapshot) => {
         var username = snapshot.child("Brukernavn").val();
         var realname = snapshot.child("Navn").val();
-        var key = snapshot.key; //key til innlegget
+
+
 
         //Henting av profilbilde, bruker uid fra keyen til hver enkeltbruker profil
         var storage = firebase.storage();
@@ -116,11 +144,11 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     'style="background: #111;" id="dropdownMenu2"' +
                     'data-bs-toggle="dropdown" aria-expanded="false"></button >' +
                     '<ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenu2">' +
-                    '<li><button class="dropdown-item text-light bg-dark"' +
-                    'type="button">Slett innlegg <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
+                    /*----- Slett innlegg knapp -----*/
+                    '<li><button class="dropdown-item text-light bg-dark" type="button" id="' + deleteid + owner + '">Slett innlegg <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
                     '<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" /> </svg></button></li>' +
-                    '<li><button class="dropdown-item bg-dark text-light"' +
-                    'type="button" > Rapporter innlegg <svg xmlns = "http://www.w3.org/2000/svg" width = "16" height = "16" fill = "currentColor" class= "bi bi-flag-fill" viewBox = "0 0 16 16" >' +
+                    /*----- Rapporter innlegg knapp -----*/
+                    '<li><button class="dropdown-item bg-dark text-light" type="button" id="' + reportid + owner + '" > Rapporter innlegg <svg xmlns = "http://www.w3.org/2000/svg" width = "16" height = "16" fill = "currentColor" class= "bi bi-flag-fill" viewBox = "0 0 16 16" >' +
                     '<path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />' +
                     '</svg ></button ></li> </ul></div ></div></div>' +
                     //Innlegg body
@@ -134,7 +162,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     /*----- Innlegs beskrivelse -----*/
                     ' ' + description + '</p>' +
                     //Innleggsbilde
-                    '<img class="card-img m-0" style="height: 350px; object-fit: cover;" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image">' +
+                    '<img class="card-img m-0" style="height: 350px; object-fit: cover;" src="" alt="ingen bilde" id="' + picid + owner + '">' +
                     '<div class="container d-flex">' +
                     '<a class="link-secondary ms-auto" data-bs-toggle="modal"' +
                     'data-bs-target="#kommentarermodal">2 Kommentarer</a>' +
@@ -199,7 +227,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     /*----- Innlegs beskrivelse -----*/
                     ' ' + description + '</p>' +
                     //Innleggsbilde
-                    '<img class="card-img m-0" style="height: 350px; object-fit: cover;" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image">' +
+                    '<img class="card-img m-0" style="height: 350px; object-fit: cover;" src="" alt="ingen bilde" id="' + picid + owner + '">' +
                     '<div class="container d-flex">' +
                     '<a class="link-secondary ms-auto" data-bs-toggle="modal"' +
                     'data-bs-target="#kommentarermodal">2 Kommentarer</a>' +
@@ -226,6 +254,44 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     '</div>' +
                     '</div >'
                 );
-            });
+            }).then(() => {
+                //Viser slett innlegg knapp om det er ditt innlegg, ellers så vises rapporter, og omvendt
+                if (owner == user) {
+                    document.getElementById(reportid + owner).style.display = "none"; 
+                } else {
+                    document.getElementById(deleteid + owner).style.display = "none";
+                }
+
+                //Rapporter innlegg
+                document.getElementById(reportid + owner).onclick = function () {
+                    firebase.database().ref('/Xbox gruppe/Rapporterte Innlegg').push({
+                        Eier: owner,
+                        Rapporterer: user,
+                        InnleggsID: postKey
+                    })
+                    alert("Innlegget til " + username + " er rapportert");
+                }
+
+                //Slett innlegg
+                document.getElementById(deleteid + owner).onclick = function () {
+                    firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey).remove();
+                    alert("Innlegget ditt er nå slettet");
+                    location.reload();
+                }
+
+                //Henting av Innleggsbilde, skjer etter at et innlegg er appendet til siden
+                var storage = firebase.storage();
+                var storageRef = storage.ref();
+                var pictureStorage = storageRef.child("innlegg/" + (owner + picid) + "/innlegg.jpg");
+
+                pictureStorage.getDownloadURL()
+                    .then((pictureURL) => {
+                        document.getElementById(picid + owner).src = pictureURL; //Setter bilde på innlegget
+                        //console.log("Bilde funnet");
+                    })
+                    .catch((error) => {
+                        document.getElementById(picid + owner).style.display = "none"; //Fjerne img tag dersom det ikke finnes noe bilde
+                    });
+            })
     })
 });
