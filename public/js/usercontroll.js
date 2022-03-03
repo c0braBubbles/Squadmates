@@ -56,4 +56,10 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 
-
+document.getElementById("logutBtn").onclick = function() {
+    firebase.auth().signOut().then(() => {
+        window.location = '/'; 
+    }).catch((error) => {
+        alert(error); // mest sannsynlig forekommer ikke denne
+    })
+}
