@@ -3,14 +3,6 @@ var list;
 var count = 0;
 var countMembers;
 
-//random id funksjon - fra Give and Get
-function randomID() {
-    var S4 = function () {
-        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-    };
-    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-}
-
 //Henter UID til innlogget bruker
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
@@ -101,11 +93,10 @@ document.getElementById("upload").onclick = function () {
         }).then(() => { //Opplasting av bilde
             if (fil instanceof File) {
                 firebase.storage().ref("innlegg/" + (user + bildeid) + "/innlegg.jpg").put(fil).then(() => {
-                    location.reload();
+                     location.reload();
                 });
             } else { location.reload(); }
-        });
-        //location.reload(); //Refresher siden 
+        }) 
     } else {
         alert("Innlegget må ha en tittel");
     }
@@ -178,7 +169,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     '<img class="card-img m-0" style="height: 350px; object-fit: cover;" src="" alt="ingen bilde" id="' + picid + owner + '">' +
                     '<div class="container d-flex">' +
                     /*----- Se kommentarer -----*/
-                    '<a class="link-secondary ms-auto" id="' + commentviewbtnid + owner + '">2 Kommentarer</a>' +
+                    '<button class="link-secondary ms-auto btn-sm" id="' + commentviewbtnid + owner + '">2 Kommentarer</button>' +
                     '</div>' +
                     //Innlegg footer
                     '<div class="card-footer d-flex" style="background: #111;">' +
@@ -225,10 +216,12 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     'data-bs-toggle="dropdown" aria-expanded="false"></button >' +
                     '<ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenu2">' +
                     '<li><button class="dropdown-item text-light bg-dark"' +
-                    'type="button">Slett innlegg <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
+                     /*----- Slett innlegg knapp -----*/
+                    'type="button" id="' + deleteid + owner + '">Slett innlegg <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
                     '<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" /> </svg></button></li>' +
                     '<li><button class="dropdown-item bg-dark text-light"' +
-                    'type="button" > Rapporter innlegg <svg xmlns = "http://www.w3.org/2000/svg" width = "16" height = "16" fill = "currentColor" class= "bi bi-flag-fill" viewBox = "0 0 16 16" >' +
+                     /*----- Rapporter innlegg knapp -----*/
+                    'type="button" id="' + reportid + owner + '"> Rapporter innlegg <svg xmlns = "http://www.w3.org/2000/svg" width = "16" height = "16" fill = "currentColor" class= "bi bi-flag-fill" viewBox = "0 0 16 16" >' +
                     '<path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />' +
                     '</svg ></button ></li> </ul></div ></div></div>' +
                     //Innlegg body
@@ -245,7 +238,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     '<img class="card-img m-0" style="height: 350px; object-fit: cover;" src="" alt="ingen bilde" id="' + picid + owner + '">' +
                     '<div class="container d-flex">' +
                     /*----- Se kommentarer -----*/
-                    '<a class="link-secondary ms-auto" id="' + commentviewbtnid + owner + '">2 Kommentarer</a>' +
+                    '<button class="link-secondary ms-auto btn-sm" id="' + commentviewbtnid + owner + '">2 Kommentarer</button>' +
                     '</div>' +
                     //Innlegg footer
                     '<div class="card-footer d-flex" style="background: #111;">' +
@@ -265,7 +258,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     '</button>' +
                     '</div>' +
                     /*----- Kommentarfelt -----*/
-                    '<hr> <div class="input-group mb-3" "' + commentboxid + owner + '"> </div>' +
+                    '<hr> <div class="input-group mb-3" id="' + commentboxid + owner + '"> </div>' +
                     '<div class="list-group w-100 mx-auto border-dark" id="' + commentsectionid + owner + '"> </div>' +
                     '</div>' +
                     '</div>'
@@ -295,25 +288,62 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     location.reload();
                 }
 
-                //Kommenter innlegg
+                //Append kommentar input og knapp
                 document.getElementById(commentid + owner).onclick = function () {
                     this.disabled = true;
                     var cmntBox = document.getElementById(commentboxid + owner);
                     $(cmntBox).append(
                         '<input type="text" class="form-control border-dark text-light" placeholder="Skriv en kommentar... "' +
                         'aria-label="Recipients username" aria-describedby="button-addon2" style="background-color:rgb(60, 64, 67, 0.90)" ' +
-                        'id="' + commentfieldid + owner + '"> <button class="btn btn-primary" type="button" id=" ' + commentpostid + owner + ' ">Publiser</button>'
-                    )
+                        'id="' + commentfieldid + owner + '"> <button class="btn btn-primary" type="button" id="' + commentpostid + owner + '">Publiser</button>'
+                    ).ready(function () {
+                        //Legg ut kommentar
+                        document.getElementById(commentpostid + owner).onclick = function () {
+                            var commentInput = document.getElementById(commentfieldid + owner);
+                            var comment = commentInput.value;
+                            if (commentInput != "") {
+                                firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey).child("Kommentarer").push({
+                                    Bruker: user,
+                                    Kommentar: comment,
+                                })
+                            }
+                            document.getElementById(commentfieldid + owner).value = null;
+                        }
+                    });
                 }
 
                 //Se kommentarfelt
                 document.getElementById(commentviewbtnid + owner).onclick = function () {
                     this.disabled = true;
                     var cmntSection = document.getElementById(commentsectionid + owner);
-                    $(cmntSection).append(
-                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <img class="rounded-circle m-3" width="50" height="50"' +
-                        'src="img/cubr.jpg" alt="Profilbilde"> CheekyCub <br> <p class=" px-3 mt-0">dette, er min kommentar </p></a>'
-                    )
+                    //Sjekker kommentarer tabellen for kommentarer
+                    firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey + '/Kommentarer').on('child_added', function (snapshot) {
+                        var comment = snapshot.child("Kommentar").val();
+                        var user = snapshot.child("Bruker").val();
+                        //Henter brukernavnet fra bruker tabellen
+                        firebase.database().ref('/Bruker/' + user).once('value').then((snapshot) => {
+                            var username = snapshot.child("Brukernavn").val();
+                            var realname = snapshot.child("Navn").val();
+                            //Henting av profilbilde
+                            var storage = firebase.storage();
+                            var storageRef = storage.ref();
+                            var pictureStorage = storageRef.child("user/" + user + "/profile.jpg");
+
+                            pictureStorage.getDownloadURL()
+                                .then((pictureURL) => { //Har profilbilde
+                                    $(cmntSection).append(
+                                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <div class = "w-100"> <img class = "rounded-circle m-1" width="35" height="35"' +
+                                        'src="' + pictureURL + '" alt="Profilbilde" style="object-fit: cover;"> <strong>'+username+":"+'</strong> </div><text style="padding-left: 50px;">'+comment+'</text></a>'
+                                    )
+                                })
+                                .catch((error) => { //Har ikke profilbilde
+                                    $(cmntSection).append(
+                                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <div class = "w-100"> <img class="rounded-circle m-1" width="35" height="35"' +
+                                        'src="img/blank-profile-circle.png" alt="Profilbilde" style="object-fit: cover;"> <strong>'+username+":"+'</strong> </div> <text style="padding-left: 50px;">' +comment+ '</text></a>'
+                                    )
+                                });
+                        })
+                    })
                 }
 
                 //Henting av Innleggsbilde, skjer etter at et innlegg er appendet til siden
