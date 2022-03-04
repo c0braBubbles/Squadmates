@@ -45,8 +45,7 @@ firebase.auth().onAuthStateChanged((user) => {
                     uid: uid
                 }, function (data, status) {
                     console.log(data);
-                }
-                );
+                });
             }
         });
 

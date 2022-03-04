@@ -2,6 +2,7 @@ var userID;
 var list;
 var count = 0;
 var countMembers;
+var collections;
 
 //random id funksjon - fra Give and Get
 function randomID() {
@@ -26,6 +27,7 @@ firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (sn
     //Bruker UID fra xbox medlemmer for å hente div annen info fra denne brukeren fra bruker tabellen
     firebase.database().ref('/Bruker/' + userID).once('value').then((snapshot) => {
         var name = snapshot.child("Brukernavn").val();
+        collections = snapshot.val(); 
         var uid = snapshot.key;
 
         //Henting av profilbilde, bruker uid fra keyen til hver enkeltbruker profil
@@ -37,9 +39,12 @@ firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (sn
             .then((pictureURL) => { //Dersom brukeren har profilbilde
                 console.log(name + " har profilbilde");
                 list = document.getElementById("medlemslisteXbox");
-                $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
-                    '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
-                    + name + '</a>');
+                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
+                    // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
+                    // + name + '</a>');
+                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}')">
+                                    <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
+                                ${name}</a>`);
             })
             .catch((error) => { //Dersom brukeren ikke har profilbilde
                 console.log(name + " har ikke profilbilde");
@@ -50,6 +55,8 @@ firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (sn
             });
     })
 });
+
+
 var fil = {};
 document.getElementById("choosePlatformPic").onchange = function (e) {
     fil = e.target.files[0];
