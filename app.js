@@ -77,6 +77,18 @@ app.get('/xbox', function(req, res) {
     res.render('xbox');
 })
 
+app.get('/playstation', function(req, res) {
+    res.render('playstation');
+})
+
+app.get('/switch', function(req, res) {
+    res.render('switch');
+})
+
+app.get('/steam', function(req, res) {
+    res.render('steam');
+})
+
 // Gjør mappen public synlig, så app-en kan ta bruk av:
 app.use(express.static(path.resolve(__dirname, 'public')));
 //Avgjør hvilken port programmet skal "lytte" på:

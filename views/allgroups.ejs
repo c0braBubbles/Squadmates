@@ -18,9 +18,9 @@
 	}
 </style>
 
-	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-	<script type="module" src="js/firebase_config.js"></script>
-	<script type="module" src="js/usercontroll.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script type="module" src="js/firebase_config.js"></script>
+<script type="module" src="js/usercontroll.js"></script>
 </head>
 
 <body>
@@ -73,12 +73,14 @@
 							</div>
 							<div class="card-body">
 								<h5 class="card-title">Xbox</h5>
-								<p class="card-text"><small class="text-muted" id="xboxMembers">Ingen medlemmer</small></p>
+								<p class="card-text"><small class="text-muted" id="xboxMembers">Ingen medlemmer</small>
+								</p>
 							</div>
 						</div>
 					</div>
 					<!--Playstation-->
-					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="psGroup">
+					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="psGroup"
+						onclick="window.location = '/playstation'">
 						<div class="card rounded-3 chromaps">
 							<div class="card-header bg-primary bg-gradient d-flex"
 								style="height: 9rem; object-fit: cover">
@@ -90,12 +92,14 @@
 							</div>
 							<div class="card-body">
 								<h5 class="card-title">Playstation</h5>
-								<p class="card-text"><small class="text-muted" id="psMembers">Ingen medlemmer</small></p>
+								<p class="card-text"><small class="text-muted" id="psMembers">Ingen medlemmer</small>
+								</p>
 							</div>
 						</div>
 					</div>
 					<!--Nintendo-->
-					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="switchGroup">
+					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="switchGroup"
+						onclick="window.location = '/switch'">
 						<div class="card rounded-3 chromaswitch">
 							<div class="card-header bg-danger d-flex" style="height: 9rem; object-fit: cover">
 								<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor"
@@ -108,12 +112,14 @@
 							</div>
 							<div class="card-body">
 								<h5 class="card-title">Nintendo Switch</h5>
-								<p class="card-text"><small class="text-muted" id="switchMembers">Ingen medlemmer</small></p>
+								<p class="card-text"><small class="text-muted" id="switchMembers">Ingen
+										medlemmer</small></p>
 							</div>
 						</div>
 					</div>
 					<!--Steam-->
-					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="steamGroup">
+					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="steamGroup"
+						onclick="window.location = '/steam'">
 						<div class="card rounded-3 chromasteam">
 							<div class="card-header bg-gradient d-flex"
 								style="height: 9rem; object-fit: cover; background-color:#1b2838;">
@@ -128,7 +134,8 @@
 							<div class="card-body">
 								<h5 class="card-title">Steam</h5>
 
-								<p class="card-text"><small class="text-muted" id="steamMembers">Ingen medlemmer</small></p>
+								<p class="card-text"><small class="text-muted" id="steamMembers">Ingen medlemmer</small>
+								</p>
 							</div>
 						</div>
 					</div>
