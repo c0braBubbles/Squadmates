@@ -337,13 +337,13 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                             pictureStorage.getDownloadURL()
                                 .then((pictureURL) => { //Har profilbilde
                                     $(cmntSection).append(
-                                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
+                                        '<a href="#" class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
                                         'src="' + pictureURL + '" alt="Profilbilde" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong> <text class="text-muted ms-auto my-auto">' + datetime + ' </text> </div><text style="padding-left: 50px;">' + comment + '</text></a>'
                                     )
                                 })
                                 .catch((error) => { //Har ikke profilbilde
                                     $(cmntSection).append(
-                                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <div class = "w-100 d-flex"> <img class="rounded-circle m-1" width="35" height="35"' +
+                                        '<a href="#" class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class="rounded-circle m-1" width="35" height="35"' +
                                         'src="img/blank-profile-circle.png" alt="Profilbilde" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong> <text class="text-muted ms-auto my-auto">' + datetime + ' </text></div> <text style="padding-left: 50px;">' + comment + '</text></a>'
                                     )
                                 });
