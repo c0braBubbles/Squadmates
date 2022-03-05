@@ -12,7 +12,7 @@
     <script>
         var myArray = [];
 
-        for(let j = 2; j < 30000; j++) {
+        /*for(let j = 2; j < 30000; j++) {
             fetch("https://api.rawg.io/api/games?key=8d8b50415fd74e3baf7e69ac2f959516" + "&page=" + j, {
                 "method": "GET",
             }).then(response => response.json()).then(data => {
@@ -25,7 +25,20 @@
             }).catch(err => {
                 console.error(err);
             });
-        }
+        }*/
+
+        fetch("https://data.brreg.no/enhetsregisteret/api/enheter", {
+                "method": "GET",
+            }).then(response => response.json()).then(data => {
+                console.log(data);
+                for(let i = 0; i < data.length; i++) {
+                    console.log(data.results[i].embedded);
+                    // document.write(data.results[i].name + "<br>");
+                    // document.write(data);
+                }
+            }).catch(err => {
+                console.error(err);
+            });
     </script>
 </body>
 </html>

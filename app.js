@@ -61,10 +61,16 @@ app.get('/test', function(req, res) {
 
 app.post('/openUid', function(req, res) {
     var uid = req.body.uid; 
-    // console.log(uid);
     app.get('/' + uid, function(req, res) {
         res.render('myprofile');
     });
+});
+
+app.post('/showProfile', function(req, res) {
+    var profName = req.body.profilename; 
+    app.get('/' + profName, function(req, res) {
+        res.render('othersprofile');
+    })
 });
 
 app.get('/xbox', function(req, res) {
