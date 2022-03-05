@@ -121,7 +121,16 @@ function openChat(samtaleUID) {
     console.log(samtaleUID);
 }*/
 
-
+firebase.database().ref("Melding/").on('child_added', function (snapshot) {
+    var data = snapshot.val();
+    if (data.SamtaleID == aktivSamtale) {
+        if (data.Bruker == whiz.Uid) {
+            meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
+        } else {
+            meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+        }
+    }
+});
 
 
 /* Eksempel fra Give&Get: legger en melding på meldingsbrettet */
