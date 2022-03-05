@@ -23,3 +23,28 @@ console.log(user);
                 document.getElementById('switchGroup').style.display = "block";
             }
         })
+
+        //Antall medlemmer på platformkort
+        var xboxCount = 0;
+        firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (snapshot) {
+            xboxCount++;
+            document.getElementById("xboxMembers").innerHTML = xboxCount + " Medlemmer";
+        })
+
+        var psCount = 0;
+        firebase.database().ref('/Playstation gruppe/Medlemmer').on('child_added', function (snapshot) {
+            psCount++;
+            document.getElementById("psMembers").innerHTML = psCount + " Medlemmer";
+        })
+
+        var switchCount = 0;
+        firebase.database().ref('/Switch gruppe/Medlemmer').on('child_added', function (snapshot) {
+            switchCount++;
+            document.getElementById("switchMembers").innerHTML = switchCount + " Medlemmer";
+        })
+
+        var steamCount = 0;
+        firebase.database().ref('/Steam gruppe/Medlemmer').on('child_added', function (snapshot) {
+            steamCount++;
+            document.getElementById("steamMembers").innerHTML = steamCount + " Medlemmer";
+        })

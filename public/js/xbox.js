@@ -8,6 +8,7 @@ var collections;
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
 
+
 //Sjekker Xbox liste for medlemmer
 firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (snapshot) {
     userID = snapshot.child("BrukerID").val();
@@ -19,7 +20,7 @@ firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (sn
     //Bruker UID fra xbox medlemmer for å hente div annen info fra denne brukeren fra bruker tabellen
     firebase.database().ref('/Bruker/' + userID).once('value').then((snapshot) => {
         var name = snapshot.child("Brukernavn").val();
-        collections = snapshot.val(); 
+        collections = snapshot.val();
         var uid = snapshot.key;
 
         //Henting av profilbilde, bruker uid fra keyen til hver enkeltbruker profil
@@ -31,8 +32,8 @@ firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (sn
             .then((pictureURL) => { //Dersom brukeren har profilbilde
                 list = document.getElementById("medlemslisteXbox");
                 // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
-                    // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
-                    // + name + '</a>');
+                // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
+                // + name + '</a>');
                 $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}')">
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
                                 ${name}</a>`);
@@ -79,7 +80,7 @@ document.getElementById("upload").onclick = function () {
             ID: id
         }).then(() => { //Opplasting av bilde
             if (fil instanceof File) {
-                firebase.storage().ref("innlegg/" + (user +"picture"+ id) + "/innlegg.jpg").put(fil).then(() => {
+                firebase.storage().ref("innlegg/" + (user + "picture" + id) + "/innlegg.jpg").put(fil).then(() => {
                     location.reload();
                 });
             } else { location.reload(); }
@@ -292,7 +293,15 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                         'aria-label="Recipients username" aria-describedby="button-addon2" style="background-color:rgb(60, 64, 67, 0.90)" ' +
                         'id="' + commentfieldid + owner + '"> <button class="btn btn-primary" type="button" id="' + commentpostid + owner + '">Publiser</button>'
                     ).ready(function () {
-                        //Legg ut kommentar
+                        //Legg ut kommentar med tidspunkt
+                        var datetimeCmt = new Date().toLocaleDateString("en-GB", {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        });
+                        datetimeCmt = datetimeCmt.split('/').join('.');
                         document.getElementById(commentpostid + owner).onclick = function () {
                             var commentInput = document.getElementById(commentfieldid + owner);
                             var comment = commentInput.value;
@@ -300,6 +309,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                                 firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey).child("Kommentarer").push({
                                     Bruker: user,
                                     Kommentar: comment,
+                                    Tidspunkt: datetimeCmt
                                 })
                             }
                             document.getElementById(commentfieldid + owner).value = null;
@@ -315,6 +325,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey + '/Kommentarer').on('child_added', function (snapshot) {
                         var comment = snapshot.child("Kommentar").val();
                         var user = snapshot.child("Bruker").val();
+                        var datetime = snapshot.child("Tidspunkt").val();
                         //Henter brukernavnet fra bruker tabellen
                         firebase.database().ref('/Bruker/' + user).once('value').then((snapshot) => {
                             var username = snapshot.child("Brukernavn").val();
@@ -326,14 +337,14 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                             pictureStorage.getDownloadURL()
                                 .then((pictureURL) => { //Har profilbilde
                                     $(cmntSection).append(
-                                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <div class = "w-100"> <img class = "rounded-circle m-1" width="35" height="35"' +
-                                        'src="' + pictureURL + '" alt="Profilbilde" style="object-fit: cover;"> <strong>' + username + ":" + '</strong> </div><text style="padding-left: 50px;">' + comment + '</text></a>'
+                                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
+                                        'src="' + pictureURL + '" alt="Profilbilde" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong> <text class="text-muted ms-auto my-auto">' + datetime + ' </text> </div><text style="padding-left: 50px;">' + comment + '</text></a>'
                                     )
                                 })
                                 .catch((error) => { //Har ikke profilbilde
                                     $(cmntSection).append(
-                                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <div class = "w-100"> <img class="rounded-circle m-1" width="35" height="35"' +
-                                        'src="img/blank-profile-circle.png" alt="Profilbilde" style="object-fit: cover;"> <strong>' + username + ":" + '</strong> </div> <text style="padding-left: 50px;">' + comment + '</text></a>'
+                                        '<a href="#" class="list-group-item text-light border-dark mb-0" style="background: #111;"> <div class = "w-100 d-flex"> <img class="rounded-circle m-1" width="35" height="35"' +
+                                        'src="img/blank-profile-circle.png" alt="Profilbilde" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong> <text class="text-muted ms-auto my-auto">' + datetime + ' </text></div> <text style="padding-left: 50px;">' + comment + '</text></a>'
                                     )
                                 });
                         })
