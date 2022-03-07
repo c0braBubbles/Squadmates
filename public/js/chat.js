@@ -1,4 +1,5 @@
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
+document.getElementById("msg-name-display").innerHTML = whiz.Uid;
 
 var aktiv = localStorage.getItem("aktivSamtale");
 if (aktiv != null) {
@@ -126,7 +127,7 @@ function openChat(samtaleUID) {
     aktivSamtale = samtaleUID;
     console.log(samtaleUID);
 }*/
-
+/*
 firebase.database().ref("Melding/").on('child_added', function (snapshot) {
     var data = snapshot.val();
     if (data.SamtaleID == aktivSamtale) {
@@ -136,7 +137,7 @@ firebase.database().ref("Melding/").on('child_added', function (snapshot) {
             meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
         }
     }
-});
+});*/
 
 
 /* Eksempel fra Give&Get: legger en melding på meldingsbrettet */
