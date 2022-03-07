@@ -156,7 +156,7 @@ firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
         .then((pictureURL) => { //Har Forsidebilde
             if (owner == user) {
                 $(document.getElementById("myGroups")).append(
-                    '<div class="col-lg-4 pt-2" onclick="window.location = `/group`">' +
+                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
                     '<div class="card rounded-3 chromahover">' +
                     '<img class="card-img-top" src="' + pictureURL + '" alt="Card image cap"' +
                     'style="height: 12rem; object-fit: cover">' +
@@ -171,7 +171,7 @@ firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
         .catch((error) => { //Har ikke Forsidebilde
             if (owner == user) {
                 $(document.getElementById("myGroups")).append(
-                    '<div class="col-lg-4 pt-2" onclick="window.location = `/group`">' +
+                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
                     '<div class="card rounded-3 chromahover">' +
                     '<img class="card-img-top" src="img/Amin.jpg" alt="Card image cap"' +
                     'style="height: 12rem; object-fit: cover">' +
