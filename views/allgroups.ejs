@@ -9,6 +9,7 @@
 	<title>Grupper</title>
 	<link rel="stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
 	<link rel="stylesheet" href="css/home.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">  
 
 <body style="overflow-x: hidden;"></body>
 <style>
@@ -144,88 +145,25 @@
 
 			<!--Kort for grupper-->
 			<div class="card-group w-75 mx-auto mx-3 mt-3">
-				<div class="row">
+				<div class="row w-100" id = "myGroups">
 					<h1 class="mx-auto text-light pt-5"> Mine grupper</h1>
-					<div class="col-lg-4" onclick="window.location = '/group'">
+					<div class="col-lg-4 mt" onclick="window.location = `/group`" style="display: none;">
 						<div class="card rounded-3 chromahover">
 							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
 								style="height: 12rem; object-fit: cover">
 							<div class="card-body">
 								<h5 class="card-title">Call of Duty Warzone</h5>
-								<p class="card-text">Vet ikke hva vi skal skrive her</p>
+								<br>
 								<p class="card-text"><small class="text-muted">NAV PÅ DENNE</small></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card rounded-3 chromahover">
-							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-								style="height: 12rem; object-fit: cover">
-							<div class="card-body">
-								<h5 class="card-title">Call of Duty Warzone</h5>
-								<p class="card-text">Vet ikke hva vi skal skrive her</p>
-								<p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card rounded-3 chromahover">
-							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-								style="height: 12rem; object-fit: cover">
-							<div class="card-body">
-								<h5 class="card-title">Call of Duty Warzone </h5>
-								<p class="card-text">Vet ikke hva vi skal skrive her</p>
-								<p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card rounded-3 chromahover my-2">
-							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-								style="height: 12rem; object-fit: cover">
-							<div class="card-body">
-								<h5 class="card-title">Call of Duty Warzone </h5>
-								<p class="card-text">Vet ikke hva vi skal skrive her</p>
-								<p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card rounded-3 chromahover my-2">
-							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-								style="height: 12rem; object-fit: cover">
-							<div class="card-body">
-								<h5 class="card-title">Call of Duty Warzone </h5>
-								<p class="card-text">Vet ikke hva vi skal skrive her</p>
-								<p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card rounded-3 chromahover my-2">
-							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-								style="height: 12rem; object-fit: cover">
-							<div class="card-body">
-								<h5 class="card-title">Call of Duty Warzone </h5>
-								<p class="card-text">Vet ikke hva vi skal skrive her</p>
-								<p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card rounded-3 chromahover my-2">
-							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
-								style="height: 12rem; object-fit: cover">
-							<div class="card-body">
-								<h5 class="card-title">Call of Duty Warzone </h5>
-								<p class="card-text">Vet ikke hva vi skal skrive her</p>
-								<p class="card-text"><small class="text-muted">Antall medlemmer</small></p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div id="subDiv" style="display: none;">
+            <%- include('partials/new-groupp'); %>
+        </div>
 
 
 		<script src="js/allgroups.js" type="module"></script>
@@ -234,13 +172,7 @@
 		<script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
-		<script>
-			document.getElementById("newGroup_btn").onclick = function () {
-				document.getElementById("superDiv").innerHTML = `<%- include('partials/new-groupp'); %>`;
-			}
-		</script>
+		
 </body>
 
 </html>
