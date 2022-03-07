@@ -134,6 +134,7 @@
                 localStorage.setItem("aktivSamtale", aktivSamtale);
                 console.log("Gått i samtale, med ID: " + samtaleUID);
                 firebase.database().ref('Samtale/'+samtaleUID).once('value', (snap) => {
+                    if (snap.exists()) {
                     if (snap.val().Bruker1ID == whiz.Uid) {
                         firebase.database().ref('Bruker/'+snap.val().Bruker2ID).once('value', (ss) => {
                             document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
@@ -143,6 +144,7 @@
                             document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
                         });
                     }
+                }
                 });
                 //Henter tidligere meldinger, legger dem inn chat-vinduet
                 firebase.database().ref("Melding/").once('value', (snapshot) => {
