@@ -107,7 +107,7 @@
                                     placeholder="Send melding" style="background-color:rgb(60, 64, 67, 0.90);"
                                     aria-label="Send melding" aria-describedby="basic-addon2" id="melding_input">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary border-dark" type="button"><svg
+                                    <button class="btn btn-primary border-dark" type="submit"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
                                             <path
@@ -167,7 +167,7 @@
             var meldingInput = document.getElementById('melding_input');
             skrivMelding.onsubmit = function (evt) {
                 evt.preventDefault(); //Siden skal ikke reloade når man submitter/sender en melding
-                if (aktivSamtale != null) {
+                if (aktivSamtale != null && meldingInput.value.trim() != "") {
                     firebase.database().ref('Melding').push({
                         "SamtaleID": aktivSamtale,
                         "Melding": meldingInput.value,
