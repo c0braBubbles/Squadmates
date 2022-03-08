@@ -66,6 +66,14 @@ app.post('/openUid', function(req, res) {
     });
 });
 
+app.post('/openGroup', function(req, res) {
+    var key = req.body.key; 
+    console.log(key);
+    app.get('/' + key, function(req, res) {
+        res.render('group');
+    });
+});
+
 app.post('/showProfile', function(req, res) {
     var profName = req.body.profilename; 
     app.get('/' + profName, function(req, res) {

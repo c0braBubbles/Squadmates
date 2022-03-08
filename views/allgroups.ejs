@@ -177,8 +177,15 @@
 		<script>
 			//Funksjon for å åpne gruppesid med key lagret
 			function getGroup(key) {
-				localStorage.setItem("groupKey", key);
-				window.location = "/group";
+				  // templating for når man åpner min profil: 
+				window.open(key, '_self');
+                $.post("/openGroup", {
+                    key: key
+                }, function (data, status) {
+                    console.log(data);
+                }
+                );
+            
 			}
 		</script>
 
