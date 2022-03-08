@@ -17,17 +17,15 @@ firebase.auth().onAuthStateChanged((user) => {
             var storageRef = storage.ref();
             var pictureStorage = storageRef.child("user/" + uid + "/profile.jpg");
 
-            pictureStorage.getDownloadURL()
-                .then((pictureURL) => {
-                    document.getElementById("pictureHeader").src = pictureURL; //Profilbilde på header
-                    document.getElementById("pictureMobileHeader").src = pictureURL; //Profilbilde på mobil header
-                    //console.log("Profilbilde funnet");
-                })
-                .catch((error) => {
-                    document.getElementById("pictureHeader").src = "img/blank-profile-circle.png"; //Default profilbilde dersom ikke bilde er funnet
-                    document.getElementById("pictureMobileHeader").src = "img/blank-profile-circle.png"; //Default profilbilde mobil dersom ikke bilde er funnet
-                    //console.log("brukeren har ingen profilbilde");
-                });
+            pictureStorage.getDownloadURL().then((pictureURL) => {
+                document.getElementById("pictureHeader").src = pictureURL; //Profilbilde på header
+                document.getElementById("pictureMobileHeader").src = pictureURL; //Profilbilde på mobil header
+                //console.log("Profilbilde funnet");
+            }).catch((error) => {
+                document.getElementById("pictureHeader").src = "img/blank-profile-circle.png"; //Default profilbilde dersom ikke bilde er funnet
+                document.getElementById("pictureMobileHeader").src = "img/blank-profile-circle.png"; //Default profilbilde mobil dersom ikke bilde er funnet
+                //console.log("brukeren har ingen profilbilde");
+            });
 
             // templating for når man åpner min profil: 
             document.getElementById("myProf").onclick = function () {
