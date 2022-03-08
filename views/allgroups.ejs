@@ -63,7 +63,7 @@
 					<h1 class="text-light pt-5"> Mine platformer</h1>
 					<!--Xbox-->
 					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="xboxGroup"
-						onclick="window.location = '/xbox'">
+						onclick="getPlatform('Xbox')">
 						<div class="card rounded-3 chromaxbox">
 							<div class="card-header bg-success bg-gradient d-flex"
 								style="height: 9rem; object-fit: cover">
@@ -82,7 +82,7 @@
 					</div>
 					<!--Playstation-->
 					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="psGroup"
-						onclick="window.location = '/playstation'">
+						onclick="getPlatform('Playstation')">
 						<div class="card rounded-3 chromaps">
 							<div class="card-header bg-primary bg-gradient d-flex"
 								style="height: 9rem; object-fit: cover">
@@ -101,7 +101,7 @@
 					</div>
 					<!--Nintendo-->
 					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="switchGroup"
-						onclick="window.location = '/switch'">
+					onclick="getPlatform('Switch')">
 						<div class="card rounded-3 chromaswitch">
 							<div class="card-header bg-danger d-flex" style="height: 9rem; object-fit: cover">
 								<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor"
@@ -121,7 +121,7 @@
 					</div>
 					<!--Steam-->
 					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="steamGroup"
-						onclick="window.location = '/steam'">
+					onclick="getPlatform('Steam')">
 						<div class="card rounded-3 chromasteam">
 							<div class="card-header bg-gradient d-flex"
 								style="height: 9rem; object-fit: cover; background-color:#1b2838;">
@@ -177,8 +177,27 @@
 		<script>
 			//Funksjon for å åpne gruppesid med key lagret
 			function getGroup(key) {
-				localStorage.setItem("groupKey", key);
-				window.location = "/group";
+				// templating for når man åpner en gruppe: 
+				window.open(key, '_self');
+				$.post("/openGroup", {
+					key: key
+				}, function (data, status) {
+					console.log(data);
+				}
+				);
+
+			}
+			//Funksjon for å åpne gruppeside med key lagret
+			function getPlatform(platform) {
+				// templating for når man åpner en platform gruppe: 
+				window.open(platform, '_self');
+				$.post("/openPlatform", {
+					platform: platform
+				}, function (data, status) {
+					console.log(data);
+				}
+				);
+
 			}
 		</script>
 

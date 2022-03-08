@@ -2,21 +2,33 @@ var userID;
 var list;
 var count = 0;
 var countMembers;
+<<<<<<< HEAD:public/js/xbox.js
+=======
+var collections;
+var key = localStorage.getItem("");
+
+//Sjekker hvilken platform gruppe som ble klikket på
+var url = window.location.href;
+var split = url.split('/');
+var platform = (split[split.length - 1]);
+console.log(platform);
+
+>>>>>>> 25ac0fea1e4eabf9763410966df2436a30c8ed0f:public/js/platform.js
 
 //Henter UID til innlogget bruker
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
 
 
-//Sjekker Xbox liste for medlemmer
-firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (snapshot) {
+//Sjekker platformerns liste for medlemmer
+firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', function (snapshot) {
     userID = snapshot.child("BrukerID").val();
     count++;
-    countMembers = document.getElementById("membercountXbox");
+    countMembers = document.getElementById("membercountPlatform");
     countMembers.innerHTML = count;
 
 
-    //Bruker UID fra xbox medlemmer for å hente div annen info fra denne brukeren fra bruker tabellen
+    //Bruker UID fra platform gruppens medlemmer for å hente div annen info fra denne brukeren fra bruker tabellen
     firebase.database().ref('/Bruker/' + userID).once('value').then((snapshot) => {
         var name = snapshot.child("Brukernavn").val();
         var uid = snapshot.key;
@@ -28,8 +40,13 @@ firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (sn
 
         pictureStorage.getDownloadURL()
             .then((pictureURL) => { //Dersom brukeren har profilbilde
+<<<<<<< HEAD:public/js/xbox.js
                 list = document.getElementById("medlemslisteXbox");
                 // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile(\'' + JSON.stringify(collections) + '\')">' +
+=======
+                list = document.getElementById("medlemslistePlatform");
+                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
+>>>>>>> 25ac0fea1e4eabf9763410966df2436a30c8ed0f:public/js/platform.js
                 // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
                 // + name + '</a>');
                 $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
@@ -37,7 +54,7 @@ firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (sn
                                 ${name}</a>`);
             })
             .catch((error) => { //Dersom brukeren ikke har profilbilde
-                list = document.getElementById("medlemslisteXbox");
+                list = document.getElementById("medlemslistePlatform");
                 $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
                     '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'
                     + name + '</a>');
@@ -54,8 +71,8 @@ document.getElementById("choosePlatformPic").onchange = function (e) {
 
 //Opplasting av innlegg
 document.getElementById("upload").onclick = function () {
-    var titleInp = document.getElementById("tittelXbox").value;
-    var descInp = document.getElementById("beskrivelseXbox").value;
+    var titleInp = document.getElementById("tittelPlatform").value;
+    var descInp = document.getElementById("beskrivelsePlatform").value;
     var id = Date.now(); //Unik ID for bilde
 
     //Sjekker tidspunkt på opplasting av annonsen 
@@ -70,7 +87,7 @@ document.getElementById("upload").onclick = function () {
 
     //Tittel må være fyllt ut for å laste opp innlegget
     if (titleInp != "") {
-        firebase.database().ref('/Xbox gruppe/Innlegg').push({
+        firebase.database().ref('/' + platform + ' gruppe/Innlegg').push({
             Eier: user,
             Tittel: titleInp,
             Beskrivelse: descInp,
@@ -89,7 +106,7 @@ document.getElementById("upload").onclick = function () {
 }
 
 //Henting av innlegg
-firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snapshot) {
+firebase.database().ref('/' + platform + ' gruppe/Innlegg').on('child_added', function (snapshot) {
     var owner = snapshot.child("Eier").val();
     var title = snapshot.child("Tittel").val();
     var description = snapshot.child("Beskrivelse").val();
@@ -168,7 +185,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     '<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" /> ' +
                     '</svg>' +
                     '</button>' +
-                    '<button type="button" class="btn-dark w-50 mx-auto" onclick="startSamtale(\''+ owner +'\')"' +
+                    '<button type="button" class="btn-dark w-50 mx-auto" onclick="startSamtale(\'' + owner + '\')"' +
                     'style="background: #111;">Send melding ' +
                     '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"' +
                     'fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">' +
@@ -236,7 +253,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     '<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" /> ' +
                     '</svg>' +
                     '</button>' +
-                    '<button type="button" class="btn-dark w-50 mx-auto" onclick="startSamtale(\''+ owner +'\')"' +
+                    '<button type="button" class="btn-dark w-50 mx-auto" onclick="startSamtale(\'' + owner + '\')"' +
                     'style="background: #111;">Send melding ' +
                     '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"' +
                     'fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">' +
@@ -253,7 +270,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
             }).then(() => {
                 //Sjekker antall kommentarer
                 var commentSize = 0;
-                firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey + '/Kommentarer').on('child_added', function (snapshot) {
+                firebase.database().ref('/' + platform + ' gruppe/Innlegg/' + postKey + '/Kommentarer').on('child_added', function (snapshot) {
                     commentSize++;
                     document.getElementById(commentviewbtnid + owner).innerHTML = commentSize + " Kommentarer";
                 })
@@ -267,7 +284,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
 
                 //Rapporter innlegg
                 document.getElementById(reportid + owner).onclick = function () {
-                    firebase.database().ref('/Xbox gruppe/Rapporterte Innlegg').push({
+                    firebase.database().ref('/' + platform + ' gruppe/Rapporterte Innlegg').push({
                         Eier: owner,
                         Rapporterer: user,
                         InnleggsID: postKey
@@ -277,7 +294,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
 
                 //Slett innlegg
                 document.getElementById(deleteid + owner).onclick = function () {
-                    firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey).remove();
+                    firebase.database().ref('/' + platform + ' gruppe/Innlegg/' + postKey).remove();
                     alert("Innlegget ditt er nå slettet");
                     location.reload();
                 }
@@ -304,7 +321,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                             var commentInput = document.getElementById(commentfieldid + owner);
                             var comment = commentInput.value;
                             if (commentInput != "") {
-                                firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey).child("Kommentarer").push({
+                                firebase.database().ref('/' + platform + ' gruppe/Innlegg/' + postKey).child("Kommentarer").push({
                                     Bruker: user,
                                     Kommentar: comment,
                                     Tidspunkt: datetimeCmt
@@ -320,7 +337,7 @@ firebase.database().ref('/Xbox gruppe/Innlegg').on('child_added', function (snap
                     this.disabled = true;
                     var cmntSection = document.getElementById(commentsectionid + owner);
                     //Sjekker kommentarer tabellen for kommentarer
-                    firebase.database().ref('/Xbox gruppe/Innlegg/' + postKey + '/Kommentarer').on('child_added', function (snapshot) {
+                    firebase.database().ref('/' + platform + ' gruppe/Innlegg/' + postKey + '/Kommentarer').on('child_added', function (snapshot) {
                         var comment = snapshot.child("Kommentar").val();
                         var user = snapshot.child("Bruker").val();
                         var datetime = snapshot.child("Tidspunkt").val();
