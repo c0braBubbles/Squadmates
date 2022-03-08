@@ -71,6 +71,8 @@ app.post('/showProfile', function(req, res) {
     var profUid = req.body.profUid;
     app.get('/' + profName, function(req, res) {
         res.render('othersprofile', {profUid: profUid});
+    });
+});
 app.post('/openGroup', function (req, res) {
     var key = req.body.key;
     console.log(key);
