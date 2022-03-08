@@ -160,7 +160,7 @@ firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
                     '<div class="card rounded-3 chromahover">' +
                     '<img class="card-img-top" src="' + pictureURL + '" alt="Card image cap"' +
                     'style="height: 12rem; object-fit: cover">' +
-                    '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>'+
+                    '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>' +
                     '<div class="card-body">' +
                     '<h5 class="card-title">' + name + '</h5>' +
                     '<br>' +
@@ -175,7 +175,7 @@ firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
                     '<div class="card rounded-3 chromahover">' +
                     '<img class="card-img-top" src="img/Amin.jpg" alt="Card image cap"' +
                     'style="height: 12rem; object-fit: cover">' +
-                    '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>'+
+                    '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>' +
                     '<div class="card-body">' +
                     '<h5 class="card-title">' + name + '</h5>' +
                     '<br>' +

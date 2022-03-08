@@ -2,8 +2,6 @@ var userID;
 var list;
 var count = 0;
 var countMembers;
-<<<<<<< HEAD:public/js/xbox.js
-=======
 var collections;
 var key = localStorage.getItem("");
 
@@ -13,7 +11,6 @@ var split = url.split('/');
 var platform = (split[split.length - 1]);
 console.log(platform);
 
->>>>>>> 25ac0fea1e4eabf9763410966df2436a30c8ed0f:public/js/platform.js
 
 //Henter UID til innlogget bruker
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
@@ -40,13 +37,8 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
 
         pictureStorage.getDownloadURL()
             .then((pictureURL) => { //Dersom brukeren har profilbilde
-<<<<<<< HEAD:public/js/xbox.js
-                list = document.getElementById("medlemslisteXbox");
-                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile(\'' + JSON.stringify(collections) + '\')">' +
-=======
                 list = document.getElementById("medlemslistePlatform");
                 // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
->>>>>>> 25ac0fea1e4eabf9763410966df2436a30c8ed0f:public/js/platform.js
                 // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
                 // + name + '</a>');
                 $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
