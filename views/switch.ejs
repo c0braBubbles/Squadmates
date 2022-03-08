@@ -20,6 +20,7 @@
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script type="module" src="js/firebase_config.js"></script>
 <script type="module" src="js/usercontroll.js"></script>
+<script type="module" src="js/platform.js"></script>
 </head>
 
 <body>
@@ -82,16 +83,16 @@
                                                     <div class="form-group">
                                                         <div class="form-floating mb-3">
                                                             <input class="form-control border-dark text-light"
-                                                                id="tittelSwitch" placeholder="Tittel"
+                                                                id="tittelPlatform" placeholder="Tittel"
                                                                 style="background-color:rgb(60, 64, 67, 0.90)">
                                                             <label for="floatingInput"
                                                                 style="color: white;">Tittel</label>
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <input class="form-control border-dark text-light"
-                                                                id="beskrivelseSwitch" placeholder="Beskrivelse"
+                                                                id="beskrivelsePlatform" placeholder="Beskrivelse"
                                                                 style="height: 100px; background-color:rgb(60, 64, 67, 0.90)">
-                                                            <label for="beskrivelseSwitch"
+                                                            <label for="beskrivelsePlatform"
                                                                 style="color: white;">Beskrivelse</label>
                                                         </div>
                                                         <input type="file" class="form-control-file text-light mb-3"
@@ -123,18 +124,18 @@
                             <!-- Appender medlemmer til disse listene ved hjelp av JQuery -->
                             <div class="row">
                                 <div class="col-sm-4 mx-auto">
-                                    <div class="list-group border-dark" id="følgerlisteSwitch">
+                                    <div class="list-group border-dark" id="følgerlistePlatform">
                                         <a href="#" class="list-group-item list-group-item-action active"
                                             aria-current="true">
-                                            <text>Medlemmer du følger: </text> <text id="followingcountSwitch">0</text>
+                                            <text>Medlemmer du følger: </text> <text id="followingcountPlatform">0</text>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 mx-auto">
-                                    <div class="list-group border-dark" id="medlemslisteSwitch">
+                                    <div class="list-group border-dark" id="medlemslistePlatform">
                                         <a href="#" class="list-group-item list-group-item-action active"
                                             aria-current="true">
-                                            <text>Alle medlemmer: </text> <text id="membercountSwitch">0</text>
+                                            <text>Alle medlemmer: </text> <text id="membercountPlatform">0</text>
                                         </a>
                                     </div>
                                 </div>
