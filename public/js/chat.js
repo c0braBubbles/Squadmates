@@ -1,5 +1,8 @@
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
-document.getElementById("msg-name-display").innerHTML = whiz.Uid; //test
+
+//var aktiv = localStorage.getItem("aktivSamtale");
+
+
 
 /* TODO:
 
@@ -10,33 +13,6 @@ document.getElementById("msg-name-display").innerHTML = whiz.Uid; //test
 
 */
 
-/* Metoden oppretter en "Samtale" i firebase
- * Den skal senere ta mottakerUID som innparameter, i tilegg til å lede brukeren til chat-siden
-*/
-var mottakerUID = "oypGTweUYFVKsIQL0ncKtG9GNhx1"; //c: "2lsL6nGeqKeF4u506e9KvY7M9iG3" m: "JbU5BaGNtgXnz2FdyxolQwyJNDT2"
-document.getElementById("sendMsgBtn").onclick = function () {
-    var finnesSamtale = false;
-    if (whiz.Uid == mottakerUID) return; //Stopp metoden dersom bruker prøver å starte samtale med seg selv
-    firebase.database().ref('Samtale').once('value', (snapshot) => {
-        var data = snapshot.val();
-        if (snapshot.exists()) {
-            for (let i in data) {
-                if ( (data[i].Bruker1ID == mottakerUID && data[i].Bruker2ID == whiz.Uid) ||
-                    (data[i].Bruker1ID == whiz.Uid && data[i].Bruker2ID == mottakerUID) ) {
-                    console.log("Samtalen eksisterer allerede!");
-                    finnesSamtale = true;
-                }
-            }
-        }
-    }).then(() => {
-        if (!finnesSamtale) {
-            firebase.database().ref('Samtale').push({
-                "Bruker1ID":whiz.Uid,
-                "Bruker2ID":mottakerUID
-            });
-        }
-    });
-}
 
 /* Henter samtaler fra firebase, fyller inn front-end slik at brukeren får opp sine samtaler */
 var chatListLeft = document.getElementById('chat-list-left');
@@ -49,15 +25,15 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
         firebase.database().ref("Bruker/"+message.Bruker2ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
             firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                        style="color:white;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
+                                        style="color:white; background-color: #111;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="`+ pictureURL +`" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
                                         `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
                                     `</li>`;    
             }).catch((error) => {
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                        style="color:white;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
+                                        style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
                                         `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
@@ -82,15 +58,15 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
         firebase.database().ref("Bruker/"+message.Bruker1ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
             firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                    style="color:white;" onclick="openChat(\`` + samtaleKey + `\`)">` +
+                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
+                                    style="color:white; background-color:#111;" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="` + pictureURL + `" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
                                     `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +
                                     `</li>`;
             }).catch((error) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                    style="color:white;" onclick="openChat(\`` + samtaleKey + `\`)">` +
+                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
+                                    style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
                                     `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +

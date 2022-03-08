@@ -27,62 +27,62 @@
 
         <div class="container-fluid" id="first-layer">
 
-            <div class="row">
+            <div class="row d-flex mx-auto" style="justify-content:center !important;">
 
-                <div class="col-4 leftCol">
+                <div class="col-3 leftCol">
 
                     <!-- Denne boksen skal bare inneholde en statisk tekst "Følger" -->
-                    <div class="row border-bottom border-dark border-2" id="tl-col">
-                        <div class="chat-info bg-dark" style="width:96%; margin-bottom:10px; border-radius: 5px;">
-                            <h4 style="font-weight:300;">Du følger</h4>
+                    <div class="row" id="tl-col">
+                        <div class="chat-info d-flex ms-auto my-auto" style="background: #202124;">
+                            <h3>Brukere du følger</h3>
                         </div>
                     </div>
                     <!-- Denne boksen skal være scrollable og inneholde en liste med alle du følger -->
-                    <div class="row" id="bl-col">
+                    <div class="row" id="bl-col" style="background: #111;">
 
                         <ul class="list-group" style="margin:10px; width: calc(100% - 10px)">
-                            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                style="color: white;">
+                            <li class="list-group-item border-dark d-flex justify-content-between align-items-center"
+                                style="color: white; background: #111;">
                                 <a href=""> <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic"
                                         style="height:50px; width:50px;"> </a>
                                 <h3>JonKanon352</h3>
                                 <a href=""> <img src="img/chat-fill.svg" alt="..."
                                         style="filter:invert(100%); width:40px; height:40px;"> </a>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                style="color: white;">
+                            <li class="list-group-item border-dark d-flex justify-content-between align-items-center"
+                                style="color: white; background: #111;">
                                 <a href=""> <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic"
                                         style="height:50px; width:50px;"> </a>
                                 <h3>JonKanon352</h3>
                                 <a href=""> <img src="img/chat-fill.svg" alt="..."
                                         style="filter:invert(100%); width:40px; height:40px;"> </a>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                style="color: white;">
+                            <li class="list-group-item border-dark d-flex justify-content-between align-items-center"
+                                style="color: white; background-color: #111;">
                                 <a href=""> <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic"
                                         style="height:50px; width:50px;"> </a>
                                 <h3>JonKanon352</h3>
                                 <a href=""> <img src="img/chat-fill.svg" alt="..."
                                         style="filter:invert(100%); width:40px; height:40px;"> </a>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                style="color: white;">
+                            <li class="list-group-item border-dark d-flex justify-content-between align-items-center"
+                                style="color: white; background: #111;">
                                 <a href=""> <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic"
                                         style="height:50px; width:50px;"> </a>
                                 <h3>JonKanon352</h3>
                                 <a href=""> <img src="img/chat-fill.svg" alt="..."
                                         style="filter:invert(100%); width:40px; height:40px;"> </a>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                style="color: white;">
+                            <li class="list-group-item border-dark d-flex justify-content-between align-items-center"
+                                style="color: white; background: #111;">
                                 <a href=""> <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic"
                                         style="height:50px; width:50px;"> </a>
                                 <h3>JonKanon352</h3>
                                 <a href=""> <img src="img/chat-fill.svg" alt="..."
                                         style="filter:invert(100%); width:40px; height:40px;"> </a>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                style="color: white;">
+                            <li class="list-group-item border-dark d-flex justify-content-between align-items-center"
+                                style="color: white; background: #111;">
                                 <a href=""> <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic"
                                         style="height:50px; width:50px;"> </a>
                                 <h3>JonKanon352</h3>
@@ -94,12 +94,13 @@
                     </div>
 
                 </div>
-                <div class="col-8 skallering">
+                <div class="col-6 skallering">
 
                     <!-- Denne boksen skal inneholde et søkefelt, form? -->
                     <div class="row border-bottom border-dark border-2" id="tr-col">
-                        <div class="chat-info bg-dark">
-                            <h2 style="font-weight: 300;">Søk etter profiler</h2>
+                        <div class="chat-info d-flex me-auto my-auto w-100 mx-auto" style="background: #202124;">
+                            <input class="src-after-person sticky-top text-light w-100" type="search"
+                            placeholder="Søk etter brukere" style="z-index:1 !important;">
                         </div>
                         <div class="dropdown followingDropdown" style="width: fit-content; height: fit-content; padding:0px;">
                             <button class="btn btn-secondary dropdown-toggle followingDropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownMenuButtonFriends">
@@ -134,12 +135,9 @@
                         </div>
                     </div>
                     <!-- Denne boksen skal inneholde de vennene du kan søke etter -->
-                    <div class="row" id="br-col">
+                    <div class="row bg-dark" id="br-col"> 
 
                         <div class="src-res" style="height:77vh; overflow-y: scroll;">
-
-                            <input class="src-after-person sticky-top text-light" type="search"
-                                placeholder="Finn en person" style="z-index:1 !important;">
                             <!-- NoteToSelf: legg til class "sticky-top" og sett på background -->
 
                             <ul class="list-group mt-1 person-list">
@@ -155,7 +153,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->
@@ -177,7 +175,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->
@@ -199,7 +197,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->
@@ -221,7 +219,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->
@@ -243,7 +241,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->
@@ -265,7 +263,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->
@@ -287,7 +285,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->
@@ -309,7 +307,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->
@@ -331,7 +329,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->
@@ -353,7 +351,7 @@
                                         <div class="col">
                                             <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
                                                 Username</h5>
-                                            <h6 style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
+                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
                                                 Her kommer litt bio</h6>
                                         </div>
                                         <!--Knapp-->

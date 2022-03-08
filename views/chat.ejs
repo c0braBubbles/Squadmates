@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/friends.css">
-    
+
 
 <body style="overflow-x: hidden;  overflow-y: hidden;"></body>
 <style>
@@ -20,10 +20,10 @@
         background-size: cover;
     }
 </style>
-    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-    <script src="js/firebase_config.js" type="module"></script>
-    <script src = "js/usercontroll.js" type="module"></script>
-    <script src="js/chat.js" type="module"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script src="js/firebase_config.js" type="module"></script>
+<script src="js/usercontroll.js" type="module"></script>
+<script src="js/chat.js" type="module"></script>
 </head>
 <!-- Jeg har lagt til denne i navigering -->
 <!-- ^melding til meg selv (mats) -->
@@ -32,234 +32,176 @@
     <%- include('partials/headerp'); %>
 
 
-    <!--Content-->
-    <div class="container-fluid"
-        style="background-color:rgb(49, 49, 49); height:90vh; border-top-left-radius: 5px; margin-top:10px; margin-left:10px;"
-        id="masterContainer">
+        <!--Content-->
+        <div class="container-fluid"
+            style="background: #202124; height:90vh; border-top-left-radius: 5px; margin-top:10px; margin-left:10px;"
+            id="masterContainer">
 
-        <div class="row">
-            <div class="col-4 leftCol">
-                <!--TOP VENSTRE 44, 49 bg-dark-->
-                <div class="row border-bottom border-dark border-2"
-                    style="background-color: rgb(44,44,44); border-top-left-radius: 5px; height:8vh;">
-                    <div class="form-outline">
-                        <input type="search" id="form1" class="form-control bg-dark border-dark"
-                            placeholder="Finn en samtale" aria-label="Search"
-                            style="margin-top:10px; margin-bottom:10px; color:rgb(211, 211, 211)">
+            <div class="row">
+                <div class="col-4 leftCol">
+                    <!--TOP VENSTRE 44, 49 bg-dark-->
+                    <div class="row" style="background: #202124; height:8vh;">
+                        <div class="form-outline my-3">
+                            <input type="search" id="form1" class="form-control border-dark d-flex my-auto"
+                                placeholder="Finn en samtale" aria-label="Search"
+                                style="margin-top:10px; margin-bottom:10px; color:rgb(211, 211, 211); background-color:rgb(60, 64, 67, 0.90);">
+                        </div>
                     </div>
-                </div>
-                <!--BUNN VENSTRE  <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">  -->
-                <div class="row"
-                    style="background-color: rgb(44, 44, 44); height:81vh; overflow-y: scroll; overflow-x: hidden;">
-                    <ul class="list-group" style="margin:10px; width: calc(100% - 10px)" id="chat-list-left">
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                            style="color: white;">
-                            <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
-                            <h3>JonKanon352</h3>
-                            <span class="badge bg-primary rounded-pill">13</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                            style="color: white;">
-                            <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
-                            <h3>Lefsegnafser27</h3>
-                            <span class="badge bg-primary rounded-pill">1</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                            style="color: white;">
-                            <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
-                            <h3>Gaal69</h3>
-                            <span class="badge bg-primary rounded-pill">991</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                            style="color: white;">
-                            <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
-                            <h3>xX_B0P3_Xx</h3>
-                            <span class="badge bg-primary rounded-pill">5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                            style="color: white;">
-                            <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
-                            <h3>Vigdis420</h3>
-                            <span class="badge bg-primary rounded-pill">71</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                            style="color: white;">
-                            <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
-                            <h3>Cub</h3>
-                            <span class="badge bg-primary rounded-pill">14</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                            style="color: white;">
-                            <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
-                            <h3>Fr0ssenK4tt</h3>
-                            <span class="badge bg-primary rounded-pill">3</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                            style="color: white;">
-                            <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
-                            <h3>BendelWorg</h3>
-                            <span class="badge bg-primary rounded-pill">723</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-8" id="rightCol">
-                <!--TOP HØYRE-->
-                <button id="sendMsgBtn">barmen</button>
-                <div class="row border-bottom border-dark border-2"
-                    style="background-color: rgb(49,49,49); height:8vh;">
-                    <div class="chat-info bg-dark">
-                        <h2 id="msg-name-display" style="font-weight: 300;"> JonKanon352</h2>
-                    </div>
-                    <div class="dropdown followingDropdown" style="width: fit-content; height: fit-content; padding:0px;">
-                        <button class="btn btn-secondary dropdown-toggle followingDropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownMenuButtonFriends">
-                            Samtaler
-                        </button>
-                        <ul class="dropdown-menu person-dropdown bg-dark" aria-labelledby="dropdownMenuButtonFriends" id="chat-list-top">
-                            <li class="person-list-item-border">
-                                <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal6969</a>
-                                
-                                <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
-                                
+                    <!--BUNN VENSTRE  <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">  -->
+                    <div class="row" style="height:81vh; overflow-y: scroll; overflow-x: hidden; background: #111;">
+                        <ul class="list-group" style="margin:10px; width: calc(100% - 10px)" id="chat-list-left">
+                            <!-- EKSEMPEL DATA
+                            <li class="list-group-item d-flex justify-content-between align-items-center"
+                                style="color: white; background-color: #111;">
+                                <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+                                <h3>JonKanon352</h3>
+                                <span class="badge bg-primary rounded-pill">13</span>
                             </li>
-                            <li class="person-list-item-border">
-                                <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal4</a>
-                                <a href="#">
-                                    <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
-                                </a>
-                            </li>
-                            <li class="person-list-item-border">
-                                <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal4</a>
-                                <a href="#">
-                                    <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
-                                </a>
-                            </li>
-                            <li class="person-list-item-border">
-                                <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal4</a>
-                                <a href="#">
-                                    <img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
-                                </a>
-                            </li>
+                            -->
+                            
                         </ul>
                     </div>
                 </div>
-                <!--BUNN HØYRE-->
-                <div class="row" style="background-color:rgb(49, 49, 49); height:80vh;">
-                    <div class="chat-room">
-                        <!-- her havner selve meldingene, pr nå er det bare masse hardkoda meldinger -->
-                        <div class="msg-board" id="msg_board">
-                            <div class="send-bubble">Heisan, Jon her!</div>
-                            <div class="rec-bubble">Jon.. Jon som i JonKanon352</div>
-                            <div class="send-bubble">Jaha, det stemmer det.. det er nok meg</div>
-                            <div class="rec-bubble">Jon.. Jon som i Jon The Cannon??</div>
-                            <div class="send-bubble">Stemmer det, de kaller meg for det i ville vesten, men de dagene er
-                                forbi. Men hvem er så du?</div>
-                            <div class="rec-bubble">Jeg? Nei, jeg er bare Roy, men jeg går etter kallenavnet RoyOboy716
-                            </div>
-                            <div class="send-bubble">ER DET ROYOBOY?! Gamle ørn *thhs, duush, diish* walluh wadduh *dssh
-                                dssh*</div>
-                            <div class="rec-bubble">Hva gjør du her på denne nettsiden da?</div>
-                            <div class="send-bubble">Nei nå tenkte jeg å pwne noen n00bs i warzone, få dem til å spise
-                                grus rett og slett</div>
-                            <div class="rec-bubble">Jaha, ja stemmer, det er jo derfor jeg kontakta deg, så innlegget
-                                ditt istad. Personlig har en 7.6 k/d, så jeg er klar for å slaye noobs for å si det
-                                mildt</div>
-                            <div class="send-bubble">Adder deg på xbox nå, ser at gamertagget ditt er xX_R0y0B0y_Xx
-                            </div>
-                            <div class="rec-bubble">Stemmer, så at noen adda meg nå. Er det du som er
-                                "Jon_KruttOgKanon_352_69420" ?</div>
-                            <div class="send-bubble">Hehe.. ja det er meg, gammelt gamertag ser du.. Skulle gjerne ha
-                                bytta til JonKanon, men det koster jo 70 spenn</div>
-                            <div class="rec-bubble">Ser den, det er jo liksom et mer clean gamertag</div>
-                            <div class="send-bubble">Vi skal ikke starte en gruppe her på Sqadmates da? Vi kan hete
-                                n00bDestroyers</div>
-                            <div class="rec-bubble">Jo, også kan vi ha en pakke med Oboy som forside-bilde!</div>
-                            <div class="send-bubble">Personlig liker jeg mere kanon-relaterte bilder, men vi kan jo
-                                kombinere. En kanon som skyter utt Oboy</div>
-                            <div class="rec-bubble">Der har vi den, møtes online ;))</div>
+                <div class="col-8" id="rightCol">
+                    <!--TOP HØYRE-->
+                    <!--<button id="sendMsgBtn">barmen</button>-->
+                    <div class="row border-bottom border-dark border-2" style="background: #202124; height:8vh;">
+                        <div class="chat-info my-3">
+                            <h2 id="msg-name-display" style="font-weight: 600;"></h2>
                         </div>
+                        <div class="dropdown followingDropdown"
+                            style="width: fit-content; height: fit-content; padding:0px;">
+                            <button class="btn btn-secondary dropdown-toggle followingDropdown-btn" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false" id="dropdownMenuButtonFriends">
+                                Samtaler
+                            </button>
+                            <ul class="dropdown-menu person-dropdown bg-dark"
+                                aria-labelledby="dropdownMenuButtonFriends" id="chat-list-top">
+                                <!--EKSEMPELDATA
+                                <li class="person-list-item-border">
+                                    <a class="dropdown-item text-light" href="#" style="display: inline;">Gaal6969</a>
 
-                        <form id="send_melding">
-                            <div class="chat-input-box">
-                                <input class="msg-input" type="text" placeholder="Aa" id="melding_input">
-                                <button class="send-msg-btn" type="submit"><img src="img/send-fill.svg"
-                                        alt="..."></button>
+                                    <img src="img/chat-fill.svg" alt="..."
+                                        style="filter:invert(100%); width:25px; height:25px; float:right; display: inline; margin-right:1em;">
+
+                                </li>
+                                -->
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--BUNN HØYRE-->
+                    <div class="row bg-dark" style="height:80vh;">
+                        <div class="chat-room bg-dark">
+                            <!-- her havner selve meldingene, pr nå er det bare masse hardkoda meldinger -->
+                            <div class="msg-board" id="msg_board">
+                                <!-- EKSEMPELDATA
+                                <div class="send-bubble">Heisan, Jon her!</div>
+                                <div class="rec-bubble">Jon.. Jon som i JonKanon352</div>
+                                -->
+
                             </div>
-                        </form>
 
+                            <form class="input-group mb-3 border-dark my-3" id="send_melding">
+                                <input type="text" class="form-control border-dark text-light"
+                                    placeholder="Send melding" style="background-color:rgb(60, 64, 67, 0.90);"
+                                    aria-label="Send melding" aria-describedby="basic-addon2" id="melding_input">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary border-dark" type="submit"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+                                        </svg></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
+        <script>
+            const whiz = JSON.parse(sessionStorage.getItem("bruker"));
+            var meldinger = document.getElementById('msg_board');
+            
 
-    <script>
-        const whiz = JSON.parse(sessionStorage.getItem("bruker"));
-        var meldinger = document.getElementById('msg_board');
-
-        var aktivSamtale;
-        function openChat(samtaleUID) {
-            meldinger.innerHTML = ``; //Fjerner alle meldinger, før de riktige meldingene blir lagt til
-            aktivSamtale = samtaleUID;
-            localStorage.setItem("aktivSamtale", aktivSamtale);
-            console.log("Gått i samtale, med ID: " + samtaleUID);
-            //Henter tidligere meldinger, legger dem inn chat-vinduet
-            firebase.database().ref("Melding/").once('value', (snapshot) => {
-                var data = snapshot.val();
-                for (let i in data) {
-                    if (data[i].SamtaleID == aktivSamtale) {
-                        //Du sendte meldingen
-                        if (data[i].Bruker == whiz.Uid) {
-                            meldinger.innerHTML += `<div class="send-bubble">${data[i].Melding}</div>`;
-                        } else {
-                            meldinger.innerHTML += `<div class="rec-bubble">${data[i].Melding}</div>`;
-                        }
+            var aktivSamtale;
+            function openChat(samtaleUID) {
+                meldinger.innerHTML = ``; //Fjerner alle meldinger, før de riktige meldingene blir lagt til
+                aktivSamtale = samtaleUID;
+                localStorage.setItem("aktivSamtale", aktivSamtale);
+                console.log("Gått i samtale, med ID: " + samtaleUID);
+                firebase.database().ref('Samtale/'+samtaleUID).once('value', (snap) => {
+                    if (snap.exists()) {
+                    if (snap.val().Bruker1ID == whiz.Uid) {
+                        firebase.database().ref('Bruker/'+snap.val().Bruker2ID).once('value', (ss) => {
+                            document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
+                        });
+                    } else {
+                        firebase.database().ref('Bruker/'+snap.val().Bruker1ID).once('value', (ss) => {
+                            document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
+                        });
                     }
                 }
-            });
-        }
-
-
-        var skrivMelding = document.getElementById('send_melding');
-        var meldingInput = document.getElementById('melding_input');
-        skrivMelding.onsubmit = function(evt) {
-            evt.preventDefault(); //Siden skal ikke reloade når man submitter/sender en melding
-            if (aktivSamtale != null) {
-                firebase.database().ref('Melding').push({
-                    "SamtaleID":aktivSamtale,
-                    "Melding":meldingInput.value,
-                    "Bruker":whiz.Uid
-                }).then(() => {
-                    meldingInput.value = '';
+                });
+                //Henter tidligere meldinger, legger dem inn chat-vinduet
+                firebase.database().ref("Melding/").once('value', (snapshot) => {
+                    var data = snapshot.val();
+                    for (let i in data) {
+                        if (data[i].SamtaleID == aktivSamtale) {
+                            //Du sendte meldingen
+                            if (data[i].Bruker == whiz.Uid) {
+                                meldinger.innerHTML += `<div class="send-bubble">${data[i].Melding}</div>`;
+                            } else {
+                                meldinger.innerHTML += `<div class="rec-bubble">${data[i].Melding}</div>`;
+                            }
+                        }
+                    }
                 });
             }
-        }
-        /*
-        firebase.database().ref("Melding/").on('child_added', function (snapshot) {
-            var data = snapshot.val();
-            if (data.SamtaleID == aktivSamtale) {
-                if (data.Bruker == whiz.Uid) {
-                    meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
-                } else {
-                    meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+
+
+            var skrivMelding = document.getElementById('send_melding');
+            var meldingInput = document.getElementById('melding_input');
+            skrivMelding.onsubmit = function (evt) {
+                evt.preventDefault(); //Siden skal ikke reloade når man submitter/sender en melding
+                if (aktivSamtale != null && meldingInput.value.trim() != "") {
+                    firebase.database().ref('Melding').push({
+                        "SamtaleID": aktivSamtale,
+                        "Melding": meldingInput.value,
+                        "Bruker": whiz.Uid
+                    }).then(() => {
+                        meldingInput.value = '';
+                    });
                 }
             }
-        });*/
+        /*
+                                        firebase.database().ref("Melding/").on('child_added', function (snapshot) {
+                                            var data = snapshot.val();
+                                            if (data.SamtaleID == aktivSamtale) {
+                                                if (data.Bruker == whiz.Uid) {
+                                                    meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
+                                                } else {
+                                                    meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+                                                }
+                                            }
+                                        });*/
 
-    </script>
+        </script>
 
-    <!--<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+        <!--<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
     <script src="js/firebase_config.js" type="module"></script>
     <script src = "js/usercontroll.js" type="module"></script>
     <script src="js/chat.js" type="module"></script>-->
-    <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-    <!--<script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
+        <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+        <!--<script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <!--<script src="jquery-3.5.1.min.js"></script>-->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <!--<script src="jquery-3.5.1.min.js"></script>-->
 
 
 </body>
