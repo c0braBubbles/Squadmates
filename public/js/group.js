@@ -106,6 +106,7 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
                 document.getElementById("ownerpicGroup").src = "img/blank-profile-circle.png";
             });
     })
+
     //hvis innlogget bruker er eier, fjern bli medlem og forlat gruppe knapp
     if (owner == user) {
         document.getElementById("joinGroupBtn").style.display = "none";
@@ -121,9 +122,19 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         if (medlem != null) {
             document.getElementById("joinGroupBtn").style.display = "none";
         } else {
-            //hvis innlogget bruker ikke er medlem, fjern forlat gruppe knapp 
+            //hvis innlogget bruker ikke er medlem, fjern forlat gruppe knapp og favoritt knapper
             document.getElementById("leaveGroupBtn").style.display = "none";
-            document.getElementById("favoriteGroupBtn").style.display = "none";
+            document.getElementById("addfavoriteGroupBtn").style.display = "none";
+            document.getElementById("removefavoriteGroupBtn").style.display = "none";
+        }
+    })
+    //Hvis denne gruppen er favoritt fjern den hvite favoritt knappen og legg til den gule
+    firebase.database().ref('/Bruker/' + user + '/Favoritt grupper/' + key).once('value').then((snapshot) => {
+        var favoritt = snapshot.child("Key").val();
+        if (favoritt != null) {
+            document.getElementById("addfavoriteGroupBtn").style.display = "none";
+        } else {
+            document.getElementById("removefavoriteGroupBtn").style.display = "none";
         }
     })
 
@@ -131,6 +142,7 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
     document.getElementById("leaveGroupBtn").onclick = function () {
         firebase.database().ref('/Grupper/' + key + '/Medlemmer/' + user).remove(); //Fjerner bruker fra medlemmer i gruppen i databasen
         firebase.database().ref('/Bruker/' + user + '/Grupper/' + key).remove(); //Fjerner gruppen fra grupper tabellen under bruker i databasen
+        firebase.database().ref('/Bruker/' + user + '/Favoritt grupper/' + key).remove(); //Fjerner gruppen fra favoritter dersom man forlater gruppen
         //location.reload();
     }
     //Bli med i gruppe knapp
@@ -142,6 +154,17 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
             Key: key
         })
     }
+    //Legg til gruppe som favoritt knapp (hvit stjerne)
+    document.getElementById("addfavoriteGroupBtn").onclick = function () {
+        firebase.database().ref('/Bruker/' + user + '/Favoritt grupper/').child(key).set({
+            Key: key
+        })
+    }
+    //Fjern gruppe som favoritt knapp (gul stjerne)
+    document.getElementById("removefavoriteGroupBtn").onclick = function () {
+        firebase.database().ref('/Bruker/' + user + '/Favoritt grupper/').child(key).remove();
+    }
+
 })
 
 /* ------------ Henter statisk gruppedata, SLUTT ------------ */
@@ -460,9 +483,11 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').on('child_added', functi
                     .then((pictureURL) => {
                         document.getElementById(picid + owner).src = pictureURL; //Setter bilde på innlegget
                         //console.log("Bilde funnet");
+                        $(".loader-wrapper").fadeOut("slow");
                     })
                     .catch((error) => {
                         document.getElementById(picid + owner).style.display = "none"; //Fjerne img tag dersom det ikke finnes noe bilde
+                        $(".loader-wrapper").fadeOut("slow");
                     });
             })
     })
@@ -499,12 +524,14 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
                 $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
                                 ${name}</a>`);
+                
             })
             .catch((error) => { //Dersom brukeren ikke har profilbilde
                 list = document.getElementById("memberlistGroup");
                 $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
                     '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'
                     + name + '</a>');
+              
             });
     })
 });
