@@ -151,7 +151,7 @@
                 }
                 });
                 //Henter tidligere meldinger, legger dem inn chat-vinduet
-                firebase.database().ref("Melding/").once('value', (snapshot) => {
+                firebase.database().ref('Samtale/'+ aktivSamtale +'/Melding/').once('value', (snapshot) => {
                     var data = snapshot.val();
                     for (let i in data) {
                         if (data[i].SamtaleID == aktivSamtale) {
@@ -172,7 +172,7 @@
             skrivMelding.onsubmit = function (evt) {
                 evt.preventDefault(); //Siden skal ikke reloade når man submitter/sender en melding
                 if (aktivSamtale != null && meldingInput.value.trim() != "") {
-                    firebase.database().ref('Melding').push({
+                    firebase.database().ref('Samtale/'+aktivSamtale+'/Melding').push({
                         "SamtaleID": aktivSamtale,
                         "Melding": meldingInput.value,
                         "Bruker": whiz.Uid

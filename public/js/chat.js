@@ -90,6 +90,18 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                                     `</li>`;
         });
     }
+
+    firebase.database().ref('Samtale/'+samtaleKey+'/Melding/').on('child_added', function (snapshot) {
+        var data = snapshot.val();
+        if (data.SamtaleID == aktivSamtale) {
+            if (data.Bruker == whiz.Uid) {
+                meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
+            } else {
+                meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+            }
+        }
+    });
+
 });
 /*
 var aktivSamtale;
@@ -100,6 +112,7 @@ function openChat(samtaleUID) {
     console.log(samtaleUID);
 }*/
 
+/*
 firebase.database().ref("Melding/").on('child_added', function (snapshot) {
     var data = snapshot.val();
     if (data.SamtaleID == aktivSamtale) {
@@ -110,7 +123,7 @@ firebase.database().ref("Melding/").on('child_added', function (snapshot) {
         }
     }
 });
-
+*/
 
 /* Eksempel fra Give&Get: legger en melding på meldingsbrettet */
 //chatWindow.innerHTML += `<div id='bobler' class='msg-line'><p class='sender-bubble'>${data.beskjeden}</p></div>`;
