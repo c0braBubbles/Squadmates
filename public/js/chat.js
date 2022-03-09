@@ -17,7 +17,10 @@ const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 /* Henter samtaler fra firebase, fyller inn front-end slik at brukeren får opp sine samtaler */
 var chatListLeft = document.getElementById('chat-list-left');
 var chatListTop = document.getElementById('chat-list-top');
+var listID = 0;
 firebase.database().ref('Samtale').on('child_added', function(snapshot) {
+    listID++;
+    console.log(listID);
     var message = snapshot.val();
     var samtaleKey = snapshot.key;
     //Dersom du er bruker som startet samtalen
@@ -25,14 +28,14 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
         firebase.database().ref("Bruker/"+message.Bruker2ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
             firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center" id="`+samtaleKey+`"
                                         style="color:white; background-color: #111;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="`+ pictureURL +`" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
-                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
+                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` +
                                     `</li>`;    
             }).catch((error) => {
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center" id="`+samtaleKey+`"
                                         style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
@@ -58,14 +61,14 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
         firebase.database().ref("Bruker/"+message.Bruker1ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
             firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
+                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center" id="`+samtaleKey+`"
                                     style="color:white; background-color:#111;" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="` + pictureURL + `" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
                                     `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +
                                     `</li>`;
             }).catch((error) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
+                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center" id="`+samtaleKey+`"
                                     style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +

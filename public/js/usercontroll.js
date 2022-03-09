@@ -1,4 +1,7 @@
 // BRUKER DENNE TIL Å SJEKKE OM BRUKER ER LOGGET INN OG FOR Å HENTE UID OG ÅPNE PROFILSIDE
+var ulest = 0;
+const f_bruker = JSON.parse(sessionStorage.getItem("bruker"));
+var notificationBubble = document.getElementById('ulestSamtale');
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
@@ -48,12 +51,63 @@ firebase.auth().onAuthStateChanged((user) => {
                 });
             }
         });
+        //Oppdaterer hvor mange samtaler en ikke har sett
+        /*firebase.database().ref('Samtale').on('child_added', function(snapshot) {
+            var info = snapshot.val();
+            if (snapshot.exists()) {
+                if (info.Bruker2ID == user.uid && info.Sett == 0) {
+                    notificationBubble.style.display = "inline-block";
+                    ulest++;
+                    notificationBubble.innerHTML = ulest;
+                }
+            }
+        });*/
 
     } else {
         window.location = "/";
     }
 });
 
+//Oppdaterer hvor mange samtaler en ikke har sett
+var notificationBubble = document.getElementById('ulestSamtale');
+/*firebase.database().ref('Samtale').on('child_added', function(snapshot) {
+    var info = snapshot.val();
+    if (snapshot.exists()) {
+        if (info.Bruker2ID == f_bruker.Uid && info.Sett > 0) {
+            notificationBubble.style.display = "inline-block";
+            ulest++;
+            notificationBubble.innerHTML = ulest;
+        }
+    }
+});*/
+
+//Oppdaterer hvor mange samtaler en ikke har sett
+firebase.database().ref('Samtale').on('child_added', function(snapshot) {
+    var info = snapshot.val();
+    if (snapshot.exists()) {
+        if (info.Bruker2ID == f_bruker.Uid && info.Sett == 0) {
+            notificationBubble.style.display = "inline-block";
+            ulest++;
+            notificationBubble.innerHTML = ulest;
+        }
+    }
+});
+
+
+
+//Dersom en samtale blir sett
+firebase.database().ref('Samtale').on('child_changed', (data) => {
+    if (data.val().Bruker2ID == f_bruker.Uid && data.val().Sett == 1) {
+        console.log(data.val().Bruker2ID + " " + data.val().Sett);
+        ulest--;
+        notificationBubble.innerHTML = ulest;
+        if (ulest < 1) {
+            notificationBubble.style.display = "none";
+        } else {
+            notificationBubble.style.display = "inline-block";
+        }
+    }
+});
 
 document.getElementById("logutBtn").onclick = function() {
     firebase.auth().signOut().then(() => {

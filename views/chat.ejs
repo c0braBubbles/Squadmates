@@ -20,6 +20,7 @@
         background-size: cover;
     }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script src="js/firebase_config.js" type="module"></script>
 <script src="js/usercontroll.js" type="module"></script>
@@ -142,6 +143,9 @@
                     } else {
                         firebase.database().ref('Bruker/'+snap.val().Bruker1ID).once('value', (ss) => {
                             document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
+                        });
+                        firebase.database().ref('Samtale').child(samtaleUID).update({
+                            "Sett": 1
                         });
                     }
                 }

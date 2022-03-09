@@ -376,7 +376,8 @@
                         var pushKey = firebase.database().ref('Samtale').push().key;
                         firebase.database().ref('Samtale').child(pushKey).set({
                             "Bruker1ID": whiz.Uid,
-                            "Bruker2ID": mottakerUID
+                            "Bruker2ID": mottakerUID,
+                            "Sett": "0"
                         }).then(() => {
                             localStorage.setItem("aktivSamtale", pushKey);
                             //Redirect til chat-side
