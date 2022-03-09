@@ -66,6 +66,13 @@ app.post('/openUid', function (req, res) {
     });
 });
 
+app.post('/showProfile', function(req, res) {
+    var profName = req.body.profilename; 
+    var profUid = req.body.profUid;
+    app.get('/' + profName, function(req, res) {
+        res.render('othersprofile', {profUid: profUid});
+    });
+});
 app.post('/openGroup', function (req, res) {
     var key = req.body.key;
     console.log(key);

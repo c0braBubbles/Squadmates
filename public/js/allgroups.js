@@ -142,7 +142,6 @@ document.getElementById("grpCreate").onclick = function () {
 //Henting av gruppekort "Mine innlegg" for grupper du "eier/har selv laget"
 firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
     var name = snapshot.child("Navn").val();
-    var about = snapshot.child("Om").val();
     var owner = snapshot.child("Eier").val();
     var id = snapshot.child("BildeID").val();
     var groupKey = snapshot.key;
@@ -160,7 +159,7 @@ firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
                     '<div class="card rounded-3 chromahover">' +
                     '<img class="card-img-top" src="' + pictureURL + '" alt="Card image cap"' +
                     'style="height: 12rem; object-fit: cover">' +
-                    '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>'+
+                    '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>' +
                     '<div class="card-body">' +
                     '<h5 class="card-title">' + name + '</h5>' +
                     '<br>' +
@@ -175,7 +174,7 @@ firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
                     '<div class="card rounded-3 chromahover">' +
                     '<img class="card-img-top" src="img/Amin.jpg" alt="Card image cap"' +
                     'style="height: 12rem; object-fit: cover">' +
-                    '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>'+
+                    '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>' +
                     '<div class="card-body">' +
                     '<h5 class="card-title">' + name + '</h5>' +
                     '<br>' +
@@ -183,4 +182,53 @@ firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
                 )
             }
         });
+})
+
+//Henting av gruppekort "Mine innlegg" for grupper du er medlem av
+firebase.database().ref('/Bruker/' + user + '/Grupper').on('child_added', function (snapshot) {
+    var key = snapshot.child("Key").val();
+
+    firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
+        var name = snapshot.child("Navn").val();
+        var owner = snapshot.child("Eier").val();
+        var id = snapshot.child("BildeID").val();
+        var groupKey = snapshot.key;
+
+        //Antall medlemmer på gruppekort
+        var groupCount = 0;
+        firebase.database().ref('/Grupper/' + key + '/Medlemmer').on('child_added', function (snapshot) {
+            groupCount++;
+        })
+
+        //Henting av forsidebilde
+        var storage = firebase.storage();
+        var storageRef = storage.ref();
+        var pictureStorage = storageRef.child("grupper/" + (owner + id) + "/gruppe.jpg");
+
+        pictureStorage.getDownloadURL()
+            .then((pictureURL) => { //Har Forsidebilde
+                $(document.getElementById("myGroups")).append(
+                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
+                    '<div class="card rounded-3 chromahover">' +
+                    '<img class="card-img-top" src="' + pictureURL + '" alt="Card image cap"' +
+                    'style="height: 12rem; object-fit: cover">' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title">' + name + '</h5>' +
+                    '<br>' +
+                    '<p class="card-text"><small class="text-muted">'+ groupCount +' Medlemmer</small></p></div></div></div>'
+                )
+            })
+            .catch((error) => { //Har ikke Forsidebilde
+                $(document.getElementById("myGroups")).append(
+                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
+                    '<div class="card rounded-3 chromahover">' +
+                    '<img class="card-img-top" src="img/Amin.jpg" alt="Card image cap"' +
+                    'style="height: 12rem; object-fit: cover">' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title">' + name + '</h5>' +
+                    '<br>' +
+                    '<p class="card-text"><small class="text-muted">'+ groupCount +' Medlemmer</small></p></div></div></div>'
+                )
+            });
+    })
 })

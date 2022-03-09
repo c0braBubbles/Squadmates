@@ -3,7 +3,6 @@ var list;
 var count = 0;
 var countMembers;
 var collections;
-var key = localStorage.getItem("");
 
 //Sjekker hvilken platform gruppe som ble klikket på
 var url = window.location.href;
@@ -28,7 +27,6 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
     //Bruker UID fra platform gruppens medlemmer for å hente div annen info fra denne brukeren fra bruker tabellen
     firebase.database().ref('/Bruker/' + userID).once('value').then((snapshot) => {
         var name = snapshot.child("Brukernavn").val();
-        collections = snapshot.val();
         var uid = snapshot.key;
 
         //Henting av profilbilde, bruker uid fra keyen til hver enkeltbruker profil
@@ -42,7 +40,7 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
                 // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
                 // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
                 // + name + '</a>');
-                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}')">
+                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
                                 ${name}</a>`);
             })
@@ -68,7 +66,7 @@ document.getElementById("upload").onclick = function () {
     var descInp = document.getElementById("beskrivelsePlatform").value;
     var id = Date.now(); //Unik ID for bilde
 
-    //Sjekker tidspunkt på opplasting av annonsen 
+    //Sjekker tidspunkt på opplasting av innlegget 
     var datetime = new Date().toLocaleDateString("en-GB", {
         year: "numeric",
         month: "2-digit",
