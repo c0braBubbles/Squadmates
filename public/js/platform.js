@@ -3,7 +3,6 @@ var list;
 var count = 0;
 var countMembers;
 var collections;
-var key = localStorage.getItem("");
 
 //Sjekker hvilken platform gruppe som ble klikket på
 var url = window.location.href;
@@ -67,7 +66,7 @@ document.getElementById("upload").onclick = function () {
     var descInp = document.getElementById("beskrivelsePlatform").value;
     var id = Date.now(); //Unik ID for bilde
 
-    //Sjekker tidspunkt på opplasting av annonsen 
+    //Sjekker tidspunkt på opplasting av innlegget 
     var datetime = new Date().toLocaleDateString("en-GB", {
         year: "numeric",
         month: "2-digit",
