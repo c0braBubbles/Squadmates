@@ -36,6 +36,7 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
 
         pictureStorage.getDownloadURL()
             .then((pictureURL) => { //Dersom brukeren har profilbilde
+                $(".loader-wrapper" + platform).fadeOut("slow");
                 list = document.getElementById("medlemslistePlatform");
                 // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
                 // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
@@ -45,6 +46,7 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
                                 ${name}</a>`);
             })
             .catch((error) => { //Dersom brukeren ikke har profilbilde
+                $(".loader-wrapper" + platform).fadeOut("slow");
                 list = document.getElementById("medlemslistePlatform");
                 $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
                     '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'

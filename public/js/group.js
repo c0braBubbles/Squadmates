@@ -37,10 +37,12 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         .then((pictureURL) => {
             var headerPic = document.getElementById("headerGroup");
             headerPic.src = pictureURL;
+                $(".loader-wrapper").fadeOut("slow");
         })
         .catch((error) => {
             var headerPic = document.getElementById("headerGroup");
             headerPic.src = "img/Amin.jpg";
+                $(".loader-wrapper").fadeOut("slow");
         });
 
     //Platformer på "om" siden
@@ -97,7 +99,6 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         var storage = firebase.storage();
         var storageRef = storage.ref();
         var pictureStorage = storageRef.child("user/" + owner + "/profile.jpg");
-
         pictureStorage.getDownloadURL()
             .then((pictureURL) => { //Dersom brukeren har profilbilde
                 document.getElementById("ownerpicGroup").src = pictureURL;
@@ -483,11 +484,9 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').on('child_added', functi
                     .then((pictureURL) => {
                         document.getElementById(picid + owner).src = pictureURL; //Setter bilde på innlegget
                         //console.log("Bilde funnet");
-                        $(".loader-wrapper").fadeOut("slow");
                     })
                     .catch((error) => {
                         document.getElementById(picid + owner).style.display = "none"; //Fjerne img tag dersom det ikke finnes noe bilde
-                        $(".loader-wrapper").fadeOut("slow");
                     });
             })
     })

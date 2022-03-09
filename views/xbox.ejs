@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/loader.css">
 
 <body style="overflow-x: hidden;"></body>
 <style>
@@ -64,7 +65,7 @@
                                 <div class="col-lg-5">
                                     <!---Nytt Innlegg-->
                                     <div class="card gedf-card mx-auto mt-1 mb-4 sticky-top"
-                                        style="background: #202124;">
+                                        style="background: #202124;z-index: 1;">
                                         <div class="card-header">
                                             <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                                                 <li class="nav-item">
@@ -355,6 +356,12 @@
             </div>
         </div>
         <!-- slutt på Modal slett konto -->
+
+        <!----------- Loader ----------->
+        <div class="loader-wrapperXbox" id="loader">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+
         <script>
             function startSamtale(mottakerUID) {
                 var finnesSamtale = false;
