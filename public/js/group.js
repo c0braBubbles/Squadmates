@@ -379,7 +379,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').on('child_added', functi
             }).then(() => {
                 //Sjekker antall kommentarer
                 var commentSize = 0;
-                firebase.database().ref('/Grupper/' + postKey + '/Innlegg/Kommentarer').on('child_added', function (snapshot) {
+                firebase.database().ref('/Grupper/' + key + '/Innlegg/' + postKey + '/Kommentarer').on('child_added', function (snapshot) {
                     commentSize++;
                     document.getElementById(commentviewbtnid + owner).innerHTML = commentSize + " Kommentarer";
                 })
@@ -393,7 +393,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').on('child_added', functi
 
                 //Rapporter innlegg
                 document.getElementById(reportid + owner).onclick = function () {
-                    firebase.database().ref('/Grupper/' + key + '/Rapporterte Innlegg' + postKey).push({
+                    firebase.database().ref('/Grupper/' + key + '/Rapporterte Innlegg').push({
                         Eier: owner,
                         Rapporterer: user,
                         InnleggsID: postKey
@@ -431,7 +431,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').on('child_added', functi
                             var commentInput = document.getElementById(commentfieldid + owner);
                             var comment = commentInput.value;
                             if (commentInput != "") {
-                                firebase.database().ref('/Grupper/' + postKey + '/Innlegg/').child("Kommentarer").push({
+                                firebase.database().ref('/Grupper/' + key + '/Innlegg/' + postKey).child("Kommentarer").push({
                                     Bruker: user,
                                     Kommentar: comment,
                                     Tidspunkt: datetimeCmt
@@ -447,30 +447,76 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').on('child_added', functi
                     this.disabled = true;
                     var cmntSection = document.getElementById(commentsectionid + owner);
                     //Sjekker kommentarer tabellen for kommentarer
-                    firebase.database().ref('/Grupper/' + postKey + '/Innlegg/Kommentarer').on('child_added', function (snapshot) {
+                    firebase.database().ref('/Grupper/' + key + '/Innlegg/' + postKey + '/Kommentarer').on('child_added', function (snapshot) {
                         var comment = snapshot.child("Kommentar").val();
-                        var user = snapshot.child("Bruker").val();
+                        var cmtOwner = snapshot.child("Bruker").val();
                         var datetime = snapshot.child("Tidspunkt").val();
+                        var cmtKey = snapshot.key;
+                        var deletecommentid = cmtKey + "delete";
+                        var reportcommentid = cmtKey + "report";
                         //Henter brukernavnet fra bruker tabellen
-                        firebase.database().ref('/Bruker/' + user).once('value').then((snapshot) => {
+                        firebase.database().ref('/Bruker/' + cmtOwner).once('value').then((snapshot) => {
                             var username = snapshot.child("Brukernavn").val();
                             //Henting av profilbilde
                             var storage = firebase.storage();
                             var storageRef = storage.ref();
-                            var pictureStorage = storageRef.child("user/" + user + "/profile.jpg");
+                            var pictureStorage = storageRef.child("user/" + cmtOwner + "/profile.jpg");
 
                             pictureStorage.getDownloadURL()
                                 .then((pictureURL) => { //Har profilbilde
                                     $(cmntSection).append(
-                                        '<a href="#" class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
-                                        'src="' + pictureURL + '" alt="Profilbilde" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong> <text class="text-muted ms-auto my-auto">' + datetime + ' </text> </div><text style="padding-left: 50px;">' + comment + '</text></a>'
+                                        '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
+                                        'src="' + pictureURL + '" alt="Profilbilde" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
+                                        '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
+                                        '<ul class="dropdown-menu bg-dark ms-auto" aria-labelledby="dropdownMenu2"> <li><button class="dropdown-item text-light bg-dark"' +
+                                        'type="button" id="' + deletecommentid + cmtOwner + '">Slett kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
+                                        '<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" /></svg></button></li>' +
+                                        '<li><button class="dropdown-item bg-dark text-light" type="button" id="' + reportcommentid + cmtOwner + '">Rapporter kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"' +
+                                        'class="bi bi-flag-fill" viewBox="0 0 16 16"> <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" /></svg></button>' +
+                                        '</li></ul></div></div>' +
+                                        '<text style="padding-left: 50px;">' + comment + '</text></a>'
                                     )
                                 })
                                 .catch((error) => { //Har ikke profilbilde
                                     $(cmntSection).append(
-                                        '<a href="#" class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class="rounded-circle m-1" width="35" height="35"' +
-                                        'src="img/blank-profile-circle.png" alt="Profilbilde" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong> <text class="text-muted ms-auto my-auto">' + datetime + ' </text></div> <text style="padding-left: 50px;">' + comment + '</text></a>'
+                                        '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
+                                        'src="img/blank-profile-circle.png" alt="Profilbilde" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
+                                        '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
+                                        '<ul class="dropdown-menu bg-dark ms-auto" aria-labelledby="dropdownMenu2"> <li><button class="dropdown-item text-light bg-dark"' +
+                                        'type="button" id="' + deletecommentid + cmtOwner + '">Slett kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
+                                        '<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" /></svg></button></li>' +
+                                        '<li><button class="dropdown-item bg-dark text-light" type="button" id="' + reportcommentid + cmtOwner + '">Rapporter kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"' +
+                                        'class="bi bi-flag-fill" viewBox="0 0 16 16"> <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" /></svg></button>' +
+                                        '</li></ul></div></div>' +
+                                        '<text style="padding-left: 50px;">' + comment + '</text></a>'
                                     )
+                                }).then(() => {
+                                    //Viser slett kommentar knapp om det er din kommentar, ellers så vises rapporter kommentar knappen
+                                    if (cmtOwner == user) {
+                                        document.getElementById(reportcommentid + cmtOwner).style.display = "none";
+                                    } else {
+                                        document.getElementById(deletecommentid + cmtOwner).style.display = "none";
+                                    }
+
+                                    //Slett kommentar funksjon
+                                    document.getElementById(deletecommentid + cmtOwner).onclick = function () {
+                                        if (cmtOwner == user) {
+                                            firebase.database().ref('Grupper/'+ key +'/Innlegg/' + postKey + '/Kommentarer/' + cmtKey).remove();
+                                            alert("kommentaren din er slettet");
+                                            location.reload();
+                                        }
+                                    }
+
+                                    //Rapporter kommentar funksjon
+                                    document.getElementById(reportcommentid + cmtOwner).onclick = function () {
+                                        firebase.database().ref('/Grupper/' + key + '/Rapporterte kommentarer').push({
+                                            Eier: cmtOwner,
+                                            Rapporterer: user,
+                                            KommentarID: cmtKey,
+                                            InnleggsID: postKey
+                                        })
+                                        alert("kommentaren til: " + username + " er rapportert");
+                                    }
                                 });
                         })
                     })
