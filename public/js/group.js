@@ -404,6 +404,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').on('child_added', functi
                 //Slett innlegg
                 document.getElementById(deleteid + owner).onclick = function () {
                     firebase.database().ref('/Grupper/' + key + '/Innlegg/' + postKey).remove();
+                    firebase.storage().ref("innlegg/" + (owner + picid) + "/innlegg.jpg").delete();
                     alert("Innlegget ditt er nå slettet");
                     location.reload();
                 }

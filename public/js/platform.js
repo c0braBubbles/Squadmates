@@ -288,6 +288,7 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').on('child_added', fu
                 //Slett innlegg
                 document.getElementById(deleteid + owner).onclick = function () {
                     firebase.database().ref('/' + platform + ' gruppe/Innlegg/' + postKey).remove();
+                    firebase.storage().ref("innlegg/" + (owner + picid) + "/innlegg.jpg").delete();
                     alert("Innlegget ditt er nå slettet");
                     location.reload();
                 }
