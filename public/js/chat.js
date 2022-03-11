@@ -52,7 +52,7 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
             chatListTop.innerHTML +=`<li class="person-list-item-border">` +
                                         `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` + 
                                         `<a href="#">` +
-                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;">` +
+                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                         `</a>` +
                                     `</li>`;
         });
@@ -85,7 +85,7 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
             chatListTop.innerHTML +=`<li class="person-list-item-border">` + 
                                         `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` +
                                         `<a href="#">` +
-                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;>"` +
+                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                         `</a>` +
                                     `</li>`;
         });
