@@ -150,19 +150,25 @@
                     }
                 }
                 });
+                
                 //Henter tidligere meldinger, legger dem inn chat-vinduet
                 firebase.database().ref('Samtale/'+ aktivSamtale +'/Melding/').once('value', (snapshot) => {
-                    var data = snapshot.val();
-                    for (let i in data) {
-                        if (data[i].SamtaleID == aktivSamtale) {
-                            //Du sendte meldingen
-                            if (data[i].Bruker == whiz.Uid) {
-                                meldinger.innerHTML += `<div class="send-bubble">${data[i].Melding}</div>`;
-                            } else {
-                                meldinger.innerHTML += `<div class="rec-bubble">${data[i].Melding}</div>`;
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+                        if (childData.Bruker == whiz.Uid) {
+                            meldinger.innerHTML += `<div class="send-bubble">${childData.Melding}</div>`;
+                            console.log("din nøkkel: " + childSnapshot.key);
+                        } else {
+                            meldinger.innerHTML += `<div class="rec-bubble">${childData.Melding}</div>`;
+                            console.log("nøkkel: " + childSnapshot.key);
+                            if (childData.Sett == 0) {
+                                firebase.database().ref('Samtale/'+aktivSamtale+'/Melding').child(childSnapshot.key).update({
+                                    "Sett": 1
+                                });
+                                document.getElementById(aktivSamtale).innerHTML--;
                             }
                         }
-                    }
+                    });
                 });
             }
 
@@ -175,7 +181,8 @@
                     firebase.database().ref('Samtale/'+aktivSamtale+'/Melding').push({
                         "SamtaleID": aktivSamtale,
                         "Melding": meldingInput.value,
-                        "Bruker": whiz.Uid
+                        "Bruker": whiz.Uid,
+                        "Sett": 0 
                     }).then(() => {
                         meldingInput.value = '';
                     });

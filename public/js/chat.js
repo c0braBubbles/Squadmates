@@ -27,19 +27,19 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
     if (message.Bruker1ID == whiz.Uid) {
         firebase.database().ref("Bruker/"+message.Bruker2ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
-            firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center" id="`+samtaleKey+`"
+            firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => { /*id="`+samtaleKey+`"*/ 
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
                                         style="color:white; background-color: #111;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="`+ pictureURL +`" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
-                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` +
+                                        `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;    
             }).catch((error) => {
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center" id="`+samtaleKey+`"
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
                                         style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
-                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
+                                        `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` + 
                                     `</li>`;
                 console.log(error + " - Kunne ikke finne profilbilde");
             });
@@ -61,18 +61,18 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
         firebase.database().ref("Bruker/"+message.Bruker1ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
             firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center" id="`+samtaleKey+`"
+                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
                                     style="color:white; background-color:#111;" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="` + pictureURL + `" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
-                                    `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +
+                                    `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;
             }).catch((error) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center" id="`+samtaleKey+`"
+                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
                                     style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
-                                    `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +
+                                    `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;
                 console.log(error + " - Kunne ikke finne profilbilde");
             });
@@ -90,17 +90,29 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                                     `</li>`;
         });
     }
-
-    firebase.database().ref('Samtale/'+samtaleKey+'/Melding/').on('child_added', function (snapshot) {
-        var data = snapshot.val();
-        if (data.SamtaleID == aktivSamtale) {
-            if (data.Bruker == whiz.Uid) {
-                meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
-            } else {
-                meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+    /*Henter meldinger når brukeren er inne i en samtale
+    Viser også frem hvor mange usette meldinger brukeren har
+    */
+    setTimeout(() => {
+        var ikkeSett = 0;
+        firebase.database().ref('Samtale/'+samtaleKey+'/Melding/').on('child_added', function (snapshot) {
+            var data = snapshot.val();
+            if (data.Bruker != whiz.Uid && data.Sett == 0) {
+                ikkeSett++;
+                document.getElementById(samtaleKey).innerHTML = ikkeSett;
             }
-        }
-    });
+            if (data.SamtaleID == aktivSamtale) {
+                if (data.Bruker == whiz.Uid) {
+                    meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
+                } else {
+                    meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+                    firebase.database().ref('Samtale/'+aktivSamtale+'/Melding').child(snapshot.key).update({
+                        "Sett": 1
+                    });
+                }
+            }
+        });
+    }, 1500);
 
 });
 /*
