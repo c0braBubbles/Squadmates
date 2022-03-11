@@ -160,12 +160,13 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         firebase.database().ref('/Bruker/' + user + '/Favoritt grupper/').child(key).set({
             Key: key
         })
+        location.reload();
     }
     //Fjern gruppe som favoritt knapp (gul stjerne)
     document.getElementById("removefavoriteGroupBtn").onclick = function () {
         firebase.database().ref('/Bruker/' + user + '/Favoritt grupper/').child(key).remove();
+        location.reload();
     }
-
 })
 
 /* ------------ Henter statisk gruppedata, SLUTT ------------ */

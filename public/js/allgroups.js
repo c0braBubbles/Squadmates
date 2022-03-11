@@ -246,3 +246,64 @@ firebase.database().ref('/Bruker/' + user + '/Grupper').on('child_added', functi
             });
     })
 })
+
+//Henting av gruppekort "Mine favoritter" for grupper som er merket som favoritter
+firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added', function (snapshot) {
+    var key = snapshot.child("Key").val();
+
+    firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
+        var name = snapshot.child("Navn").val();
+        var owner = snapshot.child("Eier").val();
+        var id = snapshot.child("BildeID").val();
+        var groupKey = snapshot.key;
+
+        //Antall medlemmer på gruppekort
+        var groupCount = 1;
+        firebase.database().ref('/Grupper/' + key + '/Medlemmer').on('child_added', function (snapshot) {
+            groupCount++;
+        })
+
+        //Henting av forsidebilde
+        var storage = firebase.storage();
+        var storageRef = storage.ref();
+        var pictureStorage = storageRef.child("grupper/" + (owner + id) + "/gruppe.jpg");
+
+        pictureStorage.getDownloadURL()
+            .then((pictureURL) => { //Har Forsidebilde
+                $(document.getElementById("myFavorites")).append(
+                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
+                    '<div class="card rounded-3 chromahover">' +
+                    '<img class="card-img-top" src="' + pictureURL + '" alt="Card image cap"' +
+                    'style="height: 12rem; object-fit: cover">' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title">' + name + '</h5>' +
+                    '<br>' +
+                    '<p class="card-text"><small class="text-muted">' + groupCount + ' Medlemmer</small></p></div></div></div>'
+                )
+            })
+            .catch((error) => { //Har ikke Forsidebilde
+                $(document.getElementById("myFavorites")).append(
+                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
+                    '<div class="card rounded-3 chromahover">' +
+                    '<img class="card-img-top" src="img/Amin.jpg" alt="Card image cap"' +
+                    'style="height: 12rem; object-fit: cover">' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title">' + name + '</h5>' +
+                    '<br>' +
+                    '<p class="card-text"><small class="text-muted">' + groupCount + ' Medlemmer</small></p></div></div></div>'
+                )
+            });
+    })
+})
+
+
+//Sjekker om brukeren har favoritter, dersom brukeren ikke har favoriter fjern favoritter card group
+var ref = firebase.database().ref('/Bruker/' + user + '/Favoritt grupper');
+ref.once("value")
+    .then(function (snapshot) {
+        var a = snapshot.exists();
+        if (a == false) {
+            document.getElementById("favoritecardGroup").style.display = "none";
+        }
+    });
+
