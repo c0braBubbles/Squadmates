@@ -67,7 +67,7 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 //Oppdaterer hvor mange samtaler en ikke har sett
-var notificationBubble = document.getElementById('ulestSamtale');
+//var notificationBubble = document.getElementById('ulestSamtale');
 /*firebase.database().ref('Samtale').on('child_added', function(snapshot) {
     var info = snapshot.val();
     if (snapshot.exists()) {
@@ -80,7 +80,7 @@ var notificationBubble = document.getElementById('ulestSamtale');
 });*/
 
 //Oppdaterer hvor mange samtaler en ikke har sett
-firebase.database().ref('Samtale').on('child_added', function(snapshot) {
+/*firebase.database().ref('Samtale').on('child_added', function(snapshot) {
     var info = snapshot.val();
     if (snapshot.exists()) {
         if (info.Bruker2ID == f_bruker.Uid && info.Sett == 0) {
@@ -89,12 +89,29 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
             notificationBubble.innerHTML = ulest;
         }
     }
+});*/
+
+var ulest = 0;
+localStorage.setItem("Nytt", ulest);
+var notificationBubble = document.getElementById('ulestSamtale');
+// NYTT FRA  NYTT FRA  NYTT FRA  NYTT FRA
+firebase.database().ref('Samtale').on('child_added', function(snapshot) {
+    if (snapshot.exists()) {
+        var info = snapshot.val();
+        if (info.Bruker1ID == f_bruker.Uid || info.Bruker2ID == f_bruker.Uid) {
+            if (info.NyttFra != f_bruker.Uid && info.NyttFra != 0) {
+                ulest++;
+                var temp_LS = localStorage.getItem("Nytt")+1;
+                localStorage.setItem("Nytt", temp_LS);
+                notificationBubble.innerHTML = "!";
+                notificationBubble.style.display = "inline-block";
+            }
+        }
+    }
 });
 
-
-
 //Dersom en samtale blir sett
-firebase.database().ref('Samtale').on('child_changed', (data) => {
+/*firebase.database().ref('Samtale').on('child_changed', (data) => {
     if (data.val().Bruker2ID == f_bruker.Uid && data.val().Sett == 1) {
         console.log(data.val().Bruker2ID + " " + data.val().Sett);
         ulest--;
@@ -103,6 +120,26 @@ firebase.database().ref('Samtale').on('child_changed', (data) => {
             notificationBubble.style.display = "none";
         } else {
             notificationBubble.style.display = "inline-block";
+        }
+    }
+});*/
+
+firebase.database().ref('Samtale').on('child_changed', (data) => {
+    var info = data.val();
+    console.log("ENDRING!!");
+    if (info.Bruker1ID == f_bruker.Uid || info.Bruker2ID == f_bruker.Uid) { //En samtale hvor du er medlem
+        if (info.NyttFra != f_bruker.Uid && info.NyttFra != 0) { //Du har noe usett i den samtalen
+            ulest++;
+            var temp_LS = localStorage.getItem("Nytt")+1;
+            localStorage.setItem("Nytt", temp_LS);
+        }
+        var tempCount = localStorage.getItem("Nytt");
+        if (tempCount > 0) {
+            notificationBubble.innerHTML = "!";
+            notificationBubble.style.display ="inline-block";
+        } else {
+            notificationBubble.innerHTML = "";
+            notificationBubble.style.display = "none";
         }
     }
 });
