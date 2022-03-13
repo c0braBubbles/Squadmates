@@ -94,6 +94,7 @@ firebase.auth().onAuthStateChanged((user) => {
 var ulest = 0;
 localStorage.setItem("Nytt", ulest);
 var notificationBubble = document.getElementById('ulestSamtale');
+var notificationBubbleSmall = document.getElementById('ulestSamtaleLiten')
 // NYTT FRA  NYTT FRA  NYTT FRA  NYTT FRA
 firebase.database().ref('Samtale').on('child_added', function(snapshot) {
     if (snapshot.exists()) {
@@ -103,8 +104,9 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                 ulest++;
                 var temp_LS = localStorage.getItem("Nytt")+1;
                 localStorage.setItem("Nytt", temp_LS);
-                notificationBubble.innerHTML = "!";
+                //notificationBubble.innerHTML = "!";
                 notificationBubble.style.display = "inline-block";
+                notificationBubbleSmall.style.display = "inline-block";
             }
         }
     }
@@ -126,7 +128,6 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
 
 firebase.database().ref('Samtale').on('child_changed', (data) => {
     var info = data.val();
-    console.log("ENDRING!!");
     if (info.Bruker1ID == f_bruker.Uid || info.Bruker2ID == f_bruker.Uid) { //En samtale hvor du er medlem
         if (info.NyttFra != f_bruker.Uid && info.NyttFra != 0) { //Du har noe usett i den samtalen
             ulest++;
@@ -135,11 +136,13 @@ firebase.database().ref('Samtale').on('child_changed', (data) => {
         }
         var tempCount = localStorage.getItem("Nytt");
         if (tempCount > 0) {
-            notificationBubble.innerHTML = "!";
+            //notificationBubble.innerHTML = "!";
             notificationBubble.style.display ="inline-block";
+            notificationBubbleSmall.style.display = "inline-block";
         } else {
-            notificationBubble.innerHTML = "";
+            //notificationBubble.innerHTML = "";
             notificationBubble.style.display = "none";
+            notificationBubbleSmall.style.display = "none";
         }
     }
 });
