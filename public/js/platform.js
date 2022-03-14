@@ -368,4 +368,3 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').on('child_added', fu
                 });
         })
 })
-
