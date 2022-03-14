@@ -101,7 +101,7 @@
 					</div>
 					<!--Nintendo-->
 					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="switchGroup"
-					onclick="getPlatform('Switch')">
+						onclick="getPlatform('Switch')">
 						<div class="card rounded-3 chromaswitch">
 							<div class="card-header bg-danger d-flex" style="height: 9rem; object-fit: cover">
 								<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor"
@@ -121,7 +121,7 @@
 					</div>
 					<!--Steam-->
 					<div class="col-xl-3 pt-2" style="padding-right: 0px; display:none;" id="steamGroup"
-					onclick="getPlatform('Steam')">
+						onclick="getPlatform('Steam')">
 						<div class="card rounded-3 chromasteam">
 							<div class="card-header bg-gradient d-flex"
 								style="height: 9rem; object-fit: cover; background-color:#1b2838;">
@@ -148,7 +148,7 @@
 			<div class="card-group w-75 mx-auto mx-3 mt-3" id="favoritecardGroup">
 				<div class="row w-100" id="myFavorites">
 					<h1 class="mx-auto text-light pt-5"> Mine favoritter</h1>
-				
+
 				</div>
 			</div>
 
@@ -156,6 +156,7 @@
 			<div class="card-group w-75 mx-auto mx-3 mt-3">
 				<div class="row w-100" id="myGroups">
 					<h1 class="mx-auto text-light pt-5"> Mine grupper</h1>
+					<h5 class="mx-auto text-light" id="myOwnedGroups">Grupper du eier</h5>
 					<div class="col-lg-4 mt" onclick="window.location = `/group`" style="display: none;">
 						<div class="card rounded-3 chromahover">
 							<img class="card-img-top" src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image cap"
@@ -167,6 +168,9 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="row w-100" id="myMemberGroups">
+					<h5 class="mx-auto text-light pt-3" id="groupMembers">Grupper du er medlem av</h5>
 				</div>
 			</div>
 		</div>

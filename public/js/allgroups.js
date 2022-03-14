@@ -151,6 +151,8 @@ firebase.database().ref('/Bruker/' + user + '/Grupper eid').on('child_added', fu
         var name = snapshot.child("Navn").val();
         var owner = snapshot.child("Eier").val();
         var id = snapshot.child("BildeID").val();
+        var imgid = "image" + snapshot.child("BildeID").val();
+        var countid = "count" + snapshot.child("BildeID").val();
         var groupKey = snapshot.key;
 
         //Henting av forsidebilde
@@ -163,89 +165,90 @@ firebase.database().ref('/Bruker/' + user + '/Grupper eid').on('child_added', fu
         firebase.database().ref('/Grupper/' + key + '/Medlemmer').on('child_added', function (snapshot) {
             groupCount++;
         })
-
+        if (owner == user) {
+            $(document.getElementById("myGroups")).append(
+                '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
+                '<div class="card rounded-3 chromahover">' +
+                '<img class="card-img-top" id="' + imgid + '" src="" alt="Card image cap"' +
+                'style="height: 12rem; object-fit: cover">' +
+                '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>' +
+                '<div class="card-body">' +
+                '<h5 class="card-title">' + name + '</h5>' +
+                '<br>' +
+                '<p class="card-text"><small class="text-muted" id="' + countid + '"></small></p></div></div></div>'
+            )
+        }
         pictureStorage.getDownloadURL()
             .then((pictureURL) => { //Har Forsidebilde
-                if (owner == user) {
-                    $(document.getElementById("myGroups")).append(
-                        '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
-                        '<div class="card rounded-3 chromahover">' +
-                        '<img class="card-img-top" src="' + pictureURL + '" alt="Card image cap"' +
-                        'style="height: 12rem; object-fit: cover">' +
-                        '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>' +
-                        '<div class="card-body">' +
-                        '<h5 class="card-title">' + name + '</h5>' +
-                        '<br>' +
-                        '<p class="card-text"><small class="text-muted">' + groupCount + ' Medlemmer</small></p></div></div></div>'
-                    )
-                }
+                document.getElementById(imgid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                if (owner == user) {
-                    $(document.getElementById("myGroups")).append(
-                        '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
-                        '<div class="card rounded-3 chromahover">' +
-                        '<img class="card-img-top" src="img/Amin.jpg" alt="Card image cap"' +
-                        'style="height: 12rem; object-fit: cover">' +
-                        '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>' +
-                        '<div class="card-body">' +
-                        '<h5 class="card-title">' + name + '</h5>' +
-                        '<br>' +
-                        '<p class="card-text"><small class="text-muted">' + groupCount + ' Medlemmer</small></p></div></div></div>'
-                    )
+                console.clear(error);
+                document.getElementById(imgid).src = "img/Amin.jpg";
+            }).then(() => {
+                if (groupCount == 1) {
+                    document.getElementById(countid).innerHTML = groupCount + " Medlem";
+                } else {
+                    document.getElementById(countid).innerHTML = groupCount + " Medlemmer";
                 }
             });
+
     })
+
 })
 
 //Henting av gruppekort "Mine innlegg" for grupper du er medlem av
-firebase.database().ref('/Bruker/' + user + '/Grupper').on('child_added', function (snapshot) {
-    var key = snapshot.child("Key").val();
+setTimeout(() => {
+    firebase.database().ref('/Bruker/' + user + '/Grupper').on('child_added', function (snapshot) {
+        var key = snapshot.child("Key").val();
 
-    firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
-        var name = snapshot.child("Navn").val();
-        var owner = snapshot.child("Eier").val();
-        var id = snapshot.child("BildeID").val();
-        var groupKey = snapshot.key;
+        firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
+            var name = snapshot.child("Navn").val();
+            var owner = snapshot.child("Eier").val();
+            var id = snapshot.child("BildeID").val();
+            var picid = "image" + snapshot.child("BildeID").val();
+            var countid = "count" + snapshot.child("BildeID").val();
+            var groupKey = snapshot.key;
 
-        //Antall medlemmer på gruppekort
-        var groupCount = 1;
-        firebase.database().ref('/Grupper/' + key + '/Medlemmer').on('child_added', function (snapshot) {
-            groupCount++;
-        })
-
-        //Henting av forsidebilde
-        var storage = firebase.storage();
-        var storageRef = storage.ref();
-        var pictureStorage = storageRef.child("grupper/" + (owner + id) + "/gruppe.jpg");
-
-        pictureStorage.getDownloadURL()
-            .then((pictureURL) => { //Har Forsidebilde
-                $(document.getElementById("myGroups")).append(
-                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
-                    '<div class="card rounded-3 chromahover">' +
-                    '<img class="card-img-top" src="' + pictureURL + '" alt="Card image cap"' +
-                    'style="height: 12rem; object-fit: cover">' +
-                    '<div class="card-body">' +
-                    '<h5 class="card-title">' + name + '</h5>' +
-                    '<br>' +
-                    '<p class="card-text"><small class="text-muted">' + groupCount + ' Medlemmer</small></p></div></div></div>'
-                )
+            //Antall medlemmer på gruppekort
+            var groupCount = 1;
+            firebase.database().ref('/Grupper/' + key + '/Medlemmer').on('child_added', function (snapshot) {
+                groupCount++;
             })
-            .catch((error) => { //Har ikke Forsidebilde
-                $(document.getElementById("myGroups")).append(
-                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
-                    '<div class="card rounded-3 chromahover">' +
-                    '<img class="card-img-top" src="img/Amin.jpg" alt="Card image cap"' +
-                    'style="height: 12rem; object-fit: cover">' +
-                    '<div class="card-body">' +
-                    '<h5 class="card-title">' + name + '</h5>' +
-                    '<br>' +
-                    '<p class="card-text"><small class="text-muted">' + groupCount + ' Medlemmer</small></p></div></div></div>'
-                )
-            });
+
+            $(document.getElementById("myMemberGroups")).append(
+                '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
+                '<div class="card rounded-3 chromahover">' +
+                '<img class="card-img-top" id="' + picid + '" src="" alt="Card image cap"' +
+                'style="height: 12rem; object-fit: cover">' +
+                '<div class="card-body">' +
+                '<h5 class="card-title">' + name + '</h5>' +
+                '<br>' +
+                '<p class="card-text"><small class="text-muted" id="' + countid + '"></small></p></div></div></div>'
+            )
+
+            //Henting av forsidebilde
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            var pictureStorage = storageRef.child("grupper/" + (owner + id) + "/gruppe.jpg");
+
+            pictureStorage.getDownloadURL()
+                .then((pictureURL) => { //Har Forsidebilde
+                    document.getElementById(picid).src = pictureURL;
+                })
+                .catch((error) => { //Har ikke Forsidebilde
+                    console.clear(error);
+                    document.getElementById(picid).src = "img/Amin.jpg"
+                }).then(() => {
+                    if (groupCount == 1) {
+                        document.getElementById(countid).innerHTML = groupCount + " Medlem";
+                    } else {
+                        document.getElementById(countid).innerHTML = groupCount + " Medlemmer";
+                    }
+                });
+        })
     })
-})
+}, 1000);
 
 //Henting av gruppekort "Mine favoritter" for grupper som er merket som favoritter
 firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added', function (snapshot) {
@@ -255,6 +258,8 @@ firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added
         var name = snapshot.child("Navn").val();
         var owner = snapshot.child("Eier").val();
         var id = snapshot.child("BildeID").val();
+        var picid = "imageFav" + snapshot.child("BildeID").val();
+        var countid = "countFav" + snapshot.child("BildeID").val();
         var groupKey = snapshot.key;
 
         //Antall medlemmer på gruppekort
@@ -263,6 +268,17 @@ firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added
             groupCount++;
         })
 
+        $(document.getElementById("myFavorites")).append(
+            '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
+            '<div class="card rounded-3 chromahover">' +
+            '<img class="card-img-top" src="" id="' + picid + '" alt="Card image cap"' +
+            'style="height: 12rem; object-fit: cover">' +
+            '<div class="card-body">' +
+            '<h5 class="card-title">' + name + '</h5>' +
+            '<br>' +
+            '<p class="card-text"><small class="text-muted" id="' + countid + '">Medlemmer</small></p></div></div></div>'
+        )
+
         //Henting av forsidebilde
         var storage = firebase.storage();
         var storageRef = storage.ref();
@@ -270,28 +286,17 @@ firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added
 
         pictureStorage.getDownloadURL()
             .then((pictureURL) => { //Har Forsidebilde
-                $(document.getElementById("myFavorites")).append(
-                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
-                    '<div class="card rounded-3 chromahover">' +
-                    '<img class="card-img-top" src="' + pictureURL + '" alt="Card image cap"' +
-                    'style="height: 12rem; object-fit: cover">' +
-                    '<div class="card-body">' +
-                    '<h5 class="card-title">' + name + '</h5>' +
-                    '<br>' +
-                    '<p class="card-text"><small class="text-muted">' + groupCount + ' Medlemmer</small></p></div></div></div>'
-                )
+                document.getElementById(picid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                $(document.getElementById("myFavorites")).append(
-                    '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
-                    '<div class="card rounded-3 chromahover">' +
-                    '<img class="card-img-top" src="img/Amin.jpg" alt="Card image cap"' +
-                    'style="height: 12rem; object-fit: cover">' +
-                    '<div class="card-body">' +
-                    '<h5 class="card-title">' + name + '</h5>' +
-                    '<br>' +
-                    '<p class="card-text"><small class="text-muted">' + groupCount + ' Medlemmer</small></p></div></div></div>'
-                )
+                console.clear(error);
+                document.getElementById(picid).src = "img/Amin.jpg";
+            }).then(() => {
+                if (groupCount == 1) {
+                    document.getElementById(countid).innerHTML = groupCount + " Medlem";
+                } else {
+                    document.getElementById(countid).innerHTML = groupCount + " Medlemmer";
+                }
             });
     })
 })
@@ -307,4 +312,23 @@ ref.once("value")
         }
     });
 
+//Sjekker om brukeren eier grupper, dersom brukeren ikke har gjør det fjern overskriten "grupper du eier"
+var ref = firebase.database().ref('/Bruker/' + user + '/Grupper eid');
+ref.once("value")
+    .then(function (snapshot) {
+        var a = snapshot.exists();
+        if (a == false) {
+            document.getElementById("myOwnedGroups").style.display = "none";
+        }
+    });
+
+//Sjekker om brukeren er medlem av noen grupper, hvis ikke fjern overskriften "Grupper du er medlem av"
+var ref = firebase.database().ref('/Bruker/' + user + '/Grupper');
+ref.once("value")
+    .then(function (snapshot) {
+        var a = snapshot.exists();
+        if (a == false) {
+            document.getElementById("groupMembers").style.display = "none";
+        }
+    });
 
