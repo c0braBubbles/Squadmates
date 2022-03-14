@@ -109,6 +109,9 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                     firebase.database().ref('Samtale/'+aktivSamtale+'/Melding').child(snapshot.key).update({
                         "Sett": 1
                     });
+                    firebase.database().ref('Samtale').child(aktivSamtale).update({
+                        "NyttFra": 0
+                    });
                 }
             }
         });

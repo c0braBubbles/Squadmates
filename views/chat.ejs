@@ -143,13 +143,21 @@
                     } else {
                         firebase.database().ref('Bruker/'+snap.val().Bruker1ID).once('value', (ss) => {
                             document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
-                        });
-                        firebase.database().ref('Samtale').child(samtaleUID).update({
-                            "Sett": 1
-                        });
+                        }); 
                     }
+                    
                 }
+                firebase.database().ref('Samtale').child(samtaleUID).update({
+                    "NyttFra": 0
+                }).then(() => {
+                    var temp_LS = localStorage.getItem("Nytt")-1;
+                    console.log("Nytt: "+temp_LS);
+                    localStorage.setItem("Nytt", temp_LS);
+                    if (localStorage.getItem("Nytt") == 0) {
+                        document.getElementById('ulestSamtale').style.display = "none";
+                    }
                 });
+            });
                 
                 //Henter tidligere meldinger, legger dem inn chat-vinduet
                 firebase.database().ref('Samtale/'+ aktivSamtale +'/Melding/').once('value', (snapshot) => {
@@ -184,6 +192,9 @@
                         "Bruker": whiz.Uid,
                         "Sett": 0 
                     }).then(() => {
+                        firebase.database().ref('Samtale/').child(aktivSamtale).update({
+                            "NyttFra": whiz.Uid
+                        });
                         meldingInput.value = '';
                     });
                 }
