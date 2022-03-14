@@ -1,9 +1,11 @@
 var gammeltPassordInput = document.getElementById('inputPasswordOld');
 var nyttPassordInput = document.getElementById('inputPasswordNew');
 var gjentaNyttPassordInput = document.getElementById('inputPasswordNewVerify');
+var passordBekreftSlettInput = document.getElementById('inputPasswordNewVerifySlett');
 
 var endrePassordKnapp = document.getElementById('confirmNewPassword');
 var slettBrukerKnapp = document.getElementById('deleteUserBtn');
+var bekreftSlett = document.getElementById('confirmDeleteUser');
 
 function reautentiser(oldPassword) {
     var user = firebase.auth().currentUser;
@@ -38,23 +40,31 @@ endrePassordKnapp.onclick = function() {
     });
 }
 //Bruker pr nå en prompt for å skrive inn passord, skal senere bruke modalen som er laget for dette
-slettBrukerKnapp.onclick = function() {
+bekreftSlett.onclick = function() {
     var user = firebase.auth().currentUser;
-    var deletePrompt = prompt("Skriv inn passord");
+    const whiz = JSON.parse(sessionStorage.getItem("bruker"));
+    //var deletePrompt = prompt("Skriv inn passord");
+    var confirmPassword = passordBekreftSlettInput.value;
     
-    if (deletePrompt != null || deletePrompt != "") {
-        var credential = reautentiser(deletePrompt);
+    if (confirmPassword != null || confirmPassword != "") {
+        var credential = reautentiser(confirmPassword);
         user.reauthenticateWithCredential(credential).then(() => {
-            user.delete().then(() => {
-                //Bruker slettet, så skal resten av brukerinfo slettes inni her
-                // 1. Resterende info - Realtime database
-                // 2. Evt profilbilde - Storeage database
-                // Skal Samtaler/Innlegg/Grupper slettes? 
-                window.location = "/";
-            }).catch((error) => {
-                window.alert("Det skjedde en error: " + error.message);
-                console.log("Det skjedde en error: " + error.message);
-            })
+            //Sletter resterende bruker info -> Realtime database
+            firebase.database().ref("Bruker/"+whiz.Uid).remove().then(() => {
+                //Sletter eventuelt profilbilde brukeren har -> Storage 
+                firebase.storage().ref("user/"+whiz.Uid+"/profile.jpg").delete().catch((error) => {
+                    //Error -> Brukeren har ikke profilbilde
+                    console.log(error.message);
+                }).then(() => {
+                    //Sletter auth-info til slutt -> Authentication
+                    user.delete().then(() => {
+                        //Bruker slettet
+                        window.location = "/";
+                    }).catch((error) => {
+                        console.log(error.message);
+                    });
+                });
+            });
         }).catch((error) => {
             window.alert(error.message);
         })
