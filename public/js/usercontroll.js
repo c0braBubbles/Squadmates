@@ -1,7 +1,6 @@
 // BRUKER DENNE TIL Å SJEKKE OM BRUKER ER LOGGET INN OG FOR Å HENTE UID OG ÅPNE PROFILSIDE
-var ulest = 0;
-const f_bruker = JSON.parse(sessionStorage.getItem("bruker"));
-var notificationBubble = document.getElementById('ulestSamtale');
+
+//const f_bruker = JSON.parse(sessionStorage.getItem("bruker"));
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
@@ -66,36 +65,13 @@ firebase.auth().onAuthStateChanged((user) => {
     }
 });
 
-//Oppdaterer hvor mange samtaler en ikke har sett
-//var notificationBubble = document.getElementById('ulestSamtale');
-/*firebase.database().ref('Samtale').on('child_added', function(snapshot) {
-    var info = snapshot.val();
-    if (snapshot.exists()) {
-        if (info.Bruker2ID == f_bruker.Uid && info.Sett > 0) {
-            notificationBubble.style.display = "inline-block";
-            ulest++;
-            notificationBubble.innerHTML = ulest;
-        }
-    }
-});*/
-
-//Oppdaterer hvor mange samtaler en ikke har sett
-/*firebase.database().ref('Samtale').on('child_added', function(snapshot) {
-    var info = snapshot.val();
-    if (snapshot.exists()) {
-        if (info.Bruker2ID == f_bruker.Uid && info.Sett == 0) {
-            notificationBubble.style.display = "inline-block";
-            ulest++;
-            notificationBubble.innerHTML = ulest;
-        }
-    }
-});*/
 
 var ulest = 0;
 localStorage.setItem("Nytt", ulest);
 var notificationBubble = document.getElementById('ulestSamtale');
 var notificationBubbleSmall = document.getElementById('ulestSamtaleLiten')
 // NYTT FRA  NYTT FRA  NYTT FRA  NYTT FRA
+/*
 firebase.database().ref('Samtale').on('child_added', function(snapshot) {
     if (snapshot.exists()) {
         var info = snapshot.val();
@@ -111,20 +87,6 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
         }
     }
 });
-
-//Dersom en samtale blir sett
-/*firebase.database().ref('Samtale').on('child_changed', (data) => {
-    if (data.val().Bruker2ID == f_bruker.Uid && data.val().Sett == 1) {
-        console.log(data.val().Bruker2ID + " " + data.val().Sett);
-        ulest--;
-        notificationBubble.innerHTML = ulest;
-        if (ulest < 1) {
-            notificationBubble.style.display = "none";
-        } else {
-            notificationBubble.style.display = "inline-block";
-        }
-    }
-});*/
 
 firebase.database().ref('Samtale').on('child_changed', (data) => {
     var info = data.val();
@@ -146,7 +108,7 @@ firebase.database().ref('Samtale').on('child_changed', (data) => {
         }
     }
 });
-
+*/
 document.getElementById("logutBtn").onclick = function() {
     firebase.auth().signOut().then(() => {
         window.location = '/'; 
