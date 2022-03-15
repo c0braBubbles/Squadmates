@@ -48,17 +48,6 @@ firebase.auth().onAuthStateChanged((user) => {
                 });
             }
         });
-        //Oppdaterer hvor mange samtaler en ikke har sett
-        /*firebase.database().ref('Samtale').on('child_added', function(snapshot) {
-            var info = snapshot.val();
-            if (snapshot.exists()) {
-                if (info.Bruker2ID == user.uid && info.Sett == 0) {
-                    notificationBubble.style.display = "inline-block";
-                    ulest++;
-                    notificationBubble.innerHTML = ulest;
-                }
-            }
-        });*/
 
     } else {
         window.location = "/";
@@ -70,7 +59,8 @@ var ulest = 0;
 localStorage.setItem("Nytt", ulest);
 var notificationBubble = document.getElementById('ulestSamtale');
 var notificationBubbleSmall = document.getElementById('ulestSamtaleLiten')
-// NYTT FRA  NYTT FRA  NYTT FRA  NYTT FRA
+// Kode for å vise varsel dersom bruker har en y samtale, eller har uleste meldinger
+// Koden fungerer, men må finne et bedre sted å legge den. Evt i header.js 
 /*
 firebase.database().ref('Samtale').on('child_added', function(snapshot) {
     if (snapshot.exists()) {

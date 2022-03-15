@@ -13,12 +13,12 @@ function reautentiser(oldPassword) {
     //return user.reauthenticateWithCredential(cred);
 }
 
-endrePassordKnapp.onclick = function() {
+endrePassordKnapp.onclick = function () {
     var user = firebase.auth().currentUser;
     var p_gammelt = gammeltPassordInput.value;
     var p_nytt = nyttPassordInput.value;
     var p_gjentaNytt = gjentaNyttPassordInput.value;
-    
+
     var credential = reautentiser(p_gammelt);
     user.reauthenticateWithCredential(credential).then(() => {
         //Reautentisert
@@ -39,31 +39,50 @@ endrePassordKnapp.onclick = function() {
         window.alert(error.message);
     });
 }
-//Bruker pr nå en prompt for å skrive inn passord, skal senere bruke modalen som er laget for dette
-bekreftSlett.onclick = function() {
+/* Metoden sletter brukeren
+    1. Sjekker om riktig passord er skrevet inn: JA -> fortsett til punkt 2. NEI -> 
+    2. Hent info om hvilke grupper brukeren eier -> Slett disse gruppen
+    3. Deretter: Hent info om hvilke grupper brukeren er medlem av -> Slett brukeren som medlem
+    4. Deretter: Slett resterende bruker-info - Realtime database
+        5. Slett brukerens profilbilde, dersom en har det - Storage
+        6. Deretter: Slett brukeren sin login-info - Authentication 
+*/
+bekreftSlett.onclick = function () {
     var user = firebase.auth().currentUser;
     const whiz = JSON.parse(sessionStorage.getItem("bruker"));
     //var deletePrompt = prompt("Skriv inn passord");
     var confirmPassword = passordBekreftSlettInput.value;
-    
+
     if (confirmPassword != null || confirmPassword != "") {
         var credential = reautentiser(confirmPassword);
         user.reauthenticateWithCredential(credential).then(() => {
-            //Sletter resterende bruker info -> Realtime database
-            firebase.database().ref("Bruker/"+whiz.Uid).remove().then(() => {
-                //Sletter eventuelt profilbilde brukeren har -> Storage 
-                firebase.storage().ref("user/"+whiz.Uid+"/profile.jpg").delete().catch((error) => {
-                    //Error -> Brukeren har ikke profilbilde
-                    console.log(error.message);
-                }).then(() => {
-                    //Sletter auth-info til slutt -> Authentication
-                    user.delete().then(() => {
-                        //Bruker slettet
-                        window.location = "/";
-                    }).catch((error) => {
+            firebase.database().ref("Bruker/" + whiz.Uid + "/Grupper").once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    snapshot.forEach(function (childSnap) {
+                        firebase.database().ref("Grupper/" + childSnap.key+"/Medlemmer/"+whiz.Uid).remove().catch((error) => {
+                            console.log(error.message);
+                            //!!!!!!!!!HER SKAL DET OGSÅ SLETTES EVT BILDE TIL GRUPPEN!!!!!!!!!
+                        });
+                    });
+                }
+            }).then(() => {
+                //Sletter resterende bruker info -> Realtime database
+                firebase.database().ref("Bruker/" + whiz.Uid).remove().then(() => {
+                    //Sletter eventuelt profilbilde brukeren har -> Storage 
+                    firebase.storage().ref("user/" + whiz.Uid + "/profile.jpg").delete().catch((error) => {
+                        //Error -> Brukeren har ikke profilbilde
                         console.log(error.message);
+                    }).then(() => {
+                        //Sletter auth-info til slutt -> Authentication
+                        user.delete().then(() => {
+                            //Bruker slettet
+                            window.location = "/";
+                        }).catch((error) => {
+                            console.log(error.message);
+                        });
                     });
                 });
+
             });
         }).catch((error) => {
             window.alert(error.message);
@@ -72,3 +91,23 @@ bekreftSlett.onclick = function() {
         window.alert("Bruker kansellerte");
     }
 }
+
+
+/*
+//Sletter resterende bruker info -> Realtime database
+firebase.database().ref("Bruker/"+whiz.Uid).remove().then(() => {
+    //Sletter eventuelt profilbilde brukeren har -> Storage 
+    firebase.storage().ref("user/"+whiz.Uid+"/profile.jpg").delete().catch((error) => {
+        //Error -> Brukeren har ikke profilbilde
+        console.log(error.message);
+    }).then(() => {
+        //Sletter auth-info til slutt -> Authentication
+        user.delete().then(() => {
+            //Bruker slettet
+            window.location = "/";
+        }).catch((error) => {
+            console.log(error.message);
+        });
+    });
+});
+*/
