@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/loader.css">
 
 <body style="overflow-x: hidden;"></body>
 <style>
@@ -20,7 +21,8 @@
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script type="module" src="js/firebase_config.js"></script>
 <script type="module" src="js/usercontroll.js"></script>
-<script type="module" src="js/xbox.js"></script>
+<script type="module" src="js/platform.js"></script>
+<script src="js/settings.js" type="module"></script>
 </head>
 
 <body>
@@ -64,7 +66,7 @@
                                 <div class="col-lg-5">
                                     <!---Nytt Innlegg-->
                                     <div class="card gedf-card mx-auto mt-1 mb-4 sticky-top"
-                                        style="background: #202124;">
+                                        style="background: #202124;z-index: 1;">
                                         <div class="card-header">
                                             <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                                                 <li class="nav-item">
@@ -81,16 +83,16 @@
                                                     <div class="form-group">
                                                         <div class="form-floating mb-3">
                                                             <input class="form-control border-dark text-light"
-                                                                id="tittelXbox" placeholder="Tittel"
+                                                                id="tittelPlatform" placeholder="Tittel"
                                                                 style="background-color:rgb(60, 64, 67, 0.90)">
                                                             <label for="floatingInput"
                                                                 style="color: white;">Tittel</label>
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <input class="form-control border-dark text-light"
-                                                                id="beskrivelseXbox" placeholder="Beskrivelse"
+                                                                id="beskrivelsePlatform" placeholder="Beskrivelse"
                                                                 style="height: 100px; background-color:rgb(60, 64, 67, 0.90)">
-                                                            <label for="beskrivelseXbox"
+                                                            <label for="beskrivelsePlatform"
                                                                 style="color: white;">Beskrivelse</label>
                                                         </div>
                                                         <input type="file" class="form-control-file text-light mb-3"
@@ -109,132 +111,192 @@
                                 </div>
                                 <!-- Slutt på Nytt innlegg-->
 
+                                <!-- Innlegg appendes hit-->
+                                <div id="append" class="col-lg-7">
+                                    <div class="col-lg-12" id="postCol">
+                                        <!--Innlegg-->
+                                        <div class="card gedf-card mx-auto mb-5"
+                                            style="background: #111; display: none;">
+                                            <!--Innlegg header-->
+                                            <div class="card-header" style="background: #111;">
+                                                <div class="d-flex justify-content-between align-items-center">
 
-                                <div class="col-lg-7" id="postCol">
-                                    <!--Innlegg-->
-                                    <div class="card gedf-card mx-auto mb-5" style="background: #111; display: none;">
-                                        <!--Innlegg header-->
-                                        <div class="card-header" style="background: #111;">
-                                            <div class="d-flex justify-content-between align-items-center">
-
-                                                <div class="mr-2">
-                                                    <img class="rounded-circle m-3" width="45" src="img/cubr.jpg"
-                                                        alt="">
-                                                </div>
-                                                <div class="ml-2">
-                                                    <div class="h5 m-0 text-light">CheekyCub</div>
-                                                    <div class="h7 text-light">Jacob Kristensen</div>
-                                                </div>
-                                                <div class="dropdown ms-auto">
-                                                    <button class="btn dropdown-toggle text-light" type="button"
-                                                        style="background: #111;" id="dropdownMenu2"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                    </button>
-                                                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenu2">
-                                                        <li><button class="dropdown-item text-light bg-dark"
-                                                                type="button">Slett innlegg <svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                    height="16" fill="currentColor"
-                                                                    class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                                                    <path
-                                                                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                                                </svg></button></li>
-                                                        <li><button class="dropdown-item bg-dark text-light"
-                                                                type="button">Rapporter innlegg <svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                    height="16" fill="currentColor"
-                                                                    class="bi bi-flag-fill" viewBox="0 0 16 16">
-                                                                    <path
-                                                                        d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
-                                                                </svg></button></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!--Innlegg body-->
-                                        <div class="card-body text-light" style="background: #111;">
-                                            <div class="text-light h7 mb-2"> <i class="fa fa-clock-o"></i> <svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
-                                                    <path
-                                                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
-                                                </svg> 17:11
-                                            </div>
-                                            <h5 class="card-title text-light">Trenger spillere, helst over 1 i K/D </h5>
-
-                                            <p class="card-text">
-                                                Joiner noen Warzone? Trenger en til Quads, Activision ID:
-                                                CubR_the_Ch33ky
-                                            </p>
-                                            <img class="card-img m-0" style="height: 350px; object-fit: cover;"
-                                                src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image">
-                                            <div class="container d-flex">
-                                                <a class="link-secondary ms-auto" data-bs-toggle="modal"
-                                                    data-bs-target="#kommentarermodal">2 Kommentarer</a>
-                                            </div>
-                                            <!--Innlegg footer-->
-                                            <div class="card-footer d-flex" style="background: #111;">
-                                                <button type="button" class="btn-dark w-50 mx-auto"
-                                                    data-bs-toggle="modal" data-bs-target="#kommentarermodal"
-                                                    style="background: #111;">Kommenter
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-chat-square-text-fill"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
-                                                    </svg>
-                                                </button>
-
-                                                <button type="button" class="btn-dark w-50 mx-auto"
-                                                    style="background: #111;">Send
-                                                    melding
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-
-                                            <hr>
-                                            <div class="input-group mb-3" id="">
-                                                <input type="text" class="form-control border-dark text-light"
-                                                    placeholder="Skriv en kommentar..."
-                                                    aria-label="Recipient's username" aria-describedby="button-addon2"
-                                                    style="background-color:rgb(60, 64, 67, 0.90)"
-                                                    id="ID FOR KOMMENTARFELT HER">
-                                                <button class="btn btn-primary" type="button"
-                                                    id="ID FOR PUBLISER KOMMENTAR HER">Publiser</button>
-                                            </div>
-                                            <div class="list-group w-100 mx-auto border-dark" id="viewCommentsPlatform">
-                                                <a href="#" class="list-group-item text-light border-dark mb-0"
-                                                    style="background: #111;">
-                                                    <div class="w-100 m-0 p-0">
-                                                        <img class="rounded-circle m-1" width="35" height="35"
-                                                            src="img/cubr.jpg" alt="Profilbilde">
-                                                        <strong>CheekyCub:</strong>
+                                                    <div class="mr-2">
+                                                        <img class="rounded-circle m-3" width="45" src="img/cubr.jpg"
+                                                            alt="">
                                                     </div>
-                                                    <text style="padding-left: 47px;">Dette, er min kommentar
-                                                        asdasdasdasdasdasdassd</text>
-                                                </a>
+                                                    <div class="ml-2">
+                                                        <div class="h5 m-0 text-light">CheekyCub</div>
+                                                        <div class="h7 text-light">Jacob Kristensen</div>
+                                                    </div>
+                                                    <div class="dropdown ms-auto">
+                                                        <button class="btn dropdown-toggle text-light" type="button"
+                                                            style="background: #111;" id="dropdownMenu2"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                        </button>
+                                                        <ul class="dropdown-menu bg-dark"
+                                                            aria-labelledby="dropdownMenu2">
+                                                            <li><button class="dropdown-item text-light bg-dark"
+                                                                    type="button">Slett innlegg <svg
+                                                                        xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                        height="16" fill="currentColor"
+                                                                        class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                                    </svg></button></li>
+                                                            <li>
+                                                                <button class="dropdown-item bg-dark text-light"
+                                                                    type="button">Rapporter innlegg <svg
+                                                                        xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                        height="16" fill="currentColor"
+                                                                        class="bi bi-flag-fill" viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
+                                                                    </svg></button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--Innlegg body-->
+                                            <div class="card-body text-light" style="background: #111;">
+                                                <div class="text-light h7 mb-2"> <i class="fa fa-clock-o"></i> <svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                                        <path
+                                                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                                    </svg> 17:11
+                                                </div>
+                                                <h5 class="card-title text-light">Trenger spillere, helst over 1 i K/D
+                                                </h5>
+
+                                                <p class="card-text">
+                                                    Joiner noen Warzone? Trenger en til Quads, Activision ID:
+                                                    CubR_the_Ch33ky
+                                                </p>
+                                                <img class="card-img m-0" style="height: 350px; object-fit: cover;"
+                                                    src="img/CallOfDuty_Warzone_Graphic.jpeg" alt="Card image">
+                                                <div class="container d-flex">
+                                                    <a class="link-secondary ms-auto" data-bs-toggle="modal"
+                                                        data-bs-target="#kommentarermodal">2 Kommentarer</a>
+                                                </div>
+                                                <!--Innlegg footer-->
+                                                <div class="card-footer d-flex" style="background: #111;">
+                                                    <button type="button" class="btn-dark w-50 mx-auto"
+                                                        data-bs-toggle="modal" data-bs-target="#kommentarermodal"
+                                                        style="background: #111;">Kommenter
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-chat-square-text-fill"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
+                                                        </svg>
+                                                    </button>
+
+                                                    <button type="button" class="btn-dark w-50 mx-auto"
+                                                        style="background: #111;">Send
+                                                        melding
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-chat-fill"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+
+                                                <hr>
+                                                <div class="input-group mb-3" id="">
+                                                    <input type="text" class="form-control border-dark text-light"
+                                                        placeholder="Skriv en kommentar..."
+                                                        aria-label="Recipient's username"
+                                                        aria-describedby="button-addon2"
+                                                        style="background-color:rgb(60, 64, 67, 0.90)"
+                                                        id="ID FOR KOMMENTARFELT HER">
+                                                    <button class="btn btn-primary" type="button"
+                                                        id="ID FOR PUBLISER KOMMENTAR HER">Publiser</button>
+                                                </div>
+                                                <div class="list-group w-100 mx-auto border-dark"
+                                                    id="viewCommentsPlatform">
+                                                    <a href="#" class="list-group-item text-light border-dark mb-0"
+                                                        style="background: #111;">
+                                                        <div class="w-100 m-0 p-0 d-flex">
+                                                            <img class="rounded-circle m-1" width="35" height="35"
+                                                                src="img/cubr.jpg" alt="Profilbilde">
+                                                            <strong>CheekyCub:</strong>
+
+                                                            <div class="dropdown ms-auto">
+                                                                <text>TIDSPUNKT</text>
+                                                                <button class="btn dropdown-toggle text-light"
+                                                                    type="button" style="background: #111;"
+                                                                    id="dropdownMenu2" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false">
+                                                                </button>
+                                                                <ul class="dropdown-menu bg-dark ms-auto"
+                                                                    aria-labelledby="dropdownMenu2">
+                                                                    <li><button class="dropdown-item text-light bg-dark"
+                                                                            type="button">Slett kommentar <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="16" height="16"
+                                                                                fill="currentColor"
+                                                                                class="bi bi-trash3-fill"
+                                                                                viewBox="0 0 16 16">
+                                                                                <path
+                                                                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                                            </svg></button></li>
+                                                                    <li>
+                                                                        <button class="dropdown-item bg-dark text-light"
+                                                                            type="button">Rapporter kommentar <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="16" height="16"
+                                                                                fill="currentColor"
+                                                                                class="bi bi-flag-fill"
+                                                                                viewBox="0 0 16 16">
+                                                                                <path
+                                                                                    d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
+                                                                            </svg></button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <text style="padding-left: 47px;">Dette, er min kommentar
+                                                            asdasdasdasdasdasdassd</text>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
 
                         <!-- Medlemmer tab -->
                         <div class="tab-pane pb-5" id="medlemmer" role="tabpanel" aria-labelledby="deals-tab">
 
-                            <!-- Appender medlemmer til denne listen ved hjelp av JQuery -->
-                            <div class="list-group w-50 mx-auto border-dark" id="medlemslisteXbox">
-                                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                    <text>Antall medlemmer: </text> <text id="membercountXbox">0</text>
-                                </a>
+                            <!-- Appender medlemmer til disse listene ved hjelp av JQuery -->
+                            <div class="row">
+                                <div class="col-sm-4 mx-auto">
+                                    <div class="list-group border-dark" id="følgerlistePlatform">
+                                        <a href="#" class="list-group-item list-group-item-action active"
+                                            aria-current="true">
+                                            <text>Medlemmer du følger: </text> <text
+                                                id="followingcountPlatform">0</text>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mx-auto">
+                                    <div class="list-group border-dark" id="medlemslistePlatform">
+                                        <a href="#" class="list-group-item list-group-item-action active"
+                                            aria-current="true">
+                                            <text>Alle medlemmer: </text> <text id="membercountPlatform">0</text>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -260,12 +322,12 @@
                                         <h3 class="mb-0">Bytt passord</h3>
                                     </div>
                                     <div class="card-body" style="background: #111;">
-                                        <form class="form" role="form" autocomplete="off">
+                                        <div class="form" role="form" autocomplete="off">
                                             <div class="form-group">
                                                 <label for="inputPasswordOld">Nåværende passord</label>
                                                 <input type="password"
                                                     class="form-control bg-dark text-light border-dark"
-                                                    id="inputPasswordOld" required="">
+                                                    id="inputPasswordOld">
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputPasswordNew">Nytt passord</label>
@@ -287,10 +349,11 @@
                                                 </span>
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary float-right">Oppdater
+                                                <button class="btn btn-primary float-right"
+                                                    id="confirmNewPassword">Oppdater
                                                     passord</button>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- endre passord -->
@@ -299,7 +362,7 @@
                                 <div class="col w-100 d-flex p-3">
                                     <button class="btn-danger mx-auto" data-dismiss="modal"
                                         data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
-                                        data-backdrop="false">
+                                        data-backdrop="false" id="deleteUserBtn">
                                         Slett konto</button>
                                 </div>
                             </div>
@@ -326,8 +389,9 @@
                                     Oppgi passordet ditt for å slette kontoen
                                 </span>
                                 <input type="password" class="form-control bg-dark text-light border-dark"
-                                    id="inputPasswordNewVerifySlett" required="">
-                                <button class="btn btn-danger d-flex mx-auto mt-3">Slett konto permanent</button>
+                                    id="inputPasswordNewVerifySlett">
+                                <button class="btn btn-danger d-flex mx-auto mt-3" id="confirmDeleteUser">Slett konto
+                                    permanent</button>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -339,6 +403,44 @@
             </div>
         </div>
         <!-- slutt på Modal slett konto -->
+
+        <!----------- Loader ----------->
+        <div class="loader-wrapperXbox" id="loader">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+
+        <script>
+            function startSamtale(mottakerUID) {
+                var finnesSamtale = false;
+                if (whiz.Uid == mottakerUID) return; //Stopp metoden dersom bruker prøver å starte samtale med seg selv
+                firebase.database().ref('Samtale').once('value', (snapshot) => {
+                    var data = snapshot.val();
+                    if (snapshot.exists()) {
+                        for (let i in data) {
+                            if ((data[i].Bruker1ID == mottakerUID && data[i].Bruker2ID == whiz.Uid) ||
+                                (data[i].Bruker1ID == whiz.Uid && data[i].Bruker2ID == mottakerUID)) {
+                                console.log("Samtalen eksisterer allerede!");
+                                finnesSamtale = true;
+                            }
+                        }
+                    }
+                }).then(() => {
+                    if (!finnesSamtale) {
+                        //ville vanligvis brukt push istedet for set, men vi må ha tak i keyen som blir generert
+                        var pushKey = firebase.database().ref('Samtale').push().key;
+                        firebase.database().ref('Samtale').child(pushKey).set({
+                            "Bruker1ID": whiz.Uid,
+                            "Bruker2ID": mottakerUID,
+                            "NyttFra": whiz.Uid
+                        }).then(() => {
+                            localStorage.setItem("aktivSamtale", pushKey);
+                            //Redirect til chat-side
+                            window.location = "/chat";
+                        });
+                    }
+                });
+            }
+        </script>
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
@@ -352,6 +454,20 @@
                 e.preventDefault()
                 $(this).tab('show')
             })
+
+
+            //Funksjon for å åpne gruppeside med key lagret
+            function getGroup(key) {
+                // templating for når man åpner en gruppe: 
+                window.open(key, '_self');
+                $.post("/openGroup", {
+                    key: key
+                }, function (data, status) {
+                    console.log(data);
+                }
+                );
+
+            }
         </script>
 </body>
 

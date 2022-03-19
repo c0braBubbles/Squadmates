@@ -11,24 +11,24 @@ var inpPassword = document.getElementById("inp_passord");
 var inpPassword2 = document.getElementById("inp_passord2"); 
 
 
-/*firebase.auth().onAuthStateChanged(function(user) {
-    if(user) {
-        // Bruker logget inn
-        window.location = "/home";
-        var user = firebase.auth().currentUser; 
+// firebase.auth().onAuthStateChanged(function(user) {
+//     if(user) {
+//         // Bruker logget inn
+//         window.location = "/home";
+//         var user = firebase.auth().currentUser; 
 
-        if(user != null) {
-            // email_id = user.email; 
+//         if(user != null) {
+//             // trenger ingenting her heller
+//         }
+//     }
 
-            // setUsername(email_id);
-        }
-    }
-
-    else {
-        // Ingen bruker logget inn
-        // window.location = "/";
-    }
-});*/
+//     else {
+//         /* Ingen bruker logget inn. Linja nedenfor er 
+//         kommentert ut så nettstedet ikke kræsjer og 
+//         kun refreshet. Ingen logget inn, ingenting skjer*/
+//         // window.location = "/";
+//     }
+// });
 
 
 document.getElementById("regBtn").onclick = function() {

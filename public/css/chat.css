@@ -25,7 +25,7 @@ høyre del av siden å gjøre.
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     color: white;
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .msg-board {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gruppe</title>
+    <title>Playstation</title>
     <link rel="stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/home.css">
@@ -21,18 +21,29 @@
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script type="module" src="js/firebase_config.js"></script>
 <script type="module" src="js/usercontroll.js"></script>
-<script type="module" src="js/group.js"></script>
+<script type="module" src="js/platform.js"></script>
 </head>
 
 <body>
     <%- include('partials/headerp'); %>
 
-        <div class="container rounded-3 w-75 m-0 p-0 mx-auto mt-5 mb-0 text-light" style="background: #202124;"
-            id="infoGruppe">
-            <img src="" class="img-fluid d-flex mx-auto w-100" style="height: 25rem; object-fit: cover"
-                id="headerGroup">
-            <h1 class="d-flex m-3" id="groupName"></h1>
-            <h6 class="d-flex m-3" id="groupAbout"></h6>
+
+
+        <div class="container rounded-3 w-75 m-0 p-0 mx-auto mt-5 mb-0 text-light bg-primary bg-gradient"
+            id=" infoGruppe">
+            <div class="row d-flex">
+                <div class="col-4 d-flex my-auto">
+                    <h1 class="me-auto m-5">Playstation</h1>
+                </div>
+
+                <div class="col-8 d-flex my-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12vh" height="12vh" fill="currentColor"
+                        class="bi bi-playstation ms-auto m-5" viewBox="0 0 16 16">
+                        <path
+                            d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356ZM9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.454 8.454 0 0 1-4.018-.323Z" />
+                    </svg>
+                </div>
+            </div>
 
             <div class="card border-0 mx-auto mt-0 mb-0" style="background:transparent">
                 <div class="card-header mt-0 m-0" style="background: #202124;" id="headerGruppe">
@@ -42,31 +53,9 @@
                                 aria-selected="true">Innlegg</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#om" role="tab" aria-controls="om"
-                                aria-selected="false">Om</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-light" href="#medlemmer" role="tab" aria-controls="medlemmer"
                                 aria-selected="false">Medlemmer</a>
                         </li>
-                        <li class="ms-auto">
-                            <a class="btn btn-primary mx-auto text-light" role="tab" aria-controls="medlemmer"
-                                id="joinGroupBtn" aria-selected="false">Bli medlem +</a>
-                            <a class="btn btn-primary mx-auto text-light" role="tab" aria-controls="medlemmer"
-                                id="leaveGroupBtn" aria-selected="false">Forlat gruppen</a>
-                            <a class="btn btn-primary mx-auto text-light" role="tab" aria-controls="medlemmer"
-                                id="editGroupBtn" aria-selected="false">Rediger gruppen</a>
-                        </li>
-                        <a class="btn text-light" id="addfavoriteGroupBtn"> <svg xmlns="http://www.w3.org/2000/svg"
-                                width="25" height="25" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                                <path
-                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
-                            </svg> </a>
-                        <a class="btn text-warning" id="removefavoriteGroupBtn"> <svg xmlns="http://www.w3.org/2000/svg"
-                                width="25" height="25" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                            </svg> </a>
                     </ul>
                 </div>
                 <div class="card-body mx-auto p-0 m-0 bg-dark w-100">
@@ -76,7 +65,7 @@
                                 <div class="col-lg-5">
                                     <!---Nytt Innlegg-->
                                     <div class="card gedf-card mx-auto mt-1 mb-4 sticky-top"
-                                        style="background: #202124; z-index: 1;">
+                                        style="background: #202124;z-index: 1;">
                                         <div class="card-header">
                                             <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                                                 <li class="nav-item">
@@ -93,21 +82,20 @@
                                                     <div class="form-group">
                                                         <div class="form-floating mb-3">
                                                             <input class="form-control border-dark text-light"
-                                                                id="titleGroup" placeholder="Beskrivelse"
+                                                                id="tittelPlatform" placeholder="Tittel"
                                                                 style="background-color:rgb(60, 64, 67, 0.90)">
-                                                            <label for="titleGroup" style="color: white;">Tittel</label>
+                                                            <label for="floatingInput"
+                                                                style="color: white;">Tittel</label>
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <input class="form-control border-dark text-light"
-                                                                id="descriptionGroup" placeholder="Beskrivelse"
+                                                                id="beskrivelsePlatform" placeholder="Beskrivelse"
                                                                 style="height: 100px; background-color:rgb(60, 64, 67, 0.90)">
-                                                            <label for="descriptionGroup"
+                                                            <label for="beskrivelsePlatform"
                                                                 style="color: white;">Beskrivelse</label>
                                                         </div>
-
                                                         <input type="file" class="form-control-file text-light mb-3"
-                                                            id="chooseGroupPic">
-
+                                                            id="choosePlatformPic">
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,81 +110,37 @@
                                 </div>
                                 <!-- Slutt på Nytt innlegg-->
 
+                                <!-- Innlegg appendes hit-->
+                                <div id="append" class="col-lg-7">
+                                    <div class="col-lg-12" id="postCol">
 
-                                <div class="col-lg-7" id="postCol">
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Om tab -->
-                        <div class="tab-pane" id="om" role="tabpanel" aria-labelledby="about-tab">
-                            <div class="row mt-4 m-1 mb-4">
-                                <div class="col-lg-4">
-                                    <div class="list-group me-auto border-dark" id="platformsGroup">
-                                        <a class="list-group-item list-group-item-action active mt-2"
-                                            aria-current="true">
-                                            Platformer
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="list-group mx-auto border-dark">
-                                        <a class="list-group-item list-group-item-action active mt-2"
-                                            aria-current="true">
-                                            Spill
-                                        </a>
-                                        <a class="list-group-item text-light border-dark" style="background: #111;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-                                                fill="currentColor" class="bi bi-xbox m-3" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M7.202 15.967a7.987 7.987 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33Zm-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.372 8.372 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.495 9.495 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4.171 4.171 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.778 7.778 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12.246 12.246 0 0 1-.654-.319Z" />
-                                            </svg> Call og Duty Modern Warfare: Warzone
-                                        </a>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-3" id="discordcolGroup">
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="tab-pane" id="medlemmer" role="tabpanel" aria-labelledby="deals-tab">
+                        <!-- Medlemmer tab -->
+                        <div class="tab-pane pb-5" id="medlemmer" role="tabpanel" aria-labelledby="deals-tab">
 
                             <!-- Appender medlemmer til disse listene ved hjelp av JQuery -->
-                            <div class="row mb-3 m-2">
-                                <div class="col-sm-4 mx-auto mt-3">
+                            <div class="row">
+                                <div class="col-sm-4 mx-auto">
                                     <div class="list-group border-dark" id="følgerlistePlatform">
-                                        <a class="list-group-item list-group-item-action active" aria-current="true">
-                                            <text>Medlemmer du følger: </text> <text id="followingcountGroup">0</text>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5 mx-auto mt-3">
-                                    <div class="list-group border-dark" id="memberlistGroup">
-                                        <a class="list-group-item list-group-item-action active" aria-current="true">
-                                            <text>Alle medlemmer: </text> <text id="membercountGroup">0</text>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 mx-auto mt-3">
-                                    <div class="list-group mx-auto border-dark m-0">
-                                        <a class="list-group-item list-group-item-action active text-light"
+                                        <a href="#" class="list-group-item list-group-item-action active"
                                             aria-current="true">
-                                            Gruppens eier:
+                                            <text>Medlemmer du følger: </text> <text id="followingcountPlatform">0</text>
                                         </a>
-                                        <a href="#" class="list-group-item text-light border-dark"
-                                            style="background: #111;">
-                                            <img class="rounded-circle m-1" width="40" height="40" src=""
-                                                style="object-fit: cover" id="ownerpicGroup">
-                                            <text id="ownernameGroup"> </text>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mx-auto">
+                                    <div class="list-group border-dark" id="medlemslistePlatform">
+                                        <a href="#" class="list-group-item list-group-item-action active"
+                                            aria-current="true">
+                                            <text>Alle medlemmer: </text> <text id="membercountPlatform">0</text>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -287,7 +231,7 @@
                                     Oppgi passordet ditt for å slette kontoen
                                 </span>
                                 <input type="password" class="form-control bg-dark text-light border-dark"
-                                    id="inputPasswordNewVerifyDelete" required="">
+                                    id="inputPasswordNewVerifySlett" required="">
                                 <button class="btn btn-danger d-flex mx-auto mt-3">Slett konto permanent</button>
                             </div>
                         </div>
@@ -298,16 +242,15 @@
                     </div>
                 </div>
             </div>
-            <!-- slutt på Modal slett konto -->
         </div>
+        <!-- slutt på Modal slett konto -->
 
         <!----------- Loader ----------->
-        <div class="loader-wrapper" id="loader">
+        <div class="loader-wrapperPlaystation" id="loader">
             <span class="loader"><span class="loader-inner"></span></span>
         </div>
-
+        
         <script>
-            const whiz = JSON.parse(sessionStorage.getItem("bruker"));
             function startSamtale(mottakerUID) {
                 var finnesSamtale = false;
                 if (whiz.Uid == mottakerUID) return; //Stopp metoden dersom bruker prøver å starte samtale med seg selv
@@ -339,13 +282,13 @@
                 });
             }
         </script>
-
+    
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
         <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/action.js"></script>
 
         <script>
             $('#bologna-list a').on('click', function (e) {

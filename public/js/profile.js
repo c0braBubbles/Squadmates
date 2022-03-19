@@ -41,6 +41,9 @@ firebase.auth().onAuthStateChanged((user) => {
 				document.getElementById('steamType').value = snapshot.child('Steam').val();
 				document.getElementById('steamCheck').checked = true;
 				document.getElementById('steamText').innerHTML = snapshot.child('Steam').val();
+				if (snapshot.child('Steamlink').val() != null) {
+					document.getElementById('steamLink').value = snapshot.child('Steamlink').val();
+				}
 				document.getElementById('steamBox').style.display = "block";
 			}
 			/* Xbox */
@@ -129,7 +132,13 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 	//Steam -- Steam -- Steam -- Steam -- Steam -- Steam -- Steam --
 	if (document.getElementById("steamCheck").checked) {
 		if (document.getElementById("steamType").value != "") { bruker.Steam = document.getElementById("steamType").value; steamMedlem(uid); }
-	} else { bruker.Steam = null }
+		if (document.getElementById("steamLink").value != "") {
+			const regex = /(?:https?:\/\/)?steamcommunity\.com\/(?:profiles|id)\/[a-zA-Z0-9]+/;
+			if (document.getElementById("steamLink").value.match(regex)) {
+				bruker.Steamlink = document.getElementById("steamLink").value;
+			} else {bruker.Steamlink = null;}
+		}
+	} else { bruker.Steam = null; bruker.Steamlink = null;}
 	//Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -
 	if (document.getElementById("xboxCheck").checked) {
 		if (document.getElementById("xboxType").value != "") { bruker.Xbox = document.getElementById("xboxType").value; xboxMedlem(uid); }

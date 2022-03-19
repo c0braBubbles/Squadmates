@@ -1,5 +1,8 @@
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
-document.getElementById("msg-name-display").innerHTML = whiz.Uid; //test
+
+//var aktiv = localStorage.getItem("aktivSamtale");
+
+
 
 /* TODO:
 
@@ -10,57 +13,33 @@ document.getElementById("msg-name-display").innerHTML = whiz.Uid; //test
 
 */
 
-/* Metoden oppretter en "Samtale" i firebase
- * Den skal senere ta mottakerUID som innparameter, i tilegg til å lede brukeren til chat-siden
-*/
-var mottakerUID = "oypGTweUYFVKsIQL0ncKtG9GNhx1"; //c: "2lsL6nGeqKeF4u506e9KvY7M9iG3" m: "JbU5BaGNtgXnz2FdyxolQwyJNDT2"
-document.getElementById("sendMsgBtn").onclick = function () {
-    var finnesSamtale = false;
-    if (whiz.Uid == mottakerUID) return; //Stopp metoden dersom bruker prøver å starte samtale med seg selv
-    firebase.database().ref('Samtale').once('value', (snapshot) => {
-        var data = snapshot.val();
-        if (snapshot.exists()) {
-            for (let i in data) {
-                if ( (data[i].Bruker1ID == mottakerUID && data[i].Bruker2ID == whiz.Uid) ||
-                    (data[i].Bruker1ID == whiz.Uid && data[i].Bruker2ID == mottakerUID) ) {
-                    console.log("Samtalen eksisterer allerede!");
-                    finnesSamtale = true;
-                }
-            }
-        }
-    }).then(() => {
-        if (!finnesSamtale) {
-            firebase.database().ref('Samtale').push({
-                "Bruker1ID":whiz.Uid,
-                "Bruker2ID":mottakerUID
-            });
-        }
-    });
-}
 
 /* Henter samtaler fra firebase, fyller inn front-end slik at brukeren får opp sine samtaler */
 var chatListLeft = document.getElementById('chat-list-left');
 var chatListTop = document.getElementById('chat-list-top');
+var listID = 0;
 firebase.database().ref('Samtale').on('child_added', function(snapshot) {
+    listID++;
+    console.log(listID);
     var message = snapshot.val();
     var samtaleKey = snapshot.key;
     //Dersom du er bruker som startet samtalen
     if (message.Bruker1ID == whiz.Uid) {
         firebase.database().ref("Bruker/"+message.Bruker2ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
-            firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                        style="color:white;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
+            firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => { /*id="`+samtaleKey+`"*/ 
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
+                                        style="color:white; background-color: #111;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="`+ pictureURL +`" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
-                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
+                                        `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;    
             }).catch((error) => {
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                        style="color:white;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
+                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
+                                        style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
-                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
+                                        `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` + 
                                     `</li>`;
                 console.log(error + " - Kunne ikke finne profilbilde");
             });
@@ -73,7 +52,7 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
             chatListTop.innerHTML +=`<li class="person-list-item-border">` +
                                         `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` + 
                                         `<a href="#">` +
-                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;">` +
+                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                         `</a>` +
                                     `</li>`;
         });
@@ -82,18 +61,18 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
         firebase.database().ref("Bruker/"+message.Bruker1ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
             firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                    style="color:white;" onclick="openChat(\`` + samtaleKey + `\`)">` +
+                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
+                                    style="color:white; background-color:#111;" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="` + pictureURL + `" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
-                                    `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +
+                                    `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;
             }).catch((error) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                    style="color:white;" onclick="openChat(\`` + samtaleKey + `\`)">` +
+                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
+                                    style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
-                                    `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +
+                                    `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;
                 console.log(error + " - Kunne ikke finne profilbilde");
             });
@@ -106,11 +85,38 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
             chatListTop.innerHTML +=`<li class="person-list-item-border">` + 
                                         `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` +
                                         `<a href="#">` +
-                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;>"` +
+                                            `<img src="img/chat-fill.svg" alt="..." style="filter:invert(100%); width:25px; height:25px; float:right; display:inline; margin-right:1em;" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                         `</a>` +
                                     `</li>`;
         });
     }
+    /*Henter meldinger når brukeren er inne i en samtale
+    Viser også frem hvor mange usette meldinger brukeren har
+    */
+    setTimeout(() => {
+        var ikkeSett = 0;
+        firebase.database().ref('Samtale/'+samtaleKey+'/Melding/').on('child_added', function (snapshot) {
+            var data = snapshot.val();
+            if (data.Bruker != whiz.Uid && data.Sett == 0) {
+                ikkeSett++;
+                document.getElementById(samtaleKey).innerHTML = ikkeSett;
+            }
+            if (data.SamtaleID == aktivSamtale) {
+                if (data.Bruker == whiz.Uid) {
+                    meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
+                } else {
+                    meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+                    firebase.database().ref('Samtale/'+aktivSamtale+'/Melding').child(snapshot.key).update({
+                        "Sett": 1
+                    });
+                    firebase.database().ref('Samtale').child(aktivSamtale).update({
+                        "NyttFra": 0
+                    });
+                }
+            }
+        });
+    }, 1500);
+
 });
 /*
 var aktivSamtale;
@@ -121,8 +127,18 @@ function openChat(samtaleUID) {
     console.log(samtaleUID);
 }*/
 
-
-
+/*
+firebase.database().ref("Melding/").on('child_added', function (snapshot) {
+    var data = snapshot.val();
+    if (data.SamtaleID == aktivSamtale) {
+        if (data.Bruker == whiz.Uid) {
+            meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
+        } else {
+            meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+        }
+    }
+});
+*/
 
 /* Eksempel fra Give&Get: legger en melding på meldingsbrettet */
 //chatWindow.innerHTML += `<div id='bobler' class='msg-line'><p class='sender-bubble'>${data.beskjeden}</p></div>`;
