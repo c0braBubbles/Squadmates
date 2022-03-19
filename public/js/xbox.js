@@ -33,7 +33,7 @@ firebase.database().ref('/Xbox gruppe/Medlemmer').on('child_added', function (sn
                 // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
                     // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
                     // + name + '</a>');
-                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}')">
+                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile({${collections}})">
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
                                 ${name}</a>`);
             })
