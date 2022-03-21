@@ -18,6 +18,7 @@
 	<style>
 		body {
 			background-image: url('img/Lawrencium.jpg');
+			background-size: cover;
 		}
 	</style>
 </head>
@@ -27,11 +28,11 @@
 	<div class="container rounded-3 bg-dark w-50 m-2 p-4 mx-auto text-light">
 
 		<div class="container d-flex">
-			<button class="btn btn-primary ms-auto">Følg <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+			<button id="followBtn" class="btn btn-primary ms-auto">Følg 
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 					fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
 					<path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-					<path fill-rule="evenodd"
-						d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+					<path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
 				</svg>
 			</button>
 		</div>
@@ -50,7 +51,8 @@
 		</div>
 
 		<hr>
-		<p id="bioTxt">Her kommer brukerens bio.</p>
+		<p id="bioTxt"></p>
+		<p><b>Følgere:</b> <i id="followCount">0</i></p>
 		<hr>
 
 		<div class="row mx-auto ">
@@ -165,12 +167,13 @@
 
 	<script type="module">
 		var temp = '<%- profUid %>'; 
+		var whaz;
 
 		firebase.database().ref('/Bruker/' + temp).once('value').then((snapshot) => {
-			var whaz = snapshot.val(); 
+			whaz = snapshot.val(); 
 
 			document.getElementById("bnavnTxt").innerHTML = whaz.Brukernavn;
-			document.getElementById("bioTxt").innerHTML = whaz.Biografi;
+			// document.getElementById("bioTxt").innerHTML = whaz.Biografi;
 
 			var storage = firebase.storage();
             var storageRef = storage.ref();
@@ -187,7 +190,25 @@
 			if(whaz.Xbox != null) document.getElementById("xboxTxt").innerHTML = whaz.Xbox; 
 			if(whaz.Playstation != null) document.getElementById("psTxt").innerHTML = whaz.Playstation; 
 			if(whaz.Switch != null) document.getElementById("switchTxt").innerHTML = whaz.Switch;
+			if(whaz.Followers != null) document.getElementById("followCount").innerHTML = whaz.Followers;
+			// denne er litt annerledes for i DB-en kan bio bokstavelig talt være "null"
+			if(whaz.Biografi == 'null') {
+				document.getElementById("bioTxt").innerHTML = "";
+			} else if(whaz.Biografi != "null") {
+				document.getElementById("bioTxt").innerHTML = whaz.Biografi;
+			}
 		});
+
+
+		document.getElementById("followBtn").onclick = function() {
+			let temp2 = document.getElementById("followCount").innerHTML;
+			let followCount = parseInt(temp2);
+			whaz.Followers = followCount+1;
+			
+			
+			const con = firebase.database().ref('Bruker').child(temp);
+			con.update(whaz);
+		}
 	</script>
 </body>
 </html>

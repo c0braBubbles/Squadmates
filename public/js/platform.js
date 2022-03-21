@@ -47,9 +47,12 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
                 //console.clear(error);
                 $(".loader-wrapper" + platform).fadeOut("slow");
                 list = document.getElementById("medlemslistePlatform");
-                $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
-                    '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'
-                    + name + '</a>');
+                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
+                //     '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'
+                //     + name + '</a>');
+                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                                    <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
+                                ${name}</a>`);
             });
     })
 });
