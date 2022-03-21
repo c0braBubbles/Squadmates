@@ -82,7 +82,7 @@ button:hover:active:before {
     background: linear-gradient(45deg, rgba(255, 255, 255, 0.829), #79fbffa4, #00eeffa6,#ff26ed, #00eeffa4,#79fbffa9,rgba(255, 255, 255, 0.829));
     background-size: 400%;
     transition: opacity .3s ease-in-out;
-    animation: animate 20s linear infinite
+    animation: animate 20s linear infinite;
 }
 
 .chroma:before {

@@ -27,11 +27,11 @@ function showProfile(name, uid2) {
 }
 
 
-// function logout() {
-//     firebase.auth().signOut().then(() => {
-//         // trenger ingenting her
-//         window.location = "/";
-//     }).catch((error) => {
-//         alert(error); // mest sannsynlig vil ingen error forekomme
-//     });
-// }
+function logout() {
+    firebase.auth().signOut().then(() => {
+        // trenger ingenting her
+        window.location = "/";
+    }).catch((error) => {
+        alert(error); // mest sannsynlig vil ingen error forekomme
+    });
+}
