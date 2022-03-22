@@ -15,6 +15,11 @@ var b_bio = document.getElementById("userBio");
 var biografi;
 
 
+// legger til antall følgere på skjermen 
+if(whiz.Followers != null) {
+	document.getElementById("followCount").innerHTML = Object.keys(whaz.Followers).length;
+}
+
 
 firebase.auth().onAuthStateChanged((user) => {
 	if (user != null) {

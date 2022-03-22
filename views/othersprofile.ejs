@@ -35,6 +35,13 @@
 					<path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
 				</svg>
 			</button>
+
+			<button id="unfollowBtn" class="btn btn-primary btn-lg active ms-auto" style="display: none;">Slutt å følge 
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-dash-fill" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+					<path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+				</svg>
+			</button>
 		</div>
 
 		<div class="row-lg d-flex w-100">
@@ -163,11 +170,17 @@
 	<script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="js/action.js"></script>
 
 
 	<script type="module">
 		var temp = '<%- profUid %>'; 
 		var whaz;
+
+
+		const con = firebase.database().ref('Bruker').child(temp);
+		const con2 = firebase.database().ref('Bruker').child(whiz.Uid);
+
 
 		firebase.database().ref('/Bruker/' + temp).once('value').then((snapshot) => {
 			whaz = snapshot.val(); 
@@ -190,7 +203,18 @@
 			if(whaz.Xbox != null) document.getElementById("xboxTxt").innerHTML = whaz.Xbox; 
 			if(whaz.Playstation != null) document.getElementById("psTxt").innerHTML = whaz.Playstation; 
 			if(whaz.Switch != null) document.getElementById("switchTxt").innerHTML = whaz.Switch;
-			if(whaz.Followers != null) document.getElementById("followCount").innerHTML = whaz.Followers;
+
+			if(whaz.Followers != null) {
+				document.getElementById("followCount").innerHTML = Object.keys(whaz.Followers).length;
+
+				for(let i = 0; i < Object.keys(whaz.Followers).length; i++) {
+					if(whaz.Followers[i].Brukernavn == whiz.Brukernavn) {
+						document.getElementById("followBtn").style.display = "none";
+						document.getElementById("unfollowBtn").style.display = "block";
+					}
+				}
+			}
+
 			// denne er litt annerledes for i DB-en kan bio bokstavelig talt være "null"
 			if(whaz.Biografi == 'null') {
 				document.getElementById("bioTxt").innerHTML = "";
@@ -199,15 +223,72 @@
 			}
 		});
 
-
+		
 		document.getElementById("followBtn").onclick = function() {
+			// oppdaterer ny bruker som følger for respektive bruker bruker
 			let temp2 = document.getElementById("followCount").innerHTML;
 			let followCount = parseInt(temp2);
-			whaz.Followers = followCount+1;
 			
+			if(whaz.FollowersCount != null) {
+				whaz.FollowersCount = followCount+1;
+				whaz.Followers[Object.keys(whaz.Followers).length] = {
+					Brukernavn: whiz.Brukernavn,
+					Uid: whiz.Uid
+				}
+				con.update(JSON.parse(JSON.stringify(whaz)));
+
+			} else if(whaz.FollowersCount == null){
+				whaz.Followers = {};
+				whaz.FollowersCount = followCount+1;
+				whaz.Followers[Object.keys(whaz.Followers).length] = {
+					Brukernavn: whiz.Brukernavn,
+					Uid: whiz.Uid
+				}; 
+				con.update(whaz);
+			}
+
 			
-			const con = firebase.database().ref('Bruker').child(temp);
-			con.update(whaz);
+			// og nå det samme for meg 			
+			if(whiz.FollowingCount == null) {
+				whiz.FollowingCount = 1;
+				whiz.Followings = {}; 
+				whiz.Followings[Object.keys(whiz.Followings).length] = {
+					Brukernavn: whaz.Brukernavn, 
+					Uid: temp
+				};
+				con2.update(whiz);
+				window.location.reload();
+			}
+			else if(Object.keys(whiz.Followings).length != null) {
+				whiz.FollowingCount = whiz.FollowingCount + 1;
+				whiz.Followings[Object.keys(whiz.Followings).length] = {
+					Brukernavn: whaz.Brukernavn,
+					Uid: temp
+				};
+				con2.update(JSON.parse(JSON.stringify(whiz)));
+				window.location.reload();
+			}
+		}
+
+
+		document.getElementById("unfollowBtn").onclick = function() {
+			for(let i = 0; i < Object.keys(whaz.Followers).length; i++) {
+				if(whaz.Followers[i].Brukernavn == whiz.Brukernavn) {
+					delete whaz.Followers[i];
+					whaz.FollowersCount = whaz.FollowersCount - 1; 
+					con.update(whaz);
+					window.location.reload();
+				}
+			}
+
+			for(let i = 0; i < Object.keys(whiz.Followings).length; i++) {
+				if(whiz.Followings[i].Brukernavn = whaz.Brukernavn) {
+					delete whiz.Followings[i];
+					whiz.FollowingCount = whiz.FollowingCount - 1; 
+					con2.update(whiz);
+					window.location.reload();
+				}
+			}
 		}
 	</script>
 </body>
