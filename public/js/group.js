@@ -9,6 +9,13 @@ var key = (split[split.length - 1]);
 
 
 /* ------------ Henter statisk gruppedata, forsidebilde tittel og beskrivelse ------------ */
+
+//Sjekker hvor mange grupper brukeren er med i, maks 36 grupper
+var countGroupsJoined = 0;
+firebase.database().ref('Bruker/' + user + '/Grupper').on('child_added', function (snapshot) {
+    countGroupsJoined++;
+})
+
 firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
     var name = snapshot.child("Navn").val();
     var about = snapshot.child("Om").val();
@@ -149,13 +156,17 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
     }
     //Bli med i gruppe knapp
     document.getElementById("joinGroupBtn").onclick = function () {
-        firebase.database().ref('/Grupper/' + key + '/Medlemmer').child(user).set({
-            BrukerID: user
-        })
-        firebase.database().ref('/Bruker/' + user + '/Grupper/').child(key).set({
-            Key: key
-        })
-        location.reload();
+        if (countGroupsJoined < 36) { //Maks antall grupper man kan joine
+            firebase.database().ref('/Grupper/' + key + '/Medlemmer').child(user).set({
+                BrukerID: user
+            })
+            firebase.database().ref('/Bruker/' + user + '/Grupper/').child(key).set({
+                Key: key
+            })
+            location.reload();
+        } else {
+            alert("Du har blitt med i maks antall grupper (36stk)");
+        }
     }
     //Legg til gruppe som favoritt knapp (hvit stjerne)
     document.getElementById("addfavoriteGroupBtn").onclick = function () {
@@ -232,6 +243,7 @@ document.getElementById("upload").onclick = function () {
     }
 }
 /* ------------ Opplasting av innlegg i gruppen ------------ */
+
 
 /* ------------ Henting av innlegg fra database ------------ */
 var countstart = 0;
@@ -937,12 +949,8 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
 
         //Dobbeltsjekker at innlogget bruker er eier med UID, gir ekstra sikkerhet
         if (owner == user) {
-            //Henter navn fra databasen slik at vi kan unngå grupper med samme navn
-            var name;
-            firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
-                name = snapshot.child("Navn").val();
-            })
-            if (newName != name && newName != "") {
+
+            if (newName != "" && newName.length < 30 && newAbout.length < 120) {
                 firebase.database().ref('/Grupper/' + key).once('value', function (snapshot) {
                     snapshot.ref.update({
                         Navn: newName,
@@ -971,7 +979,7 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
                     }
                 })
             } else {
-                alert("Ugyldig gruppenavn! (Enten er navnefeltet tomt, eller så finnes det allerede en gruppe med dette navnet)");
+                alert("Ugyldig gruppenavn! (Enten er navnefeltet tomt, eller så er inneholder Navn/Om for mange tegn)");
             }
         }
     }

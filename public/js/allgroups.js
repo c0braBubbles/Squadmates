@@ -84,6 +84,12 @@ document.getElementById("formFile").onchange = function (e) {
     fil = e.target.files[0];
 }
 
+//Sjekker hvor mange grupper brukeren eier fra før
+var countGroups = 0;
+firebase.database().ref('Bruker/' + user + '/Grupper eid').on('child_added', function (snapshot) {
+    countGroups++;
+})
+
 document.getElementById("grpCreate").onclick = function () {
     var groupName = document.getElementById("grpName").value;
     var groupAbout = document.getElementById("grpAbout").value;
@@ -94,18 +100,13 @@ document.getElementById("grpCreate").onclick = function () {
     var nintendo = null;
     var id = Date.now();
 
-    //Henter navn fra databasen slik at vi kan unngå grupper med samme navn
-    var name;
-    firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
-        name = snapshot.child("Navn").val();
-    })
 
     if (document.getElementById("discordCheck").checked) {
         if (document.getElementById("discordform").value != "") {
             const regex = /(?:https?:\/\/)?discord\.com\/(?:invite|id)\/[a-zA-Z0-9]+/;
             if (document.getElementById("discordform").value.match(regex)) {
                 discord = document.getElementById("discordform").value;
-            } else {alert("Linken du oppga er ikke en discord server invitasjon, men gruppen ble alikevell opprettet uten discord server. Prøv igjen under Rediger gruppe");}
+            } else { alert("Linken du oppga er ikke en discord server invitasjon, men gruppen ble alikevell opprettet uten discord server. Prøv igjen under Rediger gruppe"); }
         }
     }
 
@@ -121,37 +122,43 @@ document.getElementById("grpCreate").onclick = function () {
     if (document.getElementById("switchCheck").checked) {
         nintendo = "yes";
     }
-    if (groupName != name && groupName != "") {
-        var pushkey = firebase.database().ref('/Grupper').push().key;
-        firebase.database().ref('/Grupper').child(pushkey).set({
-            Eier: user,
-            Navn: groupName,
-            Om: groupAbout,
-            Discord: discord,
-            Pc: pc,
-            Ps: ps,
-            Xbox: xbox,
-            Switch: nintendo,
-            BildeID: id
-        }).then(() => { //Opplasting av forsidebilde
-            firebase.database().ref('/Bruker/' + user + '/Grupper eid/').child(pushkey).set({
-                Key: pushkey
-            })
-            var fileType = fil["type"];
-            if (fil instanceof File) {
-                if (fileType == "image/jpeg") {
-                    firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
-                       location.reload();
-                    });
-                } else { //Hvis fil ikke er bilde
+
+
+    if (countGroups < 9) { //Maks 9stk grupper kan opprettes
+        if (groupName != "" && groupName.length < 30 && groupAbout.length < 120) {
+            var pushkey = firebase.database().ref('/Grupper').push().key;
+            firebase.database().ref('/Grupper').child(pushkey).set({
+                Eier: user,
+                Navn: groupName,
+                Om: groupAbout,
+                Discord: discord,
+                Pc: pc,
+                Ps: ps,
+                Xbox: xbox,
+                Switch: nintendo,
+                BildeID: id
+            }).then(() => { //Opplasting av forsidebilde
+                firebase.database().ref('/Bruker/' + user + '/Grupper eid/').child(pushkey).set({
+                    Key: pushkey
+                })
+                var fileType = fil["type"];
+                if (fil instanceof File) {
+                    if (fileType == "image/jpeg") {
+                        firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
+                            location.reload();
+                        });
+                    } else { //Hvis fil ikke er bilde
+                        location.reload();
+                    }
+                } else { //Hvis fil ikke er valgt
                     location.reload();
                 }
-            } else { //Hvis fil ikke er valgt
-                location.reload();
-            }
-        })
+            })
+        } else {
+            alert("Kunne ikke opprette gruppe, Navnefeltet kan være tomt eller Navn/Om kan inneholde for mange tegn");
+        }
     } else {
-        alert("Ugyldig gruppenavn! (Enten er navnefeltet tomt, eller så finnes det allerede en gruppe med dette navnet)");
+        alert("Du har opprettet maks antall grupper (9stk)");
     }
 }
 
@@ -180,7 +187,7 @@ firebase.database().ref('/Bruker/' + user + '/Grupper eid').on('child_added', fu
         if (owner == user) {
             $(document.getElementById("myGroups")).append(
                 '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
-                '<div class="card rounded-3 chromahover">' +
+                '<div class="card rounded-3 chromahover h-100">' +
                 '<img class="card-img-top" id="' + imgid + '" src="" alt="Card image cap"' +
                 'style="height: 12rem; object-fit: cover">' +
                 '<div class="card-img-overlay"> <i class="fas fa-crown text-warning"></i></div>' +
@@ -229,7 +236,7 @@ firebase.database().ref('/Bruker/' + user + '/Grupper').on('child_added', functi
 
         $(document.getElementById("myMemberGroups")).append(
             '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
-            '<div class="card rounded-3 chromahover">' +
+            '<div class="card rounded-3 chromahover h-100">' +
             '<img class="card-img-top" id="' + picid + '" src="" alt="Card image cap"' +
             'style="height: 12rem; object-fit: cover">' +
             '<div class="card-body">' +
@@ -281,7 +288,7 @@ firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added
 
         $(document.getElementById("myFavorites")).append(
             '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
-            '<div class="card rounded-3 chromahover">' +
+            '<div class="card rounded-3 chromahover h-100">' +
             '<img class="card-img-top" src="" id="' + picid + '" alt="Card image cap"' +
             'style="height: 12rem; object-fit: cover">' +
             '<div class="card-body">' +
