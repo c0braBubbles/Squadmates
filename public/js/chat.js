@@ -118,6 +118,11 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
     }, 1500);
 
 });
+
+setTimeout(() => {
+    $(".loader-wrapper").fadeOut("slow");
+}, 2000);
+
 /*
 var aktivSamtale;
 function openChat(samtaleUID) {

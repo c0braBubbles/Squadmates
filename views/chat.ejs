@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/friends.css">
+    <link rel="stylesheet" href="css/loader.css">
 
 
 <body style="overflow-x: hidden; overflow-y: hidden;"></body>
@@ -125,6 +126,11 @@
 
         </div>
 
+        <!----------- Loader ----------->
+        <div class="loader-wrapper" id="loader">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+
         <script>
             const whiz = JSON.parse(sessionStorage.getItem("bruker"));
             var meldinger = document.getElementById('msg_board');
@@ -166,10 +172,10 @@
                     snapshot.forEach(function (childSnapshot) {
                         var childData = childSnapshot.val();
                         if (childData.Bruker == whiz.Uid) {
-                            meldinger.innerHTML += `<div class="send-bubble" style="background-color:green;">${childData.Melding}</div>`;
+                            meldinger.innerHTML += `<div class="send-bubble">${childData.Melding}</div>`;
                             console.log("din nøkkel: " + childSnapshot.key);
                         } else {
-                            meldinger.innerHTML += `<div class="rec-bubble" style="background-color:green;">${childData.Melding}</div>`;
+                            meldinger.innerHTML += `<div class="rec-bubble">${childData.Melding}</div>`;
                             console.log("nøkkel: " + childSnapshot.key);
                             if (childData.Sett == 0) {
                                 firebase.database().ref('Samtale/' + aktivSamtale + '/Melding').child(childSnapshot.key).update({
