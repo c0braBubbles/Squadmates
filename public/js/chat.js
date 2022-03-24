@@ -37,7 +37,7 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
             }).catch((error) => {
                 chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
                                         style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` + 
-                                        `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
+                                        `<img src="img/blank-profile-circle.png" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
                                         `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` + 
                                     `</li>`;
@@ -70,7 +70,7 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
             }).catch((error) => {
                 chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
                                     style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` +
-                                    `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
+                                    `<img src="img/blank-profile-circle.png" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
                                     `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;
