@@ -16,7 +16,7 @@ var biografi;
 
 
 // legger til antall følgere på skjermen 
-if(whiz.Followers != null) {
+if (whiz.Followers != null) {
 	document.getElementById("followCount").innerHTML = Object.keys(whaz.Followers).length;
 }
 
@@ -119,8 +119,14 @@ var fil = {};
 
 document.getElementById("uploadProfilePic").onchange = function (e) {
 	fil = e.target.files[0];
-	var tmppath = URL.createObjectURL(e.target.files[0]); //Midlertidig bilde
-	document.getElementById("pictureEditProfile").src = tmppath; //Setter midlertidig bilde før man evt. laster opp til DB
+	var fileType = fil["type"];
+	console.log(fileType);
+	if (fileType == "image/jpeg") {
+		var tmppath = URL.createObjectURL(e.target.files[0]); //Midlertidig bilde
+		document.getElementById("pictureEditProfile").src = tmppath; //Setter midlertidig bilde før man evt. laster opp til DB
+	} else {
+		alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg")
+	}
 }
 
 
@@ -141,9 +147,9 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 			const regex = /(?:https?:\/\/)?steamcommunity\.com\/(?:profiles|id)\/[a-zA-Z0-9]+/;
 			if (document.getElementById("steamLink").value.match(regex)) {
 				bruker.Steamlink = document.getElementById("steamLink").value;
-			} else {bruker.Steamlink = null;}
+			} else { bruker.Steamlink = null; }
 		}
-	} else { bruker.Steam = null; bruker.Steamlink = null;}
+	} else { bruker.Steam = null; bruker.Steamlink = null; }
 	//Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -
 	if (document.getElementById("xboxCheck").checked) {
 		if (document.getElementById("xboxType").value != "") { bruker.Xbox = document.getElementById("xboxType").value; xboxMedlem(uid); }
@@ -159,11 +165,17 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 
 	const con = firebase.database().ref('Bruker').child(uid);
 	con.update(bruker).then(() => {
+		var fileType = fil["type"];
 		if (fil instanceof File) {
-			firebase.storage().ref("user/" + uid + "/profile.jpg").put(fil).then(() => {
+			if (fileType == "image/jpeg") {
+				firebase.storage().ref("user/" + uid + "/profile.jpg").put(fil).then(() => {
+					location.reload();
+				});
+			}
+			else {
 				location.reload();
-			});
-		} else { location.reload(); }
+			}
+		}
 
 	});
 

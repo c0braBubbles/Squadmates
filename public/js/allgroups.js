@@ -65,7 +65,13 @@ $('input[type="file"]').change(function (e) {
 
     var reader = new FileReader();
     reader.onload = function (e) {
-        document.getElementById("preview").src = e.target.result;
+        var fileType = fil["type"];
+        console.log(fileType);
+        if (fileType == "image/jpeg") {
+            document.getElementById("preview").src = e.target.result;
+        } else {
+            alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg");
+        }
     };
     reader.readAsDataURL(this.files[0]);
 });
@@ -76,7 +82,6 @@ $('input[type="file"]').change(function (e) {
 var fil = {};
 document.getElementById("formFile").onchange = function (e) {
     fil = e.target.files[0];
-    console.log(fil);
 }
 
 document.getElementById("grpCreate").onclick = function () {
@@ -126,12 +131,15 @@ document.getElementById("grpCreate").onclick = function () {
             firebase.database().ref('/Bruker/' + user + '/Grupper eid/').child(pushkey).set({
                 Key: pushkey
             })
+            var fileType = fil["type"];
             if (fil instanceof File) {
-                firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
+                if (fileType == "image/jpeg") {
+                    firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
+                        window.location.href = "/allgroups";
+                    });
+                } else {
                     window.location.href = "/allgroups";
-                });
-            } else {
-                window.location.href = "/allgroups";
+                }
             }
         })
     } else {

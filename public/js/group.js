@@ -178,7 +178,12 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
 var fil = {};
 document.getElementById("chooseGroupPic").onchange = function (e) {
     fil = e.target.files[0];
-    console.log(fil);
+    var fileType = fil["type"];
+    if (fileType == "image/jpeg") {
+        console.log(fileType);
+    } else {
+        alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg")
+    }
 }
 
 document.getElementById("upload").onclick = function () {
@@ -210,11 +215,14 @@ document.getElementById("upload").onclick = function () {
                 Brukernavn: username,
                 Navn: realname
             }).then(() => { //Opplasting av bilde
+                var fileType = fil["type"];
                 if (fil instanceof File) {
-                    firebase.storage().ref("innlegg/" + (user + "picture" + id) + "/innlegg.jpg").put(fil).then(() => {
-                        location.reload();
-                    });
-                } else { location.reload(); }
+                    if (fileType == "image/jpeg") {
+                        firebase.storage().ref("innlegg/" + (user + "picture" + id) + "/innlegg.jpg").put(fil).then(() => {
+                            location.reload();
+                        });
+                    } else { location.reload(); }
+                }
             })
         })
     } else {
@@ -874,10 +882,15 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
     var fil = {};
     document.getElementById("formFileEdit").onchange = function (e) {
         fil = e.target.files[0];
-        console.log(fil);
         var reader = new FileReader();
         reader.onload = function (e) {
-            document.getElementById("headerGroupEdit").src = e.target.result;
+            var fileType = fil["type"];
+            console.log(fileType);
+            if (fileType == "image/jpeg") {
+                document.getElementById("headerGroupEdit").src = e.target.result;
+            } else {
+                alert("Filen du valgte støttes ikke, velg et bilde med filtype.jpeg")
+            }
         };
         reader.readAsDataURL(this.files[0]);
     }
@@ -924,15 +937,18 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
                         Switch: nintendo,
                     })
                 }).then(() => { //Opplasting av forsidebilde
+                    var fileType = fil["type"];
                     if (fil instanceof File) {
-                        firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
-                            var id = snapshot.child("BildeID").val();
-                            firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
-                                location.reload();
-                            })
-                        });
-                    } else {
-                        location.reload();
+                        if (fileType == "image/jpeg") {
+                            firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
+                                var id = snapshot.child("BildeID").val();
+                                firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
+                                    location.reload();
+                                })
+                            });
+                        } else {
+                            location.reload();
+                        }
                     }
                 })
             } else {
