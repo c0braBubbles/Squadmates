@@ -7,7 +7,7 @@
     <title>Test</title>
 </head>
 <body>
-    <h1>Dette er en test side for å teste Firebase</h1>
+    <h1>Dette er en test side for å teste Firebase og diverse</h1>
 
 
     <form id="innleggForm">
@@ -17,6 +17,48 @@
 
         <button type="submit" class="submBtn">Submit!</button>
     </form>
+
+
+    <script>
+        const biler = {
+            "Hobby": "Ja",
+            "Gøy": "Jadda"
+        };
+
+        biler.Annet = "hei";
+
+        const ford = {
+            "stiftet": "1998",
+            "Bra:": "ja ganske"
+        }
+        biler.Merke = {
+            
+        }
+
+        const toyota = {
+            "stiftet": "1911",
+            "Bra": "ja iblant"
+        };
+        biler.Merke[Object.keys(biler.Merke).length] = {
+            "toyota": toyota
+        }
+
+        // console.log(Object.keys(biler.Merke).length);
+        
+        const porche = {
+            "stiftet": "1900",
+            "Bra": "ALLTID"
+        }
+
+        biler.Merke[Object.keys(biler.Merke).length] = {
+            porche 
+        }
+
+        console.log(Object.keys(biler.Merke).length);
+
+        delete biler.Merke[1];
+        console.log(biler);
+    </script>
 
 
     <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>

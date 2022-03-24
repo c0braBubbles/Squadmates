@@ -50,17 +50,15 @@
     /* background-color: #111111; */
     padding: 30px;
     width: 35vw;
-    /* max-width: 450px; */
     position: relative;
     padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    /* box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3); */
+    /* -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
     box-shadow: 0 0 .2rem #fff,
                 0 0 .2rem #fff,
                 0 0 2rem #bc13fe,
                 0 0 0.8rem #bc13fe,
                 0 0 2.8rem #bc13fe,
-                inset 0 0 1.3rem #bc13fe;
+                inset 0 0 1.3rem #bc13fe; */
     text-align: center;
 }
   

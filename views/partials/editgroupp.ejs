@@ -1,36 +1,35 @@
 <div class="container rounded-3 w-75 m-0 p-0 mx-auto mt-5 mb-0 text-light" style="background: #202124;">
-    <img src="img/Amin.jpg" id="preview" class="img-fluid d-flex mx-auto w-100"
-        style="height: 25rem; object-fit: cover">
+    <img id="headerGroupEdit" class="img-fluid d-flex mx-auto w-100" style="height: 25rem; object-fit: cover">
 
 
     <form method="post" id="image-form">
         <div class="mb-3 mt-3">
-            <input class="form-control w-75 d-flex mx-auto" type="file" id="formFile" accept="image/*">
+            <input class="form-control w-75 d-flex mx-auto" type="file" id="formFileEdit" accept="image/*">
             <div class="mx-3 w-75 mx-auto">
-            <span class="form-text small text-muted mx-3 w-75 mx-auto">
-                Velg et forsidebilde for gruppen din
-            </span>
+                <span class="form-text small text-muted mx-3 w-75 mx-auto">
+                    Velg et forsidebilde for gruppen din
+                </span>
             </div>
         </div>
     </form>
 
     <h5 class="mx-3 w-75 mx-auto">Navn og om gruppen</h5>
     <div class="form-floating mb-3 mx-3 w-75 d-flex mx-auto">
-        <input class="form-control border-dark text-light" id="grpName" placeholder="Beskrivelse"
+        <input class="form-control border-dark text-light" id="grpNameEdit" placeholder="Beskrivelse"
             style="background-color:rgb(60, 64, 67, 0.90)">
-        <label for="floatingInput" style="color: white;">Gruppens navn (Maks 30 tegn)</label>
+        <label for="grpNameEdit" style="color: white;">Gruppens navn</label>
     </div>
     <div class="form-floating mb-3 mx-3 w-75 d-flex mx-auto">
-        <input class="form-control border-dark text-light" id="grpAbout" placeholder="Beskrivelse"
+        <input class="form-control border-dark text-light" id="grpAboutEdit" placeholder="Beskrivelse"
             style="height: 100px; background-color:rgb(60, 64, 67, 0.90)">
-        <label for="floatingInput" style="color: white;">Om denne gruppen</label>
+        <label for="grpAboutEdit" style="color: white;">Om denne gruppen</label>
     </div>
 
 
     <!-- Discord -->
     <div class="input-group mx-3 w-75 d-flex mx-auto">
         <div class="input-group-text bg-dark border-dark">
-            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="@Gamertag" id="discordCheck">
+            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="@Gamertag" id="discordCheckEdit">
         </div>
         <span class="input-group-text bg-gradient text-light border-dark" style="background-color:#5865F2;"><svg
                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord"
@@ -39,13 +38,13 @@
                     d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z" />
             </svg></span>
         <input type="text" class="form-control bg-dark border-dark text-light" aria-label="@Gamertag"
-            placeholder="Link til discord server" id="discordform">
+            placeholder="Link til discord server" id="discordformEdit">
     </div>
     <div class="mx-3 mb-3 w-75 mx-auto">
         <span class="form-text small text-muted mx-3 w-75 mx-auto">
             Hvis gruppen din har en egen discord server kan du legge linken her
         </span>
-        </div>
+    </div>
     <div class="container m-0 p-0">
         <h5 class="w-75 mx-auto">Platformer</h5>
         <div class="row w-75 mx-auto pr-0 mr-0">
@@ -53,7 +52,8 @@
                 <!-- PC -->
                 <div class="input-group mb-3">
                     <div class="input-group-text bg-dark border-dark">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="@Gamertag" id ="pcCheck">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="@Gamertag"
+                            id="pcCheckEdit">
                     </div>
                     <span class="input-group-text bg-gradient text-light border-dark"
                         style="background-color: #1b2838;"><svg xmlns="http://www.w3.org/2000/svg" width="40"
@@ -67,7 +67,8 @@
                 <!-- Xbox -->
                 <div class="input-group mb-3">
                     <div class="input-group-text bg-dark border-dark">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="@Gamertag" id ="xboxCheck">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="@Gamertag"
+                            id="xboxCheckEdit">
                     </div>
                     <span class="input-group-text bg-success bg-gradient text-light border-dark"><svg
                             xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
@@ -81,7 +82,8 @@
                 <!-- Playstation -->
                 <div class="input-group mb-3">
                     <div class="input-group-text bg-dark border-dark">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="@Gamertag" id ="psCheck">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="@Gamertag"
+                            id="psCheckEdit">
                     </div>
                     <span class="input-group-text bg-primary bg-gradient text-light border-dark"><svg
                             xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
@@ -95,7 +97,8 @@
                 <!-- Nintendo -->
                 <div class="input-group mb-3">
                     <div class="input-group-text bg-dark border-dark">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Gamertag" id ="switchCheck">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Gamertag"
+                            id="switchCheckEdit">
                     </div>
                     <span class="input-group-text bg-danger bg-gradient text-light border-dark"><svg
                             xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
@@ -110,16 +113,30 @@
 
         </div>
     </div>
+    <div class="modal" id="grpDeleteModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: #111;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel2">Slett Gruppe</h5>
+                    <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Er du sikker på at du vil slette gruppen din?, du kan ikke angre dette senere</h6>
+                    <button class="btn btn-danger d-flex mx-auto mt-3" id="grpPrmDelete">Slett gruppe permanent</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="container w-75 mx-auto d-flex p-0">
-        <div class="btn btn-primary d-flex ms-auto mb-3" id="grpCreate" onclick="location.reload()">Opprett gruppe</div>
+
+
+
+
+    <div class="container w-75 mx-auto d-flex p-0 mt-5">
+        <div class="btn btn-primary d-flex me-auto mb-3" onclick="location.reload()">Gå tilbake</div>
+        <div class="btn btn-danger d-flex mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#grpDeleteModal"
+            id="grpDelete">Slett gruppe</div>
+        <div class="btn btn-success d-flex ms-auto mb-3" id="grpSave" onclick="location.reload()">Lagre endringer</div>
     </div>
 </div>
-
-<!-- <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script> -->
-<!-- <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script> -->
-<!-- <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> -->
-
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
