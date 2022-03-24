@@ -66,38 +66,27 @@ bekreftSlett.onclick = function () {
                     });
                 }
             }).then(() => {
+                //Sletter brukeren fra eventuelle plattformer en er medlem av
+                firebase.database().ref("Xbox gruppe/Medlemmer/"+whiz.Uid).remove();
+                firebase.database().ref("Playstation gruppe/Medlemmer/"+whiz.Uid).remove();
+                firebase.database().ref("Steam gruppe/Medlemmer/"+whiz.Uid).remove();
+                firebase.database().ref("Switch gruppe/Medlemmer/"+whiz.Uid).remove();
+            }).then(()=> {
                 //Sletter resterende bruker info -> Realtime database
                 firebase.database().ref("Bruker/" + whiz.Uid).remove().then(() => {
-                    
-                    firebase.database().ref("Steam gruppe/Medlemmer/"+whiz.Uid).remove().catch((error) => {
-                        console.log("Bruker er ikke steam medlem: " + error.message);
+                    //Sletter eventuelt profilbilde brukeren har -> Storage 
+                    firebase.storage().ref("user/" + whiz.Uid + "/profile.jpg").delete().catch((error) => {
+                        //Error -> Brukeren har ikke profilbilde
+                        console.log(error.message);
                     }).then(() => {
-                        firebase.database().ref("Xbox gruppe/Medlemmer/"+whiz.Uid).remove().catch((error) => {
-                            console.log("Bruker er ikke xbox medlem: " + error.message);
-                        }).then(() => {
-                            firebase.database().ref("Playstation gruppe/Medlemmer/"+whiz.Uid).remove().catch((error) => {
-                                console.log("Bruker er ikke ps medlem: " + error.message);
-                            }).then(() => {
-                                firebase.database().ref("Switch gruppe/Medlemmer/"+whiz.Uid).remove().catch((error) => {
-                                    console.log("Bruker er ikke switch medlem: " + error.message);
-                                }).then(() => {
-                                    //Sletter eventuelt profilbilde brukeren har -> Storage 
-                                    firebase.storage().ref("user/" + whiz.Uid + "/profile.jpg").delete().catch((error) => {
-                                        //Error -> Brukeren har ikke profilbilde
-                                        console.log(error.message);
-                                    }).then(() => {
-                                        //Sletter auth-info til slutt -> Authentication
-                                        user.delete().then(() => {
-                                            //Bruker slettet
-                                            window.location = "/";
-                                        }).catch((error) => {
-                                            console.log(error.message);
-                                        });
-                                    });
-                                })
-                            }) 
-                        })
-                    })
+                        //Sletter auth-info til slutt -> Authentication
+                        user.delete().then(() => {
+                            //Bruker slettet
+                            window.location = "/";
+                        }).catch((error) => {
+                            console.log(error.message);
+                        });
+                    });
                 });
 
             });
@@ -109,7 +98,7 @@ bekreftSlett.onclick = function () {
     }
 }
 
-/* Gammel slettBruker-funksjon. Ser finere ut, men sletter ikke brukeren fra plattformene
+/* Gammel slettBruker-funksjon. Sletter ikke plattformer
 bekreftSlett.onclick = function () {
     var user = firebase.auth().currentUser;
     const whiz = JSON.parse(sessionStorage.getItem("bruker"));
