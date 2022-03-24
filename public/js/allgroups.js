@@ -101,8 +101,14 @@ document.getElementById("grpCreate").onclick = function () {
     })
 
     if (document.getElementById("discordCheck").checked) {
-        if (document.getElementById("discordform").value != "") { discord = document.getElementById("discordform").value; }
+        if (document.getElementById("discordform").value != "") {
+            const regex = /(?:https?:\/\/)?discord\.com\/(?:invite|id)\/[a-zA-Z0-9]+/;
+            if (document.getElementById("discordform").value.match(regex)) {
+                discord = document.getElementById("discordform").value;
+            } else {alert("Linken du oppga er ikke en discord server invitasjon, men gruppen ble alikevell opprettet uten discord server. Prøv igjen under Rediger gruppe");}
+        }
     }
+
     if (document.getElementById("pcCheck").checked) {
         pc = "yes";
     }
@@ -135,11 +141,13 @@ document.getElementById("grpCreate").onclick = function () {
             if (fil instanceof File) {
                 if (fileType == "image/jpeg") {
                     firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
-                        window.location.href = "/allgroups";
+                       location.reload();
                     });
-                } else {
-                    window.location.href = "/allgroups";
+                } else { //Hvis fil ikke er bilde
+                    location.reload();
                 }
+            } else { //Hvis fil ikke er valgt
+                location.reload();
             }
         })
     } else {

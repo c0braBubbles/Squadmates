@@ -222,6 +222,8 @@ document.getElementById("upload").onclick = function () {
                             location.reload();
                         });
                     } else { location.reload(); }
+                } else {
+                    location.reload();
                 }
             })
         })
@@ -900,11 +902,26 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         //Henter nye verdier
         var newName = document.getElementById("grpNameEdit").value;
         var newAbout = document.getElementById("grpAboutEdit").value;
+
         if (document.getElementById("discordCheckEdit").checked) {
             if (document.getElementById("discordformEdit").value != "") {
                 discord = document.getElementById("discordformEdit").value;
             }
         } else { discord = null }
+
+
+        if (document.getElementById("discordCheckEdit").checked) {
+            if (document.getElementById("discordformEdit").value != "") {
+                const regex = /(?:https?:\/\/)?discord\.com\/(?:invite|id)\/[a-zA-Z0-9]+/;
+                if (document.getElementById("discordformEdit").value.match(regex)) {
+                    discord = document.getElementById("discordformEdit").value;
+                } else {
+                    discord = null;
+                    alert("Linken du oppga er ikke en invitasjon til discord server, Prøv igjen");
+                }
+            }
+        }
+
         if (document.getElementById("pcCheckEdit").checked) {
             pc = "yes";
         } else { pc = null }
@@ -949,6 +966,8 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
                         } else {
                             location.reload();
                         }
+                    } else {
+                        location.reload();
                     }
                 })
             } else {

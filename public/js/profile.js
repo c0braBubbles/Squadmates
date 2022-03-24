@@ -175,6 +175,8 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 			else {
 				location.reload();
 			}
+		}else {
+			location.reload();
 		}
 
 	});

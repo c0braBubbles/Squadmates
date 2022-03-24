@@ -106,6 +106,8 @@ document.getElementById("upload").onclick = function () {
                             location.reload();
                         });
                     } else { location.reload(); }
+                }else {
+                    location.reload();
                 }
             })
         } else {
