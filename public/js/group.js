@@ -6,7 +6,6 @@ var user = whiz.Uid;
 var url = window.location.href;
 var split = url.split('/');
 var key = (split[split.length - 1]);
-console.log(key);
 
 
 /* ------------ Henter statisk gruppedata, forsidebilde tittel og beskrivelse ------------ */
@@ -146,7 +145,7 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         firebase.database().ref('/Grupper/' + key + '/Medlemmer/' + user).remove(); //Fjerner bruker fra medlemmer i gruppen i databasen
         firebase.database().ref('/Bruker/' + user + '/Grupper/' + key).remove(); //Fjerner gruppen fra grupper tabellen under bruker i databasen
         firebase.database().ref('/Bruker/' + user + '/Favoritt grupper/' + key).remove(); //Fjerner gruppen fra favoritter dersom man forlater gruppen
-        //location.reload();
+        location.reload();
     }
     //Bli med i gruppe knapp
     document.getElementById("joinGroupBtn").onclick = function () {
@@ -156,6 +155,7 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         firebase.database().ref('/Bruker/' + user + '/Grupper/').child(key).set({
             Key: key
         })
+        location.reload();
     }
     //Legg til gruppe som favoritt knapp (hvit stjerne)
     document.getElementById("addfavoriteGroupBtn").onclick = function () {
@@ -738,7 +738,6 @@ function getPost(lastkey) {
                 pictureStorage.getDownloadURL()
                     .then((pictureURL) => {
                         document.getElementById(picid + owner).src = pictureURL; //Setter bilde på innlegget
-                        //console.log("Bilde funnet");
                     })
                     .catch((error) => {
                         console.clear(error);
@@ -807,3 +806,160 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
     })
 });
 /* ------------ Sjekker gruppens medlemmer SLUTT ------------ */
+
+/* ------------ Rediger gruppe ------------ */
+document.getElementById("editGroupBtn").onclick = function () {
+    document.getElementById("superDiv").style.display = "none";
+    document.getElementById("subDiv").style.display = "block";
+
+}
+
+//Henter statisk gruppedata, forsidebilde tittel og beskrivelse
+firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
+    var name = snapshot.child("Navn").val();
+    var about = snapshot.child("Om").val();
+    var owner = snapshot.child("Eier").val();
+    var id = snapshot.child("BildeID").val();
+
+    var discord = snapshot.child("Discord").val();
+    var xbox = snapshot.child("Xbox").val();
+    var ps = snapshot.child("Ps").val();
+    var nintendo = snapshot.child("Switch").val();
+    var pc = snapshot.child("Pc").val();
+
+
+    //Tittel og om gruppen
+    var groupName = document.getElementById("grpNameEdit");
+    var groupAbout = document.getElementById("grpAboutEdit");
+    groupName.value = name;
+    groupAbout.value = about;
+    //Henting av forsidebilde
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    var pictureStorage = storageRef.child("grupper/" + (owner + id) + "/gruppe.jpg");
+
+    pictureStorage.getDownloadURL()
+        .then((pictureURL) => {
+            var headerPic = document.getElementById("headerGroupEdit");
+            headerPic.src = pictureURL;
+            $(".loader-wrapper").fadeOut("slow");
+        })
+        .catch((error) => {
+            console.clear(error);
+            var headerPic = document.getElementById("headerGroupEdit");
+            headerPic.src = "img/Amin.jpg";
+            $(".loader-wrapper").fadeOut("slow");
+        });
+
+    //Platformer på "om" siden
+    if (xbox != null) {
+        document.getElementById("xboxCheckEdit").checked = true;
+    }
+    if (ps != null) {
+        document.getElementById("psCheckEdit").checked = true;
+    }
+    if (nintendo != null) {
+        document.getElementById("switchCheckEdit").checked = true;
+    }
+    if (pc != null) {
+        document.getElementById("pcCheckEdit").checked = true;
+    }
+    if (discord != null) {
+        document.getElementById("discordCheckEdit").checked = true;
+        document.getElementById("discordformEdit").value = discord;
+    }
+
+
+    //Opplasting av endringer
+    var fil = {};
+    document.getElementById("formFileEdit").onchange = function (e) {
+        fil = e.target.files[0];
+        console.log(fil);
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("headerGroupEdit").src = e.target.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+    }
+
+
+    document.getElementById("grpSave").onclick = function () {
+        //Henter nye verdier
+        var newName = document.getElementById("grpNameEdit").value;
+        var newAbout = document.getElementById("grpAboutEdit").value;
+        if (document.getElementById("discordCheckEdit").checked) {
+            if (document.getElementById("discordformEdit").value != "") {
+                discord = document.getElementById("discordformEdit").value;
+            }
+        } else { discord = null }
+        if (document.getElementById("pcCheckEdit").checked) {
+            pc = "yes";
+        } else { pc = null }
+        if (document.getElementById("psCheckEdit").checked) {
+            ps = "yes";
+        } else { ps = null }
+        if (document.getElementById("xboxCheckEdit").checked) {
+            xbox = "yes";
+        } else { xbox = null }
+        if (document.getElementById("switchCheckEdit").checked) {
+            nintendo = "yes";
+        } else { nintendo = null }
+
+        //Dobbeltsjekker at innlogget bruker er eier med UID, gir ekstra sikkerhet
+        if (owner == user) {
+            //Henter navn fra databasen slik at vi kan unngå grupper med samme navn
+            var name;
+            firebase.database().ref('/Grupper').on('child_added', function (snapshot) {
+                name = snapshot.child("Navn").val();
+            })
+            if (newName != name && newName != "") {
+                firebase.database().ref('/Grupper/' + key).once('value', function (snapshot) {
+                    snapshot.ref.update({
+                        Navn: newName,
+                        Om: newAbout,
+                        Discord: discord,
+                        Pc: pc,
+                        Ps: ps,
+                        Xbox: xbox,
+                        Switch: nintendo,
+                    })
+                }).then(() => { //Opplasting av forsidebilde
+                    if (fil instanceof File) {
+                        firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
+                            var id = snapshot.child("BildeID").val();
+                            firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
+                                location.reload();
+                            })
+                        });
+                    } else {
+                        location.reload();
+                    }
+                })
+            } else {
+                alert("Ugyldig gruppenavn! (Enten er navnefeltet tomt, eller så finnes det allerede en gruppe med dette navnet)");
+            }
+        }
+    }
+
+    //Slett gruppe
+    document.getElementById("grpPrmDelete").onclick = function () {
+        if (owner == user) {
+            //Fjerner gruppen fra eiers brukertabell "Grupper eid"
+            if (user == owner) {
+                firebase.database().ref('/Bruker/' + user + '/Grupper eid/' + key).remove();
+            }
+            //Fjerner gruppen fra grupper tabellen under hver bruker som er medlem av gruppen
+            firebase.database().ref('/Grupper/' + key + '/Medlemmer/').on('child_added', function (snapshot) {
+                var member = snapshot.child("BrukerID").val();
+                firebase.database().ref('/Bruker/' + member + '/Grupper/' + key).remove();
+                firebase.database().ref('/Bruker/' + member + '/Favoritt grupper/' + key).remove();
+            })
+            //Sletter tilhørende bilde til gruppe fra storage
+            firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").delete();
+            //Sletter selve gruppen fra databasen
+            firebase.database().ref('/Grupper/' + key).remove();
+            alert("Gruppen din er slettet");
+            window.location.href = "/allgroups";
+        }
+    }
+})

@@ -1,7 +1,5 @@
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
-console.log(user);
-
 
 firebase.database().ref('/Bruker/' + user).once('value').then((snapshot) => {
 
@@ -67,10 +65,8 @@ $('input[type="file"]').change(function (e) {
 
     var reader = new FileReader();
     reader.onload = function (e) {
-        // get loaded data and render thumbnail.
         document.getElementById("preview").src = e.target.result;
     };
-    // read the image file as a data URL.
     reader.readAsDataURL(this.files[0]);
 });
 /* ---------- Kode for Opprett ny gruppe slutter her ----------*/
@@ -132,10 +128,10 @@ document.getElementById("grpCreate").onclick = function () {
             })
             if (fil instanceof File) {
                 firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
-                    location.reload();
+                    window.location.href = "/allgroups";
                 });
             } else {
-                location.reload();
+                window.location.href = "/allgroups";
             }
         })
     } else {
