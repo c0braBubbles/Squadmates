@@ -83,11 +83,13 @@ firebase.auth().onAuthStateChanged((user) => {
 					document.getElementById("pictureMyProfile").src = pictureURL; //Profilbilde på min profil
 					document.getElementById("pictureEditProfile").src = pictureURL; //Profilbilde på rediger profil
 					console.log("Profilbilde funnet");
+					$(".loader-wrapper").fadeOut("slow");
 				})
 				.catch((error) => {
 					console.log("brukeren har ingen profilbilde")
 					document.getElementById("pictureMyProfile").src = "img/blank-profile-circle.png"; //Default profilbilde på min profil dersom ikke bilde er funnet
 					document.getElementById("pictureEditProfile").src = "img/blank-profile-circle.png"; //Default profilbilde på rediger profil dersom ikke bilde er funnet
+					$(".loader-wrapper").fadeOut("slow");
 				});
 
 			document.getElementById("editUserName").innerHTML = username; //Brukernavn rediger profil
@@ -175,7 +177,7 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 			else {
 				location.reload();
 			}
-		}else {
+		} else {
 			location.reload();
 		}
 
@@ -207,3 +209,8 @@ function switchMedlem(uid) {
 		BrukerID: uid
 	});
 } 
+/*
+setTimeout(() => {
+    $(".loader-wrapper").fadeOut("slow");
+}, 2000);
+*/
