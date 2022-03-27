@@ -190,10 +190,10 @@ var fil = {};
 document.getElementById("chooseGroupPic").onchange = function (e) {
     fil = e.target.files[0];
     var fileType = fil["type"];
-    if (fileType == "image/jpeg") {
+    if (fileType == "image/jpeg" || "image/png") {
         console.log(fileType);
     } else {
-        alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg")
+        alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg eller .png")
     }
 }
 
@@ -228,7 +228,7 @@ document.getElementById("upload").onclick = function () {
             }).then(() => { //Opplasting av bilde
                 var fileType = fil["type"];
                 if (fil instanceof File) {
-                    if (fileType == "image/jpeg") {
+                    if (fileType == "image/jpeg" || "image/png") {
                         firebase.storage().ref("innlegg/" + (user + "picture" + id) + "/innlegg.jpg").put(fil).then(() => {
                             location.reload();
                         });
@@ -900,10 +900,10 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         reader.onload = function (e) {
             var fileType = fil["type"];
             console.log(fileType);
-            if (fileType == "image/jpeg") {
+            if (fileType == "image/jpeg" || "image/png") {
                 document.getElementById("headerGroupEdit").src = e.target.result;
             } else {
-                alert("Filen du valgte støttes ikke, velg et bilde med filtype.jpeg")
+                alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg eller .png")
             }
         };
         reader.readAsDataURL(this.files[0]);
@@ -964,7 +964,7 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
                 }).then(() => { //Opplasting av forsidebilde
                     var fileType = fil["type"];
                     if (fil instanceof File) {
-                        if (fileType == "image/jpeg") {
+                        if (fileType == "image/jpeg" || "image/png") {
                             firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
                                 var id = snapshot.child("BildeID").val();
                                 firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
