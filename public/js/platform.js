@@ -61,10 +61,10 @@ var fil = {};
 document.getElementById("choosePlatformPic").onchange = function (e) {
     fil = e.target.files[0];
     var fileType = fil["type"];
-    if (fileType == "image/jpeg") {
+    if (fileType == "image/jpeg" || "image/png") {
         console.log(fileType);
     } else {
-        alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg")
+        alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg eller .png")
     }
 }
 
@@ -101,7 +101,7 @@ document.getElementById("upload").onclick = function () {
             }).then(() => { //Opplasting av bilde
                 var fileType = fil["type"];
                 if (fil instanceof File) {
-                    if (fileType == "image/jpeg") {
+                    if (fileType == "image/jpeg" || "image/png") {
                         firebase.storage().ref("innlegg/" + (user + "picture" + id) + "/innlegg.jpg").put(fil).then(() => {
                             location.reload();
                         });
