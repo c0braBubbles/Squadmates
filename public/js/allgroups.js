@@ -162,7 +162,7 @@ document.getElementById("grpCreate").onclick = function () {
     }
 }
 
-//Henting av gruppekort "Mine innlegg" for grupper du "eier/har selv laget"
+//Henting av gruppekort "Mine grupper" for grupper du "eier/har selv laget"
 firebase.database().ref('/Bruker/' + user + '/Grupper eid').on('child_added', function (snapshot) {
     var key = snapshot.child("Key").val();
 
