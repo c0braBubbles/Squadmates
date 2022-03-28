@@ -75,7 +75,6 @@ app.post('/showProfile', function(req, res) {
 });
 app.post('/openGroup', function (req, res) {
     var key = req.body.key;
-    // console.log(key);
     app.get('/' + key, function (req, res) {
         res.render('group');
     });
@@ -83,7 +82,6 @@ app.post('/openGroup', function (req, res) {
 
 app.post('/openPlatform', function (req, res) {
     var platform = req.body.platform;
-    // console.log(platform);
     app.get('/' + platform, function (req, res) {
         res.render(platform);
     });
