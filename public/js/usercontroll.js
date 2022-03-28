@@ -1,6 +1,6 @@
 // BRUKER DENNE TIL Å SJEKKE OM BRUKER ER LOGGET INN OG FOR Å HENTE UID OG ÅPNE PROFILSIDE
 
-//const f_bruker = JSON.parse(sessionStorage.getItem("bruker"));
+const f_bruker = JSON.parse(sessionStorage.getItem("bruker"));
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
@@ -61,14 +61,15 @@ var notificationBubble = document.getElementById('ulestSamtale');
 var notificationBubbleSmall = document.getElementById('ulestSamtaleLiten')
 // Kode for å vise varsel dersom bruker har en y samtale, eller har uleste meldinger
 // Koden fungerer, men må finne et bedre sted å legge den. Evt i header.js 
-/*
+
 firebase.database().ref('Samtale').on('child_added', function(snapshot) {
     if (snapshot.exists()) {
         var info = snapshot.val();
         if (info.Bruker1ID == f_bruker.Uid || info.Bruker2ID == f_bruker.Uid) {
             if (info.NyttFra != f_bruker.Uid && info.NyttFra != 0) {
                 ulest++;
-                var temp_LS = localStorage.getItem("Nytt")+1;
+                var temp_LS = localStorage.getItem("Nytt");
+                temp_LS++;
                 localStorage.setItem("Nytt", temp_LS);
                 //notificationBubble.innerHTML = "!";
                 notificationBubble.style.display = "inline-block";
@@ -83,7 +84,8 @@ firebase.database().ref('Samtale').on('child_changed', (data) => {
     if (info.Bruker1ID == f_bruker.Uid || info.Bruker2ID == f_bruker.Uid) { //En samtale hvor du er medlem
         if (info.NyttFra != f_bruker.Uid && info.NyttFra != 0) { //Du har noe usett i den samtalen
             ulest++;
-            var temp_LS = localStorage.getItem("Nytt")+1;
+            var temp_LS = localStorage.getItem("Nytt");
+            temp_LS++;
             localStorage.setItem("Nytt", temp_LS);
         }
         var tempCount = localStorage.getItem("Nytt");
@@ -98,7 +100,7 @@ firebase.database().ref('Samtale').on('child_changed', (data) => {
         }
     }
 });
-*/
+
 document.getElementById("logutBtn").onclick = function() {
     firebase.auth().signOut().then(() => {
         window.location = '/'; 

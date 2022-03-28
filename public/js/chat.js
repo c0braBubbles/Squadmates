@@ -102,16 +102,20 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                 document.getElementById(samtaleKey).innerHTML = ikkeSett;
             }
             if (data.SamtaleID == aktivSamtale) {
-                if (data.Bruker == whiz.Uid) {
+                ikkeSett = 0;
+                document.getElementById(samtaleKey).innerHTML = ikkeSett;
+                if (data.Bruker == whiz.Uid) { //Du sendte meldingen
                     meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
-                } else {
+                } else { //Du fikk meldingen tilsendt
                     meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
                     firebase.database().ref('Samtale/'+aktivSamtale+'/Melding').child(snapshot.key).update({
                         "Sett": 1
-                    });
-                    firebase.database().ref('Samtale').child(aktivSamtale).update({
-                        "NyttFra": 0
-                    });
+                    }).then(() => {
+                        firebase.database().ref('Samtale').child(aktivSamtale).update({
+                            "NyttFra": 0
+                        });
+                    })
+                    
                 }
             }
         });

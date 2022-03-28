@@ -155,16 +155,19 @@
                         }
 
                     }
-                    firebase.database().ref('Samtale').child(samtaleUID).update({
-                        "NyttFra": 0
-                    }).then(() => {
-                        var temp_LS = localStorage.getItem("Nytt") - 1;
-                        console.log("Nytt: " + temp_LS);
-                        localStorage.setItem("Nytt", temp_LS);
-                        if (localStorage.getItem("Nytt") == 0) {
-                            document.getElementById('ulestSamtale').style.display = "none";
-                        }
-                    });
+                    if (snap.val().NyttFra != whiz.Uid) {
+                        firebase.database().ref('Samtale').child(samtaleUID).update({
+                            "NyttFra": 0
+                        }).then(() => {
+                            var temp_LS = localStorage.getItem("Nytt") - 1;
+                            console.log("Nytt: " + temp_LS);
+                            localStorage.setItem("Nytt", temp_LS);
+                            if (localStorage.getItem("Nytt") == 0) {
+                                document.getElementById('ulestSamtale').style.display = "none";
+                            }
+                        });
+                    }
+                    
                 });
 
                 //Henter tidligere meldinger, legger dem inn chat-vinduet
