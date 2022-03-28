@@ -16,7 +16,7 @@ var biografi;
 
 
 // legger til antall følgere på skjermen 
-if(whiz.Followers != null) {
+if (whiz.Followers != null) {
 	document.getElementById("followCount").innerHTML = Object.keys(whaz.Followers).length;
 }
 
@@ -83,11 +83,13 @@ firebase.auth().onAuthStateChanged((user) => {
 					document.getElementById("pictureMyProfile").src = pictureURL; //Profilbilde på min profil
 					document.getElementById("pictureEditProfile").src = pictureURL; //Profilbilde på rediger profil
 					console.log("Profilbilde funnet");
+					$(".loader-wrapper").fadeOut("slow");
 				})
 				.catch((error) => {
 					console.log("brukeren har ingen profilbilde")
 					document.getElementById("pictureMyProfile").src = "img/blank-profile-circle.png"; //Default profilbilde på min profil dersom ikke bilde er funnet
 					document.getElementById("pictureEditProfile").src = "img/blank-profile-circle.png"; //Default profilbilde på rediger profil dersom ikke bilde er funnet
+					$(".loader-wrapper").fadeOut("slow");
 				});
 
 			document.getElementById("editUserName").innerHTML = username; //Brukernavn rediger profil
@@ -119,8 +121,14 @@ var fil = {};
 
 document.getElementById("uploadProfilePic").onchange = function (e) {
 	fil = e.target.files[0];
-	var tmppath = URL.createObjectURL(e.target.files[0]); //Midlertidig bilde
-	document.getElementById("pictureEditProfile").src = tmppath; //Setter midlertidig bilde før man evt. laster opp til DB
+	var fileType = fil["type"];
+	console.log(fileType);
+	if (fileType == "image/jpeg" || "image/png") {
+		var tmppath = URL.createObjectURL(e.target.files[0]); //Midlertidig bilde
+		document.getElementById("pictureEditProfile").src = tmppath; //Setter midlertidig bilde før man evt. laster opp til DB
+	} else {
+		alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg eller .png")
+	}
 }
 
 
@@ -141,9 +149,9 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 			const regex = /(?:https?:\/\/)?steamcommunity\.com\/(?:profiles|id)\/[a-zA-Z0-9]+/;
 			if (document.getElementById("steamLink").value.match(regex)) {
 				bruker.Steamlink = document.getElementById("steamLink").value;
-			} else {bruker.Steamlink = null;}
+			} else { bruker.Steamlink = null; }
 		}
-	} else { bruker.Steam = null; bruker.Steamlink = null;}
+	} else { bruker.Steam = null; bruker.Steamlink = null; }
 	//Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -- Xbox -
 	if (document.getElementById("xboxCheck").checked) {
 		if (document.getElementById("xboxType").value != "") { bruker.Xbox = document.getElementById("xboxType").value; xboxMedlem(uid); }
@@ -159,11 +167,19 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 
 	const con = firebase.database().ref('Bruker').child(uid);
 	con.update(bruker).then(() => {
+		var fileType = fil["type"];
 		if (fil instanceof File) {
-			firebase.storage().ref("user/" + uid + "/profile.jpg").put(fil).then(() => {
+			if (fileType == "image/jpeg" || "image/png") {
+				firebase.storage().ref("user/" + uid + "/profile.jpg").put(fil).then(() => {
+					location.reload();
+				});
+			}
+			else {
 				location.reload();
-			});
-		} else { location.reload(); }
+			}
+		} else {
+			location.reload();
+		}
 
 	});
 
@@ -193,3 +209,8 @@ function switchMedlem(uid) {
 		BrukerID: uid
 	});
 } 
+/*
+setTimeout(() => {
+    $(".loader-wrapper").fadeOut("slow");
+}, 2000);
+*/

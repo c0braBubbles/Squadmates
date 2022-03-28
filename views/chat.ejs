@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/friends.css">
+    <link rel="stylesheet" href="css/loader.css">
 
 
-<body style="overflow-x: hidden;  overflow-y: hidden;"></body>
+<body style="overflow-x: hidden; overflow-y: hidden;"></body>
 <style>
     body {
         background-image: url('img/Lawrencium.jpg');
@@ -25,12 +26,14 @@
 <script src="js/firebase_config.js" type="module"></script>
 <script src="js/usercontroll.js" type="module"></script>
 <script src="js/chat.js" type="module"></script>
+<script src="js/settings.js" type="module"></script>
 </head>
 <!-- Jeg har lagt til denne i navigering -->
 <!-- ^melding til meg selv (mats) -->
 
 <body>
     <%- include('partials/headerp'); %>
+    <%- include('partials/instillingerp'); %>
 
 
         <!--Content-->
@@ -59,7 +62,7 @@
                                 <span class="badge bg-primary rounded-pill">13</span>
                             </li>
                             -->
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -123,10 +126,15 @@
 
         </div>
 
+        <!----------- Loader ----------->
+        <div class="loader-wrapper" id="loader">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+
         <script>
             const whiz = JSON.parse(sessionStorage.getItem("bruker"));
             var meldinger = document.getElementById('msg_board');
-            
+
 
             var aktivSamtale;
             function openChat(samtaleUID) {
@@ -134,34 +142,34 @@
                 aktivSamtale = samtaleUID;
                 localStorage.setItem("aktivSamtale", aktivSamtale);
                 console.log("Gått i samtale, med ID: " + samtaleUID);
-                firebase.database().ref('Samtale/'+samtaleUID).once('value', (snap) => {
+                firebase.database().ref('Samtale/' + samtaleUID).once('value', (snap) => {
                     if (snap.exists()) {
-                    if (snap.val().Bruker1ID == whiz.Uid) {
-                        firebase.database().ref('Bruker/'+snap.val().Bruker2ID).once('value', (ss) => {
-                            document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
-                        });
-                    } else {
-                        firebase.database().ref('Bruker/'+snap.val().Bruker1ID).once('value', (ss) => {
-                            document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
-                        }); 
+                        if (snap.val().Bruker1ID == whiz.Uid) {
+                            firebase.database().ref('Bruker/' + snap.val().Bruker2ID).once('value', (ss) => {
+                                document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
+                            });
+                        } else {
+                            firebase.database().ref('Bruker/' + snap.val().Bruker1ID).once('value', (ss) => {
+                                document.getElementById("msg-name-display").innerHTML = ss.val().Brukernavn;
+                            });
+                        }
+
                     }
-                    
-                }
-                firebase.database().ref('Samtale').child(samtaleUID).update({
-                    "NyttFra": 0
-                }).then(() => {
-                    var temp_LS = localStorage.getItem("Nytt")-1;
-                    console.log("Nytt: "+temp_LS);
-                    localStorage.setItem("Nytt", temp_LS);
-                    if (localStorage.getItem("Nytt") == 0) {
-                        document.getElementById('ulestSamtale').style.display = "none";
-                    }
+                    firebase.database().ref('Samtale').child(samtaleUID).update({
+                        "NyttFra": 0
+                    }).then(() => {
+                        var temp_LS = localStorage.getItem("Nytt") - 1;
+                        console.log("Nytt: " + temp_LS);
+                        localStorage.setItem("Nytt", temp_LS);
+                        if (localStorage.getItem("Nytt") == 0) {
+                            document.getElementById('ulestSamtale').style.display = "none";
+                        }
+                    });
                 });
-            });
-                
+
                 //Henter tidligere meldinger, legger dem inn chat-vinduet
-                firebase.database().ref('Samtale/'+ aktivSamtale +'/Melding/').once('value', (snapshot) => {
-                    snapshot.forEach(function(childSnapshot) {
+                firebase.database().ref('Samtale/' + aktivSamtale + '/Melding/').once('value', (snapshot) => {
+                    snapshot.forEach(function (childSnapshot) {
                         var childData = childSnapshot.val();
                         if (childData.Bruker == whiz.Uid) {
                             meldinger.innerHTML += `<div class="send-bubble">${childData.Melding}</div>`;
@@ -170,7 +178,7 @@
                             meldinger.innerHTML += `<div class="rec-bubble">${childData.Melding}</div>`;
                             console.log("nøkkel: " + childSnapshot.key);
                             if (childData.Sett == 0) {
-                                firebase.database().ref('Samtale/'+aktivSamtale+'/Melding').child(childSnapshot.key).update({
+                                firebase.database().ref('Samtale/' + aktivSamtale + '/Melding').child(childSnapshot.key).update({
                                     "Sett": 1
                                 });
                                 document.getElementById(aktivSamtale).innerHTML--;
@@ -186,11 +194,11 @@
             skrivMelding.onsubmit = function (evt) {
                 evt.preventDefault(); //Siden skal ikke reloade når man submitter/sender en melding
                 if (aktivSamtale != null && meldingInput.value.trim() != "") {
-                    firebase.database().ref('Samtale/'+aktivSamtale+'/Melding').push({
+                    firebase.database().ref('Samtale/' + aktivSamtale + '/Melding').push({
                         "SamtaleID": aktivSamtale,
                         "Melding": meldingInput.value,
                         "Bruker": whiz.Uid,
-                        "Sett": 0 
+                        "Sett": 0
                     }).then(() => {
                         firebase.database().ref('Samtale/').child(aktivSamtale).update({
                             "NyttFra": whiz.Uid
@@ -200,16 +208,16 @@
                 }
             }
         /*
-                                        firebase.database().ref("Melding/").on('child_added', function (snapshot) {
-                                            var data = snapshot.val();
-                                            if (data.SamtaleID == aktivSamtale) {
-                                                if (data.Bruker == whiz.Uid) {
-                                                    meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
-                                                } else {
-                                                    meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+                                            firebase.database().ref("Melding/").on('child_added', function (snapshot) {
+                                                var data = snapshot.val();
+                                                if (data.SamtaleID == aktivSamtale) {
+                                                    if (data.Bruker == whiz.Uid) {
+                                                        meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
+                                                    } else {
+                                                        meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
+                                                    }
                                                 }
-                                            }
-                                        });*/
+                                            });*/
 
         </script>
 

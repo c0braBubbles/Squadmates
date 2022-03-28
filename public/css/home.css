@@ -97,7 +97,8 @@ button:hover:active:before {
     #navdesktop { display: none !important; }
     /* .card {width: 75% !important;}  Denne skapte problemer på Xbox siden*/ 
     .container {width: 75% !important;}
-    
+    #ownedHome { display: none !important; }
+    #favsHome { display: none !important; }
 }
 
 @media (max-width: 768px) {

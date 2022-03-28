@@ -6,10 +6,16 @@ var user = whiz.Uid;
 var url = window.location.href;
 var split = url.split('/');
 var key = (split[split.length - 1]);
-console.log(key);
 
 
 /* ------------ Henter statisk gruppedata, forsidebilde tittel og beskrivelse ------------ */
+
+//Sjekker hvor mange grupper brukeren er med i, maks 36 grupper
+var countGroupsJoined = 0;
+firebase.database().ref('Bruker/' + user + '/Grupper').on('child_added', function (snapshot) {
+    countGroupsJoined++;
+})
+
 firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
     var name = snapshot.child("Navn").val();
     var about = snapshot.child("Om").val();
@@ -146,16 +152,21 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         firebase.database().ref('/Grupper/' + key + '/Medlemmer/' + user).remove(); //Fjerner bruker fra medlemmer i gruppen i databasen
         firebase.database().ref('/Bruker/' + user + '/Grupper/' + key).remove(); //Fjerner gruppen fra grupper tabellen under bruker i databasen
         firebase.database().ref('/Bruker/' + user + '/Favoritt grupper/' + key).remove(); //Fjerner gruppen fra favoritter dersom man forlater gruppen
-        //location.reload();
+        location.reload();
     }
     //Bli med i gruppe knapp
     document.getElementById("joinGroupBtn").onclick = function () {
-        firebase.database().ref('/Grupper/' + key + '/Medlemmer').child(user).set({
-            BrukerID: user
-        })
-        firebase.database().ref('/Bruker/' + user + '/Grupper/').child(key).set({
-            Key: key
-        })
+        if (countGroupsJoined < 36) { //Maks antall grupper man kan joine
+            firebase.database().ref('/Grupper/' + key + '/Medlemmer').child(user).set({
+                BrukerID: user
+            })
+            firebase.database().ref('/Bruker/' + user + '/Grupper/').child(key).set({
+                Key: key
+            })
+            location.reload();
+        } else {
+            alert("Du har blitt med i maks antall grupper (36stk)");
+        }
     }
     //Legg til gruppe som favoritt knapp (hvit stjerne)
     document.getElementById("addfavoriteGroupBtn").onclick = function () {
@@ -178,7 +189,12 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
 var fil = {};
 document.getElementById("chooseGroupPic").onchange = function (e) {
     fil = e.target.files[0];
-    console.log(fil);
+    var fileType = fil["type"];
+    if (fileType == "image/jpeg" || "image/png") {
+        console.log(fileType);
+    } else {
+        alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg eller .png")
+    }
 }
 
 document.getElementById("upload").onclick = function () {
@@ -210,11 +226,16 @@ document.getElementById("upload").onclick = function () {
                 Brukernavn: username,
                 Navn: realname
             }).then(() => { //Opplasting av bilde
+                var fileType = fil["type"];
                 if (fil instanceof File) {
-                    firebase.storage().ref("innlegg/" + (user + "picture" + id) + "/innlegg.jpg").put(fil).then(() => {
-                        location.reload();
-                    });
-                } else { location.reload(); }
+                    if (fileType == "image/jpeg" || "image/png") {
+                        firebase.storage().ref("innlegg/" + (user + "picture" + id) + "/innlegg.jpg").put(fil).then(() => {
+                            location.reload();
+                        });
+                    } else { location.reload(); }
+                } else {
+                    location.reload();
+                }
             })
         })
     } else {
@@ -222,6 +243,7 @@ document.getElementById("upload").onclick = function () {
     }
 }
 /* ------------ Opplasting av innlegg i gruppen ------------ */
+
 
 /* ------------ Henting av innlegg fra database ------------ */
 var countstart = 0;
@@ -738,7 +760,6 @@ function getPost(lastkey) {
                 pictureStorage.getDownloadURL()
                     .then((pictureURL) => {
                         document.getElementById(picid + owner).src = pictureURL; //Setter bilde på innlegget
-                        //console.log("Bilde funnet");
                     })
                     .catch((error) => {
                         console.clear(error);
@@ -807,3 +828,181 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
     })
 });
 /* ------------ Sjekker gruppens medlemmer SLUTT ------------ */
+
+/* ------------ Rediger gruppe ------------ */
+document.getElementById("editGroupBtn").onclick = function () {
+    document.getElementById("superDiv").style.display = "none";
+    document.getElementById("subDiv").style.display = "block";
+
+}
+
+//Henter statisk gruppedata, forsidebilde tittel og beskrivelse
+firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
+    var name = snapshot.child("Navn").val();
+    var about = snapshot.child("Om").val();
+    var owner = snapshot.child("Eier").val();
+    var id = snapshot.child("BildeID").val();
+
+    var discord = snapshot.child("Discord").val();
+    var xbox = snapshot.child("Xbox").val();
+    var ps = snapshot.child("Ps").val();
+    var nintendo = snapshot.child("Switch").val();
+    var pc = snapshot.child("Pc").val();
+
+
+    //Tittel og om gruppen
+    var groupName = document.getElementById("grpNameEdit");
+    var groupAbout = document.getElementById("grpAboutEdit");
+    groupName.value = name;
+    groupAbout.value = about;
+    //Henting av forsidebilde
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    var pictureStorage = storageRef.child("grupper/" + (owner + id) + "/gruppe.jpg");
+
+    pictureStorage.getDownloadURL()
+        .then((pictureURL) => {
+            var headerPic = document.getElementById("headerGroupEdit");
+            headerPic.src = pictureURL;
+            $(".loader-wrapper").fadeOut("slow");
+        })
+        .catch((error) => {
+            console.clear(error);
+            var headerPic = document.getElementById("headerGroupEdit");
+            headerPic.src = "img/Amin.jpg";
+            $(".loader-wrapper").fadeOut("slow");
+        });
+
+    //Platformer på "om" siden
+    if (xbox != null) {
+        document.getElementById("xboxCheckEdit").checked = true;
+    }
+    if (ps != null) {
+        document.getElementById("psCheckEdit").checked = true;
+    }
+    if (nintendo != null) {
+        document.getElementById("switchCheckEdit").checked = true;
+    }
+    if (pc != null) {
+        document.getElementById("pcCheckEdit").checked = true;
+    }
+    if (discord != null) {
+        document.getElementById("discordCheckEdit").checked = true;
+        document.getElementById("discordformEdit").value = discord;
+    }
+
+
+    //Opplasting av endringer
+    var fil = {};
+    document.getElementById("formFileEdit").onchange = function (e) {
+        fil = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var fileType = fil["type"];
+            console.log(fileType);
+            if (fileType == "image/jpeg" || "image/png") {
+                document.getElementById("headerGroupEdit").src = e.target.result;
+            } else {
+                alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg eller .png")
+            }
+        };
+        reader.readAsDataURL(this.files[0]);
+    }
+
+
+    document.getElementById("grpSave").onclick = function () {
+        //Henter nye verdier
+        var newName = document.getElementById("grpNameEdit").value;
+        var newAbout = document.getElementById("grpAboutEdit").value;
+
+        if (document.getElementById("discordCheckEdit").checked) {
+            if (document.getElementById("discordformEdit").value != "") {
+                discord = document.getElementById("discordformEdit").value;
+            }
+        } else { discord = null }
+
+
+        if (document.getElementById("discordCheckEdit").checked) {
+            if (document.getElementById("discordformEdit").value != "") {
+                const regex = /(?:https?:\/\/)?discord\.com\/(?:invite|id)\/[a-zA-Z0-9]+/;
+                if (document.getElementById("discordformEdit").value.match(regex)) {
+                    discord = document.getElementById("discordformEdit").value;
+                } else {
+                    discord = null;
+                    alert("Linken du oppga er ikke en invitasjon til discord server, Prøv igjen");
+                }
+            }
+        }
+
+        if (document.getElementById("pcCheckEdit").checked) {
+            pc = "yes";
+        } else { pc = null }
+        if (document.getElementById("psCheckEdit").checked) {
+            ps = "yes";
+        } else { ps = null }
+        if (document.getElementById("xboxCheckEdit").checked) {
+            xbox = "yes";
+        } else { xbox = null }
+        if (document.getElementById("switchCheckEdit").checked) {
+            nintendo = "yes";
+        } else { nintendo = null }
+
+        //Dobbeltsjekker at innlogget bruker er eier med UID, gir ekstra sikkerhet
+        if (owner == user) {
+
+            if (newName != "" && newName.length < 30 && newAbout.length < 120) {
+                firebase.database().ref('/Grupper/' + key).once('value', function (snapshot) {
+                    snapshot.ref.update({
+                        Navn: newName,
+                        Om: newAbout,
+                        Discord: discord,
+                        Pc: pc,
+                        Ps: ps,
+                        Xbox: xbox,
+                        Switch: nintendo,
+                    })
+                }).then(() => { //Opplasting av forsidebilde
+                    var fileType = fil["type"];
+                    if (fil instanceof File) {
+                        if (fileType == "image/jpeg" || "image/png") {
+                            firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
+                                var id = snapshot.child("BildeID").val();
+                                firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
+                                    location.reload();
+                                })
+                            });
+                        } else {
+                            location.reload();
+                        }
+                    } else {
+                        location.reload();
+                    }
+                })
+            } else {
+                alert("Ugyldig gruppenavn! (Enten er navnefeltet tomt, eller så er inneholder Navn/Om for mange tegn)");
+            }
+        }
+    }
+
+    //Slett gruppe
+    document.getElementById("grpPrmDelete").onclick = function () {
+        if (owner == user) {
+            //Fjerner gruppen fra eiers brukertabell "Grupper eid"
+            if (user == owner) {
+                firebase.database().ref('/Bruker/' + user + '/Grupper eid/' + key).remove();
+            }
+            //Fjerner gruppen fra grupper tabellen under hver bruker som er medlem av gruppen
+            firebase.database().ref('/Grupper/' + key + '/Medlemmer/').on('child_added', function (snapshot) {
+                var member = snapshot.child("BrukerID").val();
+                firebase.database().ref('/Bruker/' + member + '/Grupper/' + key).remove();
+                firebase.database().ref('/Bruker/' + member + '/Favoritt grupper/' + key).remove();
+            })
+            //Sletter tilhørende bilde til gruppe fra storage
+            firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").delete();
+            //Sletter selve gruppen fra databasen
+            firebase.database().ref('/Grupper/' + key).remove();
+            alert("Gruppen din er slettet");
+            window.location.href = "/allgroups";
+        }
+    }
+})
