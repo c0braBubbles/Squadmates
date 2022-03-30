@@ -29,8 +29,15 @@
 
 	<div class="container rounded-3 bg-dark w-50 m-2 p-4 mx-auto text-light">
 
-		<div class="container d-flex">
-			<button id="followBtn" class="btn btn-primary ms-auto">Følg 
+		<div class="container d-flex justify-content-end">
+
+			<button id="mldTilBrukerBtn" class="btn btn-primary">Send Melding
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+					<path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
+				  </svg>
+			</button>
+
+			<button id="followBtn" class="btn btn-primary ms-1">Følg 
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 					fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
 					<path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -38,7 +45,7 @@
 				</svg>
 			</button>
 
-			<button id="unfollowBtn" class="btn btn-primary btn-lg active ms-auto" style="display: none;">Slutt å følge 
+			<button id="unfollowBtn" class="btn btn-primary btn-lg active ms-1" style="display: none;">Slutt å følge 
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-dash-fill" viewBox="0 0 16 16">
 					<path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
 					<path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -178,7 +185,7 @@
 	<script type="module">
 		var temp = '<%- profUid %>'; 
 		var whaz;
-
+		console.log("dette er temp: " + temp);
 
 		const pushProfile = firebase.database().ref('Bruker').child(temp);
 		const pushMyProfile = firebase.database().ref('Bruker').child(whiz.Uid);
@@ -227,6 +234,36 @@
 			}
 		});
 
+		document.getElementById('mldTilBrukerBtn').onclick = function() {
+            var finnesSamtale = false;
+            if (whiz.Uid == temp) return; //Stopp metoden dersom bruker prøver å starte samtale med seg selv
+            firebase.database().ref('Samtale').once('value', (snapshot) => {
+                var data = snapshot.val();
+                if (snapshot.exists()) {
+                    for (let i in data) {
+                        if ((data[i].Bruker1ID == temp && data[i].Bruker2ID == whiz.Uid) ||
+                            (data[i].Bruker1ID == whiz.Uid && data[i].Bruker2ID == temp)) {
+                            console.log("Samtalen eksisterer allerede!");
+                            finnesSamtale = true;
+                        }
+                    }
+                }
+            }).then(() => {
+                if (!finnesSamtale) {
+                    //ville vanligvis brukt push istedet for set, men vi må ha tak i keyen som blir generert
+                    var pushKey = firebase.database().ref('Samtale').push().key;
+                    firebase.database().ref('Samtale').child(pushKey).set({
+                        "Bruker1ID": whiz.Uid,
+                        "Bruker2ID": temp,
+                        "NyttFra": whiz.Uid
+                    }).then(() => {
+                        localStorage.setItem("aktivSamtale", pushKey);
+                        //Redirect til chat-side
+                        window.location = "/chat";
+                    });
+                }
+            });
+        }
 		
 		/* Funksjon for å følge bruker*/
 		document.getElementById("followBtn").onclick = function() {
