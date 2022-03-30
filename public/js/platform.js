@@ -14,7 +14,7 @@ console.log(platform);
 //Henter UID til innlogget bruker
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
-
+console.log(whiz);
 
 //Sjekker platformerns liste for medlemmer
 firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', function (snapshot) {
@@ -43,8 +43,13 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
                                 <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
                             ${name}</a>`);
 
-            for(let i = 0; i < whiz.Followings[Object.keys(whiz.Followings).length]; i++) {
-                if(name == whiz.Followings[i].Brukernavn) {
+
+            for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
+                if(whiz.Following[i] == null) {
+                    i++;
+                }
+
+                if(name == whiz.Following[i].Brukernavn) {
                     $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                             <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
                                         ${name}</a>`);
@@ -58,8 +63,12 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
                                 <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
                             ${name}</a>`);
 
-            for(let i = 0; i < whiz.Followings[Object.keys(whiz.Followings).length]; i++) {
-                if(name == whiz.Followings[i].Brukernavn) {
+
+            for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
+                if(whiz.Following[i] == null) {
+                    i++;
+                }
+                if(name == whiz.Following[i].Brukernavn) {
                     $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                             <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
                                         ${name}</a>`);

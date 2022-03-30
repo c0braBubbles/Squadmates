@@ -311,6 +311,9 @@
 		document.getElementById("unfollowBtn").onclick = function() {
 			// Slette meg fra brukerens lister:
 			for(let i = 0; i < Object.keys(whaz.Followers).length; i++) {
+				if(whiz.Following[i] == null) {
+                    i++;
+                }
 				if(whaz.Followers[i].Brukernavn == whiz.Brukernavn) {
 					delete whaz.Followers[i]; 
 					pushProfile.update(whaz); 
@@ -318,6 +321,9 @@
 			}
 
 			for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
+				if(whiz.Following[i] == null) {
+                    i++;
+                }
 				if(whiz.Following[i].Brukernavn == whaz.Brukernavn) {
 					delete whiz.Following[i]; 
 					pushMyProfile.update(whiz); 
