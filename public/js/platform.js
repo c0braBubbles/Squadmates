@@ -15,6 +15,7 @@ console.log(platform);
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
 
+
 //Sjekker platformerns liste for medlemmer
 firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', function (snapshot) {
     userID = snapshot.child("BrukerID").val();
@@ -32,28 +33,39 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
         var storageRef = storage.ref();
         var pictureStorage = storageRef.child("user/" + uid + "/profile.jpg");
 
-        pictureStorage.getDownloadURL()
-            .then((pictureURL) => { //Dersom brukeren har profilbilde
-                $(".loader-wrapper" + platform).fadeOut("slow");
-                list = document.getElementById("medlemslistePlatform");
-                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
-                // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
-                // + name + '</a>');
-                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
-                                    <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
-                                ${name}</a>`);
-            })
-            .catch((error) => { //Dersom brukeren ikke har profilbilde
-                //console.clear(error);
-                $(".loader-wrapper" + platform).fadeOut("slow");
-                list = document.getElementById("medlemslistePlatform");
-                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
-                //     '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'
-                //     + name + '</a>');
-                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
-                                    <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
-                                ${name}</a>`);
-            });
+        // HER SKAL DE JEG FØLGER DUKKE OPP
+        pictureStorage.getDownloadURL().then((pictureURL) => { //Dersom brukeren har profilbilde
+            $(".loader-wrapper" + platform).fadeOut("slow");
+            list = document.getElementById("medlemslistePlatform");
+            let followList = document.getElementById("følgerlistePlatform");
+            
+            $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                                <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
+                            ${name}</a>`);
+
+            for(let i = 0; i < whiz.Followings[Object.keys(whiz.Followings).length]; i++) {
+                if(name == whiz.Followings[i].Brukernavn) {
+                    $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                                            <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
+                                        ${name}</a>`);
+                }
+            }
+        }).catch((error) => { //Dersom brukeren ikke har profilbilde
+            //console.clear(error);
+            $(".loader-wrapper" + platform).fadeOut("slow");
+            list = document.getElementById("medlemslistePlatform");
+            $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                                <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
+                            ${name}</a>`);
+
+            for(let i = 0; i < whiz.Followings[Object.keys(whiz.Followings).length]; i++) {
+                if(name == whiz.Followings[i].Brukernavn) {
+                    $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                                            <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
+                                        ${name}</a>`);
+                }
+            }
+        });
     })
 });
 
@@ -117,6 +129,7 @@ document.getElementById("upload").onclick = function () {
 }
 
 
+// henting av innlegg
 var countstart = 0;
 firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitToLast(4).on('child_added', function (snapshot) {
     countstart++;
@@ -151,6 +164,7 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
         '<div class="d-flex justify-content-between align-items-center">' +
         '<div class="mr-2">' +
         /*----- Profilbilde -----*/
+        // HER SKAL JEG LEGGE INN ONCLICK
         '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
         '<div class= "ml-2">' +
         '<div class="h5 m-0 text-light">' + username + '</div>' +
@@ -309,6 +323,7 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
 
                     //Henter brukernavnet fra bruker tabellen
                     $(cmntSection).prepend(
+                        // HER ER ÉN KOMMENTAR. DET SKAL OGSÅ VÆRE ONCLICK
                         '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
                         'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
                         '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
@@ -416,6 +431,7 @@ function getPost(lastkey) {
             '<div class="d-flex justify-content-between align-items-center">' +
             '<div class="mr-2">' +
             /*----- Profilbilde -----*/
+            // HER SKAL DET VÆRE ONCLICK
             '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
             '<div class= "ml-2">' +
             '<div class="h5 m-0 text-light">' + username + '</div>' +
@@ -574,6 +590,7 @@ function getPost(lastkey) {
 
                         //Henter brukernavnet fra bruker tabellen
                         $(cmntSection).prepend(
+                            // HER SKAL DET VÆRE ONCLICK 
                             '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
                             'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
                             '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +

@@ -48,7 +48,7 @@
 
 		<div class="row-lg d-flex w-100">
 			<div class="col-auto">
-				<img id="pBilde" src="img/blank-profile-circle.png" class="rounded-circle mx-auto" style="width: 12vh; height: 12vh;"
+				<img id="pBilde" src="img/blank-profile-circle.png" class="rounded-circle mx-auto" style="width: 12vh; height: 12vh; object-fit: cover;"
 					alt="Profilbilde" loading="lazy" />
 			</div>
 			<div class="col my-auto">
@@ -180,8 +180,8 @@
 		var whaz;
 
 
-		const con = firebase.database().ref('Bruker').child(temp);
-		const con2 = firebase.database().ref('Bruker').child(whiz.Uid);
+		const pushProfile = firebase.database().ref('Bruker').child(temp);
+		const pushMyProfile = firebase.database().ref('Bruker').child(whiz.Uid);
 
 
 		firebase.database().ref('/Bruker/' + temp).once('value').then((snapshot) => {
@@ -213,6 +213,8 @@
 					if(whaz.Followers[i].Brukernavn == whiz.Brukernavn) {
 						document.getElementById("followBtn").style.display = "none";
 						document.getElementById("unfollowBtn").style.display = "block";
+					} else {
+						
 					}
 				}
 			}
@@ -226,68 +228,62 @@
 		});
 
 		
+		/* Funksjon for å følge bruker*/
 		document.getElementById("followBtn").onclick = function() {
-			// oppdaterer ny bruker som følger for respektive bruker bruker
-			let temp2 = document.getElementById("followCount").innerHTML;
-			let followCount = parseInt(temp2);
-			
-			if(whaz.FollowersCount != null) {
-				whaz.FollowersCount = followCount+1;
-				whaz.Followers[Object.keys(whaz.Followers).length] = {
-					Brukernavn: whiz.Brukernavn,
-					Uid: whiz.Uid
-				}
-				con.update(JSON.parse(JSON.stringify(whaz)));
-
-			} else if(whaz.FollowersCount == null){
-				whaz.Followers = {};
-				whaz.FollowersCount = followCount+1;
+			// hvis brukeren alt har følgere oppretter jeg ikke nytt array med objekter
+			if(whaz.Followers != null) {
 				whaz.Followers[Object.keys(whaz.Followers).length] = {
 					Brukernavn: whiz.Brukernavn,
 					Uid: whiz.Uid
 				}; 
-				con.update(whaz);
+				pushProfile.update(whaz);
+			} 
+			// hvis brukeren ikke har følgere og jeg må opprette array med objekter
+			else {
+				whaz.Followers = {};
+				whaz.Followers[Object.keys(whaz.Followers).length] = {
+					Brukernavn: whiz.Brukernavn,
+					Uid: whiz.Uid
+				}; 
+				pushProfile.update(whaz);				
 			}
 
-			
-			// og nå det samme for meg 			
-			if(whiz.FollowingCount == null) {
-				whiz.FollowingCount = 1;
-				whiz.Followings = {}; 
-				whiz.Followings[Object.keys(whiz.Followings).length] = {
+			// hvis jeg følger noen
+			if(whiz.Following != null) {
+				whiz.Following[Object.keys(whiz.Following).length] = {
 					Brukernavn: whaz.Brukernavn, 
 					Uid: temp
-				};
-				con2.update(whiz);
+				}
+				pushMyProfile.update(whiz); 
 				window.location.reload();
-			}
-			else if(Object.keys(whiz.Followings).length != null) {
-				whiz.FollowingCount = whiz.FollowingCount + 1;
-				whiz.Followings[Object.keys(whiz.Followings).length] = {
-					Brukernavn: whaz.Brukernavn,
+			} 
+			// hvis jeg ikke følger noen 
+			else {
+				whiz.Following = {}; 
+				whiz.Following[Object.keys(whiz.Following).length] = {
+					Brukernavn: whaz.Brukernavn, 
 					Uid: temp
-				};
-				con2.update(JSON.parse(JSON.stringify(whiz)));
+				}; 
+				pushMyProfile.update(whiz); 
 				window.location.reload();
 			}
 		}
 
 
+		/* Funksjon for å slutte å følge bruker */
 		document.getElementById("unfollowBtn").onclick = function() {
+			// Slette meg fra brukerens lister:
 			for(let i = 0; i < Object.keys(whaz.Followers).length; i++) {
 				if(whaz.Followers[i].Brukernavn == whiz.Brukernavn) {
-					delete whaz.Followers[i];
-					whaz.FollowersCount = whaz.FollowersCount - 1; 
-					con.update(whaz);
-					window.location.reload();
+					delete whaz.Followers[i]; 
+					pushProfile.update(whaz); 
 				}
 			}
 
-			for(let i = 0; i < Object.keys(whiz.Followings).length; i++) {
-				if(whiz.Followings[i].Brukernavn = whaz.Brukernavn) {
-					delete whiz.Followings[i];
-					whiz.FollowingCount = whiz.FollowingCount - 1; 
-					con2.update(whiz);
+			for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
+				if(whiz.Following[i].Brukernavn == whaz.Brukernavn) {
+					delete whiz.Following[i]; 
+					pushMyProfile.update(whiz); 
 					window.location.reload();
 				}
 			}

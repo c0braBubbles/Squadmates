@@ -280,6 +280,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').orderByKey().limitToLast
         '<div class="d-flex justify-content-between align-items-center">' +
         '<div class="mr-2">' +
         /*----- Profilbilde -----*/
+        // HER SKAL DET LEGGES ONCLICK
         '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + ppid + '" src=""> </div> ' +
         '<div class= "ml-2">' +
         '<div class="h5 m-0 text-light">' + username + '</div>' +
@@ -434,6 +435,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').orderByKey().limitToLast
                     var reportcommentid = cmtKey + "report";
                     var ppid = cmtKey + "profilep";
 
+                    // HER SKAL DET LEGGES ONCLICK
                     $(cmntSection).prepend(
                         '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
                         'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
@@ -542,6 +544,7 @@ function getPost(lastkey) {
             '<div class="d-flex justify-content-between align-items-center">' +
             '<div class="mr-2">' +
             /*----- Profilbilde -----*/
+            // HER SKAL DET LEGGES ONCLICK
             '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + ppid + '" src=""> </div> ' +
             '<div class= "ml-2">' +
             '<div class="h5 m-0 text-light">' + username + '</div>' +
@@ -696,6 +699,8 @@ function getPost(lastkey) {
                         var reportcommentid = cmtKey + "report";
                         var ppid = cmtKey + "profilep";
 
+                        // HER SKAL DET LEGGES ONCLICK
+                        
                         $(cmntSection).prepend(
                             '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
                             'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +

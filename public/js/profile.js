@@ -17,7 +17,7 @@ var biografi;
 
 // legger til antall følgere på skjermen 
 if (whiz.Followers != null) {
-	document.getElementById("followCount").innerHTML = Object.keys(whaz.Followers).length;
+	document.getElementById("followCount").innerHTML = Object.keys(whiz.Followers).length;
 }
 
 
