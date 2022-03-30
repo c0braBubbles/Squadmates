@@ -42,19 +42,6 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
             $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                 <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
                             ${name}</a>`);
-
-
-            for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
-                if(whiz.Following[i] == null) {
-                    i++;
-                }
-
-                if(name == whiz.Following[i].Brukernavn) {
-                    $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
-                                            <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
-                                        ${name}</a>`);
-                }
-            }
         }).catch((error) => { //Dersom brukeren ikke har profilbilde
             //console.clear(error);
             $(".loader-wrapper" + platform).fadeOut("slow");
@@ -62,20 +49,45 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
             $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                 <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
                             ${name}</a>`);
-
-
-            for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
-                if(whiz.Following[i] == null) {
-                    i++;
-                }
-                if(name == whiz.Following[i].Brukernavn) {
-                    $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
-                                            <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
-                                        ${name}</a>`);
-                }
-            }
         });
-    })
+    }); 
+
+
+    for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
+        if(whiz.Following[i] == null) {
+            i++;
+        }
+
+        if(userID == whiz.Following[i].Uid) {
+            let name = whiz.Following[i].Brukernavn; 
+
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            var pictureStorage = storageRef.child("user/" + userID + "/profile.jpg");
+
+
+            pictureStorage.getDownloadURL().then((pictureURL) => { //Dersom brukeren har profilbilde
+                $(".loader-wrapper" + platform).fadeOut("slow");
+                list = document.getElementById("medlemslistePlatform");
+                let followList = document.getElementById("følgerlistePlatform");
+                
+                $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${userID}')">
+                                    <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
+                                ${name}</a>`);
+            }).catch((error) => { //Dersom brukeren ikke har profilbilde
+                //console.clear(error);
+                $(".loader-wrapper" + platform).fadeOut("slow");
+                list = document.getElementById("medlemslistePlatform");
+                let followList = document.getElementById("følgerlistePlatform");
+
+                $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${userID}')">
+                                    <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
+                                ${name}</a>`);
+            });
+        }
+    }
+
+
 });
 
 var fil = {};
@@ -242,7 +254,7 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
         })
         .catch((error) => { //Dersom brukeren ikke har profilbilde
             document.getElementById(ppid).src = "img/blank-profile-circle.png";
-            console.clear(error);
+            // console.clear(error);
 
 
         }).then(() => {
@@ -354,7 +366,7 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
                             document.getElementById(ppid).src = pictureURL;
                         }).catch((error) => { //Har ikke profilbilde
                             document.getElementById(ppid).src = "img/blank-profile-circle.png";
-                            console.clear(error);
+                            // console.clear(error);
 
                         }).then(() => {
                             //Viser slett kommentar knapp om det er din kommentar, ellers så vises rapporter kommentar knappen
@@ -397,7 +409,7 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
                 })
                 .catch((error) => {
                     document.getElementById(picid + owner).style.display = "none"; //Fjerne img tag dersom det ikke finnes noe bilde
-                    console.clear(error);
+                    // console.clear(error);
                 });
         })
 })
@@ -509,7 +521,7 @@ function getPost(lastkey) {
             })
             .catch((error) => { //Dersom brukeren ikke har profilbilde
                 document.getElementById(ppid).src = "img/blank-profile-circle.png";
-                console.clear(error);
+                // console.clear(error);
 
 
             }).then(() => {
@@ -621,7 +633,7 @@ function getPost(lastkey) {
                                 document.getElementById(ppid).src = pictureURL;
                             }).catch((error) => { //Har ikke profilbilde
                                 document.getElementById(ppid).src = "img/blank-profile-circle.png";
-                                console.clear(error);
+                                // console.clear(error);
 
                             }).then(() => {
                                 //Viser slett kommentar knapp om det er din kommentar, ellers så vises rapporter kommentar knappen
@@ -665,7 +677,7 @@ function getPost(lastkey) {
                     .catch((error) => {
                         document.getElementById(picid + owner).style.display = "none"; //Fjerne img tag dersom det ikke finnes noe bilde
                         //console.log(error.message);
-                        console.clear(error);
+                        // console.clear(error);
                     });
             })
     })
