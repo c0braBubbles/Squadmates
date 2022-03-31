@@ -312,7 +312,7 @@ document.getElementById("btnSok").onclick = function() {
     let searchBox = document.getElementById("searc_box"); 
     let searchWord = document.getElementById("søkefeltgrupper").value.toUpperCase();
     let txtValue; 
-    let descValue
+    let descValue;
 
     for(let i = 0; i < nameTab_search.length; i++) {
         txtValue = nameTab_search[i];

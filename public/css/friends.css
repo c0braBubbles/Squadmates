@@ -39,9 +39,9 @@ like utseende-messig. Klassen(e) som blir brukt i "chat" er klasse(r) som har me
     height:8vh;
 }
 /*br = bottom right*/
-#br-col {
+/* #br-col { */
    /* background-color: rgb(49,49,49); */
-}
+/* } */
 
 
 .src-res {
@@ -85,7 +85,7 @@ like utseende-messig. Klassen(e) som blir brukt i "chat" er klasse(r) som har me
     background-color: transparent;
     border:none;
     border-bottom: 1px solid rgba(80, 80, 80, 0.800);
-    display: inline;
+    display: none;
 }
 .person-list-item:hover {
     border:none;
