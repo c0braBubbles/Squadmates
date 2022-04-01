@@ -9,36 +9,49 @@
 <body>
     <h1>Bruker API for å hente spill</h1>
 
+    <input type="text" id="input" required placeholder="Søk..."/>
+    
+    <button id="knp" onclick="search(1)">Finn spill</button>
+
+    <p id="demo"></p>
+
     <script>
-        var myArray = [];
+        function search(i) {
+            let inp = document.getElementById("input").value.toUpperCase();
+            let para = document.getElementById("demo");  
 
-        /*for(let j = 2; j < 30000; j++) {
-            fetch("https://api.rawg.io/api/games?key=8d8b50415fd74e3baf7e69ac2f959516" + "&page=" + j, {
+            fetch("https://api.rawg.io/api/games?key=8d8b50415fd74e3baf7e69ac2f959516" + "&page=" + i, {
                 "method": "GET",
             }).then(response => response.json()).then(data => {
-                console.log(data);
-                for(let i = 0; i < data.results.length; i++) {
-                    console.log(data.results[i]);
-                    document.write(data.results[i].name + "<br>");
-                    // document.write(data);
-                }
-            }).catch(err => {
-                console.error(err);
-            });
-        }*/
+                for(let j = 0; j < data.results.length; j++) {
+                    let game = data.results[j].name; 
+                    // para.innerHTML += game + "<br>";
 
-        fetch("https://data.brreg.no/enhetsregisteret/api/enheter", {
-                "method": "GET",
-            }).then(response => response.json()).then(data => {
-                console.log(data);
-                for(let i = 0; i < data.length; i++) {
-                    console.log(data.results[i].embedded);
-                    // document.write(data.results[i].name + "<br>");
-                    // document.write(data);
+                    if(game.toUpperCase().indexOf(inp) > -1) {
+                        para.innerHTML += game + "<br>";
+                    } else {
+                        // search(i++);
+                    }
                 }
             }).catch(err => {
-                console.error(err);
-            });
+                // para.innerHTML = err;
+                return;
+            })
+        }
+
+
+        // var myArray = [];
+        // for(let j = 2; j < 1390; j++) {
+        //     fetch("https://api.rawg.io/api/games?key=8d8b50415fd74e3baf7e69ac2f959516" + "&page=" + j, {
+        //         "method": "GET",
+        //     }).then(response => response.json()).then(data => {
+        //         for(let i = 0; i < data.results.length; i++) {
+        //             document.write(data.results[i].name + "<br>");
+        //         }
+        //     }).catch(err => {
+        //         console.error(err);
+        //     });
+        // }
     </script>
 </body>
 </html>
