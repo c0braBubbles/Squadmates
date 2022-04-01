@@ -133,3 +133,7 @@ høyre del av siden å gjøre.
         padding-top:5px;
     }
 }
+
+#chat-list-left li, h3 {
+    display: block;
+}

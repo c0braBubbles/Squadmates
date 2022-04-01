@@ -17,25 +17,27 @@ const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 /* Henter samtaler fra firebase, fyller inn front-end slik at brukeren får opp sine samtaler */
 var chatListLeft = document.getElementById('chat-list-left');
 var chatListTop = document.getElementById('chat-list-top');
-var listID = 0;
+var listCount = 0;
+let name_tab_search = [];
 firebase.database().ref('Samtale').on('child_added', function(snapshot) {
-    listID++;
-    console.log(listID);
     var message = snapshot.val();
     var samtaleKey = snapshot.key;
+    let listID = "listNmr" + listCount;
     //Dersom du er bruker som startet samtalen
     if (message.Bruker1ID == whiz.Uid) {
         firebase.database().ref("Bruker/"+message.Bruker2ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
+            name_tab_search.push(guest.Brukernavn);
+
             firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => { /*id="`+samtaleKey+`"*/ 
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
+                chatListLeft.innerHTML +=`<li id="${listID}" class="list-group-item d-flex justify-content-between align-items-center"
                                         style="color:white; background-color: #111;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="`+ pictureURL +`" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
                                         `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;    
             }).catch((error) => {
-                chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center"
+                chatListLeft.innerHTML +=`<li id="${listID}" class="list-group-item d-flex justify-content-between align-items-center"
                                         style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="img/blank-profile-circle.png" alt="..." class="rounded-circle display-pic">` +
                                         `<h3>` + guest.Brukernavn + `</h3>` +
@@ -56,19 +58,20 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                                         `</a>` +
                                     `</li>`;
         });
+        listCount += 1; 
       //Dersom du er bruker n2, altså en annen startet samtale med deg  
     } else if (message.Bruker2ID == whiz.Uid) {
         firebase.database().ref("Bruker/"+message.Bruker1ID).once('value').then((snapshot) => {
             var guest = snapshot.val();
             firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
+                chatListLeft.innerHTML += `<li id="${listID}" class="list-group-item d-flex justify-content-between align-items-center"
                                     style="color:white; background-color:#111;" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="` + pictureURL + `" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
                                     `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;
             }).catch((error) => {
-                chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"
+                chatListLeft.innerHTML += `<li id="${listID}" class="list-group-item d-flex justify-content-between align-items-center"
                                     style="color:white; background-color:#111" onclick="openChat(\`` + samtaleKey + `\`)">` +
                                     `<img src="img/blank-profile-circle.png" alt="..." class="rounded-circle display-pic">` +
                                     `<h3>` + guest.Brukernavn + `</h3>` +
@@ -89,6 +92,7 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                                         `</a>` +
                                     `</li>`;
         });
+        listCount += 1; 
     }
     /*Henter meldinger når brukeren er inne i en samtale
     Viser også frem hvor mange usette meldinger brukeren har
@@ -120,12 +124,38 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
             }
         });
     }, 1500);
-
 });
 
 setTimeout(() => {
     $(".loader-wrapper").fadeOut("slow");
 }, 2000);
+
+
+
+document.getElementById("form1").onkeyup = function() {
+    var input, filter, li, a, b, c, i, txtValue;
+    input = document.getElementById("form1");
+    filter = input.value.toUpperCase();
+    li = chatListLeft.getElementsByTagName("li");
+
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("h3")[0];
+        b = li[i].getElementsByTagName("img")[0]; 
+        c = li[i].getElementsByTagName("span")[0];
+
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+            a.style.display = "none";
+            b.style.display = "none"; 
+            c.style.display = "none";
+        }
+    }
+}
+
+
 
 /*
 var aktivSamtale;

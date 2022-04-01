@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <title>Meldinger</title>
+
+
     <link rel="stylesheet" href="css/bootstrap-5.1.3-dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/chat.css">
@@ -14,23 +15,22 @@
     <link rel="stylesheet" href="css/loader.css">
 
 
-<body style="overflow-x: hidden; overflow-y: hidden;"></body>
-<style>
-    body {
-        background-image: url('img/Lawrencium.jpg');
-        background-size: cover;
-    }
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-<script src="js/firebase_config.js" type="module"></script>
-<script src="js/usercontroll.js" type="module"></script>
-<script src="js/chat.js" type="module"></script>
-<script src="js/settings.js" type="module"></script>
-</head>
-<!-- Jeg har lagt til denne i navigering -->
-<!-- ^melding til meg selv (mats) -->
-
+    <body style="overflow-x: hidden; overflow-y: hidden;"></body>
+    <style>
+        body {
+            background-image: url('img/Lawrencium.jpg');
+            background-size: cover;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script src="js/firebase_config.js" type="module"></script>
+    <script src="js/usercontroll.js" type="module"></script>
+    <script src="js/chat.js" type="module"></script>
+    <script src="js/settings.js" type="module"></script>
+    </head>
+    <!-- Jeg har lagt til denne i navigering -->
+    <!-- ^melding til meg selv (mats) -->
 <body>
     <%- include('partials/headerp'); %>
     <%- include('partials/instillingerp'); %>
@@ -47,22 +47,21 @@
                     <div class="row" style="background: #202124; height:8vh;">
                         <div class="form-outline my-3">
                             <input type="search" id="form1" class="form-control border-dark d-flex my-auto"
-                                placeholder="Finn en samtale" aria-label="Search"
+                                placeholder="Søk i samtaler" aria-label="Search"
                                 style="margin-top:10px; margin-bottom:10px; color:rgb(211, 211, 211); background-color:rgb(60, 64, 67, 0.90);">
                         </div>
                     </div>
                     <!--BUNN VENSTRE  <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">  -->
                     <div class="row" style="height:81vh; overflow-y: scroll; overflow-x: hidden; background: #111;">
                         <ul class="list-group" style="margin:10px; width: calc(100% - 10px)" id="chat-list-left">
+
                             <!-- EKSEMPEL DATA
-                            <li class="list-group-item d-flex justify-content-between align-items-center"
-                                style="color: white; background-color: #111;">
-                                <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic">
+                            <li class="list-group-item d-flex justify-content-between align-items-center" style="color: white; background-color: #111; display: none;">
+                                <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic" style="display: none;">
                                 <h3>JonKanon352</h3>
-                                <span class="badge bg-primary rounded-pill">13</span>
+                                <span style="display: none;" class="badge bg-primary rounded-pill">13</span>
                             </li>
                             -->
-
                         </ul>
                     </div>
                 </div>
