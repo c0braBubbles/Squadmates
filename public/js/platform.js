@@ -186,7 +186,8 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
         '<div class="mr-2">' +
         /*----- Profilbilde -----*/
         // HER SKAL JEG LEGGE INN ONCLICK
-        '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
+        `<img class="rounded-circle m-3" style="object-fit: cover;" id="${ppid}" onclick="showProfile('${username}', '${owner}')" width="50" height="50" src="" alt=""> </div> ` + 
+        // '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
         '<div class= "ml-2">' +
         '<div class="h5 m-0 text-light">' + username + '</div>' +
         '<div class="h7 text-light">' + realname + '</div> </div>' +
@@ -345,8 +346,10 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
                     //Henter brukernavnet fra bruker tabellen
                     $(cmntSection).prepend(
                         // HER ER ÉN KOMMENTAR. DET SKAL OGSÅ VÆRE ONCLICK
-                        '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
-                        'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
+                        '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex">' + 
+                        `<img class="rounded-circle m-1" onclick="showProfile('${username}', '${cmtOwner}')" width="35" height="35" src="" id="${ppid}" style="object-fit: cover;">` + 
+                        '<img class = "rounded-circle m-1" width="35" height="35" src="" id="' + ppid + '" style="object-fit: cover;">' + 
+                        '<strong class = "my-auto mx-1">' + username + '</strong>' +
                         '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
                         '<ul class="dropdown-menu bg-dark ms-auto" aria-labelledby="dropdownMenu2"> <li><button class="dropdown-item text-light bg-dark"' +
                         'type="button" id="' + deletecommentid + cmtOwner + '">Slett kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
@@ -453,7 +456,8 @@ function getPost(lastkey) {
             '<div class="mr-2">' +
             /*----- Profilbilde -----*/
             // HER SKAL DET VÆRE ONCLICK
-            '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
+            `<img class="rounded-circle m-3" onclick="showProfile('${username}', '${owner}')" style="object-fit: cover;" id="${ppid}" width="50" height="50" src="" alt=""> </div> ` + 
+            // '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
             '<div class= "ml-2">' +
             '<div class="h5 m-0 text-light">' + username + '</div>' +
             '<div class="h7 text-light">' + realname + '</div> </div>' +
@@ -612,8 +616,10 @@ function getPost(lastkey) {
                         //Henter brukernavnet fra bruker tabellen
                         $(cmntSection).prepend(
                             // HER SKAL DET VÆRE ONCLICK 
-                            '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
-                            'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
+                            '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex">' + 
+                            `<img onclick="showProfile('${username}', '${cmtOwner}')" class="rounded-circle m-1" width="35" height="35" src="" id="${ppid}" style="object-fit: cover;">` + 
+                            // '<img class = "rounded-circle m-1" width="35" height="35" src="" id="' + ppid + '" style="object-fit: cover;">' + 
+                            '<strong class = "my-auto mx-1">' + username + '</strong>' +
                             '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
                             '<ul class="dropdown-menu bg-dark ms-auto" aria-labelledby="dropdownMenu2"> <li><button class="dropdown-item text-light bg-dark"' +
                             'type="button" id="' + deletecommentid + cmtOwner + '">Slett kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">' +

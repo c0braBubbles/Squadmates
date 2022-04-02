@@ -31,17 +31,15 @@
             "stiftet": "1998",
             "Bra:": "ja ganske"
         }
-        biler.Merke = {
-            
-        }
+        biler.Merke = [];
 
         const toyota = {
             "stiftet": "1911",
             "Bra": "ja iblant"
         };
-        biler.Merke[Object.keys(biler.Merke).length] = {
-            "toyota": toyota
-        }
+        // biler.Merke[Object.keys(biler.Merke).length] = {
+        //     "toyota": toyota
+        // }
 
         // console.log(Object.keys(biler.Merke).length);
         
@@ -50,13 +48,17 @@
             "Bra": "ALLTID"
         }
 
-        biler.Merke[Object.keys(biler.Merke).length] = {
-            porche 
-        }
+        biler.Merke.push(porche);
+        biler.Merke.push(toyota);
 
-        console.log(Object.keys(biler.Merke).length);
 
-        delete biler.Merke[1];
+        // biler.Merke[Object.keys(biler.Merke).length] = {
+        //     porche 
+        // }
+
+        // console.log(Object.keys(biler.Merke).length);
+
+        // delete biler.Merke[1];
         console.log(biler);
     </script>
 
