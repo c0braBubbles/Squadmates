@@ -281,6 +281,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').orderByKey().limitToLast
         '<div class="mr-2">' +
         /*----- Profilbilde -----*/
         // HER SKAL DET LEGGES ONCLICK
+        `<img onclick="showProfile('${username}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${ppid}" src=""> </div> ` + 
         '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + ppid + '" src=""> </div> ' +
         '<div class= "ml-2">' +
         '<div class="h5 m-0 text-light">' + username + '</div>' +
@@ -437,8 +438,10 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').orderByKey().limitToLast
 
                     // HER SKAL DET LEGGES ONCLICK
                     $(cmntSection).prepend(
-                        '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
-                        'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
+                        '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex">' + 
+                        `<img onclick="showProfile('${username}', '${cmtOwner}')" class = "rounded-circle m-1" width="35" height="35" src="" id="${ppid}" style="object-fit: cover;"> ` +
+                        // '<img class = "rounded-circle m-1" width="35" height="35" src="" id="' + ppid + '" style="object-fit: cover;"> ' + 
+                        '<strong class = "my-auto mx-1">' + username + '</strong>' +
                         '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
                         '<ul class="dropdown-menu bg-dark ms-auto" aria-labelledby="dropdownMenu2"> <li><button class="dropdown-item text-light bg-dark"' +
                         'type="button" id="' + deletecommentid + cmtOwner + '">Slett kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
@@ -545,7 +548,8 @@ function getPost(lastkey) {
             '<div class="mr-2">' +
             /*----- Profilbilde -----*/
             // HER SKAL DET LEGGES ONCLICK
-            '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + ppid + '" src=""> </div> ' +
+            `<img onclick="showProfile('${username}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${ppid}" src=""> </div>` + 
+            // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + ppid + '" src=""> </div> ' +
             '<div class= "ml-2">' +
             '<div class="h5 m-0 text-light">' + username + '</div>' +
             '<div class="h7 text-light">' + realname + '</div> </div>' +
@@ -702,8 +706,10 @@ function getPost(lastkey) {
                         // HER SKAL DET LEGGES ONCLICK
                         
                         $(cmntSection).prepend(
-                            '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
-                            'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
+                            '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex">' + 
+                            `<img class="rounded-circle m-1" width="35" height="35" src="" id="${ppid}" onclick="showProfile('${username}', '${cmtOwner}')" style="object-fit: cover;">` + 
+                            // '<img class="rounded-circle m-1" width="35" height="35"' + 'src="" id="' + ppid + '" style="object-fit: cover;">' + 
+                            '<strong class = "my-auto mx-1">' + username + '</strong>' +
                             '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
                             '<ul class="dropdown-menu bg-dark ms-auto" aria-labelledby="dropdownMenu2"> <li><button class="dropdown-item text-light bg-dark"' +
                             'type="button" id="' + deletecommentid + cmtOwner + '">Slett kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
@@ -825,9 +831,12 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
             .catch((error) => { //Dersom brukeren ikke har profilbilde
                 console.clear(error);
                 list = document.getElementById("memberlistGroup");
-                $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
-                    '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'
-                    + name + '</a>');
+                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                                    <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde" alt="Profilbilde">
+                                ${name}</a>`)
+                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
+                //     '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'
+                //     + name + '</a>');
 
             });
     })
