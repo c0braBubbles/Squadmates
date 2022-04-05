@@ -282,7 +282,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').orderByKey().limitToLast
         /*----- Profilbilde -----*/
         // HER SKAL DET LEGGES ONCLICK
         `<img onclick="showProfile('${username}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${ppid}" src=""> </div> ` + 
-        '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + ppid + '" src=""> </div> ' +
+        // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + ppid + '" src=""> </div> ' +
         '<div class= "ml-2">' +
         '<div class="h5 m-0 text-light">' + username + '</div>' +
         '<div class="h7 text-light">' + realname + '</div> </div>' +
