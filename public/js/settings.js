@@ -61,7 +61,6 @@ bekreftSlett.onclick = function () {
                     snapshot.forEach(function (childSnap) {
                         firebase.database().ref("Grupper/" + childSnap.key+"/Medlemmer/"+whiz.Uid).remove().catch((error) => {
                             console.log(error.message);
-                            //!!!!!!!!!HER SKAL DET OGSÅ SLETTES EVT BILDE TIL GRUPPEN!!!!!!!!!
                         });
                     });
                 }
