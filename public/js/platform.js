@@ -14,6 +14,7 @@ console.log(platform);
 //Henter UID til innlogget bruker
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
+console.log(whiz);
 
 //Sjekker platformerns liste for medlemmer
 firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', function (snapshot) {
@@ -32,29 +33,61 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
         var storageRef = storage.ref();
         var pictureStorage = storageRef.child("user/" + uid + "/profile.jpg");
 
-        pictureStorage.getDownloadURL()
-            .then((pictureURL) => { //Dersom brukeren har profilbilde
+        // HER SKAL DE JEG FØLGER DUKKE OPP
+        pictureStorage.getDownloadURL().then((pictureURL) => { //Dersom brukeren har profilbilde
+            $(".loader-wrapper" + platform).fadeOut("slow");
+            list = document.getElementById("medlemslistePlatform");
+            let followList = document.getElementById("følgerlistePlatform");
+            
+            $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                                <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
+                            ${name}</a>`);
+        }).catch((error) => { //Dersom brukeren ikke har profilbilde
+            //console.clear(error);
+            $(".loader-wrapper" + platform).fadeOut("slow");
+            list = document.getElementById("medlemslistePlatform");
+            $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                                <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
+                            ${name}</a>`);
+        });
+    }); 
+
+
+    for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
+        if(whiz.Following[i] == null) {
+            i++;
+        }
+
+        if(userID == whiz.Following[i].Uid) {
+            let name = whiz.Following[i].Brukernavn; 
+
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            var pictureStorage = storageRef.child("user/" + userID + "/profile.jpg");
+
+
+            pictureStorage.getDownloadURL().then((pictureURL) => { //Dersom brukeren har profilbilde
                 $(".loader-wrapper" + platform).fadeOut("slow");
                 list = document.getElementById("medlemslistePlatform");
-                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
-                // '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src=' + pictureURL + 'alt="Profilbilde">'
-                // + name + '</a>');
-                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                let followList = document.getElementById("følgerlistePlatform");
+                
+                $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${userID}')">
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
                                 ${name}</a>`);
-            })
-            .catch((error) => { //Dersom brukeren ikke har profilbilde
+            }).catch((error) => { //Dersom brukeren ikke har profilbilde
                 //console.clear(error);
                 $(".loader-wrapper" + platform).fadeOut("slow");
                 list = document.getElementById("medlemslistePlatform");
-                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
-                //     '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'
-                //     + name + '</a>');
-                $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
+                let followList = document.getElementById("følgerlistePlatform");
+
+                $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${userID}')">
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
                                 ${name}</a>`);
             });
-    })
+        }
+    }
+
+
 });
 
 var fil = {};
@@ -117,6 +150,7 @@ document.getElementById("upload").onclick = function () {
 }
 
 
+// henting av innlegg
 var countstart = 0;
 firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitToLast(4).on('child_added', function (snapshot) {
     countstart++;
@@ -151,7 +185,9 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
         '<div class="d-flex justify-content-between align-items-center">' +
         '<div class="mr-2">' +
         /*----- Profilbilde -----*/
-        '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
+        // HER SKAL JEG LEGGE INN ONCLICK
+        `<img class="rounded-circle m-3" style="object-fit: cover;" id="${ppid}" onclick="showProfile('${username}', '${owner}')" width="50" height="50" src="" alt=""> </div> ` + 
+        // '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
         '<div class= "ml-2">' +
         '<div class="h5 m-0 text-light">' + username + '</div>' +
         '<div class="h7 text-light">' + realname + '</div> </div>' +
@@ -219,7 +255,7 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
         })
         .catch((error) => { //Dersom brukeren ikke har profilbilde
             document.getElementById(ppid).src = "img/blank-profile-circle.png";
-            console.clear(error);
+            // console.clear(error);
 
 
         }).then(() => {
@@ -309,8 +345,11 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
 
                     //Henter brukernavnet fra bruker tabellen
                     $(cmntSection).prepend(
-                        '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
-                        'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
+                        // HER ER ÉN KOMMENTAR. DET SKAL OGSÅ VÆRE ONCLICK
+                        '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex">' + 
+                        `<img class="rounded-circle m-1" onclick="showProfile('${username}', '${cmtOwner}')" width="35" height="35" src="" id="${ppid}" style="object-fit: cover;">` + 
+                        '<img class = "rounded-circle m-1" width="35" height="35" src="" id="' + ppid + '" style="object-fit: cover;">' + 
+                        '<strong class = "my-auto mx-1">' + username + '</strong>' +
                         '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
                         '<ul class="dropdown-menu bg-dark ms-auto" aria-labelledby="dropdownMenu2"> <li><button class="dropdown-item text-light bg-dark"' +
                         'type="button" id="' + deletecommentid + cmtOwner + '">Slett kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
@@ -330,7 +369,7 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
                             document.getElementById(ppid).src = pictureURL;
                         }).catch((error) => { //Har ikke profilbilde
                             document.getElementById(ppid).src = "img/blank-profile-circle.png";
-                            console.clear(error);
+                            // console.clear(error);
 
                         }).then(() => {
                             //Viser slett kommentar knapp om det er din kommentar, ellers så vises rapporter kommentar knappen
@@ -373,7 +412,7 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
                 })
                 .catch((error) => {
                     document.getElementById(picid + owner).style.display = "none"; //Fjerne img tag dersom det ikke finnes noe bilde
-                    console.clear(error);
+                    // console.clear(error);
                 });
         })
 })
@@ -416,7 +455,9 @@ function getPost(lastkey) {
             '<div class="d-flex justify-content-between align-items-center">' +
             '<div class="mr-2">' +
             /*----- Profilbilde -----*/
-            '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
+            // HER SKAL DET VÆRE ONCLICK
+            `<img class="rounded-circle m-3" onclick="showProfile('${username}', '${owner}')" style="object-fit: cover;" id="${ppid}" width="50" height="50" src="" alt=""> </div> ` + 
+            // '<img class="rounded-circle m-3" style="object-fit: cover;" id="' + ppid + '" width="50" height="50" src="" alt=""> </div> ' +
             '<div class= "ml-2">' +
             '<div class="h5 m-0 text-light">' + username + '</div>' +
             '<div class="h7 text-light">' + realname + '</div> </div>' +
@@ -484,7 +525,7 @@ function getPost(lastkey) {
             })
             .catch((error) => { //Dersom brukeren ikke har profilbilde
                 document.getElementById(ppid).src = "img/blank-profile-circle.png";
-                console.clear(error);
+                // console.clear(error);
 
 
             }).then(() => {
@@ -574,8 +615,11 @@ function getPost(lastkey) {
 
                         //Henter brukernavnet fra bruker tabellen
                         $(cmntSection).prepend(
-                            '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex"> <img class = "rounded-circle m-1" width="35" height="35"' +
-                            'src="" id="' + ppid + '" style="object-fit: cover;"> <strong class = "my-auto mx-1">' + username + '</strong>' +
+                            // HER SKAL DET VÆRE ONCLICK 
+                            '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex">' + 
+                            `<img onclick="showProfile('${username}', '${cmtOwner}')" class="rounded-circle m-1" width="35" height="35" src="" id="${ppid}" style="object-fit: cover;">` + 
+                            // '<img class = "rounded-circle m-1" width="35" height="35" src="" id="' + ppid + '" style="object-fit: cover;">' + 
+                            '<strong class = "my-auto mx-1">' + username + '</strong>' +
                             '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
                             '<ul class="dropdown-menu bg-dark ms-auto" aria-labelledby="dropdownMenu2"> <li><button class="dropdown-item text-light bg-dark"' +
                             'type="button" id="' + deletecommentid + cmtOwner + '">Slett kommentar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">' +
@@ -595,7 +639,7 @@ function getPost(lastkey) {
                                 document.getElementById(ppid).src = pictureURL;
                             }).catch((error) => { //Har ikke profilbilde
                                 document.getElementById(ppid).src = "img/blank-profile-circle.png";
-                                console.clear(error);
+                                // console.clear(error);
 
                             }).then(() => {
                                 //Viser slett kommentar knapp om det er din kommentar, ellers så vises rapporter kommentar knappen
@@ -639,7 +683,7 @@ function getPost(lastkey) {
                     .catch((error) => {
                         document.getElementById(picid + owner).style.display = "none"; //Fjerne img tag dersom det ikke finnes noe bilde
                         //console.log(error.message);
-                        console.clear(error);
+                        // console.clear(error);
                     });
             })
     })

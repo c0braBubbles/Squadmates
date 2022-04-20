@@ -1,0 +1,433 @@
+{
+  "Bruker" : {
+    "2Zntc2cRODNHqsoVLbp3kWEssqz1" : {
+      "Alder" : "21",
+      "Biografi" : "Jeg eier 68 klovnebilder i One-Driven min... ",
+      "Brukernavn" : "Down2Clown",
+      "Discord" : "SkinkePåBox",
+      "Followers" : [ {
+        "Brukernavn" : "Chris123",
+        "Uid" : "wojs6op0xMU6NjKhFCv7V3X8Azj1"
+      } ],
+      "FollowersCount" : 1,
+      "FollowingCount" : 0,
+      "Playstation" : "c0braBubbles",
+      "Steam" : "C0braBubbles",
+      "Switch" : "mario_fr3Ak_69420",
+      "Uid" : "2Zntc2cRODNHqsoVLbp3kWEssqz1",
+      "Xbox" : "ps5_4_lyf"
+    },
+    "DFRTETPbDGPsT8Xt3GpkvQiJ2Gt1" : {
+      "Alder" : "21",
+      "Biografi" : "null",
+      "Brukernavn" : "matsTest",
+      "FollowersCount" : 0,
+      "FollowingCount" : 1,
+      "Followings" : [ {
+        "Brukernavn" : "Cubb",
+        "Uid" : "z6j5XnaMUAMcjrTviPPx3JipYNS2"
+      } ],
+      "Grupper eid" : {
+        "-MyiYqnt3P9fhPsmgpPN" : {
+          "Key" : "-MyiYqnt3P9fhPsmgpPN"
+        }
+      },
+      "Navn" : "Vigdis Dees",
+      "Uid" : "DFRTETPbDGPsT8Xt3GpkvQiJ2Gt1",
+      "Xbox" : "sss"
+    },
+    "L4PZ8GasDyUemOsHm2oAyTLXxZj1" : {
+      "Alder" : "22",
+      "Biografi" : "hallo",
+      "Brukernavn" : "Christest",
+      "Grupper" : {
+        "-MyvSRJuCPe8ae1cHSGi" : {
+          "Key" : "-MyvSRJuCPe8ae1cHSGi"
+        }
+      },
+      "Navn" : "christoffer-driftern-arnesen",
+      "Xbox" : "Barmen"
+    },
+    "T9HzYA5MJmhV5V2fBCdgStCDN513" : {
+      "Alder" : "22",
+      "Biografi" : "Ute etter å bli kvitt den jævla klovnen som spolerer for oss barmen pilsner elskere!",
+      "Brukernavn" : "Cubrr",
+      "Discord" : "Cubrr#69420",
+      "Followers" : [ {
+        "Brukernavn" : "Chris123",
+        "Uid" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2"
+      }, {
+        "Brukernavn" : "Down2Clown",
+        "Uid" : "2Zntc2cRODNHqsoVLbp3kWEssqz1"
+      } ],
+      "FollowersCount" : 2,
+      "FollowingCount" : 1,
+      "Followings" : [ {
+        "Brukernavn" : "Down2Clown",
+        "Uid" : "2Zntc2cRODNHqsoVLbp3kWEssqz1"
+      } ],
+      "Grupper eid" : {
+        "-MzGSvHJgOzNPVbnWVuV" : {
+          "Key" : "-MzGSvHJgOzNPVbnWVuV"
+        },
+        "-MzGTkNWTVOwQf2vos5a" : {
+          "Key" : "-MzGTkNWTVOwQf2vos5a"
+        }
+      },
+      "Navn" : "Jacob Flæte Kristensen",
+      "Playstation" : "CubrrPS",
+      "Steam" : "Cubrr",
+      "Uid" : "T9HzYA5MJmhV5V2fBCdgStCDN513"
+    },
+    "kyhLdFwAyfdEEYOFjUGaYDCpwGn2" : {
+      "Alder" : "22",
+      "Biografi" : "null",
+      "Brukernavn" : "cubb2",
+      "FollowersCount" : 0,
+      "Navn" : "Jacob 2 Kristensen",
+      "Xbox" : "barmensangpang"
+    },
+    "rs2EzS95zGOxgSbEKXzo4Pk9oMy2" : {
+      "Alder" : "22",
+      "Biografi" : "Hei",
+      "Brukernavn" : "Chris123",
+      "Discord" : "Christoffer#1234",
+      "Favoritt grupper" : {
+        "-MyiYqnt3P9fhPsmgpPN" : {
+          "Key" : "-MyiYqnt3P9fhPsmgpPN"
+        },
+        "-MyxANrUDTofk43nPTXx" : {
+          "Key" : "-MyxANrUDTofk43nPTXx"
+        }
+      },
+      "Followers" : [ {
+        "Brukernavn" : "Down2Clown",
+        "Uid" : "2Zntc2cRODNHqsoVLbp3kWEssqz1"
+      } ],
+      "FollowersCount" : 1,
+      "FollowingCount" : 1,
+      "Followings" : [ {
+        "Brukernavn" : "Cubrr",
+        "Uid" : "T9HzYA5MJmhV5V2fBCdgStCDN513"
+      } ],
+      "Grupper" : {
+        "-MyiYqnt3P9fhPsmgpPN" : {
+          "Key" : "-MyiYqnt3P9fhPsmgpPN"
+        },
+        "-MyxANrUDTofk43nPTXx" : {
+          "Key" : "-MyxANrUDTofk43nPTXx"
+        }
+      },
+      "Grupper eid" : {
+        "-MyvSRJuCPe8ae1cHSGi" : {
+          "Key" : "-MyvSRJuCPe8ae1cHSGi"
+        },
+        "-Myx05bjePUP4rIpQwqQ" : {
+          "Key" : "-Myx05bjePUP4rIpQwqQ"
+        },
+        "-Myx07g85Jjtvp2ewq6I" : {
+          "Key" : "-Myx07g85Jjtvp2ewq6I"
+        },
+        "-Myx09Klx9ST5QDhj5z4" : {
+          "Key" : "-Myx09Klx9ST5QDhj5z4"
+        }
+      },
+      "Navn" : "Christoffer Strand Arnesen",
+      "Playstation" : "FrozyEU",
+      "Steam" : "Arnesen",
+      "Steamlink" : "https://steamcommunity.com/profiles/76561198085293514/",
+      "Switch" : "Supermario123",
+      "Uid" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Xbox" : "Frozy EU"
+    }
+  },
+  "Grupper" : {
+    "-MyiYqnt3P9fhPsmgpPN" : {
+      "BildeID" : 1647901106956,
+      "Eier" : "DFRTETPbDGPsT8Xt3GpkvQiJ2Gt1",
+      "Medlemmer" : {
+        "rs2EzS95zGOxgSbEKXzo4Pk9oMy2" : {
+          "BrukerID" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2"
+        }
+      },
+      "Navn" : "Gaming bugs",
+      "Om" : "Tenkte å snekre sammen en support gruppe for når havner i en clutch. Her kan du poste stuff når du sitter i det og få hjelp",
+      "Pc" : "yes",
+      "Ps" : "yes",
+      "Switch" : "yes",
+      "Xbox" : "yes"
+    },
+    "-MyvSRJuCPe8ae1cHSGi" : {
+      "BildeID" : 1648117532013,
+      "Discord" : "https://discord.com/invite/GUswzx2e",
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Innlegg" : {
+        "-MyvWOz5-5suCd6w1jKJ" : {
+          "Beskrivelse" : "sjekk ut min hippe tralle",
+          "Brukernavn" : "Chris123",
+          "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+          "ID" : 1648118570833,
+          "Kommentarer" : {
+            "-MyvXikJyoY2MCM1s5Z-" : {
+              "Bruker" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+              "Brukernavn" : "Chris123",
+              "Kommentar" : "SHEEEEESSSHHHH, dette facker jeg med as yeeeet",
+              "Tidspunkt" : "24.03.2022, 11:48"
+            }
+          },
+          "Navn" : "Christoffer Strand Arnesen",
+          "Tidspunkt" : "24.03.2022, 11:42",
+          "Tittel" : "Rx7 FD med Ridox kit"
+        }
+      },
+      "Medlemmer" : {
+        "L4PZ8GasDyUemOsHm2oAyTLXxZj1" : {
+          "BrukerID" : "L4PZ8GasDyUemOsHm2oAyTLXxZj1"
+        }
+      },
+      "Navn" : "Forza Horizon 5 JDM Showroom",
+      "Om" : "Legg ut bilder av JDM biler",
+      "Xbox" : "yes"
+    },
+    "-MywneiA1I9X6HRv58vd" : {
+      "BildeID" : 1648140135097,
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Navn" : "Test",
+      "Om" : "wasdasd",
+      "Xbox" : "yes"
+    },
+    "-MywoKfQacUL6-t8vKoP" : {
+      "BildeID" : 1648140311066,
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Navn" : "Test",
+      "Om" : "test",
+      "Ps" : "yes"
+    },
+    "-MywoKfRNhSfNUpBXTEK" : {
+      "BildeID" : 1648140311066,
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Navn" : "Test",
+      "Om" : "test",
+      "Ps" : "yes"
+    },
+    "-MywsrAcsOW3AQlJkp5G" : {
+      "BildeID" : 1648141495012,
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Navn" : "123123",
+      "Om" : "123123",
+      "Xbox" : "yes"
+    },
+    "-MywtnQJTsW9DuvVypHa" : {
+      "BildeID" : 1648141743615,
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Navn" : "123",
+      "Om" : "123"
+    },
+    "-MywuodH4keI3fAeJSjI" : {
+      "BildeID" : 1648142010745,
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Navn" : "123123",
+      "Om" : "123123",
+      "Xbox" : "yes"
+    },
+    "-Myx05bjePUP4rIpQwqQ" : {
+      "BildeID" : 1648143657374,
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Navn" : "a",
+      "Om" : "a"
+    },
+    "-Myx07g85Jjtvp2ewq6I" : {
+      "BildeID" : 1648143665847,
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Navn" : "c",
+      "Om" : "c"
+    },
+    "-Myx09Klx9ST5QDhj5z4" : {
+      "BildeID" : 1648143672607,
+      "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+      "Navn" : "b",
+      "Om" : "b"
+    },
+    "-MyxANrUDTofk43nPTXx" : {
+      "BildeID" : 1648146365315,
+      "Eier" : "z6j5XnaMUAMcjrTviPPx3JipYNS2",
+      "Innlegg" : {
+        "-MzF71uRgKuAFCJcdId8" : {
+          "Beskrivelse" : "w",
+          "Brukernavn" : "Chris123",
+          "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+          "ID" : 1648464244283,
+          "Navn" : "Christoffer Strand Arnesen",
+          "Tidspunkt" : "28.03.2022, 12:44",
+          "Tittel" : "yeet da "
+        }
+      },
+      "Medlemmer" : {
+        "rs2EzS95zGOxgSbEKXzo4Pk9oMy2" : {
+          "BrukerID" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2"
+        }
+      },
+      "Navn" : "Barmen-pilsner elskere V2",
+      "Om" : "Dette er en hemmelig gruppe for oss som elsker Barmen pilsner, får håpe han klovnen ikke kommer tilbake",
+      "Pc" : "yes",
+      "Ps" : "yes",
+      "Switch" : "yes",
+      "Xbox" : "yes"
+    },
+    "-MzGSvHJgOzNPVbnWVuV" : {
+      "BildeID" : 1648486757923,
+      "Eier" : "T9HzYA5MJmhV5V2fBCdgStCDN513",
+      "Navn" : "ViSomElskerGIS<3",
+      "Om" : "Denne gruppen er ment for oss entusiaster som bare elsker GIS",
+      "Pc" : "yes",
+      "Ps" : "yes",
+      "Switch" : "yes",
+      "Xbox" : "yes"
+    },
+    "-MzGTkNWTVOwQf2vos5a" : {
+      "BildeID" : 1648486975421,
+      "Eier" : "T9HzYA5MJmhV5V2fBCdgStCDN513",
+      "Navn" : "TopologiElskere",
+      "Om" : "Denne gruppen for oss som elsker GIS, men som er spesielt interessert i topologi!",
+      "Pc" : "yes",
+      "Ps" : "yes",
+      "Switch" : "yes",
+      "Xbox" : "yes"
+    }
+  },
+  "Playstation gruppe" : {
+    "Innlegg" : {
+      "-MywBeci6zH9HtJrK4tV" : {
+        "Beskrivelse" : "wasd",
+        "Brukernavn" : "Chris123",
+        "Eier" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+        "ID" : 1648129911184,
+        "Navn" : "Christoffer Strand Arnesen",
+        "Tidspunkt" : "24.03.2022, 14:51",
+        "Tittel" : "wasd"
+      }
+    },
+    "Medlemmer" : {
+      "2Zntc2cRODNHqsoVLbp3kWEssqz1" : {
+        "BrukerID" : "2Zntc2cRODNHqsoVLbp3kWEssqz1"
+      },
+      "T9HzYA5MJmhV5V2fBCdgStCDN513" : {
+        "BrukerID" : "T9HzYA5MJmhV5V2fBCdgStCDN513"
+      },
+      "rs2EzS95zGOxgSbEKXzo4Pk9oMy2" : {
+        "BrukerID" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2"
+      },
+      "wojs6op0xMU6NjKhFCv7V3X8Azj1" : {
+        "BrukerID" : "wojs6op0xMU6NjKhFCv7V3X8Azj1"
+      }
+    }
+  },
+  "Steam gruppe" : {
+    "Medlemmer" : {
+      "2Zntc2cRODNHqsoVLbp3kWEssqz1" : {
+        "BrukerID" : "2Zntc2cRODNHqsoVLbp3kWEssqz1"
+      },
+      "T9HzYA5MJmhV5V2fBCdgStCDN513" : {
+        "BrukerID" : "T9HzYA5MJmhV5V2fBCdgStCDN513"
+      },
+      "rs2EzS95zGOxgSbEKXzo4Pk9oMy2" : {
+        "BrukerID" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2"
+      },
+      "wojs6op0xMU6NjKhFCv7V3X8Azj1" : {
+        "BrukerID" : "wojs6op0xMU6NjKhFCv7V3X8Azj1"
+      }
+    }
+  },
+  "Switch gruppe" : {
+    "Medlemmer" : {
+      "2Zntc2cRODNHqsoVLbp3kWEssqz1" : {
+        "BrukerID" : "2Zntc2cRODNHqsoVLbp3kWEssqz1"
+      },
+      "T9HzYA5MJmhV5V2fBCdgStCDN513" : {
+        "BrukerID" : "T9HzYA5MJmhV5V2fBCdgStCDN513"
+      },
+      "rs2EzS95zGOxgSbEKXzo4Pk9oMy2" : {
+        "BrukerID" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2"
+      },
+      "wojs6op0xMU6NjKhFCv7V3X8Azj1" : {
+        "BrukerID" : "wojs6op0xMU6NjKhFCv7V3X8Azj1"
+      }
+    }
+  },
+  "Xbox gruppe" : {
+    "Innlegg" : {
+      "-Myi8pGt2CkE1vEjAOOQ" : {
+        "Beskrivelse" : "Er det noen her som vet om en bra warzone gruppe. Helst xbox, siden playstation ikke har discord på plass enda",
+        "Brukernavn" : "Down2Clown",
+        "Eier" : "2Zntc2cRODNHqsoVLbp3kWEssqz1",
+        "ID" : 1647894284698,
+        "Kommentarer" : {
+          "-MyqjYR58z250HmNZysM" : {
+            "Bruker" : "wojs6op0xMU6NjKhFCv7V3X8Azj1",
+            "Brukernavn" : "Chris123",
+            "Kommentar" : "Nei desverre",
+            "Tidspunkt" : "23.03.2022, 13:26"
+          }
+        },
+        "Navn" : "Mats Jørgen Engesund",
+        "Tidspunkt" : "21.03.2022, 21:24",
+        "Tittel" : "Warzone gruppe?"
+      },
+      "-Myi9XvEBmjn9MSqavGr" : {
+        "Beskrivelse" : "sangen",
+        "Brukernavn" : "cubb2",
+        "Eier" : "kyhLdFwAyfdEEYOFjUGaYDCpwGn2",
+        "ID" : 1647894475401,
+        "Kommentarer" : {
+          "-MyiBDXM4682AMMyjYXX" : {
+            "Bruker" : "2Zntc2cRODNHqsoVLbp3kWEssqz1",
+            "Brukernavn" : "Down2Clown",
+            "Kommentar" : "Er du den brukeren jeg hacka i den forrige gruppa om det piss-skvitet kalt barmen øl?",
+            "Tidspunkt" : "21.03.2022, 21:34"
+          },
+          "-MywBEsHLJ95vCLcJ5jH" : {
+            "Bruker" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2",
+            "Brukernavn" : "Chris123",
+            "Kommentar" : "Åneei ikke klovnen igjen",
+            "Tidspunkt" : "24.03.2022, 14:49"
+          }
+        },
+        "Navn" : "Jacob 2 Kristensen",
+        "Tidspunkt" : "21.03.2022, 21:27",
+        "Tittel" : "barmen"
+      },
+      "-MzFZln82LsjofZEv0hQ" : {
+        "Beskrivelse" : "Heisan dette er en test",
+        "Brukernavn" : "Cubrr",
+        "Eier" : "T9HzYA5MJmhV5V2fBCdgStCDN513",
+        "ID" : 1648471776399,
+        "Navn" : "Jacob Flæte Kristensen",
+        "Tidspunkt" : "28.03.2022, 14:49",
+        "Tittel" : "hei dette er en test"
+      }
+    },
+    "Medlemmer" : {
+      "2Zntc2cRODNHqsoVLbp3kWEssqz1" : {
+        "BrukerID" : "2Zntc2cRODNHqsoVLbp3kWEssqz1"
+      },
+      "DFRTETPbDGPsT8Xt3GpkvQiJ2Gt1" : {
+        "BrukerID" : "DFRTETPbDGPsT8Xt3GpkvQiJ2Gt1"
+      },
+      "L4PZ8GasDyUemOsHm2oAyTLXxZj1" : {
+        "BrukerID" : "L4PZ8GasDyUemOsHm2oAyTLXxZj1"
+      },
+      "T9HzYA5MJmhV5V2fBCdgStCDN513" : {
+        "BrukerID" : "T9HzYA5MJmhV5V2fBCdgStCDN513"
+      },
+      "kyhLdFwAyfdEEYOFjUGaYDCpwGn2" : {
+        "BrukerID" : "kyhLdFwAyfdEEYOFjUGaYDCpwGn2"
+      },
+      "rs2EzS95zGOxgSbEKXzo4Pk9oMy2" : {
+        "BrukerID" : "rs2EzS95zGOxgSbEKXzo4Pk9oMy2"
+      },
+      "wojs6op0xMU6NjKhFCv7V3X8Azj1" : {
+        "BrukerID" : "wojs6op0xMU6NjKhFCv7V3X8Azj1"
+      }
+    }
+  }
+}

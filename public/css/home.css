@@ -323,3 +323,25 @@ button:hover:active:before {
 .chromasteam:hover:active:before {
     filter: blur(2px)
 }
+
+
+/* Søkerestultat-box */
+.search_result_box {
+    background: #212529; 
+    border: 1px solid #212529;
+}
+.search_result_box a, i {
+    text-decoration: none;
+    color: #fff;
+}
+.search_result_box li {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+    display: none;
+}
+.search_result_box li:hover {
+    background-color: rgb(60, 64, 67, 0.90);
+}
+.search_result_box img {
+    width: 100px;
+}

@@ -202,7 +202,7 @@ firebase.database().ref('/Bruker/' + user + '/Grupper eid').on('child_added', fu
                 document.getElementById(imgid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                console.clear(error);
+                // console.clear(error);
                 document.getElementById(imgid).src = "img/Amin.jpg";
             }).then(() => {
                 if (groupCount == 1) {
@@ -255,7 +255,7 @@ firebase.database().ref('/Bruker/' + user + '/Grupper').on('child_added', functi
                 document.getElementById(picid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                console.clear(error);
+                // console.clear(error);
                 document.getElementById(picid).src = "img/Amin.jpg"
             }).then(() => {
                 if (groupCount == 1) {
@@ -266,6 +266,66 @@ firebase.database().ref('/Bruker/' + user + '/Grupper').on('child_added', functi
             });
     })
 })
+
+
+let nameTab_search = []; 
+let descTab_search = []; 
+// de to arrayene over er alltid like lange
+let groupcount = 0; 
+
+firebase.database().ref('/Grupper').on('child_added', function(snapshot) {
+    // console.log(snapshot.val());
+    let name = snapshot.child('Navn').val(); 
+    let about = snapshot.child('Om').val();
+    let owner = snapshot.child('Eier').val();
+    let id = snapshot.child('BildeID').val();
+    var picid = "imageFav" + snapshot.child("BildeID").val();
+    let groupKey = snapshot.key;
+
+    nameTab_search.push(name); 
+    descTab_search.push(about);
+    let liID = 'list_item' + groupcount;
+
+    $(document.getElementById("ul_result")).append(
+        `<li id="${liID}" onclick="getGroup('${groupKey}')">
+            <img src="" id="${picid}" alt="gruppe bilde"/>
+            <a href="#">${name}</a><br>
+            <i>${about}</i>
+        </li>`
+    );
+
+    
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    var pictureStorage = storageRef.child("grupper/" + (owner + id) + "/gruppe.jpg");
+    
+    pictureStorage.getDownloadURL().then((pictureURL) => {
+        document.getElementById(picid).src = pictureURL; 
+    }).catch((error) => {
+        document.getElementById(picid).src = 'img/Amin.jpg';
+    });
+    groupcount += 1;
+});
+
+
+document.getElementById("btnSok").onclick = function() {
+    let searchBox = document.getElementById("searc_box"); 
+    let searchWord = document.getElementById("søkefeltgrupper").value.toUpperCase();
+    let txtValue; 
+    let descValue;
+
+    for(let i = 0; i < nameTab_search.length; i++) {
+        txtValue = nameTab_search[i];
+        descValue = descTab_search[i]; 
+        if(txtValue.toUpperCase().indexOf(searchWord) > -1 ||
+           descValue.toUpperCase().indexOf(searchWord) > -1) {
+            searchBox.style.display = "block"; 
+            document.getElementById("list_item" + i).style.display = "block";
+        } else {
+            console.log("fant ikke eeeen jæææævla dritt");
+        }
+    }
+}
 
 
 //Henting av gruppekort "Mine favoritter" for grupper som er merket som favoritter
@@ -298,16 +358,16 @@ firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added
         )
 
         //Henting av forsidebilde
-        var storage = firebase.storage();
-        var storageRef = storage.ref();
-        var pictureStorage = storageRef.child("grupper/" + (owner + id) + "/gruppe.jpg");
+        let storage = firebase.storage();
+        let storageRef = storage.ref();
+        let pictureStorage = storageRef.child("grupper/" + (owner + id) + "/gruppe.jpg");
 
         pictureStorage.getDownloadURL()
             .then((pictureURL) => { //Har Forsidebilde
                 document.getElementById(picid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                console.clear(error);
+                // console.clear(error);
                 document.getElementById(picid).src = "img/Amin.jpg";
             }).then(() => {
                 if (groupCount == 1) {

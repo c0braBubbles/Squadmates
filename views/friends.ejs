@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,20 +11,19 @@
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/friends.css">
 
-<body style="overflow-x: hidden; overflow-y:hidden;"></body>
-<style>
-    body {
-        background-image: url('img/Lawrencium.jpg');
-        background-size: cover;
-    }
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-<script src="js/firebase_config.js" type="module"></script>
-<script src="js/usercontroll.js" type="module"></script>
-<script src="js/settings.js" type="module"></script>
+    <body style="overflow-x: hidden; overflow-y:hidden;"></body>
+    <style>
+        body {
+            background-image: url('img/Lawrencium.jpg');
+            background-size: cover;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script src="js/firebase_config.js" type="module"></script>
+    <script src="js/usercontroll.js" type="module"></script>
+    <script src="js/settings.js" type="module"></script>
 </head>
-
 <body>
     <!-- BLITT GJORT OM TIL PARTIAL -->
     <%- include('partials/headerp'); %>
@@ -46,8 +44,8 @@
                     <!-- Denne boksen skal være scrollable og inneholde en liste med alle du følger -->
                     <div class="row" id="bl-col" style="background: #111;">
 
-                        <ul class="list-group" style="margin:10px; width: calc(100% - 10px)">
-                            <li class="list-group-item border-dark d-flex justify-content-between align-items-center"
+                        <ul class="list-group" style="margin:10px; width: calc(100% - 10px)" id="friendsList">
+                            <!-- <li class="list-group-item border-dark d-flex justify-content-between align-items-center"
                                 style="color: white; background: #111;">
                                 <a href=""> <img src="img/Gaal.jpg" alt=".." class="rounded-circle display-pic"
                                         style="height:50px; width:50px;"> </a>
@@ -94,7 +92,7 @@
                                 <h3>JonKanon352</h3>
                                 <a href=""> <img src="img/chat-fill.svg" alt="..."
                                         style="filter:invert(100%); width:40px; height:40px;"> </a>
-                            </li>
+                            </li> -->
                         </ul>
 
                     </div>
@@ -105,10 +103,13 @@
                     <!-- Denne boksen skal inneholde et søkefelt, form? -->
                     <div class="row border-bottom border-dark border-2" id="tr-col">
                         <div class="chat-info d-flex me-auto my-auto w-100 mx-auto" style="background: #202124;">
-                            <input class="src-after-person sticky-top text-light w-100" type="search"
-                            placeholder="Søk etter brukere" style="z-index:1 !important;">
+                            <input id="søkefeltbruker" class="src-after-person sticky-top text-light w-100" type="search"
+                                placeholder="Søk etter brukere" style="z-index:1 !important;">
+
+                            <button type="button" class="btn btn-dark" id="btnSok">Søk</button>
                         </div>
-                        <div class="dropdown followingDropdown" style="width: fit-content; height: fit-content; padding:0px;">
+
+                        <!--<div class="dropdown followingDropdown" style="width: fit-content; height: fit-content; padding:0px;">
                             <button class="btn btn-secondary dropdown-toggle followingDropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownMenuButtonFriends">
                                 Følger
                             </button>
@@ -138,237 +139,16 @@
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
+                    
                     <!-- Denne boksen skal inneholde de vennene du kan søke etter -->
                     <div class="row bg-dark" id="br-col"> 
 
                         <div class="src-res" style="height:77vh; overflow-y: scroll;">
                             <!-- NoteToSelf: legg til class "sticky-top" og sett på background -->
 
-                            <ul class="list-group mt-1 person-list">
-
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item person-list-item">
-                                    <div class="row">
-                                        <!--Bilde-->
-                                        <div class="col-auto">
-                                            <a href="gå_til_profil"> <img src="img/Gaal.jpg" alt="..."
-                                                    class="rounded-circle" style="width: 45px; height: 45px;"> </a>
-                                        </div>
-                                        <!--Tekst-->
-                                        <div class="col">
-                                            <h5 style="margin-bottom:0px; font-weight: bold;" class="text-light">
-                                                Username</h5>
-                                            <h6 class = "text-muted" style="margin-bottom:0px; overflow-x: hidden !important; height: 20px;">
-                                                Her kommer litt bio</h6>
-                                        </div>
-                                        <!--Knapp-->
-                                        <div class="col-auto">
-                                            <a href="send_mld"> <img src="img/chat-fill.svg" alt="..."
-                                                    style="filter:invert(100%); width:30px; height:30px; margin-top:5px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-
+                            <ul class="list-group mt-1 person-list" id="ul_result" style="display: none;">
                             </ul>
 
                         </div>
@@ -387,11 +167,8 @@
         <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
         <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>-->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        
+        <script type="module" src="js/friends.js"></script>
+        <script src="js/action.js"></script>
         <!--<script src="jquery-3.5.1.min.js"></script>-->
-        
-
-
 </body>
-
 </html>

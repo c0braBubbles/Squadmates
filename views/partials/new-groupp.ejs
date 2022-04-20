@@ -12,7 +12,27 @@
             </span>
             </div>
         </div>
-    </form>
+    </form><br>
+
+
+    <h5 class="mx-3 w-75 mx-auto">Velg spill gruppen spiller:</h5>
+    <div class="form-floating mb-3 mx-3 w-75 d-flex mx-auto">
+        <input class="form-control border-dark text-light" id="gameInput" placeholder="Søk Spill"
+            style="background-color:rgb(60, 64, 67, 0.90)">
+        <label for="floatingInput" style="color: white;">Søk spill...</label>
+        <button onclick="gameSearch(1)">Søk</button>
+    </div>
+    
+    <div id="gameResults">
+    <!-- <div class="input-group mx-3 w-75 d-flex mx-auto" id="gameResults">
+        <div class="input-group-text bg-dark border-dark">
+            <input class="form-check-input mt-0" id="checktest" type="checkbox" value="MirrorsEdge" aria-label="@Gamertag">
+        </div>
+        <img src="https://media.rawg.io/media/games/8e4/8e4de3f54ac659e08a7ba6a2b731682a.jpg" alt="noe" width="42">
+        <input type="text" class="form-control bg-dark border-dark text-light" aria-label="@Gamertag" value="Mirrors Edge" readonly>
+    </div> -->
+    </div><br>
+
 
     <h5 class="mx-3 w-75 mx-auto">Navn og om gruppen</h5>
     <div class="form-floating mb-3 mx-3 w-75 d-flex mx-auto">
@@ -45,7 +65,7 @@
         <span class="form-text small text-muted mx-3 w-75 mx-auto">
             Hvis gruppen din har en egen discord server kan du legge linken her
         </span>
-        </div>
+    </div>
     <div class="container m-0 p-0">
         <h5 class="w-75 mx-auto">Platformer</h5>
         <div class="row w-75 mx-auto pr-0 mr-0">

@@ -9,36 +9,87 @@
 <body>
     <h1>Bruker API for å hente spill</h1>
 
+    <input type="text" id="input" required placeholder="Søk..." />
+
+    <button id="knp" onclick="search(1)">Finn spill</button>
+
+    <p id="demo"></p>
+
     <script>
+        /*
+            Dette er API-nøkkelen fra RAWG som jeg, Mats Jørgen, fetched 04.04.2022: 
+            04fe2e746e1346738846b6ea6554a96b
+        */
+
+
+        function search(i) {
+            // console.log(i);
+            let inp = document.getElementById("input").value.toUpperCase();
+            let para = document.getElementById("demo");
+
+            if (i == 1388) {
+                console.log("ferdig");
+                return;
+            } else {
+                fetch("https://api.rawg.io/api/games?key=04fe2e746e1346738846b6ea6554a96b" + "&page=" + i, {
+                    "method": "GET",
+                }).then(response => response.json()).then(data => {
+                    for (let j = 0; j < data.results.length; j++) {
+                        let game = data.results[j].name;
+                        // para.innerHTML += game + "<br>";
+
+                        if (game.toUpperCase().indexOf(inp) > -1) {
+                            para.innerHTML += game + "<br>";
+                        } 
+
+                        if(j == data.results.length - 1) {
+                            i += 1; 
+                            search(i);
+                        }
+                    }
+                }).catch(err => {
+                    para.innerHTML = err;
+                    // return;
+                });
+            }
+        }
+
+
+
+        // fetch("https://api.rawg.io/api/games?key=04fe2e746e1346738846b6ea6554a96b" + "&page=" + i, {
+        //     "method": "GET",
+        // }).then(response => response.json()).then(data => {
+        //     for (let j = 0; j < data.results.length; j++) {
+        //         let game = data.results[j].name;
+        //         // para.innerHTML += game + "<br>";
+
+        //         if (game.toUpperCase().indexOf(inp) > -1) {
+        //             para.innerHTML += game + "<br>";
+        //         } else {
+        //             search(i++);
+        //         }
+        //     }
+        // }).catch(err => {
+        //     para.innerHTML = err;
+        //     // return;
+        // });
+
+
+
+
         var myArray = [];
-
-        /*for(let j = 2; j < 30000; j++) {
-            fetch("https://api.rawg.io/api/games?key=8d8b50415fd74e3baf7e69ac2f959516" + "&page=" + j, {
+        for(let j = 2; j < 4; j++) {
+            fetch("https://api.rawg.io/api/games?key=04fe2e746e1346738846b6ea6554a96b" + "&page=" + j, {
                 "method": "GET",
             }).then(response => response.json()).then(data => {
-                console.log(data);
                 for(let i = 0; i < data.results.length; i++) {
-                    console.log(data.results[i]);
-                    document.write(data.results[i].name + "<br>");
-                    // document.write(data);
-                }
-            }).catch(err => {
-                console.error(err);
-            });
-        }*/
-
-        fetch("https://data.brreg.no/enhetsregisteret/api/enheter", {
-                "method": "GET",
-            }).then(response => response.json()).then(data => {
-                console.log(data);
-                for(let i = 0; i < data.length; i++) {
-                    console.log(data.results[i].embedded);
                     // document.write(data.results[i].name + "<br>");
-                    // document.write(data);
+                    console.log(data.results[i].background_image);
                 }
             }).catch(err => {
                 console.error(err);
             });
+        }
     </script>
 </body>
 </html>
