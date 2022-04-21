@@ -99,6 +99,7 @@ document.getElementById("grpCreate").onclick = function () {
     var xbox = null;
     var nintendo = null;
     var id = Date.now();
+    let games = sessionStorage.getItem("spill");
 
 
     if (document.getElementById("discordCheck").checked) {
@@ -136,6 +137,7 @@ document.getElementById("grpCreate").onclick = function () {
                 Ps: ps,
                 Xbox: xbox,
                 Switch: nintendo,
+                Games: games,
                 BildeID: id
             }).then(() => { //Opplasting av forsidebilde
                 firebase.database().ref('/Bruker/' + user + '/Grupper eid/').child(pushkey).set({
