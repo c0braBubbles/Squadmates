@@ -105,10 +105,13 @@ ref.once("value")
 //-----------------------------------------------------------------------------------------------------------//
 // - - - - - - - - - - - - - - H E R  K O M M E R  K O D E  F O R  I N N L E G G - - - - - - - - - - - - - - //
 //-----------------------------------------------------------------------------------------------------------//
+let klarForNy = false;
 
-let lastKeys = {};
-let gruppeKeys = [];
+let lastKeys = {}; //Inneholder ALLE "siste" nøkler
+let gruppeKeys = []; //Inneholder liste med objekter, som igjen inneholder sti til en gruppe, og nøkkel til siste innlegg fra gruppen
+let userKeys = []; //Inneholder liste med objekter, som igjen inneholder til til en person, og nøkkel til siste innlegg fra brukeren
 lastKeys.gruppeKeys = gruppeKeys;
+lastKeys.userKeys = userKeys;
 firebase.database().ref('Xbox gruppe/Innlegg').limitToLast(1).once('value', function (snapshot) {
     if (snapshot.exists()) {
         snapshot.forEach((childSnap) => {
@@ -141,6 +144,27 @@ firebase.database().ref('Switch gruppe/Innlegg').limitToLast(1).once('value', fu
 // - - - - - - - - - - - - - - - - - L E G G  U T  N Y E  I N N L E G G - - - - - - - - - - - - - - - - - //
 firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
     var snapVal = snapshot.val();
+    if (snapshot.child('Following').val() != null) {
+        snapshot.child('Following').forEach(function (childVal) { //Et "following" objekt. Få tak i Uid -> childVal.child('Uid').val()
+            //Legger til key til siste innlegg fra hver person som brukeren følger
+            firebase.database().ref('Bruker/'+childVal.child('Uid').val() + '/Innlegg').limitToLast(1).once('value', function(snapshot) {
+                if (snapshot.exists()) {
+                    snapshot.forEach((childSnap) => {
+                        let userKeyObject = {};
+                        userKeyObject.key = childSnap.key; //Nøkkelen til siste innlegg en bruker har lagt ut
+                        userKeyObject.path = childVal.child('Uid').val(); //Nøkkel til brukeren som eier nøkkelen
+                        lastKeys.userKeys.push(userKeyObject);
+                    });
+                }
+            });
+            //Legger på lytter etter nye innlegg
+            let start = firebase.database().ref('Bruker/' + childVal.child('Uid').val() + '/Innlegg').push().key;
+            firebase.database().ref('Bruker/' + childVal.child('Uid').val() + '/Innlegg').orderByKey().startAt(start).on('child_added', function(dataSnapshot) {
+                leggUtInnlegg("bruker", childVal.child('Uid').val(), dataSnapshot.child('Brukernavn').val(), dataSnapshot.child('Navn').val(), dataSnapshot.key, true); 
+            });
+        }); //Slutt på forEach
+    } //Slutt på if
+
     //Legger de forskjellige plattformene inn i liste over brukerens grupper
     //De forskjellige lytterne har "orderByKey" og "startAt". Dette er gjort slik at bare NYE innlegg skal hentes
     if (snapshot.child('Grupper eid').val() != null) {
@@ -157,9 +181,9 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
                     });
                 }
             });
-            let start = firebase.database().ref('Grupper/' + childVal.key + '/Innleg').push().key;
+            let start = firebase.database().ref('Grupper/' + childVal.key + '/Innlegg').push().key;
             firebase.database().ref("Grupper/" + childVal.key + "/Innlegg").orderByKey().startAt(start).on('child_added', function (dataSnapshot) {
-                leggUtInnlegg(childVal.key, dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
+                leggUtInnlegg("egendefinert", childVal.key, dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
             });
         });
     }
@@ -180,7 +204,7 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
             });
             let start = firebase.database().ref('Grupper/' + childVal.key + "/Innlegg").push().key;
             firebase.database().ref("Grupper/" + childVal.key + "/Innlegg").orderByKey().startAt(start).on('child_added', function (dataSnapshot) {
-                leggUtInnlegg(childVal.key, dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
+                leggUtInnlegg("egendefinert", childVal.key, dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
             });
         });
     }
@@ -191,7 +215,7 @@ firebase.database().ref('Bruker/' + whiz.Uid + '/Xbox').once('value', (snapshot)
     if (snapshot.exists()) {
         let start = firebase.database().ref('Xbox gruppe/Innlegg').push().key;
         firebase.database().ref('Xbox gruppe/Innlegg').orderByKey().startAt(start).on('child_added', function (dataSnapshot) {
-            leggUtInnlegg("Xbox", dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
+            leggUtInnlegg("platform", "Xbox", dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
         });
     }
 });
@@ -200,7 +224,7 @@ firebase.database().ref('Bruker/' + whiz.Uid + '/Playstation').once('value', (sn
     if (snapshot.exists()) {
         let start = firebase.database().ref('Playstation gruppe/Innlegg').push().key;
         firebase.database().ref('Playstation gruppe/Innlegg').orderByKey().startAt(start).on('child_added', function (dataSnapshot) {
-            leggUtInnlegg("Playstation", dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
+            leggUtInnlegg("platform", "Playstation", dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
 
         });
     }
@@ -210,7 +234,7 @@ firebase.database().ref('Bruker/' + whiz.Uid + '/Steam').once('value', (snapshot
     if (snapshot.exists()) {
         let start = firebase.database().ref('Steam gruppe/Innlegg').push().key;
         firebase.database().ref('Steam gruppe/Innlegg').orderByKey().startAt(start).on('child_added', function (dataSnapshot) {
-            leggUtInnlegg("Steam", dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
+            leggUtInnlegg("platform", "Steam", dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
         });
     }
 });
@@ -219,7 +243,7 @@ firebase.database().ref('Bruker/' + whiz.Uid + '/Switch').once('value', (snapsho
     if (snapshot.exists()) {
         let start = firebase.database().ref('Switch gruppe/Innlegg').push().key;
         firebase.database().ref('Switch gruppe/Innlegg').orderByKey().startAt(start).on('child_added', function (dataSnapshot) {
-            leggUtInnlegg("Switch", dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
+            leggUtInnlegg("platform", "Switch", dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
         });
     }
 })
@@ -228,6 +252,7 @@ firebase.database().ref('Bruker/' + whiz.Uid + '/Switch').once('value', (snapsho
 // - - - - - - - - - - - - - - - - L E G G  U T  G A M L E  I N N L E G G - - - - - - - - - - - - - - - - //
 setTimeout(() => {
     leggUtGammelt();
+    klarForNy = true;
 }, 1500);
 
 let postBlockID;
@@ -249,7 +274,6 @@ function leggUtGammelt() {
                         "Gruppe": "Xbox gruppe"
                     });
                     innleggNr++;
-                    console.log("Innlegg nr " + innleggNr + ": " + childSnap.key);
                     //Setter "Siste nøkkel" til xbox, dvs den nøkkelen som tilhører det siste innlegget som skal hentes i neste omgang
                     if (innleggNr == 1) {
                         lastKeys.Xbox = childSnap.key.slice(0, -1);
@@ -274,7 +298,7 @@ function leggUtGammelt() {
             });
         }
         if (dataSnapshot.Steam != null) {
-            firebase.database().ref('Steam gruppe/Innlegg/').orderByKey().endAt(lastKeys.Steam).limitToLast(2).on('value', function (snapshot) {
+            firebase.database().ref('Steam gruppe/Innlegg/').orderByKey().endAt(lastKeys.Steam).limitToLast(2).once('value', function (snapshot) {
                 let innleggNr = 0;
                 snapshot.forEach((childSnap) => {
                     //Legg til innlegg-keys i Bruker/tempFeed
@@ -290,7 +314,7 @@ function leggUtGammelt() {
             });
         }
         if (dataSnapshot.Switch != null) {
-            firebase.database().ref('Switch gruppe/Innlegg/').orderByKey().endAt(lastKeys.Switch).limitToLast(2).on('value', function (snapshot) {
+            firebase.database().ref('Switch gruppe/Innlegg/').orderByKey().endAt(lastKeys.Switch).limitToLast(2).once('value', function (snapshot) {
                 let innleggNr = 0;
                 snapshot.forEach((childSnap) => {
                     //Legg til innlegg-keys i Bruker/tempFeed
@@ -306,9 +330,10 @@ function leggUtGammelt() {
             });
         }
 
+        //Egendefinert gruppe
         for (let i in lastKeys.gruppeKeys) {
             console.log("barmen: " + lastKeys.gruppeKeys[i].path);
-            firebase.database().ref('Grupper/' + lastKeys.gruppeKeys[i].path + '/Innlegg/').orderByKey().endAt(lastKeys.gruppeKeys[i].key).limitToLast(2).on('value', function (snapshot) {
+            firebase.database().ref('Grupper/' + lastKeys.gruppeKeys[i].path + '/Innlegg/').orderByKey().endAt(lastKeys.gruppeKeys[i].key).limitToLast(2).once('value', function (snapshot) {
                 let innleggNr = 0;
                 snapshot.forEach((childSnap) => {
                     firebase.database().ref('Bruker/' + whiz.Uid + '/TempFeed').child(childSnap.key).set({
@@ -323,6 +348,26 @@ function leggUtGammelt() {
             });
         }
 
+        //Bruker
+        for (let i in lastKeys.userKeys) {
+            firebase.database().ref('Bruker/' + lastKeys.userKeys[i].path + '/Innlegg/').orderByKey().endAt(lastKeys.userKeys[i].key).limitToLast(2).once('value', function (snapshot) {
+                let innleggNr = 0;
+                snapshot.forEach((childSnap) => {
+                    firebase.database().ref('Bruker/' + whiz.Uid + '/TempFeed').child(childSnap.key).set({
+                        "Gruppe": lastKeys.userKeys[i].path,
+                        "FollowingInnlegg": "JA" //Legger til en ektra child slik at man kan skille mellom innlegg fra gruppe/bruker
+                    })
+                    innleggNr++;
+                    //Setter "siste nøkkel" til bruker(e), dvs en nøkkelen som tilhører det siste innlegget som skal hentes i neste omgang
+                    if (innleggNr == 1) {
+                        lastKeys.userKeys[i].key = childSnap.key.slice(0, -1);
+                    }
+                });
+            });
+        }
+
+
+
     }).then(() => {
         //Tar litt tid før "TempFeed" er ferdig utfylt, venter derfor litt
         setTimeout(() => {
@@ -336,13 +381,17 @@ function leggUtGammelt() {
 
                             firebase.database().ref(childObject.Gruppe + '/Innlegg/' + childSnap.key).once('value', function (snapshot) {
                                 const gruppeType = childObject.Gruppe.split(' ');
-                                leggUtInnlegg(gruppeType[0], snapshot.child('Brukernavn').val(), snapshot.child('Navn').val(), snapshot.key, false, postBlockID);
+                                leggUtInnlegg("platform", gruppeType[0], snapshot.child('Brukernavn').val(), snapshot.child('Navn').val(), snapshot.key, false, postBlockID);
                                 //console.log(gruppeType[0] + " " + snapshot.child('Brukernavn').val() + " " + snapshot.child('Navn').val() + " " + snapshot.key);
                             });
-                        } else {
+                        } else if (childSnap.child('FollowingInnlegg').val() == "JA") {
+                            firebase.database().ref('Bruker/' + childObject.Gruppe + '/Innlegg/' + childSnap.key).once('value', function (snapshot) {
+                                leggUtInnlegg("bruker", childObject.Gruppe, snapshot.child('Brukernavn').val(), snapshot.child('Navn').val(), snapshot.key, false, postBlockID);
+                            });
 
+                        } else {
                             firebase.database().ref('Grupper/' + childObject.Gruppe + '/Innlegg/' + childSnap.key).once('value', function (snapshot) {
-                                leggUtInnlegg(childObject.Gruppe, snapshot.child('Brukernavn').val(), snapshot.child('Navn').val(), snapshot.key, false, postBlockID);
+                                leggUtInnlegg("egendefinert", childObject.Gruppe, snapshot.child('Brukernavn').val(), snapshot.child('Navn').val(), snapshot.key, false, postBlockID);
                                 //console.log(childObject.Gruppe + " " + snapshot.child('Brukernavn').val() + " " + snapshot.child('Navn').val() + " " + snapshot.key);
                             });
                         }
@@ -352,8 +401,8 @@ function leggUtGammelt() {
             });
             setTimeout(() => {
                 firebase.database().ref('Bruker/' + whiz.Uid + '/TempFeed').remove();
-            }, 250);
-        }, 1200);
+            }, 300);
+        }, 2000);
     });
 }
 
@@ -364,18 +413,18 @@ function leggUtGammelt() {
 
 /* Funksjon for å "Legge ut" innlegg til front-end
 Params
-@Type: Et innparameter som sier hva slags type innlegg det er. F.eks. Xbox, PS, Steam, switch, egendefinert gruppe
+@sti: Et innparameter som sier noe om stien til innlegget. F.eks. Xbox, PS, Steam, Switch eller UID til en egendefinert gruppe
     Dersom det er en egendefinert gruppe, så er det Gruppen sin UID som blir passert inn
 @brukernavn: Et innparameter som er brukernavnet som skal bli brukt til innlegget som prependes
 @navn: Et innparameter som er det ekte navnet til brukeren, som skal bli brukt til innlegget som prependes
 @innleggUID: Et innparameter som er UID til innlegget som skal prependes
+@type: Et innparameter som sier noe om hvor innlegget kommer fra: platform || egendefinert gruppe || bruker
 
 */
-//leggUtInnlegg("Xbox", "Cubrr", "Jacob Flæte Kristensen", "-MzZhKUyMAfG3qu_IRLp");
-//leggUtInnlegg("Xbox", "Cubrr", "Jacob Flæte Kristensen", "-MzQxoF-9vhymsLPtZiA");
+
 
 //Trenger parameter: Brukernavn, navn, evt bilde?
-function leggUtInnlegg(Type, brukernavn, navn, innleggUID, ny, blockID) {
+function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
     //Et innlegg har mange forskjellige ID'er så jeg oppretter et objekt som inneholder alle de forskjellige IDene
     let IDs = {};
     let owner;
@@ -386,8 +435,8 @@ function leggUtInnlegg(Type, brukernavn, navn, innleggUID, ny, blockID) {
     var prependText;
 
     //Sjekker om det er et plattform innlegg eller fra en gruppe, henter og lager ID'er
-    if (Type == "Xbox" || Type == "Playstation" || Type == "Steam" || Type == "Switch") {
-        firebase.database().ref(Type + " gruppe/Innlegg/" + innleggUID).once('value', (snapshot) => {
+    if (type == "platform") { //sti == "Xbox" || sti == "Playstation" || sti == "Steam" || sti == "Switch"
+        firebase.database().ref(sti + " gruppe/Innlegg/" + innleggUID).once('value', (snapshot) => {
             IDs.picID = "picture" + snapshot.child("ID").val();
             IDs.ppID = "profilep" + snapshot.child("ID").val();
             IDs.deleteID = "delete" + snapshot.child("ID").val();
@@ -403,8 +452,25 @@ function leggUtInnlegg(Type, brukernavn, navn, innleggUID, ny, blockID) {
             description = snapshot.child("Beskrivelse").val();
             time = snapshot.child("Tidspunkt").val();
         });
-    } else {
-        firebase.database().ref("Grupper/" + Type + "/Innlegg/" + innleggUID).once('value', (snapshot) => {
+    } else if (type == "egendefinert") {
+        firebase.database().ref("Grupper/" + sti + "/Innlegg/" + innleggUID).once('value', (snapshot) => {
+            IDs.picID = "picture" + snapshot.child("ID").val();
+            IDs.ppID = "profilep" + snapshot.child("ID").val();
+            IDs.deleteID = "delete" + snapshot.child("ID").val();
+            IDs.reportID = "report" + snapshot.child("ID").val();
+            IDs.commentID = "comment" + snapshot.child("ID").val();
+            IDs.commentFieldID = "commentfield" + snapshot.child("ID").val();
+            IDs.commentPostID = "commentpost" + snapshot.child("ID").val();
+            IDs.commentBoxID = "commentbox" + snapshot.child("ID").val();
+            IDs.commentViewBtnID = "commentviewbtn" + snapshot.child("ID").val();
+            IDs.commentSectionID = "commentsection" + snapshot.child("ID").val();
+            owner = snapshot.child("Eier").val();
+            title = snapshot.child("Tittel").val();
+            description = snapshot.child("Beskrivelse").val();
+            time = snapshot.child("Tidspunkt").val();
+        });
+    } else if (type == "bruker"){
+        firebase.database().ref("Bruker/" + sti + "/Innlegg/" + innleggUID).once('value', (snapshot) => {
             IDs.picID = "picture" + snapshot.child("ID").val();
             IDs.ppID = "profilep" + snapshot.child("ID").val();
             IDs.deleteID = "delete" + snapshot.child("ID").val();
@@ -423,7 +489,7 @@ function leggUtInnlegg(Type, brukernavn, navn, innleggUID, ny, blockID) {
     }
 
     setTimeout(() => {
-        switch (Type) {
+        switch (sti) {
             case "Xbox":
                 //Legg til Xbox-header i variabelen "prependText"
                 prependText =
@@ -606,7 +672,7 @@ function leggUtInnlegg(Type, brukernavn, navn, innleggUID, ny, blockID) {
             //Når det skal hentes flere "gamle" innlegg, så oppretter vi en ny div hvor innleggene som hentes skal ligge
             //Boksen blir appendet, slik av den havner UNDER forrige boks med innlegg, og inni boksen blir hver innlegg
             //prependet slik at nyere innlegg kommer øverst i boksen. 
-            let postBlockID = Date.now();
+            
 
             /*$(document.getElementById('scrollPosts')).append(
                 '<div class="col-lg-12 bg-danger" id="' + blockID + '"> </div>'
@@ -634,16 +700,21 @@ function leggUtInnlegg(Type, brukernavn, navn, innleggUID, ny, blockID) {
         let reportRef;
         let deleteRef;
         let reportCmtRef;
-        if (Type == "Xbox" || Type == "Playstation" || Type == "Steam" || Type == "Switch") {
-            cmtRef = firebase.database().ref(Type + " gruppe/Innlegg/" + innleggUID + "/Kommentarer");
-            reportRef = firebase.database().ref(Type + " gruppe/Rapporterte Innlegg");
-            deleteRef = firebase.database().ref(Type + " gruppe/Innlegg/" + innleggUID);
-            reportCmtRef = firebase.database().ref(Type + " gruppe/Rapporterte kommentarer");
-        } else {
-            cmtRef = firebase.database().ref("Grupper/" + Type + "/Innlegg/" + innleggUID + "/Kommentarer");
-            reportRef = firebase.database().ref("Grupper/" + Type + "/Rapporterte Innlegg");
-            deleteRef = firebase.database().ref("Grupper/" + Type + "/Innlegg" + innleggUID);
-            reportCmtRef = firebase.database().ref("Grupper/" + Type + "/Rapporterte kommentarer");
+        if (type == "platform") {
+            cmtRef = firebase.database().ref(sti + " gruppe/Innlegg/" + innleggUID + "/Kommentarer");
+            reportRef = firebase.database().ref(sti + " gruppe/Rapporterte Innlegg");
+            deleteRef = firebase.database().ref(sti + " gruppe/Innlegg/" + innleggUID);
+            reportCmtRef = firebase.database().ref(sti + " gruppe/Rapporterte kommentarer");
+        } else if (type == "egendefinert") {
+            cmtRef = firebase.database().ref("Grupper/" + sti + "/Innlegg/" + innleggUID + "/Kommentarer");
+            reportRef = firebase.database().ref("Grupper/" + sti + "/Rapporterte Innlegg");
+            deleteRef = firebase.database().ref("Grupper/" + sti + "/Innlegg" + innleggUID);
+            reportCmtRef = firebase.database().ref("Grupper/" + sti + "/Rapporterte kommentarer");
+        } else if (type == "bruker") {
+            cmtRef = firebase.database().ref("Bruker/" + sti + "/Innlegg/" + innleggUID + "/Kommentarer");
+            reportRef = firebase.database().ref("Rapportert/Rapporterte Innlegg/" + sti); //skal rapporterte innlegg havne hos brukeren, eller i en egen tabell?
+            deleteRef = firebase.database().ref("Bruker/" + sti + "/Innlegg/" + innleggUID);
+            reportCmtRef = firebase.database().ref("Rapportert/Rapporterte kommentarer/" + sti); //Samme problemstilling som over
         }
 
         //Viser antall kommentarer et innlegg har
@@ -777,19 +848,69 @@ function leggUtInnlegg(Type, brukernavn, navn, innleggUID, ny, blockID) {
     }, 1500);
 }
 
+var fil = {};
+document.getElementById('chooseHomePic').onchange = function (e) {
+    fil = e.target.files[0];
+    let fileType = fil["type"];
+    if (fileType != "image/jpeg" && fileType != "image/png") {
+        alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg eller .png")
+    }
+}
+
+document.getElementById('uploadHome').onclick = function () {
+    let innlegg = {};
+    innlegg.Tittel = document.getElementById('titleHome').value;
+    innlegg.Beskrivelse = document.getElementById('descriptionHome').value;
+    innlegg.Eier = whiz.Uid;
+    innlegg.Brukernavn = whiz.Brukernavn;
+    innlegg.Navn = whiz.Navn;
+    innlegg.Id = Date.now();
+
+    var datetime = new Date().toLocaleDateString("en-GB", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+    innlegg.Tidspunkt = datetime.split('/').join('.');
+
+    if (innlegg.Tittel.trim() != "") {
+        firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').push({
+            "Tittel":      innlegg.Tittel,
+            "Beskrivelse": innlegg.Beskrivelse,
+            "Eier":        innlegg.Eier,
+            "Brukernavn":  innlegg.Brukernavn,
+            "Navn":        innlegg.Navn,
+            "ID":          innlegg.Id,
+            "Tidspunkt":   innlegg.Tidspunkt
+        }).then(() => {
+            let fileType = fil["type"];
+            if (fil instanceof File) {
+                if (fileType == "image/jpeg" || fileType == "image/png") {
+                    firebase.storage().ref('innlegg/' + (whiz.Uid + 'picture' + innlegg.ID) + '/innlegg.jpg').put(fil).then(() => {
+                        //document.getElementById('chooseHomePic').value = "";
+                        alert("Innlegg lagt ut!");
+                    });
+                }
+            }
+        });
+    } else {
+        alert("Innlegget må ha en tittel");
+    }
+
+};
+
 
 
 //Sjekker om du når bunn av siden, JA -> Legg ut flere innlegg fra firebase realtime til front-end til brukeren
-let klarForNy = true;
-let awd = 0;
-//Denne funker, men den fyrer noen ganger av to ganger på rappen -> fører til at vi får "duplicate" innlegg
+
+//Denne funker, men den fyrer noen ganger av to ganger på rappen -> fører til at vi får "duplicate" innlegg 
 window.onscroll = function (ev) {
     if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
         //Legg ut flere innlegg
         if (klarForNy) {
             klarForNy = false;
-            awd++;
-            console.log(awd);
             leggUtGammelt();
             setTimeout(() => {
                 klarForNy = true;
