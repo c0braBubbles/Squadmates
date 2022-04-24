@@ -1,5 +1,5 @@
 //Henter UID til innlogget bruker
-const whiz = JSON.parse(sessionStorage.getItem("bruker"));
+// const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
 
 //Sjekker hvilken gruppe som ble klikket på
@@ -27,6 +27,11 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
     var ps = snapshot.child("Ps").val();
     var nintendo = snapshot.child("Switch").val();
     var pc = snapshot.child("Pc").val();
+
+    var games = snapshot.child("Games").val();
+    var gamePics = snapshot.child("GamesPics").val();
+    var gamePicsArr = gamePics.split(","); 
+    var gamesArr = games.split(",");  
 
 
     //Tittel og om gruppen
@@ -98,6 +103,17 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
             '<path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" /> </svg> </a>'
         )
     }
+    if(games != null) {
+        for(let i = 0; i < gamesArr.length; i++) {
+            $(document.getElementById("about_games_tab")).append(
+                `<a class="list-group-item text-light border-dark" style="background: #111;">    
+                    <img style="border-radius: 20%;" src="${gamePicsArr[i]}" alt="noe" width="70">
+                    ${gamesArr[i]}
+                </a>`
+            );
+        }
+    }
+
     //Info om gruppens eier
     firebase.database().ref('/Bruker/' + owner).once('value').then((snapshot) => {
         var name = snapshot.child("Brukernavn").val();

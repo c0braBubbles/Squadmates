@@ -4,6 +4,7 @@ document.getElementById("btnDDown").onclick = function () {
 
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 let spill = [];
+let spillBilde = [];
 
 
 function showProfile(name, uid2) {
@@ -74,10 +75,14 @@ function checkGame(game, image, id) {
 
     if(box.checked == true) {
         spill.push(game); 
+        spillBilde.push(image); 
         sessionStorage.setItem("spill", spill);
+        sessionStorage.setItem("spillBilde", spillBilde); 
     } else {
         spill.splice(spill.indexOf('game'), 1);
+        spillBilde.splice(spill.indexOf('game', 1));
         sessionStorage.setItem("spill", spill);
+        sessionStorage.setItem("spillBilde", spillBilde);
     }
 }
 
@@ -89,4 +94,42 @@ function logout() {
     }).catch((error) => {
         alert(error); // mest sannsynlig vil ingen error forekomme
     });
+}
+
+
+let url_string = window.location.href.split('/');
+let page = url_string[url_string.length - 1];
+let nav_btn = [
+    document.getElementById("nav_home"), 
+    document.getElementById("nav_grupper"), 
+    document.getElementById("nav_friends"), 
+    document.getElementById("nav_mld")
+];
+console.log(page);
+
+switch(page) {
+    case "home": 
+        changeNavColor(0)
+        break; 
+    case "allgroups": 
+        changeNavColor(1);
+        break;
+    case "friends": 
+        changeNavColor(2); 
+        break; 
+    case "chat": 
+        changeNavColor(3); 
+        break; 
+    default: 
+        break; 
+}
+
+function changeNavColor(nmb) {
+    for(let i = 0; i < nav_btn.length; i++) {
+        if(i == nmb) {
+            nav_btn[i].style.color = "#fff";
+        } else if(i != nmb) {
+            nav_btn[i].style.color = "rgba(255, 255, 255, 0.55)";
+        }
+    }
 }

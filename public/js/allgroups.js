@@ -99,6 +99,8 @@ document.getElementById("grpCreate").onclick = function () {
     var xbox = null;
     var nintendo = null;
     var id = Date.now();
+    let games = sessionStorage.getItem("spill");
+    let gamePics = sessionStorage.getItem("spillBilde");
 
 
     if (document.getElementById("discordCheck").checked) {
@@ -136,6 +138,8 @@ document.getElementById("grpCreate").onclick = function () {
                 Ps: ps,
                 Xbox: xbox,
                 Switch: nintendo,
+                Games: games,
+                GamesPics: gamePics,
                 BildeID: id
             }).then(() => { //Opplasting av forsidebilde
                 firebase.database().ref('/Bruker/' + user + '/Grupper eid/').child(pushkey).set({
@@ -274,7 +278,6 @@ let descTab_search = [];
 let groupcount = 0; 
 
 firebase.database().ref('/Grupper').on('child_added', function(snapshot) {
-    // console.log(snapshot.val());
     let name = snapshot.child('Navn').val(); 
     let about = snapshot.child('Om').val();
     let owner = snapshot.child('Eier').val();
