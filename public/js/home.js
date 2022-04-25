@@ -147,7 +147,7 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
     if (snapshot.child('Following').val() != null) {
         snapshot.child('Following').forEach(function (childVal) { //Et "following" objekt. Få tak i Uid -> childVal.child('Uid').val()
             //Legger til key til siste innlegg fra hver person som brukeren følger
-            firebase.database().ref('Bruker/'+childVal.child('Uid').val() + '/Innlegg').limitToLast(1).once('value', function(snapshot) {
+            firebase.database().ref('Bruker/' + childVal.child('Uid').val() + '/Innlegg').limitToLast(1).once('value', function (snapshot) {
                 if (snapshot.exists()) {
                     snapshot.forEach((childSnap) => {
                         let userKeyObject = {};
@@ -159,8 +159,8 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
             });
             //Legger på lytter etter nye innlegg
             let start = firebase.database().ref('Bruker/' + childVal.child('Uid').val() + '/Innlegg').push().key;
-            firebase.database().ref('Bruker/' + childVal.child('Uid').val() + '/Innlegg').orderByKey().startAt(start).on('child_added', function(dataSnapshot) {
-                leggUtInnlegg("bruker", childVal.child('Uid').val(), dataSnapshot.child('Brukernavn').val(), dataSnapshot.child('Navn').val(), dataSnapshot.key, true); 
+            firebase.database().ref('Bruker/' + childVal.child('Uid').val() + '/Innlegg').orderByKey().startAt(start).on('child_added', function (dataSnapshot) {
+                leggUtInnlegg("bruker", childVal.child('Uid').val(), dataSnapshot.child('Brukernavn').val(), dataSnapshot.child('Navn').val(), dataSnapshot.key, true);
             });
         }); //Slutt på forEach
     } //Slutt på if
@@ -253,7 +253,7 @@ firebase.database().ref('Bruker/' + whiz.Uid + '/Switch').once('value', (snapsho
 setTimeout(() => {
     leggUtGammelt();
     klarForNy = true;
-}, 1500);
+}, 1000);
 
 let postBlockID;
 function leggUtGammelt() {
@@ -402,7 +402,7 @@ function leggUtGammelt() {
             setTimeout(() => {
                 firebase.database().ref('Bruker/' + whiz.Uid + '/TempFeed').remove();
             }, 300);
-        }, 2000);
+        }, 500); //2000
     });
 }
 
@@ -431,6 +431,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
     let title;
     let description;
     let time;
+    let gruppenavn = "";
 
     var prependText;
 
@@ -469,7 +470,10 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
             description = snapshot.child("Beskrivelse").val();
             time = snapshot.child("Tidspunkt").val();
         });
-    } else if (type == "bruker"){
+        firebase.database().ref("Grupper/" + sti).once('value', (snap) => {
+            gruppenavn = " -> " + snap.child('Navn').val();
+        });
+    } else if (type == "bruker") {
         firebase.database().ref("Bruker/" + sti + "/Innlegg/" + innleggUID).once('value', (snapshot) => {
             IDs.picID = "picture" + snapshot.child("ID").val();
             IDs.ppID = "profilep" + snapshot.child("ID").val();
@@ -605,7 +609,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     /*----- Profilbilde -----*/
                     '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
-                    '<div class="h5 m-0 text-light">' + brukernavn + '</div>' +
+                    '<div class="h5 m-0 text-light">' + brukernavn+gruppenavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
                     '<div class="dropdown ms-auto">' +
                     '<button class="btn dropdown-toggle text-light" type="button"' +
@@ -672,7 +676,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
             //Når det skal hentes flere "gamle" innlegg, så oppretter vi en ny div hvor innleggene som hentes skal ligge
             //Boksen blir appendet, slik av den havner UNDER forrige boks med innlegg, og inni boksen blir hver innlegg
             //prependet slik at nyere innlegg kommer øverst i boksen. 
-            
+
 
             /*$(document.getElementById('scrollPosts')).append(
                 '<div class="col-lg-12 bg-danger" id="' + blockID + '"> </div>'
@@ -845,7 +849,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
 
 
 
-    }, 1500);
+    }, 500);
 }
 
 var fil = {};
@@ -878,13 +882,13 @@ document.getElementById('uploadHome').onclick = function () {
     if (innlegg.Tittel.trim() != "") {
         let pushKey = firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').push().key;
         firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').child(pushKey).set({
-            "Tittel":      innlegg.Tittel,
+            "Tittel": innlegg.Tittel,
             "Beskrivelse": innlegg.Beskrivelse,
-            "Eier":        innlegg.Eier,
-            "Brukernavn":  innlegg.Brukernavn,
-            "Navn":        innlegg.Navn,
-            "ID":          innlegg.Id,
-            "Tidspunkt":   innlegg.Tidspunkt
+            "Eier": innlegg.Eier,
+            "Brukernavn": innlegg.Brukernavn,
+            "Navn": innlegg.Navn,
+            "ID": innlegg.Id,
+            "Tidspunkt": innlegg.Tidspunkt
         }).then(() => {
             let fileType = fil["type"];
             if (fil instanceof File) {
