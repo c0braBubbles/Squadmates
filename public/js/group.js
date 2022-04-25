@@ -107,7 +107,7 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
         for(let i = 0; i < gamesArr.length; i++) {
             $(document.getElementById("about_games_tab")).append(
                 `<a class="list-group-item text-light border-dark" style="background: #111;">    
-                    <img style="border-radius: 20%;" src="${gamePicsArr[i]}" alt="noe" width="70">
+                    <img style="border-radius: 20%; object-fit: cover; height:50px;" src="${gamePicsArr[i]}" alt="noe" width="70">
                     ${gamesArr[i]}
                 </a>`
             );
