@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spill</title>
 </head>
+
 <body>
     <h1>Bruker API for å hente spill</h1>
 
     <input type="text" id="input" required placeholder="Søk..." />
 
-    <button id="knp" onclick="search(1)">Finn spill</button>
+    <button id="knp" onclick="search()">Finn spill</button>
 
     <p id="demo"></p>
 
     <script>
         /*
             Dette er API-nøkkelen fra RAWG som jeg, Mats Jørgen, fetched 04.04.2022: 
-            04fe2e746e1346738846b6ea6554a96b
+            e5ea68967fee4a488fa5b48cc20edaba
         */
 
+        function search() {
+            let inp = document.getElementById("input").value;
+            let slug = inp.split(' ').join('-').toLowerCase();
+            let h = 1;
 
-        function search(i) {
+            fetch("https://api.rawg.io/api/games?key=8d8b50415fd74e3baf7e69ac2f959516&search=" + slug, {
+                "method": "GET",
+            }).then(response => response.json()).then(data => {
+                // document.write(data.results);
+                if(data.results == undefined) {
+                    console.log("finner ikke");
+                }
+
+                for(let i = 0; i < data.results.length; i++) {
+                    document.write(data.results[i].name);
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+
+
+
+
+        /*function search(i) {
             // console.log(i);
             let inp = document.getElementById("input").value.toUpperCase();
             let para = document.getElementById("demo");
@@ -40,10 +65,10 @@
 
                         if (game.toUpperCase().indexOf(inp) > -1) {
                             para.innerHTML += game + "<br>";
-                        } 
+                        }
 
                         if(j == data.results.length - 1) {
-                            i += 1; 
+                            i += 1;
                             search(i);
                         }
                     }
@@ -52,7 +77,7 @@
                     // return;
                 });
             }
-        }
+        }*/
 
 
 
@@ -77,19 +102,20 @@
 
 
 
-        var myArray = [];
-        for(let j = 2; j < 4; j++) {
-            fetch("https://api.rawg.io/api/games?key=04fe2e746e1346738846b6ea6554a96b" + "&page=" + j, {
-                "method": "GET",
-            }).then(response => response.json()).then(data => {
-                for(let i = 0; i < data.results.length; i++) {
-                    // document.write(data.results[i].name + "<br>");
-                    console.log(data.results[i].background_image);
-                }
-            }).catch(err => {
-                console.error(err);
-            });
-        }
+        // var myArray = [];
+        // for(let j = 2; j < 4; j++) {
+        //     fetch("https://api.rawg.io/api/games?key=04fe2e746e1346738846b6ea6554a96b" + "&page=" + j, {
+        //         "method": "GET",
+        //     }).then(response => response.json()).then(data => {
+        //         for(let i = 0; i < data.results.length; i++) {
+        //             // document.write(data.results[i].name + "<br>");
+        //             console.log(data.results[i].background_image);
+        //         }
+        //     }).catch(err => {
+        //         console.error(err);
+        //     });
+        // }
     </script>
 </body>
+
 </html>
