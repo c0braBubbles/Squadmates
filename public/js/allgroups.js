@@ -352,7 +352,7 @@ firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added
         $(document.getElementById("myFavorites")).append(
             '<div class="col-lg-4 pt-2" onclick="getGroup(\'' + groupKey + '\')">' + //getGroup ligger i allgroups.ejs
             '<div class="card rounded-3 chromahover h-100">' +
-            '<img class="card-img-top" src="" id="' + picid + '" alt="Card image cap"' +
+            '<img class="card-img-top" src="" id="' + "fav"+ picid + '" alt="Card image cap"' +
             'style="height: 12rem; object-fit: cover">' +
             '<div class="card-body">' +
             '<h5 class="card-title">' + name + '</h5>' +
@@ -367,11 +367,11 @@ firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added
 
         pictureStorage.getDownloadURL()
             .then((pictureURL) => { //Har Forsidebilde
-                document.getElementById(picid).src = pictureURL;
+                document.getElementById("fav" + picid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
                 // console.clear(error);
-                document.getElementById(picid).src = "img/Amin.jpg";
+                document.getElementById("fav" + picid).src = "img/Amin.jpg";
             }).then(() => {
                 if (groupCount == 1) {
                     document.getElementById(countid).innerHTML = groupCount + " Medlem";
