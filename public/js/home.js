@@ -259,7 +259,7 @@ let postBlockID;
 function leggUtGammelt() {
     postBlockID = Date.now();
     $(document.getElementById("scrollPosts")).append(
-        '<div class="col-lg-12 bg-danger" id="' + postBlockID + '"> </div>'
+        '<div class="col-lg-12" id="' + postBlockID + '"> </div>'
     );
     firebase.database().ref('Bruker/' + whiz.Uid).once('value', snapshot => {
         let dataSnapshot = snapshot.val();
