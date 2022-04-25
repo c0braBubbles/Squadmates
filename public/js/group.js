@@ -233,7 +233,8 @@ document.getElementById("upload").onclick = function () {
         firebase.database().ref('/Bruker/' + user).once('value').then((snapshot) => {
             var username = snapshot.child("Brukernavn").val();
             var realname = snapshot.child("Navn").val();
-            firebase.database().ref('/Grupper/' + key + '/Innlegg').push({
+            let pushKey = firebase.database().ref('/Grupper/' + key + '/Innlegg').push().key;
+            firebase.database().ref('/Grupper/' + key + '/Innlegg').child(pushKey).set({
                 Eier: user,
                 Tittel: titleInp,
                 Beskrivelse: descInp,
@@ -246,11 +247,19 @@ document.getElementById("upload").onclick = function () {
                 if (fil instanceof File) {
                     if (fileType == "image/jpeg" || "image/png") {
                         firebase.storage().ref("innlegg/" + (user + "picture" + id) + "/innlegg.jpg").put(fil).then(() => {
-                            location.reload();
+                            firebase.database().ref('Bruker/' + whiz.Uid + '/Mine innlegg').child(pushKey).set({
+                                "Path": key
+                            }).then(() => {
+                                location.reload();
+                            });
                         });
                     } else { location.reload(); }
                 } else {
-                    location.reload();
+                    firebase.database().ref('Bruker/' + whiz.Uid + '/Mine innlegg').child(pushKey).set({
+                        "Path": key
+                    }).then(() => {
+                        location.reload();
+                    });
                 }
             })
         })

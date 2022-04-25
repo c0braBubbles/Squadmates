@@ -123,7 +123,8 @@ document.getElementById("upload").onclick = function () {
         var username = snapshot.child("Brukernavn").val();
         var realname = snapshot.child("Navn").val();
         if (titleInp != "") {
-            firebase.database().ref('/' + platform + ' gruppe/Innlegg').push({
+            let pushKey = firebase.database().ref('/' + platform + ' gruppe/Innlegg').push().key;
+            firebase.database().ref('/' + platform + ' gruppe/Innlegg').child(pushKey).set({
                 Eier: user,
                 Tittel: titleInp,
                 Beskrivelse: descInp,
@@ -136,11 +137,19 @@ document.getElementById("upload").onclick = function () {
                 if (fil instanceof File) {
                     if (fileType == "image/jpeg" || "image/png") {
                         firebase.storage().ref("innlegg/" + (user + "picture" + id) + "/innlegg.jpg").put(fil).then(() => {
-                            location.reload();
+                            firebase.database().ref('Bruker/' + whiz.Uid + '/Mine innlegg').child(pushKey).set({
+                                "Path": platform
+                            }).then(() => {
+                                location.reload();
+                            });
                         });
                     } else { location.reload(); }
                 }else {
-                    location.reload();
+                    firebase.database().ref('Bruker/' + whiz.Uid + '/Mine innlegg').child(pushKey).set({
+                        "Path": platform
+                    }).then(() => {
+                        location.reload();
+                    });
                 }
             })
         } else {
