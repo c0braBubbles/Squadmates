@@ -214,3 +214,30 @@ setTimeout(() => {
     $(".loader-wrapper").fadeOut("slow");
 }, 2000);
 */
+
+// - - - - - - - - - - - - - - - M I N E  I N N L E G G - - - - - - - - - - - - - - - //
+
+firebase.database().ref('Bruker/' + whiz.Uid + '/Mine innlegg').once('value', function(snapshot) {
+	if (snapshot.exists()) {
+		snapshot.forEach((childSnap) => { //childSnap = et objekt i "Mine innlegg"
+			let path = childSnap.child("Path").val();
+			if (path == "Xbox" || path == "Playstation" || path == "Steam" || path == "Switch") {
+				firebase.database().ref(path + ' gruppe/Innlegg/' + childSnap.key).once('value', function(innleggInfo) {
+					//----Legg ut innlegg----//
+					
+				}) 
+			} else if (path == "Bruker") {
+				firebase.database().ref(path + '/' + whiz.Uid + '/Innlegg/' + childSnap.key).once('value', function(innleggInfo) {
+					//----Legg ut innlegg----//
+					
+				})
+			} else {
+				firebase.database().ref('Grupper/' + path + '/Innlegg/' + childSnap.key).once('value', function(innleggInfo) {
+					//----Legg ut innlegg----//
+					
+				})
+			}
+			
+		});
+	}
+});

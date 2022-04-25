@@ -259,7 +259,7 @@ let postBlockID;
 function leggUtGammelt() {
     postBlockID = Date.now();
     $(document.getElementById("scrollPosts")).append(
-        '<div class="col-lg-12 bg-danger" id="' + postBlockID + '"> </div>'
+        '<div class="col-lg-12" id="' + postBlockID + '"> </div>'
     );
     firebase.database().ref('Bruker/' + whiz.Uid).once('value', snapshot => {
         let dataSnapshot = snapshot.val();
@@ -876,7 +876,8 @@ document.getElementById('uploadHome').onclick = function () {
     innlegg.Tidspunkt = datetime.split('/').join('.');
 
     if (innlegg.Tittel.trim() != "") {
-        firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').push({
+        let pushKey = firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').push().key;
+        firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').child(pushKey).set({
             "Tittel":      innlegg.Tittel,
             "Beskrivelse": innlegg.Beskrivelse,
             "Eier":        innlegg.Eier,
@@ -890,10 +891,14 @@ document.getElementById('uploadHome').onclick = function () {
                 if (fileType == "image/jpeg" || fileType == "image/png") {
                     firebase.storage().ref('innlegg/' + (whiz.Uid + 'picture' + innlegg.ID) + '/innlegg.jpg').put(fil).then(() => {
                         //document.getElementById('chooseHomePic').value = "";
-                        alert("Innlegg lagt ut!");
                     });
                 }
             }
+            //Legger til innlegget i firebase, under "Mine innlegg" hos brukeren
+            firebase.database().ref('Bruker/' + whiz.Uid + '/Mine innlegg').child(pushKey).set({
+                "Path": "Bruker"
+            });
+            alert("Innlegg lagt ut!");
         });
     } else {
         alert("Innlegget må ha en tittel");
