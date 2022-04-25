@@ -55,7 +55,7 @@ function gameSearch(i) {
                                         <div class="input-group-text bg-dark border-dark">
                                             <input class="form-check-input mt-0" id="st${game}" type="checkbox" onclick="checkGame('${game}', '${image}', this.id)" value="${game}" aria-label="@Gamertag">
                                         </div>
-                                        <img src="${image}" alt="spillbilde" width="42">
+                                        <img src="${image}" alt="spillbilde" width="42" style="object-fit: cover;">
                                         <input type="text" class="form-control bg-dark border-dark text-light" aria-label="@Gamertag" value="${game}" readonly><br>
                                     </div><br>`;
         }
