@@ -67,7 +67,7 @@ $('input[type="file"]').change(function (e) {
     reader.onload = function (e) {
         var fileType = fil["type"];
         console.log(fileType);
-        if (fileType == "image/jpeg" || "image/png") {
+        if (fileType == "image/jpeg" || fileType == "image/png") {
             document.getElementById("preview").src = e.target.result;
         } else {
             alert("Filen du valgte støttes ikke, velg et bilde med filtype .jpeg eller .png");
@@ -147,7 +147,7 @@ document.getElementById("grpCreate").onclick = function () {
                 })
                 var fileType = fil["type"];
                 if (fil instanceof File) {
-                    if (fileType == "image/jpeg" || "image/png") {
+                    if (fileType == "image/jpeg" || fileType == "image/png") {
                         firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
                             location.reload();
                         });

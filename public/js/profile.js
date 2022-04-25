@@ -123,7 +123,7 @@ document.getElementById("uploadProfilePic").onchange = function (e) {
 	fil = e.target.files[0];
 	var fileType = fil["type"];
 	console.log(fileType);
-	if (fileType == "image/jpeg" || "image/png") {
+	if (fileType == "image/jpeg" || fileType == "image/png" || fileType == "image/gif") {
 		var tmppath = URL.createObjectURL(e.target.files[0]); //Midlertidig bilde
 		document.getElementById("pictureEditProfile").src = tmppath; //Setter midlertidig bilde før man evt. laster opp til DB
 	} else {
@@ -169,7 +169,7 @@ document.getElementById("save_profile_changes_btn").onclick = function () {
 	con.update(bruker).then(() => {
 		var fileType = fil["type"];
 		if (fil instanceof File) {
-			if (fileType == "image/jpeg" || "image/png") {
+			if (fileType == "image/jpeg" || fileType == "image/png" || fileType == "image/gif") {
 				firebase.storage().ref("user/" + uid + "/profile.jpg").put(fil).then(() => {
 					location.reload();
 				});
