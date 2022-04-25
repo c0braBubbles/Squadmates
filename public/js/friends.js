@@ -1,34 +1,36 @@
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 
-for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
-    if(whiz.Following[i] == null) {
-        i++;
+if(whiz.Following != undefined) {
+    for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
+        if(whiz.Following[i] == null) {
+            i++;
+        }
+
+        var storage = firebase.storage();
+        var storageRef = storage.ref();
+        var pictureStorage = storageRef.child("user/" + whiz.Following[i].Uid + "/profile.jpg");
+
+
+        pictureStorage.getDownloadURL().then((pictureURL) => {
+            document.getElementById("friendsList").innerHTML += `<li class="list-group-item border-dark d-flex justify-content-between align-items-center"
+                                                                    style="color: white; background: #111;">
+                                                                    <a href=""> <img src="${pictureURL}" alt=".." class="rounded-circle display-pic"
+                                                                            style="height:50px; width:50px;"> </a>
+                                                                    <h3>${whiz.Following[i].Brukernavn}</h3>
+                                                                    <a href=""> <img src="img/chat-fill.svg" alt="..."
+                                                                        style="filter:invert(100%); width:40px; height:40px;"> </a>
+                                                                </li>`;
+        }).catch((error) => {
+            document.getElementById("friendsList").innerHTML += `<li class="list-group-item border-dark d-flex justify-content-between align-items-center"
+                                                                    style="color: white; background: #111;">
+                                                                    <a href=""> <img src="img/blank-profile-circle.png" alt=".." class="rounded-circle display-pic"
+                                                                            style="height:50px; width:50px;"> </a>
+                                                                    <h3>JonKanon352</h3>
+                                                                    <a href=""> <img src="img/chat-fill.svg" alt="..."
+                                                                        style="filter:invert(100%); width:40px; height:40px;"> </a>
+                                                                </li>`;
+        });
     }
-
-    var storage = firebase.storage();
-    var storageRef = storage.ref();
-    var pictureStorage = storageRef.child("user/" + whiz.Following[i].Uid + "/profile.jpg");
-
-
-    pictureStorage.getDownloadURL().then((pictureURL) => {
-        document.getElementById("friendsList").innerHTML += `<li class="list-group-item border-dark d-flex justify-content-between align-items-center"
-                                                                style="color: white; background: #111;">
-                                                                <a href=""> <img src="${pictureURL}" alt=".." class="rounded-circle display-pic"
-                                                                        style="height:50px; width:50px;"> </a>
-                                                                <h3>${whiz.Following[i].Brukernavn}</h3>
-                                                                <a href=""> <img src="img/chat-fill.svg" alt="..."
-                                                                    style="filter:invert(100%); width:40px; height:40px;"> </a>
-                                                            </li>`;
-    }).catch((error) => {
-        document.getElementById("friendsList").innerHTML += `<li class="list-group-item border-dark d-flex justify-content-between align-items-center"
-                                                                style="color: white; background: #111;">
-                                                                <a href=""> <img src="img/blank-profile-circle.png" alt=".." class="rounded-circle display-pic"
-                                                                        style="height:50px; width:50px;"> </a>
-                                                                <h3>JonKanon352</h3>
-                                                                <a href=""> <img src="img/chat-fill.svg" alt="..."
-                                                                    style="filter:invert(100%); width:40px; height:40px;"> </a>
-                                                            </li>`;
-    });
 }
 
 
@@ -38,7 +40,7 @@ let countUser = 0;
 
 firebase.database().ref('/Bruker').on('child_added', function(snapshot) {
     let name = snapshot.child('Brukernavn').val();
-    let userID = snapshot.child('Uid').val();
+    let userID = snapshot.key;
     let bio = snapshot.child('Biografi').val(); 
     let liID = 'list_item' + countUser; 
     let picID = 'picture' + countUser; 
@@ -84,14 +86,17 @@ document.getElementById("btnSok").onclick = function() {
     let searchWord = document.getElementById("søkefeltbruker").value.toUpperCase();
     let txtValue; 
 
+    if(searchWord.trim() == "") {
+        return;
+    }
+
     for(let i = 0; i < nameTab_search.length; i++) {
         txtValue = nameTab_search[i];
         if(txtValue.toUpperCase().indexOf(searchWord) > -1) {
-            console.log("fant deg");
             searchBox.style.display = "block"; 
             document.getElementById("list_item" + i).style.display = "inline";
         } else {
-            console.log("fant ikke eeeen jæææævla dritt");
+            // console.log("fant ikke eeeen jæææævla dritt");
         }
     }
 }
