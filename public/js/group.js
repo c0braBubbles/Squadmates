@@ -963,7 +963,7 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
 
         if (document.getElementById("discordCheckEdit").checked) {
             if (document.getElementById("discordformEdit").value != "") {
-                const regex = /(?:https?:\/\/)?discord\.com\/(?:invite|id)\/[a-zA-Z0-9]+/;
+                const regex = /(?:https?:\/\/)?discord\.gg\/[a-zA-Z0-9]+/;
                 if (document.getElementById("discordformEdit").value.match(regex)) {
                     discord = document.getElementById("discordformEdit").value;
                 } else {

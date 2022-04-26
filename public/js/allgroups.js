@@ -105,7 +105,7 @@ document.getElementById("grpCreate").onclick = function () {
 
     if (document.getElementById("discordCheck").checked) {
         if (document.getElementById("discordform").value != "") {
-            const regex = /(?:https?:\/\/)?discord\.com\/(?:invite|id)\/[a-zA-Z0-9]+/;
+            const regex = /(?:https?:\/\/)?discord\.gg\/[a-zA-Z0-9]+/;
             if (document.getElementById("discordform").value.match(regex)) {
                 discord = document.getElementById("discordform").value;
             } else { alert("Linken du oppga er ikke en discord server invitasjon, men gruppen ble alikevell opprettet uten discord server. Prøv igjen under Rediger gruppe"); }
