@@ -275,18 +275,21 @@ firebase.database().ref('/Bruker/' + user + '/Grupper').on('child_added', functi
 let nameTab_search = []; 
 let descTab_search = []; 
 // de to arrayene over er alltid like lange
+let games_Tab = []; 
 let groupcount = 0; 
 
 firebase.database().ref('/Grupper').on('child_added', function(snapshot) {
     let name = snapshot.child('Navn').val(); 
     let about = snapshot.child('Om').val();
     let owner = snapshot.child('Eier').val();
+    let games = snapshot.child('Games').val();
     let id = snapshot.child('BildeID').val();
     var picid = "imageFav" + snapshot.child("BildeID").val();
     let groupKey = snapshot.key;
 
     nameTab_search.push(name); 
     descTab_search.push(about);
+    games_Tab.push(games);
     let liID = 'list_item' + groupcount;
 
     $(document.getElementById("ul_result")).append(
@@ -314,18 +317,29 @@ firebase.database().ref('/Grupper').on('child_added', function(snapshot) {
 document.getElementById("btnSok").onclick = function() {
     let searchBox = document.getElementById("searc_box"); 
     let searchWord = document.getElementById("søkefeltgrupper").value.toUpperCase();
+
+    // if(searchWord == "") {
+    //     return;
+    // }
+
     let txtValue; 
     let descValue;
 
     for(let i = 0; i < nameTab_search.length; i++) {
+        let tempGamesArr = games_Tab[i].split(",");
+
         txtValue = nameTab_search[i];
         descValue = descTab_search[i]; 
-        if(txtValue.toUpperCase().indexOf(searchWord) > -1 ||
-           descValue.toUpperCase().indexOf(searchWord) > -1) {
-            searchBox.style.display = "block"; 
-            document.getElementById("list_item" + i).style.display = "block";
-        } else {
-            console.log("fant ikke eeeen jæææævla dritt");
+
+        for(let j = 0; j < tempGamesArr.length; j++) {
+            if(txtValue.toUpperCase().indexOf(searchWord) > -1 ||
+            descValue.toUpperCase().indexOf(searchWord) > -1 ||
+            tempGamesArr[j].toUpperCase().indexOf(searchWord) > -1) {
+                searchBox.style.display = "block"; 
+                document.getElementById("list_item" + i).style.display = "block";
+            } else {
+                alert("Fant ingenting som matchet ditt søk");
+            }
         }
     }
 }
