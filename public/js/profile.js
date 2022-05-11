@@ -564,7 +564,8 @@ function leggUt(path, innleggUID) {
 	//Slett et innlegg
 	document.getElementById(IDs.deleteID + owner).onclick = function () {
 		deleteRef.remove();
-		firebase.storage().ref("innlegg/" + (owner + picid) + "/innlegg.jpg").delete();
+		// firebase.storage().ref("innlegg/" + (owner + picid) + "/innlegg.jpg").delete();
+		firebase.storage().ref("innlegg/" + (owner + IDs.picID) + "/innlegg.jpg").delete();
 		alert("Innlegget ditt er nå slettet");
 		location.reload();
 	}
