@@ -33,10 +33,11 @@ function showProfile(name, uid2) {
 function gameSearch(i) {
     let resultList = document.getElementById("gameResults");
     resultList.innerHTML = ``;
+
     let inp = document.getElementById("gameInput").value.toUpperCase();
     let searchword = inp.split(' ').join('-').toLowerCase();
 
-    if (inp == "") {
+    if(inp == "") {
         return;
     }
 
@@ -62,35 +63,6 @@ function gameSearch(i) {
     }).catch(err => {
         console.log(err);
     });
-
-    // fetch("https://api.rawg.io/api/games?key=e5ea68967fee4a488fa5b48cc20edaba" + "&page=" + i, {
-    //     "method": "GET",
-    // }).then(response => response.json()).then(data => {
-    //     for (let j = 0; j < data.results.length; j++) {
-    //         let game = data.results[j].name;
-    //         let image = data.results[j].background_image;
-    //         // para.innerHTML += game + "<br>";
-
-    //         if (game.toUpperCase().indexOf(inp) > -1) {
-    //             resultList.innerHTML += `<div class="input-group mx-3 w-75 d-flex mx-auto">
-    //                                             <div class="input-group-text bg-dark border-dark">
-    //                                                 <input class="form-check-input mt-0" id="st${game}" type="checkbox" onclick="checkGame('${game}', '${image}', this.id)" value="${game}" aria-label="@Gamertag">
-    //                                             </div>
-    //                                             <img src="${image}" alt="spillbilde" width="42">
-    //                                             <input type="text" class="form-control bg-dark border-dark text-light" aria-label="@Gamertag" value="${game}" readonly><br>
-    //                                         </div><br>`;
-    //         }
-
-    //         if (j == data.results.length - 1) {
-    //             i += 1;
-    //             gameSearch(i);
-    //         }
-    //     }
-    // }).catch(err => {
-    //     console.log(err);
-    //     // para.innerHTML = err;
-    //     // return;
-    // });
 }
 
 
