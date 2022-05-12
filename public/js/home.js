@@ -144,6 +144,22 @@ firebase.database().ref('Switch gruppe/Innlegg').limitToLast(1).once('value', fu
 // - - - - - - - - - - - - - - - - - L E G G  U T  N Y E  I N N L E G G - - - - - - - - - - - - - - - - - //
 firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
     var snapVal = snapshot.val();
+    //Legger til lytter på egne innlegg
+    firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').limitToLast(1).once('value', function(snapshot) {
+        if (snapshot.exists()) {
+            snapshot.forEach((childSnap) => {
+                let minUserKeyObject = {};
+                minUserKeyObject.key = childSnap.key;
+                minUserKeyObject.path = whiz.Uid;
+                lastKeys.userKeys.push(minUserKeyObject);
+            });
+        }
+    });
+    let mineInnleggStart = firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').push().key;
+    firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').orderByKey().startAt(mineInnleggStart).on('child_added', function (dataSnapshot) {
+        leggUtInnlegg("bruker", whiz.Uid, whiz.Brukernavn, whiz.Navn, dataSnapshot.key, true);
+    })
+
     if (snapshot.child('Following').val() != null) {
         snapshot.child('Following').forEach(function (childVal) { //Et "following" objekt. Få tak i Uid -> childVal.child('Uid').val()
             //Legger til key til siste innlegg fra hver person som brukeren følger
@@ -202,7 +218,7 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
                     });
                 }
             });
-            let start = firebase.database().ref('Grupper/' + childVal.key + "/Innlegg").push().key;
+            let start = firebase.database().ref('Grupper/' + childVal.key + '/Innlegg').push().key;
             firebase.database().ref("Grupper/" + childVal.key + "/Innlegg").orderByKey().startAt(start).on('child_added', function (dataSnapshot) {
                 leggUtInnlegg("egendefinert", childVal.key, dataSnapshot.child("Brukernavn").val(), dataSnapshot.child("Navn").val(), dataSnapshot.key, true);
             });
@@ -401,8 +417,8 @@ function leggUtGammelt() {
             });
             setTimeout(() => {
                 firebase.database().ref('Bruker/' + whiz.Uid + '/TempFeed').remove();
-            }, 300);
-        }, 500); //2000
+            }, 600);
+        }, 1500); //2000
     });
 }
 
@@ -712,7 +728,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
         } else if (type == "egendefinert") {
             cmtRef = firebase.database().ref("Grupper/" + sti + "/Innlegg/" + innleggUID + "/Kommentarer");
             reportRef = firebase.database().ref("Grupper/" + sti + "/Rapporterte Innlegg");
-            deleteRef = firebase.database().ref("Grupper/" + sti + "/Innlegg" + innleggUID);
+            deleteRef = firebase.database().ref("Grupper/" + sti + "/Innlegg/" + innleggUID);
             reportCmtRef = firebase.database().ref("Grupper/" + sti + "/Rapporterte kommentarer");
         } else if (type == "bruker") {
             cmtRef = firebase.database().ref("Bruker/" + sti + "/Innlegg/" + innleggUID + "/Kommentarer");
