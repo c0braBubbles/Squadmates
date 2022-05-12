@@ -547,7 +547,7 @@ function leggUt(path, innleggUID) {
 		reportCmtRef = firebase.database().ref("Rapportert/Rapporterte kommentarer/" + whiz.Uid);
 	} else {
 		cmtRef = firebase.database().ref("Grupper/" + path + "/Innlegg/" + innleggUID + "/Kommentarer");
-		deleteRef = firebase.database().ref("Grupper/" + path + "/Innlegg" + innleggUID);
+		deleteRef = firebase.database().ref("Grupper/" + path + "/Innlegg/" + innleggUID);
 		reportCmtRef = firebase.database().ref("Grupper/" + path + "/Rapporterte kommentarer");
 	}
 
@@ -564,7 +564,7 @@ function leggUt(path, innleggUID) {
 	//Slett et innlegg
 	document.getElementById(IDs.deleteID + owner).onclick = function () {
 		deleteRef.remove();
-		// firebase.storage().ref("innlegg/" + (owner + picid) + "/innlegg.jpg").delete();
+		firebase.database().ref('Bruker/' + owner + '/Mine innlegg/' + innleggUID).remove();
 		firebase.storage().ref("innlegg/" + (owner + IDs.picID) + "/innlegg.jpg").delete();
 		alert("Innlegget ditt er nå slettet");
 		location.reload();

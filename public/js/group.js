@@ -404,6 +404,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').orderByKey().limitToLast
             //Slett innlegg
             document.getElementById(deleteid + owner).onclick = function () {
                 firebase.database().ref('/Grupper/' + key + '/Innlegg/' + postKey).remove();
+                firebase.database().ref('Bruker/' + owner + '/Mine innlegg/' + postKey).remove();
                 firebase.storage().ref("innlegg/" + (owner + picid) + "/innlegg.jpg").delete();
                 alert("Innlegget ditt er nå slettet");
                 location.reload();
@@ -671,6 +672,7 @@ function getPost(lastkey) {
                 //Slett innlegg
                 document.getElementById(deleteid + owner).onclick = function () {
                     firebase.database().ref('/Grupper/' + key + '/Innlegg/' + postKey).remove();
+                    firebase.database().ref('Bruker/' + owner + '/Mine innlegg/' + postKey).remove();
                     firebase.storage().ref("innlegg/" + (owner + picid) + "/innlegg.jpg").delete();
                     alert("Innlegget ditt er nå slettet");
                     location.reload();

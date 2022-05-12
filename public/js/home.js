@@ -269,7 +269,7 @@ firebase.database().ref('Bruker/' + whiz.Uid + '/Switch').once('value', (snapsho
 setTimeout(() => {
     leggUtGammelt();
     klarForNy = true;
-}, 1000);
+}, 1700);
 
 let postBlockID;
 function leggUtGammelt() {
@@ -417,8 +417,8 @@ function leggUtGammelt() {
             });
             setTimeout(() => {
                 firebase.database().ref('Bruker/' + whiz.Uid + '/TempFeed').remove();
-            }, 600);
-        }, 1500); //2000
+            }, 500);
+        }, 800); //2000
     });
 }
 
@@ -791,6 +791,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
         //Slett et innlegg
         document.getElementById(IDs.deleteID + owner).onclick = function () {
             deleteRef.remove();
+            firebase.database().ref('Bruker/' + owner + '/Mine innlegg/' + innleggUID).remove();
             firebase.storage().ref("innlegg/" + (owner + picid) + "/innlegg.jpg").delete();
             alert("Innlegget ditt er nå slettet");
             location.reload();
@@ -893,7 +894,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
 
 
 
-    }, 500);
+    }, 200); //500
 }
 
 var fil = {};
