@@ -357,7 +357,6 @@ firebase.database().ref('/' + platform + ' gruppe/Innlegg').orderByKey().limitTo
                         // HER ER ÉN KOMMENTAR. DET SKAL OGSÅ VÆRE ONCLICK
                         '<a class="list-group-item text-light border-dark mb-0 rounded-3" style="background: #111;"> <div class = "w-100 d-flex">' + 
                         `<img class="rounded-circle m-1" onclick="showProfile('${username}', '${cmtOwner}')" width="35" height="35" src="" id="${ppid}" style="object-fit: cover;">` + 
-                        '<img class = "rounded-circle m-1" width="35" height="35" src="" id="' + ppid + '" style="object-fit: cover;">' + 
                         '<strong class = "my-auto mx-1">' + username + '</strong>' +
                         '<div class="dropdown ms-auto my-auto"> <text class="text-muted">' + datetime + ' </text> <button class="btn dropdown-toggle text-light" type="button" style="background: #111;" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"></button>' +
                         '<ul class="dropdown-menu bg-dark ms-auto" aria-labelledby="dropdownMenu2"> <li><button class="dropdown-item text-light bg-dark"' +
