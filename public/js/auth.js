@@ -102,16 +102,30 @@ document.getElementById("loginBtn").onclick = function() {
 
 
 document.getElementById("sendEmail").onclick = function() {
-    let inp_email = document.getElementById("inp_epost").value;
-    Email.send({
-        Host: "smtp.gmail.com",
-        Username: "sender@email_address.com",
-        Password: "Enter your password",
-        To: inp_email,
-        From: "mats.engesund@gmail.com",
-        Subject: "Sending Email using javascript",
-        Body: "Well that was easy!!",
-      }).then(function (message) {
-          alert("mail sent successfully")
+    let inp_email = document.getElementById("inp_epost2").value;
+    console.log(inp_email);
+    // Email.send({
+    //     Host: "smtp.gmail.com",
+    //     Username: "sender@email_address.com",
+    //     Password: "Enter your password",
+    //     To: inp_email,
+    //     From: "mats.engesund@gmail.com",
+    //     Subject: "Sending Email using javascript",
+    //     Body: "Well that was easy!!",
+    //   }).then(function (message) {
+    //       alert("mail sent successfully")
+    // });
+
+    firebase.auth().sendPasswordResetEmail(inp_email)
+    .then(() => {
+        console.log("sendte epost til: " + inp_email);
+        // Password reset email sent!
+        // ..
+    })
+    .catch((error) => {
+        console.log("failed epost til: " + inp_email);
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ..
     });
 }
