@@ -338,7 +338,8 @@ document.getElementById("btnSok").onclick = function() {
                 searchBox.style.display = "block"; 
                 document.getElementById("list_item" + i).style.display = "block";
             } else {
-                alert("Fant ingenting som matchet ditt søk");
+               // alert("Fant ingenting som matchet ditt søk");
+               console.log("Fant ingen grupper");
             }
         }
     }
