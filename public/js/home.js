@@ -1,4 +1,4 @@
-const whiz = JSON.parse(sessionStorage.getItem("bruker"));
+// const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
 
 //Loading, her er det ikke noe dynamisk innhold som "MÅ" eksistere, derfor timeout

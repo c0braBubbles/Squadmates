@@ -75,16 +75,25 @@
 
     <script>
         //Funksjon for å åpne gruppesid med key lagret
-			function getGroup(key) {
-				// templating for når man åpner en gruppe: 
-				window.open(key, '_self');
-				$.post("/openGroup", {
-					key: key
-				}, function (data, status) {
-					console.log(data);
-				}
-				);
+		function getGroup(key) {
+			// templating for når man åpner en gruppe: 
+			window.open(key, '_self');
+			$.post("/openGroup", {
+				key: key
+			}, function (data, status) {
+				console.log(data);
 			}
+			);
+		}
+
+        window.onload = function() {
+            if(!window.location.hash) {
+                window.location = window.location + '#loaded';
+                setTimeout(function () {
+                    window.location.reload();
+                }, 500);
+            }
+        }
     </script>
 </body>
 </html>
