@@ -31,14 +31,30 @@ var inpPassword2 = document.getElementById("inp_passord2");
 // });
 
 
+// document.getElementById("regBtn").onclick = function() {
+//     if(inpPassword.value.length < 6) {
+//         alert("Passordet er for kort. Minimum 6 tegn"); 
+//     } else if(inpPassword.value != inpPassword2.value) {
+//         alert("Passordfeltene samsvarer ikke"); 
+//     } else if(inpBnavn.value.length > 10) {
+//         alert("Brukernavnet er for langt");
+//     } else {
+//         auth.createUserWithEmailAndPassword(inpEpost.value, inpPassword.value).then(cred => {
+//             var userID = firebase.auth().currentUser.uid; 
+//             msg = firebase.database().ref('Bruker').child(userID); 
+//             msg.set({
+//                 "Brukernavn":   inpBnavn.value, 
+//                 "Navn":         inpNavn.value
+//             }).then(() => {
+//                 window.location = "/home";
+//             });
+//         });
+//     }
+// }
+
 document.getElementById("regBtn").onclick = function() {
-    if(inpPassword.value.length < 6) {
-        alert("Passordet er for kort. Minimum 6 tegn"); 
-    } else if(inpPassword.value != inpPassword2.value) {
-        alert("Passordfeltene samsvarer ikke"); 
-    } else if(inpBnavn.value.length > 10) {
-        alert("Brukernavnet er for langt");
-    } else {
+    let state = checkPassword(inpPassword); 
+    if(state === true && inpBnavn.value.length < 10 && inpPassword.value == inpPassword2.value) {
         auth.createUserWithEmailAndPassword(inpEpost.value, inpPassword.value).then(cred => {
             var userID = firebase.auth().currentUser.uid; 
             msg = firebase.database().ref('Bruker').child(userID); 
@@ -49,6 +65,24 @@ document.getElementById("regBtn").onclick = function() {
                 window.location = "/home";
             });
         });
+    } else {
+        document.getElementById("outputTxt").style.display = "block";
+    }
+}
+function checkPassword(passInp) {
+    let lowerCaseLetters = /[a-z]/g;
+    let upperCaseLetters = /[A-Z]/g; 
+    let numbers = /[0-9]/g; 
+
+    if(
+        passInp.value.match(lowerCaseLetters) &&
+        passInp.value.match(upperCaseLetters) &&
+        passInp.value.match(numbers) && 
+        passInp.value.length >= 8
+    ) {
+        return true; 
+    } else {
+        return false;
     }
 }
 
