@@ -831,7 +831,7 @@ var countMembers;
 var collections;
 
 firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', function (snapshot) {
-    var userID = snapshot.child("BrukerID").val();
+    userID = snapshot.child("BrukerID").val();
     count++;
     countMembers = document.getElementById("membercountGroup");
     countMembers.innerHTML = count;
@@ -860,13 +860,43 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
                 list = document.getElementById("memberlistGroup");
                 $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde" alt="Profilbilde">
-                                ${name}</a>`)
-                // $(list).append('<a href="#" class="list-group-item text-light border-dark" style="background: #111;">' +
-                //     '<img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">'
-                //     + name + '</a>');
-
+                                ${name}</a>`);
             });
-    })
+    }); 
+
+    for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
+        if(whiz.Following[i] == null) {
+            i++;
+        }
+
+        if(userID == whiz.Following[i].Uid) {
+            let name = whiz.Following[i].Brukernavn; 
+
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            var pictureStorage = storageRef.child("user/" + userID + "/profile.jpg");
+
+
+            pictureStorage.getDownloadURL().then((pictureURL) => { //Dersom brukeren har profilbilde
+                $(".loader-wrapper" + platform).fadeOut("slow");
+                list = document.getElementById("medlemslistePlatform");
+                let followList = document.getElementById("følgerlistePlatform");
+                
+                $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${userID}')">
+                                    <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
+                                ${name}</a>`);
+            }).catch((error) => { //Dersom brukeren ikke har profilbilde
+                //console.clear(error);
+                $(".loader-wrapper" + platform).fadeOut("slow");
+                list = document.getElementById("medlemslistePlatform");
+                let followList = document.getElementById("følgerlistePlatform");
+
+                $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${userID}')">
+                                    <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde">
+                                ${name}</a>`);
+            });
+        }
+    }
 });
 /* ------------ Sjekker gruppens medlemmer SLUTT ------------ */
 

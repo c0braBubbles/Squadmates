@@ -318,9 +318,9 @@ document.getElementById("btnSok").onclick = function() {
     let searchBox = document.getElementById("searc_box"); 
     let searchWord = document.getElementById("søkefeltgrupper").value.toUpperCase();
 
-    // if(searchWord == "") {
-    //     return;
-    // }
+    if(searchWord == "") {
+        return;
+    }
 
     let txtValue; 
     let descValue;
