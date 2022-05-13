@@ -519,7 +519,8 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="d-flex justify-content-between align-items-center">' +
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
-                    '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
+                    `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
+                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
@@ -552,7 +553,8 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="d-flex justify-content-between align-items-center">' +
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
-                    '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
+                    `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
+                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
@@ -585,7 +587,8 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="d-flex justify-content-between align-items-center">' +
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
-                    '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
+                    `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
+                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
@@ -618,7 +621,8 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="d-flex justify-content-between align-items-center">' +
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
-                    '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
+                    `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
+                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
@@ -651,7 +655,8 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="d-flex justify-content-between align-items-center">' +
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
-                    '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
+                    `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
+                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn+gruppenavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +

@@ -103,29 +103,27 @@ document.getElementById("loginBtn").onclick = function() {
 
 document.getElementById("sendEmail").onclick = function() {
     let inp_email = document.getElementById("inp_epost2").value;
-    console.log(inp_email);
-    // Email.send({
-    //     Host: "smtp.gmail.com",
-    //     Username: "sender@email_address.com",
-    //     Password: "Enter your password",
-    //     To: inp_email,
-    //     From: "mats.engesund@gmail.com",
-    //     Subject: "Sending Email using javascript",
-    //     Body: "Well that was easy!!",
-    //   }).then(function (message) {
-    //       alert("mail sent successfully")
-    // });
+    var formsheet = document.getElementById("bForm2");
+    formsheet.style.color = "#fff";
 
-    firebase.auth().sendPasswordResetEmail(inp_email)
-    .then(() => {
-        console.log("sendte epost til: " + inp_email);
-        // Password reset email sent!
-        // ..
+    firebase.auth().sendPasswordResetEmail(inp_email).then(() => {
+        // window.location.reload();
+        formsheet.innerHTML = `
+            En epost er sendt til ${inp_email}. <br>
+            Følg lenken for å endre passord, returner hit, <br>
+            og last inn siden på nytt ved å trykke 
+            <a href="/">her</a>
+        `;
     })
     .catch((error) => {
-        console.log("failed epost til: " + inp_email);
+        // console.log("failed epost til: " + inp_email);
         var errorCode = error.code;
         var errorMessage = error.message;
-        // ..
+        formsheet.innerHTML = `
+            Noe gikk galt. <br>
+            Errorcode: ${errorCode} <br>
+            Errormelding: ${errorMessage} <br>
+            <a href="/">Prøv på nytt</a>
+        `;
     });
 }

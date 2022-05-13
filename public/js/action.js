@@ -104,7 +104,7 @@ let nav_btn = [
 console.log(page);
 
 switch (page) {
-    case "home":
+    case "home#loaded":
         changeNavColor(0)
         break;
     case "allgroups":
