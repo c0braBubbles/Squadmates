@@ -6,11 +6,11 @@ var userForm = document.getElementById("bForm");
 var inpEpost = document.getElementById("inp_epost"); 
 var inpBnavn = document.getElementById("inp_bnavn"); 
 var inpNavn = document.getElementById("inp_navn"); 
-var inpAge = document.getElementById("inp_alder"); 
 var inpPassword = document.getElementById("inp_passord"); 
 var inpPassword2 = document.getElementById("inp_passord2"); 
 
 
+// denne skal bli kommentert tilbake. Auto-loggin/husk meg funksjon
 // firebase.auth().onAuthStateChanged(function(user) {
 //     if(user) {
 //         // Bruker logget inn
@@ -44,7 +44,6 @@ document.getElementById("regBtn").onclick = function() {
             msg = firebase.database().ref('Bruker').child(userID); 
             msg.set({
                 "Brukernavn":   inpBnavn.value, 
-                "Alder":        inpAge.value, 
                 "Navn":         inpNavn.value
             }).then(() => {
                 window.location = "/home";
