@@ -69,7 +69,36 @@
 
     <script>
         function startSamtale(mottakerUID) {
-            
+            var finnesSamtale = false;
+            if (whiz.Uid == mottakerUID) return; //Stopp metoden dersom bruker prøver å starte samtale med seg selv
+            firebase.database().ref('Samtale').once('value', (snapshot) => {
+                var data = snapshot.val();
+                if (snapshot.exists()) {
+                    for (let i in data) {
+                        if ((data[i].Bruker1ID == mottakerUID && data[i].Bruker2ID == whiz.Uid) ||
+                                (data[i].Bruker1ID == whiz.Uid && data[i].Bruker2ID == mottakerUID)) {
+                            console.log("Samtalen eksisterer allerede!");
+                            finnesSamtale = true;
+                        }
+                    }
+                }
+            }).then(() => {
+                if (!finnesSamtale) {
+                    //ville vanligvis brukt push istedet for set, men vi må ha tak i keyen som blir generert
+                    var pushKey = firebase.database().ref('Samtale').push().key;
+                    firebase.database().ref('Samtale').child(pushKey).set({
+                        "Bruker1ID": whiz.Uid,
+                        "Bruker2ID": mottakerUID,
+                        "NyttFra": whiz.Uid
+                    }).then(() => {
+                        localStorage.setItem("aktivSamtale", pushKey);
+                        //Redirect til chat-side
+                        window.location = "/chat";
+                    });
+                } else {
+                    window.location = "/chat";
+                }
+            });
         }
     </script>
 
