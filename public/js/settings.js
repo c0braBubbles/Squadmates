@@ -71,22 +71,59 @@ bekreftSlett.onclick = function () {
                 firebase.database().ref("Steam gruppe/Medlemmer/"+whiz.Uid).remove();
                 firebase.database().ref("Switch gruppe/Medlemmer/"+whiz.Uid).remove();
             }).then(()=> {
-                //Sletter resterende bruker info -> Realtime database
-                firebase.database().ref("Bruker/" + whiz.Uid).remove().then(() => {
-                    //Sletter eventuelt profilbilde brukeren har -> Storage 
-                    firebase.storage().ref("user/" + whiz.Uid + "/profile.jpg").delete().catch((error) => {
-                        //Error -> Brukeren har ikke profilbilde
-                        console.log(error.message);
-                    }).then(() => {
-                        //Sletter auth-info til slutt -> Authentication
-                        user.delete().then(() => {
-                            //Bruker slettet
-                            window.location = "/";
-                        }).catch((error) => {
+
+                //Sletter brukeren sine innlegg
+                firebase.database().ref('Bruker/' + whiz.Uid + '/Mine innlegg').once('value', (snapshot) => {
+                    if (snapshot.exists()) {
+                        snapshot.forEach((innleggReferanse) => {
+                            let path = innleggReferanse.child("Path").val();
+                            if (path == "Xbox" || path == "Playstation" || path == "Steam" || path == "Switch") { //Fra platform
+                                firebase.database().ref(path + ' gruppe/Innlegg/' + innleggReferanse.key).once('value', (snapshot) => {
+                                    let picID = "picture" + snapshot.child('ID').val();
+                                    let owner = snapshot.child('Eier').val();
+                                    firebase.storage().ref('innlegg/' + (owner + picID) + '/innlegg.jpg').delete();
+                                    firebase.database().ref(path + ' gruppe/Innlegg/' + innleggReferanse.key).remove();
+                                });
+                            } else if (path == "Bruker") { //Fra bruker
+                                firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg/' + innleggReferanse.key).remove();
+                                firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg/' + innleggReferanse.key).once('value', (snapshot) => {
+                                    let picID = "picture" + snapshot.child('ID').val();
+                                    let owner = snapshot.child('Eier').val();
+                                    firebase.storage().ref('innlegg/' + (owner + picID) + '/innlegg.jpg').delete();
+                                    firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg/' + innleggReferanse.key).remove();
+                                })
+                            } else { //Fra egendefinert gruppe
+                                firebase.database().ref('Grupper/' + path + '/Innlegg/' + innleggReferanse.key).remove();
+                                firebase.database().ref('Grupper/' + path + '/Innlegg/' + innleggReferanse.key).once('value', (snapshot) => {
+                                    let picID = "picture" + snapshot.child('ID').val();
+                                    let owner = snapshot.child('Eier').val();
+                                    firebase.storage().ref('innlegg/' + (owner + picID) + '/innlegg.jpg').delete();
+                                    firebase.database().ref('Grupper/' + path + '/Innlegg/' + innleggReferanse.key).remove();
+                                })
+                            }
+                        })
+                    }
+                }).then(() => {
+                    //Sletter resterende bruker info -> Realtime database
+                    firebase.database().ref("Bruker/" + whiz.Uid).remove().then(() => {
+                        //Sletter eventuelt profilbilde brukeren har -> Storage 
+                        firebase.storage().ref("user/" + whiz.Uid + "/profile.jpg").delete().catch((error) => {
+                            //Error -> Brukeren har ikke profilbilde
                             console.log(error.message);
+                        }).then(() => {
+                            //Sletter auth-info til slutt -> Authentication
+                            user.delete().then(() => {
+                                //Bruker slettet
+                                window.location = "/";
+                            }).catch((error) => {
+                                console.log(error.message);
+                            });
                         });
                     });
                 });
+
+
+                
 
             });
         }).catch((error) => {

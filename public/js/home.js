@@ -117,6 +117,8 @@ firebase.database().ref('Xbox gruppe/Innlegg').limitToLast(1).once('value', func
         snapshot.forEach((childSnap) => {
             lastKeys.Xbox = childSnap.key;
         });
+    } else {
+        lastKeys.Xbox = "0";
     }
 });
 firebase.database().ref('Playstation gruppe/Innlegg').limitToLast(1).once('value', function (snapshot) {
@@ -124,6 +126,8 @@ firebase.database().ref('Playstation gruppe/Innlegg').limitToLast(1).once('value
         snapshot.forEach((childSnap) => {
             lastKeys.Playstation = childSnap.key;
         });
+    } else {
+        lastKeys.Playstation = "0";
     }
 });
 firebase.database().ref('Steam gruppe/Innlegg').limitToLast(1).once('value', function (snapshot) {
@@ -131,6 +135,8 @@ firebase.database().ref('Steam gruppe/Innlegg').limitToLast(1).once('value', fun
         snapshot.forEach((childSnap) => {
             lastKeys.Steam = childSnap.key;
         });
+    } else {
+        lastKeys.Steam = "0";
     }
 });
 firebase.database().ref('Switch gruppe/Innlegg').limitToLast(1).once('value', function (snapshot) {
@@ -138,6 +144,8 @@ firebase.database().ref('Switch gruppe/Innlegg').limitToLast(1).once('value', fu
         snapshot.forEach((childSnap) => {
             lastKeys.Switch = childSnap.key;
         });
+    } else {
+        lastKeys.Switch = "0";
     }
 });
 
@@ -153,6 +161,11 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
                 minUserKeyObject.path = whiz.Uid;
                 lastKeys.userKeys.push(minUserKeyObject);
             });
+        } else {
+            let minUserKeyObject = {};
+            minUserKeyObject.key = "0";
+            minUserKeyObject.path = whiz.Uid;
+            lastKeys.userKeys.push(minUserKeyObject);
         }
     });
     let mineInnleggStart = firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg').push().key;
@@ -797,7 +810,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
         document.getElementById(IDs.deleteID + owner).onclick = function () {
             deleteRef.remove();
             firebase.database().ref('Bruker/' + owner + '/Mine innlegg/' + innleggUID).remove();
-            firebase.storage().ref("innlegg/" + (owner + picid) + "/innlegg.jpg").delete();
+            firebase.storage().ref("innlegg/" + (owner + IDs.picID) + "/innlegg.jpg").delete();
             alert("Innlegget ditt er nå slettet");
             location.reload();
         }
@@ -943,7 +956,7 @@ document.getElementById('uploadHome').onclick = function () {
             let fileType = fil["type"];
             if (fil instanceof File) {
                 if (fileType == "image/jpeg" || fileType == "image/png") {
-                    firebase.storage().ref('innlegg/' + (whiz.Uid + 'picture' + innlegg.ID) + '/innlegg.jpg').put(fil).then(() => {
+                    firebase.storage().ref('innlegg/' + (whiz.Uid + 'picture' + innlegg.Id) + '/innlegg.jpg').put(fil).then(() => {
                         //document.getElementById('chooseHomePic').value = "";
                     });
                 }
