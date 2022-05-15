@@ -86,8 +86,6 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
             });
         }
     }
-
-
 });
 
 var fil = {};

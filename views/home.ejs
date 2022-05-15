@@ -41,23 +41,7 @@
         </div>
     </div>
 
-    <!-- <script>
-        const user = '[' + '<%- bruker %>' + ']';
-        var user2 = JSON.parse(user)[0];
-        console.log(user2);
-
-        function logout() {
-            firebase.auth().signOut().then(() => {
-                // trenger ingenting her
-                window.location = "/";
-            }).catch((error) => {
-                alert(error); // mest sannsynlig vil ingen error forekomme
-            });
-        }
-        document.getElementById("testBtn").onclick = function() {
-            console.log(whiz);
-        }
-    </script> -->
+    
     <script src="https://code.jquery.com/jquery.js"></script>
     <script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
     <!--<script type="text/javascript" src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
@@ -111,8 +95,7 @@
 				key: key
 			}, function (data, status) {
 				console.log(data);
-			}
-			);
+			});
 		}
 
         window.onload = function() {
@@ -120,7 +103,7 @@
                 window.location = window.location + '#loaded';
                 setTimeout(function () {
                     window.location.reload();
-                }, 500);
+                }, 1000);
             }
         }
     </script>

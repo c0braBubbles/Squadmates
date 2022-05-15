@@ -20,12 +20,8 @@ app.post('/', function (req, res) {
 });
 
 app.get('/home', function (req, res) {
-    res.render('home', { bruker: JSON.stringify(bruker) });
+    res.render('home');
 });
-
-// app.get('/myprofile', function(req, res) {
-//     res.render('myprofile');
-// });
 
 app.get('/chat', function (req, res) {
     res.render('chat');

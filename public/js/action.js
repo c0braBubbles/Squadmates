@@ -10,7 +10,6 @@ let spillBilde = [];
 function showProfile(name, uid2) {
     // console.log(name + ", " + uid2);
     if (name == whiz.Brukernavn) {
-        alert("du trykket på deg selv din nisse");
         window.open(whiz.Uid, '_self');
         $.post("/openUid", {
             uid: whiz.Uid
@@ -104,7 +103,7 @@ let nav_btn = [
 console.log(page);
 
 switch (page) {
-    case "home":
+    case "home#loaded":
         changeNavColor(0)
         break;
     case "allgroups":

@@ -6,11 +6,11 @@ var userForm = document.getElementById("bForm");
 var inpEpost = document.getElementById("inp_epost"); 
 var inpBnavn = document.getElementById("inp_bnavn"); 
 var inpNavn = document.getElementById("inp_navn"); 
-var inpAge = document.getElementById("inp_alder"); 
 var inpPassword = document.getElementById("inp_passord"); 
 var inpPassword2 = document.getElementById("inp_passord2"); 
 
 
+// denne skal bli kommentert tilbake. Auto-loggin/husk meg funksjon
 // firebase.auth().onAuthStateChanged(function(user) {
 //     if(user) {
 //         // Bruker logget inn
@@ -31,25 +31,58 @@ var inpPassword2 = document.getElementById("inp_passord2");
 // });
 
 
+// document.getElementById("regBtn").onclick = function() {
+//     if(inpPassword.value.length < 6) {
+//         alert("Passordet er for kort. Minimum 6 tegn"); 
+//     } else if(inpPassword.value != inpPassword2.value) {
+//         alert("Passordfeltene samsvarer ikke"); 
+//     } else if(inpBnavn.value.length > 10) {
+//         alert("Brukernavnet er for langt");
+//     } else {
+//         auth.createUserWithEmailAndPassword(inpEpost.value, inpPassword.value).then(cred => {
+//             var userID = firebase.auth().currentUser.uid; 
+//             msg = firebase.database().ref('Bruker').child(userID); 
+//             msg.set({
+//                 "Brukernavn":   inpBnavn.value, 
+//                 "Navn":         inpNavn.value
+//             }).then(() => {
+//                 window.location = "/home";
+//             });
+//         });
+//     }
+// }
+
 document.getElementById("regBtn").onclick = function() {
-    if(inpPassword.value.length < 6) {
-        alert("Passordet er for kort. Minimum 6 tegn"); 
-    } else if(inpPassword.value != inpPassword2.value) {
-        alert("Passordfeltene samsvarer ikke"); 
-    } else if(inpBnavn.value.length > 10) {
-        alert("Brukernavnet er for langt");
-    } else {
+    let state = checkPassword(inpPassword); 
+    if(state === true && inpBnavn.value.length < 10 && inpPassword.value == inpPassword2.value) {
         auth.createUserWithEmailAndPassword(inpEpost.value, inpPassword.value).then(cred => {
             var userID = firebase.auth().currentUser.uid; 
             msg = firebase.database().ref('Bruker').child(userID); 
             msg.set({
                 "Brukernavn":   inpBnavn.value, 
-                "Alder":        inpAge.value, 
                 "Navn":         inpNavn.value
             }).then(() => {
                 window.location = "/home";
             });
         });
+    } else {
+        document.getElementById("outputTxt").style.display = "block";
+    }
+}
+function checkPassword(passInp) {
+    let lowerCaseLetters = /[a-z]/g;
+    let upperCaseLetters = /[A-Z]/g; 
+    let numbers = /[0-9]/g; 
+
+    if(
+        passInp.value.match(lowerCaseLetters) &&
+        passInp.value.match(upperCaseLetters) &&
+        passInp.value.match(numbers) && 
+        passInp.value.length >= 8
+    ) {
+        return true; 
+    } else {
+        return false;
     }
 }
 
@@ -103,29 +136,27 @@ document.getElementById("loginBtn").onclick = function() {
 
 document.getElementById("sendEmail").onclick = function() {
     let inp_email = document.getElementById("inp_epost2").value;
-    console.log(inp_email);
-    // Email.send({
-    //     Host: "smtp.gmail.com",
-    //     Username: "sender@email_address.com",
-    //     Password: "Enter your password",
-    //     To: inp_email,
-    //     From: "mats.engesund@gmail.com",
-    //     Subject: "Sending Email using javascript",
-    //     Body: "Well that was easy!!",
-    //   }).then(function (message) {
-    //       alert("mail sent successfully")
-    // });
+    var formsheet = document.getElementById("bForm2");
+    formsheet.style.color = "#fff";
 
-    firebase.auth().sendPasswordResetEmail(inp_email)
-    .then(() => {
-        console.log("sendte epost til: " + inp_email);
-        // Password reset email sent!
-        // ..
+    firebase.auth().sendPasswordResetEmail(inp_email).then(() => {
+        // window.location.reload();
+        formsheet.innerHTML = `
+            En epost er sendt til ${inp_email}. <br>
+            Følg lenken for å endre passord, returner hit, <br>
+            og last inn siden på nytt ved å trykke 
+            <a href="/">her</a>
+        `;
     })
     .catch((error) => {
-        console.log("failed epost til: " + inp_email);
+        // console.log("failed epost til: " + inp_email);
         var errorCode = error.code;
         var errorMessage = error.message;
-        // ..
+        formsheet.innerHTML = `
+            Noe gikk galt. <br>
+            Errorcode: ${errorCode} <br>
+            Errormelding: ${errorMessage} <br>
+            <a href="/">Prøv på nytt</a>
+        `;
     });
 }
