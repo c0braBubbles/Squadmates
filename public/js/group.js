@@ -532,7 +532,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').orderByKey().limitToLast
                     //console.log("Bilde funnet");
                 })
                 .catch((error) => {
-                    console.clear(error);
+                    // console.clear(error);
                     document.getElementById(picid + owner).style.display = "none"; //Fjerne img tag dersom det ikke finnes noe bilde
                 });
         })
@@ -832,6 +832,7 @@ var collections;
 
 firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', function (snapshot) {
     userID = snapshot.child("BrukerID").val();
+    console.log("Medlemmer: " + userID);
     count++;
     countMembers = document.getElementById("membercountGroup");
     countMembers.innerHTML = count;
@@ -856,7 +857,7 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
 
             })
             .catch((error) => { //Dersom brukeren ikke har profilbilde
-                console.clear(error);
+                // console.clear(error);
                 list = document.getElementById("memberlistGroup");
                 $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde" alt="Profilbilde">
@@ -865,6 +866,7 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
     }); 
 
     for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
+        console.log("Følger: " + whiz.Following[i].Uid);
         if(whiz.Following[i] == null) {
             i++;
         }
