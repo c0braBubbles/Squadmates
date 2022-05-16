@@ -25,7 +25,7 @@ if(whiz.Following != undefined) {
                                                                     style="color: white; background: #111;">
                                                                     <a href="#"> <img onclick="showProfile('${whiz.Following[i].Brukernavn}', '${whiz.Following[i].Uid}')" src="img/blank-profile-circle.png" alt=".." class="rounded-circle display-pic"
                                                                             style="height:50px; width:50px;"> </a>
-                                                                    <h3>JonKanon352</h3>
+                                                                    <h3>${whiz.Following[i].Brukernavn}</h3>
                                                                     <a href=""> <img src="img/chat-fill.svg" alt="..."
                                                                         style="filter:invert(100%); width:40px; height:40px;"> </a>
                                                                 </li>`;
