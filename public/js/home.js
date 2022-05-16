@@ -979,7 +979,7 @@ document.getElementById('uploadHome').onclick = function () {
 
 //Denne funker, men den fyrer noen ganger av to ganger på rappen -> fører til at vi får "duplicate" innlegg 
 window.onscroll = function (ev) {
-    if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+    if ((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight -2)) {
         //Legg ut flere innlegg
         if (klarForNy) {
             klarForNy = false;
