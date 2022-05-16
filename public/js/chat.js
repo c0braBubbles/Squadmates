@@ -43,7 +43,6 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                                         `<h3>` + guest.Brukernavn + `</h3>` +
                                         `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` + 
                                     `</li>`;
-                console.log(error + " - Kunne ikke finne profilbilde");
             });
             chatListTop.innerHTML +=`<li class="person-list-item-border">` +
                                         `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` + 
@@ -71,7 +70,6 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                                     `<h3>` + guest.Brukernavn + `</h3>` +
                                     `<span class="badge bg-primary rounded-pill" id="`+ samtaleKey +`">` + 0 + `</span>` +
                                     `</li>`;
-                console.log(error + " - Kunne ikke finne profilbilde");
             });
             chatListTop.innerHTML +=`<li class="person-list-item-border">` + 
                                         `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` +

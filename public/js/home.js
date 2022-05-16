@@ -39,7 +39,7 @@ firebase.database().ref('/Bruker/' + user + '/Grupper eid').on('child_added', fu
                 document.getElementById(imgid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                //console.clear(error);
+                console.clear(error);
                 document.getElementById(imgid).src = "img/Amin.jpg";
             })
     })
@@ -76,7 +76,7 @@ firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added
                 document.getElementById(picid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                //console.clear(error);
+                console.clear(error);
                 document.getElementById(picid).src = "img/Amin.jpg";
             })
     })
@@ -206,6 +206,7 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
                         groupKeyObject.key = childSnap.key;
                         groupKeyObject.path = childVal.key;
                         lastKeys.gruppeKeys.push(groupKeyObject);
+                        //lastKeys.gruppeKeys.push(childSnap.key);
                     });
                 }
             });
@@ -226,6 +227,7 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
                         groupKeyObject.key = childSnap.key;
                         groupKeyObject.path = childVal.key;
                         lastKeys.gruppeKeys.push(groupKeyObject);
+                        //lastKeys.gruppeKeys.push(childSnap.key);
                     });
                 }
             });
@@ -359,7 +361,6 @@ function leggUtGammelt() {
 
         //Egendefinert gruppe
         for (let i in lastKeys.gruppeKeys) {
-            console.log("barmen: " + lastKeys.gruppeKeys[i].path);
             firebase.database().ref('Grupper/' + lastKeys.gruppeKeys[i].path + '/Innlegg/').orderByKey().endAt(lastKeys.gruppeKeys[i].key).limitToLast(2).once('value', function (snapshot) {
                 let innleggNr = 0;
                 snapshot.forEach((childSnap) => {
@@ -402,7 +403,6 @@ function leggUtGammelt() {
                 if (snapshot.exists()) {
                     snapshot.forEach((childSnap) => {
                         var childObject = childSnap.val();
-                        console.log("Tempstack 2 " + ": " + childObject.Gruppe);
                         if (childObject.Gruppe == "Xbox gruppe" || childObject.Gruppe == "Playstation gruppe" ||
                             childObject.Gruppe == "Steam gruppe" || childObject.Gruppe == "Switch gruppe") {
 
@@ -427,7 +427,7 @@ function leggUtGammelt() {
             setTimeout(() => {
                 firebase.database().ref('Bruker/' + whiz.Uid + '/TempFeed').remove();
             }, 500);
-        }, 800);
+        }, 800); //2000
     });
 }
 
@@ -444,7 +444,7 @@ Params
 @navn: Navn til brukeren som har lagt ut innlegget
 @innleggUID: Unike nøkkel til innlegget som skal legges ut til front-end
 @ny: Sier noe om innlegget som skal vises ble lagt ut i realtime, eller om det er fra tidligere
-@blockID: ID til div(DOM-objektet) som innlegget skal legges inn i
+@blockID: ID til div(dom-objektet) som innlegget skal legges inn
 
 */
 
@@ -744,7 +744,6 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
         firebase.storage().ref("innlegg/" + owner + IDs.picID + "/innlegg.jpg").getDownloadURL().then((innleggBilde) => {
             document.getElementById(IDs.picID + owner).src = innleggBilde;
         }).catch((error) => {
-            console.log(error.message);
             document.getElementById(IDs.picID + owner).style.display = "none";
         });
 
@@ -864,7 +863,6 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     document.getElementById(ppID).src = pictureURL;
                 }).catch((error) => {
                     document.getElementById(ppID).src = "img/blank-profile-circle.png";
-                    console.log(error.message);
                 }).then(() => {
                     //Viser "slett kommentar"-knapp dersom kommentaren er din, ellers vises "rapporter kommentar"-knapp
                     if (dataSnapshot.Bruker == user) {
@@ -971,9 +969,7 @@ window.onscroll = function (ev) {
             setTimeout(() => {
                 klarForNy = true;
             }, 2500);
-        } else (
-            console.log("IKKE KLAR ENDA")
-        )
+        } else {}
 
     }
 };
