@@ -702,7 +702,7 @@ $(window).scroll(function () { //$(window).scrollTop() == $(document).height() -
         klarForNy = false;
         setTimeout(() => {
             klarForNy = true;
-        }, 100);
+        }, 200);
         count++;
         localStorage.setItem("count", count);
         var append = document.getElementById("append");
