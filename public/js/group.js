@@ -56,7 +56,7 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
             $(".loader-wrapper").fadeOut("slow");
         })
         .catch((error) => {
-            console.clear(error);
+            // console.clear(error);
             var headerPic = document.getElementById("headerGroup");
             headerPic.src = "img/Amin.jpg";
             $(".loader-wrapper").fadeOut("slow");
@@ -110,12 +110,16 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
     }
     if(games != null) {
         for(let i = 0; i < gamesArr.length; i++) {
-            $(document.getElementById("about_games_tab")).append(
-                `<a class="list-group-item text-light border-dark" style="background: #111;">    
-                    <img style="border-radius: 20%; object-fit: cover; height:50px;" src="${gamePicsArr[i]}" alt="noe" width="70">
-                    ${gamesArr[i]}
-                </a>`
-            );
+            if(gamesArr[i] == "") {
+
+            } else {
+                $(document.getElementById("about_games_tab")).append(
+                    `<a class="list-group-item text-light border-dark" style="background: #111;">    
+                        <img style="border-radius: 20%; object-fit: cover; height:50px;" src="${gamePicsArr[i]}" alt="noe" width="70">
+                        ${gamesArr[i]}
+                    </a>`
+                );
+            }
         }
     }
 
@@ -537,7 +541,7 @@ firebase.database().ref('/Grupper/' + key + '/Innlegg').orderByKey().limitToLast
                     //console.log("Bilde funnet");
                 })
                 .catch((error) => {
-                    // console.clear(error);
+                    console.clear(error);
                     document.getElementById(picid + owner).style.display = "none"; //Fjerne img tag dersom det ikke finnes noe bilde
                 });
         })
@@ -863,7 +867,7 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
 
             })
             .catch((error) => { //Dersom brukeren ikke har profilbilde
-                // console.clear(error);
+                console.clear(error);
                 list = document.getElementById("memberlistGroup");
                 $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="img/blank-profile-circle.png" alt="Profilbilde" alt="Profilbilde">
@@ -894,7 +898,7 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
                                     <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
                                 ${name}</a>`);
             }).catch((error) => { //Dersom brukeren ikke har profilbilde
-                //console.clear(error);
+                console.clear(error);
                 // $(".loader-wrapper" + platform).fadeOut("slow");
                 let followList = document.getElementById("følgerlistePlatform");
 

@@ -9,7 +9,6 @@ like utseende-messig. Klassen(e) som blir brukt i "chat" er klasse(r) som har me
 
 /* Boksen som inneholder alt - Setter størrelse og litt margin på top og venstre slik at vi ser litt av bakgrunnen til siden */
 #first-layer {
-    /* background-color: rgb(49,49,49); */
     width:100%;
     height:90vh;
     margin: 10px 0px 0px 10px;
@@ -20,32 +19,24 @@ like utseende-messig. Klassen(e) som blir brukt i "chat" er klasse(r) som har me
 /* Neste fire er for hver av de fire boksene siden er stykket opp i */
 /*tl = top left, har en satt høyde som skal være lik for tl og tr*/
 #tl-col {
-    /* background-color: rgb(44,44,44); */
     background: #202124;
     border-top-left-radius: 5px;
     height:8vh;
 }
 /*bl = bottom left*/
 #bl-col {
-   /* background-color: rgb(44,44,44); */
     height: 77vh;
     overflow-y: scroll;
     overflow-x:hidden;
 }
+
 /*tr = top rightm har en satt hlyde som skal være lik for tl og tr*/
 #tr-col {
-    /* background-color: rgb(49,49,49); */
      background: #202124;
     height:8vh;
 }
-/*br = bottom right*/
-/* #br-col { */
-   /* background-color: rgb(49,49,49); */
-/* } */
-
 
 .src-res {
-    /*background-color: rgb(175, 17, 109);*/
     margin:10px;
     margin-top:    0px;
     margin-bottom: 0px;
@@ -60,10 +51,7 @@ like utseende-messig. Klassen(e) som blir brukt i "chat" er klasse(r) som har me
     background-color:rgb(60, 64, 67, 0.90);
     border-bottom: 2px solid rgb(60, 64, 67, 0.90);
     padding:10px 10px 3px 10px;
-    /*margin-left:  15px; */
-   /* margin-right: 15px; */
     font-size: large;
-   /* width: calc(100% - 30px); */
     border-radius: 3px;
 }
 .src-after-person:hover {
