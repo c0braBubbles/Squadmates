@@ -108,7 +108,6 @@ bekreftSlett.onclick = function () {
                                     firebase.database().ref(path + ' gruppe/Innlegg/' + innleggReferanse.key).remove();
                                 });
                             } else if (path == "Bruker") { //Fra bruker
-                                firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg/' + innleggReferanse.key).remove();
                                 firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg/' + innleggReferanse.key).once('value', (snapshot) => {
                                     let picID = "picture" + snapshot.child('ID').val();
                                     let owner = snapshot.child('Eier').val();
@@ -116,7 +115,6 @@ bekreftSlett.onclick = function () {
                                     firebase.database().ref('Bruker/' + whiz.Uid + '/Innlegg/' + innleggReferanse.key).remove();
                                 })
                             } else { //Fra egendefinert gruppe
-                                firebase.database().ref('Grupper/' + path + '/Innlegg/' + innleggReferanse.key).remove();
                                 firebase.database().ref('Grupper/' + path + '/Innlegg/' + innleggReferanse.key).once('value', (snapshot) => {
                                     let picID = "picture" + snapshot.child('ID').val();
                                     let owner = snapshot.child('Eier').val();

@@ -96,7 +96,6 @@ document.getElementById("btnSok").onclick = function() {
             searchBox.style.display = "block"; 
             document.getElementById("list_item" + i).style.display = "inline";
         } else {
-            // console.log("fant ikke noen match");
         }
     }
 }

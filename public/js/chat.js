@@ -29,7 +29,7 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
             var guest = snapshot.val();
             name_tab_search.push(guest.Brukernavn);
 
-            firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => { /*id="`+samtaleKey+`"*/ 
+            firebase.storage().ref("user/"+snapshot.key+"/profile.jpg").getDownloadURL().then((pictureURL) => {
                 chatListLeft.innerHTML +=`<li id="${listID}" class="list-group-item d-flex justify-content-between align-items-center"
                                         style="color:white; background-color: #111;" onclick="openChat(\`` + samtaleKey + `\`)">` + 
                                         `<img src="`+ pictureURL +`" alt="..." class="rounded-circle display-pic">` +
@@ -45,12 +45,6 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                                     `</li>`;
                 console.log(error + " - Kunne ikke finne profilbilde");
             });
-            /*chatListLeft.innerHTML +=`<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                        style="color:white;">` + 
-                                        `<img src="img/Gaal.jpg" alt="..." class="rounded-circle display-pic">` +
-                                        `<h3>` + guest.Brukernavn + `</h3>` +
-                                        `<span class="badge bg-primary rounded-pill">` + 0 + `</span>` + 
-                                    `</li>`;*/
             chatListTop.innerHTML +=`<li class="person-list-item-border">` +
                                         `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` + 
                                         `<a href="#">` +
@@ -79,12 +73,6 @@ firebase.database().ref('Samtale').on('child_added', function(snapshot) {
                                     `</li>`;
                 console.log(error + " - Kunne ikke finne profilbilde");
             });
-            /*chatListLeft.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center bg-dark"
-                                    style="color:white;">` +
-                                    `<img src="img/vigdis.jpg" alt="..." class="rounded-circle display-pic">` +
-                                    `<h3>` + guest.Brukernavn + `</h3>` +
-                                    `<span class="bagde bg-primary rounded-pill">` + 1 + `</span>` +
-                                    `</li>`;*/
             chatListTop.innerHTML +=`<li class="person-list-item-border">` + 
                                         `<a class="dropdown-item text-light" href="#" style="display:inline;">` + guest.Brukernavn + `</a>` +
                                         `<a href="#">` +
@@ -154,30 +142,3 @@ document.getElementById("form1").onkeyup = function() {
         }
     }
 }
-
-
-
-/*
-var aktivSamtale;
-function openChat(samtaleUID) {
-    var meldinger = document.getElementById('msg_board');
-    meldinger.innerHTML = ``; //Fjerner alle meldinger, før de riktige meldingene blir lagt til
-    aktivSamtale = samtaleUID;
-    console.log(samtaleUID);
-}*/
-
-/*
-firebase.database().ref("Melding/").on('child_added', function (snapshot) {
-    var data = snapshot.val();
-    if (data.SamtaleID == aktivSamtale) {
-        if (data.Bruker == whiz.Uid) {
-            meldinger.innerHTML += `<div class="send-bubble">${data.Melding}</div>`;
-        } else {
-            meldinger.innerHTML += `<div class="rec-bubble">${data.Melding}</div>`;
-        }
-    }
-});
-*/
-
-/* Eksempel fra Give&Get: legger en melding på meldingsbrettet */
-//chatWindow.innerHTML += `<div id='bobler' class='msg-line'><p class='sender-bubble'>${data.beskjeden}</p></div>`;

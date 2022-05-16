@@ -206,7 +206,6 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
                         groupKeyObject.key = childSnap.key;
                         groupKeyObject.path = childVal.key;
                         lastKeys.gruppeKeys.push(groupKeyObject);
-                        //lastKeys.gruppeKeys.push(childSnap.key);
                     });
                 }
             });
@@ -227,7 +226,6 @@ firebase.database().ref('Bruker/' + whiz.Uid).once('value', (snapshot) => {
                         groupKeyObject.key = childSnap.key;
                         groupKeyObject.path = childVal.key;
                         lastKeys.gruppeKeys.push(groupKeyObject);
-                        //lastKeys.gruppeKeys.push(childSnap.key);
                     });
                 }
             });
@@ -411,7 +409,6 @@ function leggUtGammelt() {
                             firebase.database().ref(childObject.Gruppe + '/Innlegg/' + childSnap.key).once('value', function (snapshot) {
                                 const gruppeType = childObject.Gruppe.split(' ');
                                 leggUtInnlegg("platform", gruppeType[0], snapshot.child('Brukernavn').val(), snapshot.child('Navn').val(), snapshot.key, false, postBlockID);
-                                //console.log(gruppeType[0] + " " + snapshot.child('Brukernavn').val() + " " + snapshot.child('Navn').val() + " " + snapshot.key);
                             });
                         } else if (childSnap.child('FollowingInnlegg').val() == "JA") {
                             firebase.database().ref('Bruker/' + childObject.Gruppe + '/Innlegg/' + childSnap.key).once('value', function (snapshot) {
@@ -421,7 +418,6 @@ function leggUtGammelt() {
                         } else {
                             firebase.database().ref('Grupper/' + childObject.Gruppe + '/Innlegg/' + childSnap.key).once('value', function (snapshot) {
                                 leggUtInnlegg("egendefinert", childObject.Gruppe, snapshot.child('Brukernavn').val(), snapshot.child('Navn').val(), snapshot.key, false, postBlockID);
-                                //console.log(childObject.Gruppe + " " + snapshot.child('Brukernavn').val() + " " + snapshot.child('Navn').val() + " " + snapshot.key);
                             });
                         }
 
@@ -431,7 +427,7 @@ function leggUtGammelt() {
             setTimeout(() => {
                 firebase.database().ref('Bruker/' + whiz.Uid + '/TempFeed').remove();
             }, 500);
-        }, 800); //2000
+        }, 800);
     });
 }
 
@@ -442,12 +438,13 @@ function leggUtGammelt() {
 
 /* Funksjon for å "Legge ut" innlegg til front-end
 Params
-@sti: Et innparameter som sier noe om stien til innlegget. F.eks. Xbox, PS, Steam, Switch eller UID til en egendefinert gruppe
-    Dersom det er en egendefinert gruppe, så er det Gruppen sin UID som blir passert inn
-@brukernavn: Et innparameter som er brukernavnet som skal bli brukt til innlegget som prependes
-@navn: Et innparameter som er det ekte navnet til brukeren, som skal bli brukt til innlegget som prependes
-@innleggUID: Et innparameter som er UID til innlegget som skal prependes
-@type: Et innparameter som sier noe om hvor innlegget kommer fra: platform || egendefinert gruppe || bruker
+@type: Tilhører innlegget en platform, bruker eller fra egendefinert gruppe?
+@sti: Hvor befinner innlegget seg? Hvilken platform, gruppe eller bruker ligger informasjon om innlegget?
+@brukernavn: Brukernavn til brukeren som har lagt ut innlegget
+@navn: Navn til brukeren som har lagt ut innlegget
+@innleggUID: Unike nøkkel til innlegget som skal legges ut til front-end
+@ny: Sier noe om innlegget som skal vises ble lagt ut i realtime, eller om det er fra tidligere
+@blockID: ID til div(DOM-objektet) som innlegget skal legges inn i
 
 */
 
@@ -465,7 +462,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
     var prependText;
 
     //Sjekker om det er et plattform innlegg eller fra en gruppe, henter og lager ID'er
-    if (type == "platform") { //sti == "Xbox" || sti == "Playstation" || sti == "Steam" || sti == "Switch"
+    if (type == "platform") {
         firebase.database().ref(sti + " gruppe/Innlegg/" + innleggUID).once('value', (snapshot) => {
             IDs.picID = "picture" + snapshot.child("ID").val();
             IDs.ppID = "profilep" + snapshot.child("ID").val();
@@ -533,7 +530,6 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
                     `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
-                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
@@ -567,7 +563,6 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
                     `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
-                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
@@ -601,7 +596,6 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
                     `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
-                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
@@ -635,7 +629,6 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
                     `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
-                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
@@ -669,7 +662,6 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
                     '<div class="mr-2">' +
                     /*----- Profilbilde -----*/
                     `<img onclick="showProfile('${brukernavn}', '${owner}')" class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="${IDs.ppID}" src=""> </div> ` +
-                    // '<img class="rounded-circle m-3" style="object-fit: cover;" width="50" height="50" id="' + IDs.ppID + '" src=""> </div> ' +
                     '<div class= "ml-2">' +
                     '<div class="h5 m-0 text-light">' + brukernavn+gruppenavn + '</div>' +
                     '<div class="h7 text-light">' + navn + '</div> </div>' +
@@ -739,12 +731,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
             //Boksen blir appendet, slik av den havner UNDER forrige boks med innlegg, og inni boksen blir hver innlegg
             //prependet slik at nyere innlegg kommer øverst i boksen. 
 
-
-            /*$(document.getElementById('scrollPosts')).append(
-                '<div class="col-lg-12 bg-danger" id="' + blockID + '"> </div>'
-            );*/
             $(document.getElementById(blockID)).prepend(prependText);
-            //$(document.getElementById('scrollPosts')).prepend(prependText);
         }
         //Setter profilbilde til innlegget
         firebase.storage().ref("user/" + owner + "/profile.jpg").getDownloadURL().then((profilbilde) => {
@@ -912,7 +899,7 @@ function leggUtInnlegg(type, sti, brukernavn, navn, innleggUID, ny, blockID) {
 
 
 
-    }, 200); //500
+    }, 200);
 }
 
 var fil = {};
@@ -957,7 +944,6 @@ document.getElementById('uploadHome').onclick = function () {
             if (fil instanceof File) {
                 if (fileType == "image/jpeg" || fileType == "image/png") {
                     firebase.storage().ref('innlegg/' + (whiz.Uid + 'picture' + innlegg.Id) + '/innlegg.jpg').put(fil).then(() => {
-                        //document.getElementById('chooseHomePic').value = "";
                     });
                 }
             }
@@ -975,9 +961,7 @@ document.getElementById('uploadHome').onclick = function () {
 
 
 
-//Sjekker om du når bunn av siden, JA -> Legg ut flere innlegg fra firebase realtime til front-end til brukeren
-
-//Denne funker, men den fyrer noen ganger av to ganger på rappen -> fører til at vi får "duplicate" innlegg 
+//Sjekker om du når bunn av siden, JA -> Legg ut flere innlegg fra firebase realtime til front-end til brukeren 
 window.onscroll = function (ev) {
     if ((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight -2)) {
         //Legg ut flere innlegg
