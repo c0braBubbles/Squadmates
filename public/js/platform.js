@@ -9,12 +9,11 @@ var collections;
 var url = window.location.href;
 var split = url.split('/');
 var platform = (split[split.length - 1]);
-console.log(platform);
+let followMemberCount = 0; 
 
 //Henter UID til innlogget bruker
 const whiz = JSON.parse(sessionStorage.getItem("bruker"));
 var user = whiz.Uid;
-console.log(whiz);
 
 //Sjekker platformerns liste for medlemmer
 firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', function (snapshot) {
@@ -52,7 +51,6 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
     }); 
 
 
-    let followMemberCount = 0; 
     for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
         if(whiz.Following[i] == null) {
             i++;
@@ -60,7 +58,7 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
 
         if(userID == whiz.Following[i].Uid) {
             followMemberCount += 1; 
-            document.getElementById("followingcountGroup").innerHTML = followMemberCount;
+            document.getElementById("followingcountPlatform").innerHTML = followMemberCount;
 
             let name = whiz.Following[i].Brukernavn; 
             var storage = firebase.storage();

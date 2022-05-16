@@ -829,6 +829,8 @@ var list;
 var count = 0;
 var countMembers;
 var collections;
+let followMemberCount = 0; 
+
 
 firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', function (snapshot) {
     userID = snapshot.child("BrukerID").val();
@@ -866,12 +868,14 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
     }); 
 
     for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
-        console.log("Følger: " + whiz.Following[i].Uid);
         if(whiz.Following[i] == null) {
             i++;
         }
 
         if(userID == whiz.Following[i].Uid) {
+            followMemberCount += 1; 
+            document.getElementById("followingcountGroup").innerHTML = followMemberCount;
+
             let name = whiz.Following[i].Brukernavn; 
             var storage = firebase.storage();
             var storageRef = storage.ref();
