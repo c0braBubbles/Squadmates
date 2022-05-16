@@ -149,12 +149,18 @@ document.getElementById("grpCreate").onclick = function () {
                 if (fil instanceof File) {
                     if (fileType == "image/jpeg" || fileType == "image/png") {
                         firebase.storage().ref("grupper/" + (user + id) + "/gruppe.jpg").put(fil).then(() => {
+                            sessionStorage.setItem("spill", "");
+                            sessionStorage.setItem("spillBilde", "");
                             location.reload();
                         });
                     } else { //Hvis fil ikke er bilde
+                        sessionStorage.setItem("spill", "");
+                        sessionStorage.setItem("spillBilde", "");
                         location.reload();
                     }
                 } else { //Hvis fil ikke er valgt
+                    sessionStorage.setItem("spill", "");                        
+                    sessionStorage.setItem("spillBilde", "");
                     location.reload();
                 }
             })
@@ -206,7 +212,7 @@ firebase.database().ref('/Bruker/' + user + '/Grupper eid').on('child_added', fu
                 document.getElementById(imgid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                // console.clear(error);
+                console.clear(error);
                 document.getElementById(imgid).src = "img/Amin.jpg";
             }).then(() => {
                 if (groupCount == 1) {
@@ -259,7 +265,7 @@ firebase.database().ref('/Bruker/' + user + '/Grupper').on('child_added', functi
                 document.getElementById(picid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                // console.clear(error);
+                console.clear(error);
                 document.getElementById(picid).src = "img/Amin.jpg"
             }).then(() => {
                 if (groupCount == 1) {
@@ -390,7 +396,7 @@ firebase.database().ref('/Bruker/' + user + '/Favoritt grupper').on('child_added
                 document.getElementById("fav" + picid).src = pictureURL;
             })
             .catch((error) => { //Har ikke Forsidebilde
-                // console.clear(error);
+                console.clear(error);
                 document.getElementById("fav" + picid).src = "img/Amin.jpg";
             }).then(() => {
                 if (groupCount == 1) {
