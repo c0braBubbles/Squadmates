@@ -701,7 +701,6 @@ $(window).scroll(function () {
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
         count++;
         localStorage.setItem("count", count);
-        //alert("skrukk");
         var append = document.getElementById("append");
         $(append).append('<div class="col-lg-12" id="' + count + '"></div>');
         var lastkey = localStorage.getItem("postKey");
