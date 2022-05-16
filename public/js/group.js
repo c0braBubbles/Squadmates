@@ -873,15 +873,13 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
 
         if(userID == whiz.Following[i].Uid) {
             let name = whiz.Following[i].Brukernavn; 
-
             var storage = firebase.storage();
             var storageRef = storage.ref();
             var pictureStorage = storageRef.child("user/" + userID + "/profile.jpg");
 
 
             pictureStorage.getDownloadURL().then((pictureURL) => { //Dersom brukeren har profilbilde
-                $(".loader-wrapper" + platform).fadeOut("slow");
-                list = document.getElementById("medlemslistePlatform");
+                // $(".loader-wrapper" + platform).fadeOut("slow");
                 let followList = document.getElementById("følgerlistePlatform");
                 
                 $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${userID}')">
@@ -889,8 +887,7 @@ firebase.database().ref('Grupper/' + key + '/Medlemmer').on('child_added', funct
                                 ${name}</a>`);
             }).catch((error) => { //Dersom brukeren ikke har profilbilde
                 //console.clear(error);
-                $(".loader-wrapper" + platform).fadeOut("slow");
-                list = document.getElementById("medlemslistePlatform");
+                // $(".loader-wrapper" + platform).fadeOut("slow");
                 let followList = document.getElementById("følgerlistePlatform");
 
                 $(followList).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${userID}')">

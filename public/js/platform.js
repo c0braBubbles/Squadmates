@@ -37,7 +37,6 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
         pictureStorage.getDownloadURL().then((pictureURL) => { //Dersom brukeren har profilbilde
             $(".loader-wrapper" + platform).fadeOut("slow");
             list = document.getElementById("medlemslistePlatform");
-            let followList = document.getElementById("følgerlistePlatform");
             
             $(list).append(`<a href="#" class="list-group-item text-light border-dark" style="background: #111;" onclick="showProfile('${name}', '${uid}')">
                                 <img class="rounded-circle m-3" width="50" height="50" style="object-fit: cover" src="${pictureURL}" alt="Profilbilde">
@@ -53,14 +52,17 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
     }); 
 
 
+    let followMemberCount = 0; 
     for(let i = 0; i < Object.keys(whiz.Following).length; i++) {
         if(whiz.Following[i] == null) {
             i++;
         }
 
         if(userID == whiz.Following[i].Uid) {
-            let name = whiz.Following[i].Brukernavn; 
+            followMemberCount += 1; 
+            document.getElementById("followingcountGroup").innerHTML = followMemberCount;
 
+            let name = whiz.Following[i].Brukernavn; 
             var storage = firebase.storage();
             var storageRef = storage.ref();
             var pictureStorage = storageRef.child("user/" + userID + "/profile.jpg");
