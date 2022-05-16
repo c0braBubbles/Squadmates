@@ -695,10 +695,14 @@ function getPost(lastkey) {
             })
     })
 }
-
+let klarForNy = true;
 var count = 0;
-$(window).scroll(function () {
-    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+$(window).scroll(function () { //$(window).scrollTop() == $(document).height() - $(window).height()
+    if ((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight -2) && klarForNy) {
+        klarForNy = false;
+        setTimeout(() => {
+            klarForNy = true;
+        }, 100);
         count++;
         localStorage.setItem("count", count);
         var append = document.getElementById("append");
