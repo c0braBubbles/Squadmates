@@ -30,8 +30,13 @@ firebase.database().ref('/Grupper/' + key).once('value').then((snapshot) => {
 
     var games = snapshot.child("Games").val();
     var gamePics = snapshot.child("GamesPics").val();
-    var gamePicsArr = gamePics.split(","); 
-    var gamesArr = games.split(",");  
+
+    var gamePicsArr;
+    var gamesArr;
+    if(games != null && gamePics != null) {
+        gamePicsArr = gamePics.split(","); 
+        gamesArr = games.split(",");  
+    }
 
 
     //Tittel og om gruppen

@@ -326,7 +326,12 @@ document.getElementById("btnSok").onclick = function() {
     let descValue;
 
     for(let i = 0; i < nameTab_search.length; i++) {
-        let tempGamesArr = games_Tab[i].split(",");
+        let tempGamesArr;
+        if(games_Tab[i] != null) {
+            tempGamesArr = games_Tab[i].split(",");
+        } else {
+            tempGamesArr = "";
+        }
 
         txtValue = nameTab_search[i];
         descValue = descTab_search[i]; 
