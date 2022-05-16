@@ -32,7 +32,6 @@ firebase.database().ref('/' + platform + ' gruppe/Medlemmer').on('child_added', 
         var storageRef = storage.ref();
         var pictureStorage = storageRef.child("user/" + uid + "/profile.jpg");
 
-        // HER SKAL DE JEG FØLGER DUKKE OPP
         pictureStorage.getDownloadURL().then((pictureURL) => { //Dersom brukeren har profilbilde
             $(".loader-wrapper" + platform).fadeOut("slow");
             list = document.getElementById("medlemslistePlatform");

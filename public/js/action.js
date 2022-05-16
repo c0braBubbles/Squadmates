@@ -100,7 +100,6 @@ let nav_btn = [
     document.getElementById("nav_friends"),
     document.getElementById("nav_mld")
 ];
-console.log(page);
 
 switch (page) {
     case "home#loaded":
