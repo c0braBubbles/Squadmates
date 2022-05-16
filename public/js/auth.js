@@ -31,27 +31,6 @@ var inpPassword2 = document.getElementById("inp_passord2");
 // });
 
 
-// document.getElementById("regBtn").onclick = function() {
-//     if(inpPassword.value.length < 6) {
-//         alert("Passordet er for kort. Minimum 6 tegn"); 
-//     } else if(inpPassword.value != inpPassword2.value) {
-//         alert("Passordfeltene samsvarer ikke"); 
-//     } else if(inpBnavn.value.length > 10) {
-//         alert("Brukernavnet er for langt");
-//     } else {
-//         auth.createUserWithEmailAndPassword(inpEpost.value, inpPassword.value).then(cred => {
-//             var userID = firebase.auth().currentUser.uid; 
-//             msg = firebase.database().ref('Bruker').child(userID); 
-//             msg.set({
-//                 "Brukernavn":   inpBnavn.value, 
-//                 "Navn":         inpNavn.value
-//             }).then(() => {
-//                 window.location = "/home";
-//             });
-//         });
-//     }
-// }
-
 document.getElementById("regBtn").onclick = function() {
     let state = checkPassword(inpPassword); 
     if(state === true && inpBnavn.value.length < 10 && inpPassword.value == inpPassword2.value) {

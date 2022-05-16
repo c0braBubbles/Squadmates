@@ -21,23 +21,46 @@ endrePassordKnapp.onclick = function () {
     var credential = reautentiser(p_gammelt);
     user.reauthenticateWithCredential(credential).then(() => {
         //Reautentisert
-        if (p_nytt === p_gjentaNytt) {
+        let state = checkPassword(p_nytt); 
+
+        if (state === true && p_nytt === p_gjentaNytt) {
             user.updatePassword(p_nytt).then(() => {
                 window.alert("Passord byttet");
                 gammeltPassordInput.value = "";
                 nyttPassordInput.value = "";
                 gjentaNyttPassordInput.value = "";
+                window.location.reload();
             }).catch((error) => {
                 window.alert(error.message);
             });
         } else {
-            window.alert("Nytt passord og Gjenta passord samsvarer ikke");
+            window.alert("Nytt passord fyller ikke kravene, eller passordfeltene samsvarer ikke");
         }
     }).catch((error) => {
         //En error skjedde, feil passord?
         window.alert(error.message);
     });
 }
+
+
+function checkPassword(passInp) {
+    let lowerCaseLetters = /[a-z]/g;
+    let upperCaseLetters = /[A-Z]/g; 
+    let numbers = /[0-9]/g; 
+
+    if(
+        passInp.match(lowerCaseLetters) &&
+        passInp.match(upperCaseLetters) &&
+        passInp.match(numbers) && 
+        passInp.length >= 8
+    ) {
+        return true; 
+    } else {
+        return false;
+    }
+}
+
+
 /* Metoden sletter brukeren
     1. Sjekker om riktig passord er skrevet inn: JA -> fortsett til punkt 2. NEI -> 
     2. Hent info om hvilke grupper brukeren eier -> Slett disse gruppen
