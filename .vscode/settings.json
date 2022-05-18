@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/9fcbd721-37ce-4b34-94ae-751985d0f42b/resourceGroups/Give-Get2/providers/Microsoft.Web/sites/Squadmates",
+    "appService.deploySubpath": "."
+}
