@@ -48,6 +48,7 @@ firebase.auth().onAuthStateChanged((user) => {
 				document.getElementById('steamText').innerHTML = snapshot.child('Steam').val();
 				if (snapshot.child('Steamlink').val() != null) {
 					document.getElementById('steamLink').value = snapshot.child('Steamlink').val();
+					document.getElementById('steamProfileLink').href = snapshot.child('Steamlink').val();
 				}
 				document.getElementById('steamBox').style.display = "block";
 			}
