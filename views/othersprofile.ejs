@@ -91,7 +91,7 @@
 					</a>
 			</div>
 			<div class="col-sm-4 mb-3">
-				<a href="https://steamcommunity.com/profiles/76561198085293514/"
+				<a id="othersSteamLink" href=""
 					class=" list-group-item d-flex justify-content-between align-items-center bg-gradient link-light"
 					style="background-color:#1b2838;" data-bs-toggle="popover" title="Popover title">
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -208,7 +208,8 @@
             });
 
 			if(whaz.Discord != null) document.getElementById("discTxt").innerHTML = whaz.Discord; 
-			if(whaz.Steam != null) document.getElementById("steamTxt").innerHTML = whaz.Steam; 
+			if(whaz.Steam != null) document.getElementById("steamTxt").innerHTML = whaz.Steam;
+			if(whaz.Steamlink != null) document.getElementById("othersSteamLink").href = whaz.Steamlink; 
 			if(whaz.Xbox != null) document.getElementById("xboxTxt").innerHTML = whaz.Xbox; 
 			if(whaz.Playstation != null) document.getElementById("psTxt").innerHTML = whaz.Playstation; 
 			if(whaz.Switch != null) document.getElementById("switchTxt").innerHTML = whaz.Switch;
