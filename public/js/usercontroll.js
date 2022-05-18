@@ -7,9 +7,9 @@ firebase.auth().onAuthStateChanged((user) => {
         var uid = user.uid;
 
         firebase.database().ref('/Bruker/' + uid).once('value').then((snapshot) => {
-            var whuz = snapshot.val();
+            var whuz = snapshot.val();  // Brukerobjektet
             whuz.Uid = uid;
-            sessionStorage.setItem("bruker", JSON.stringify(whuz));
+            sessionStorage.setItem("bruker", JSON.stringify(whuz));     // lagrer brukerobjektet i storage
 
             document.getElementById("usernameHeader").innerHTML = whuz.Brukernavn; //Brukernavn i header
             document.getElementById("usernameHeaderMobil").innerHTML = whuz.Brukernavn; //Brukernavn i mobil header

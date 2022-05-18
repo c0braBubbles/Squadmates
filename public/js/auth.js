@@ -77,23 +77,9 @@ document.getElementById("loginBtn").onclick = function() {
         window.alert("Error : " + errorMessage);
     });
 
-    /*firebase.auth().onAuthStateChanged(function(user) {
-        if(user) {
-            // Bruker logget inn
-            window.location = "/home";
-            var user = firebase.auth().currentUser; 
-    
-            if(user != null) {
-                // email_id = user.email; 
-    
-                // setUsername(email_id);
-            }
-        }
-    });*/
     firebase.auth().onAuthStateChanged((user) => {
         if(user != null) {
             var uid = user.uid; 
-            console.log(uid);
     
             var userId = firebase.auth().currentUser.uid;
             return firebase.database().ref('/Bruker/' + uid).once('value').then((snapshot) => {
@@ -109,7 +95,6 @@ document.getElementById("loginBtn").onclick = function() {
             // window.location = "/";
         }
     });
-    // analytics.logEvent('bruker_login', { epost: emailInp })
 }
 
 

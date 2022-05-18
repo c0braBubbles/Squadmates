@@ -8,7 +8,6 @@ let spillBilde = [];
 
 
 function showProfile(name, uid2) {
-    // console.log(name + ", " + uid2);
     if (name == whiz.Brukernavn) {
         window.open(whiz.Uid, '_self');
         $.post("/openUid", {
